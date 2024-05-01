@@ -1,5 +1,3 @@
--- make an empty table for your pets equipped
-
 _G.mespetsequiper = {}
 _G.Range = 60 
 _G.AutoFarm = true
