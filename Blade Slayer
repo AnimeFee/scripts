@@ -677,8 +677,8 @@ end
 end
 })
 
-v3:AddToggle({
-    Name = "Fuse Gems",
+ScriptsTab:AddToggle({
+    Name = "Delete Lower Lvl Gems",
     Default = false,
     Callback = function(Value)
         if Value then
@@ -690,10 +690,6 @@ v3:AddToggle({
                             local args = {
                                 [1] = {
                                     [1] = v.guid,
-                                    [2] = v.guid,
-                                    [3] = v.guid,
-                                    [4] = v.guid,
-                                    [5] = v.guid
                                 }
                             }
                             game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
