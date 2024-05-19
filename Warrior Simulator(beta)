@@ -70,3 +70,103 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Functi
             end
         end,
     })
+
+local args = {
+    [1] = true
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("GroupReward"):FireServer(unpack(args))
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Weapon"):WaitForChild("TakeDamage"):FireServer()
+
+local args = {
+    [1] = 1,
+    [2] = "1",
+    [3] = {}
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Hatch"):WaitForChild("EggHatch"):InvokeServer(unpack(args))
+
+
+local args = {
+    [1] = 8
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Online"):WaitForChild("TryGetOnlineGift"):InvokeServer(unpack(args))
+
+local args = {
+    [1] = game:GetService("Players").LocalPlayer
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Battle"):WaitForChild("GetMissionData"):FireServer(unpack(args))
+
+
+local args = {
+    [1] = 4
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("DailyReward"):InvokeServer(unpack(args))
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Weapon"):WaitForChild("Upgrade"):FireServer()
+
+local args = {
+    [1] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Door"):WaitForChild("Teleport"):FireServer(unpack(args))
+
+
+local args = {
+    [1] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Battle"):WaitForChild("GetMission"):FireServer(unpack(args))
+
+local args = {
+    [1] = 4
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Pet"):WaitForChild("BuyMoreEquip"):InvokeServer(unpack(args))
+
+
+local args = {
+    [1] = "Damage",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
+
+local args = {
+    [1] = "e"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("CodeReward"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Luck",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Speed",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Damage",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Defense",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
+
