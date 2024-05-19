@@ -37,15 +37,9 @@ end
         Name = "Eggs",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
-    })
-    local v3 = Window:MakeTab({
-        Name = "Stats",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
- 
+    }) 
    local v4 = Window:MakeTab({
-        Name = "Teleport",
+        Name = "Teleport(Doesnt Work If You Dont Own The World)",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
@@ -173,7 +167,6 @@ end,})
 v1:AddButton({
 Name = "Auto Redeem Gifts",
 Callback = function()
-while wait() do
 for x = 1, 10 do
 local args = {
     [1] = x
@@ -182,20 +175,16 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Online"):WaitForChild("TryGetOnlineGift"):InvokeServer(unpack(args))
 end
 end
-end
 })
 
 v1:AddButton({
 Name = "Redeem Daily Reward",
 Callback = function()
-while wait() do
 for x = 1, 10 do
 local args = {
     [1] = x
 }
-
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("DailyReward"):InvokeServer(unpack(args))
-end
 end
 end
 })
