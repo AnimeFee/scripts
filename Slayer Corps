@@ -519,13 +519,8 @@ local AutoDungeonToggle =
 		end
             end)
 
-local MiscTab = Window:MakeTab({
-        Name = "Misc",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
 
-MiscTab:AddButton({
+PlayerTab:AddButton({
 Name = "Group Rewards",
 Callback = function()
 while wait() do
@@ -534,7 +529,7 @@ end
 end
 })
  
-MiscTab:AddButton({
+PlayerTab:AddButton({
 Name = "Daily Gifts",
 Callback = function()
 while wait() do
@@ -549,7 +544,7 @@ end
 })
  
  
-MiscTab:AddButton({
+PlayerTab:AddButton({
 Name = "Redeem Codes",
 Callback = function()
 while wait() do
@@ -564,7 +559,7 @@ end
 })
 
 
-MiscTab:AddButton({
+PlayerTab:AddButton({
 Name = "Redeem Spins",
 Callback = function()
 while wait() do
