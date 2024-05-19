@@ -30,38 +30,49 @@
         PremiumOnly = false
     })
  
-
-
-   v1:AddToggle({
-        Name = "Auto Rebirth",
-        Default = false,
-        Callback = function(Value)
-            G.Rebirth = Value
-            if Value then
-                while G.Rebirth do
+v1:AddToggle({
+Name = "Auto Rebirth",
+Default = false,
+Callback = function(Value)
+G.Rebirth = Value
+if Value then
+while G.Rebirth do
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RebirthEvent"):FireServer()
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
-        end,
-    })
+end
+end
+end,})
 
-   v1:AddToggle({
-        Name = "EvoCoins",
-        Default = false,
-        Callback = function(Value)
-            G.Coins = Value
-            if Value then
-                while G.Coins do
+v1:AddToggle({
+Name = "Free Apples",
+Default = false,
+Callback = function(Value)
+G.Daily = Value
+if Value then
+while G.Daily do
+local args = {
+    [1] = "05/18/2024"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DailyGiftEvent"):FireServer(unpack(args))end
+end
+end,})
+
+v1:AddToggle({
+Name = "Free EvoCoins",
+Default = false,
+Callback = function(Value)
+G.Coins = Value
+if Value then
+while G.Coins do
 local args = {
     [1] = "5000 EvoCoin0s",
     [2] = "EvoCoins"
 }
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpdateStatEvent"):FireServer(unpack(args))
-                end
-            end
-        end,
-    })
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpdateStatEvent"):FireServer(unpack(args))end
+end
+end,})
+
+
 
    v1:AddToggle({
         Name = "Apples",
