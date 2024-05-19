@@ -26,7 +26,10 @@ end
     Defense = false,
     Luck = false,
     Speed = false,
-
+    Code = false,
+    Group = false,
+    Daily = false,
+    Gifts = false,
 
 }
 
@@ -173,35 +176,7 @@ end
 end
 end,})
 
-v1:AddButton({
-Name = "Auto Redeem Gifts",
-Callback = function()
-while wait() do
-for x = 1, 10 do
-local args = {
-    [1] = x
-}
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Online"):WaitForChild("TryGetOnlineGift"):InvokeServer(unpack(args))
-end
-end
-end
-})
-
-v1:AddButton({
-Name = "Redeem Daily Reward",
-Callback = function()
-while wait() do
-for x = 1, 10 do
-local args = {
-    [1] = x
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("DailyReward"):InvokeServer(unpack(args))
-end
-end
-end
-})
 
 v1:AddToggle({
 Name = "Auto Upgrade Weapon",
@@ -311,20 +286,74 @@ end
 end
 end,})
 
-v1:AddButton({
-    Name = "Redeem Daily Reward",
-    Callback = function()
-        local rewardCodes = {"like200k", "like15k", "3000like", "welcome", "1000like"}
-        while wait() do
-            for _, code in ipairs(rewardCodes) do
-                local args = {
-                    [1] = code
-                }
+v1:AddToggle({
+Name = "Redeem Codes",
+Default = false,
+Callback = function(Value)
+G.Code = Value
+if Value then
+while G.Code do
+local rewardCodes = {"like200k", "like15k", "3000like", "welcome", "1000like"}
+while wait() do
+for _, code in ipairs(rewardCodes) do
+local args = {
+[1] = code
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("CodeReward"):FireServer(unpack(args))
+end
+end
+end,})
 
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("CodeReward"):FireServer(unpack(args))
-            end
-        end
-    end
+v1:AddToggle({
+Name = "Redeem Group Reward",
+Default = false,
+Callback = function(Value)
+G.Group = Value
+if Value then
+while G.Group do
+Callback = function()
+local args = {
+    [1] = true
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("GroupReward"):FireServer(unpack(args))
+end
+})
+
+v1:AddToggle({
+Name = "Auto Redeem Gifts",
+Default = false,
+Callback = function(Value)
+G.Gifts = Value
+if Value then
+while G.Gifts do
+for x = 1, 10 do
+local args = {
+    [1] = x
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Online"):WaitForChild("TryGetOnlineGift"):InvokeServer(unpack(args))
+end
+end
+end
+})
+
+v1:AddToggle({
+Name = "Auto Redeem Daily Rewards",
+Default = false,
+Callback = function(Value)
+G.Daily = Value
+if Value then
+while G.Daily do
+for x = 1, 10 do
+local args = {
+    [1] = x
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("DailyReward"):InvokeServer(unpack(args))
+end
+end
+end
 })
 
 
