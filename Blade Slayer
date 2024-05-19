@@ -47,11 +47,6 @@ getgenv().Settings = {
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-local AutoBuyTab = Window:MakeTab({
-        Name = "Shop",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
 ScriptsTab:AddToggle({
     Name = "Kill Aura/Auto Collect",
     Callback = function(state)
