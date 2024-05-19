@@ -121,7 +121,7 @@ end
 
 
    EggsTab:AddToggle({
-        Name = "Auto Buy Grass Egg(500)",
+        Name = "Auto Buy Grass Egg",
         Default = false,
         Callback = function(Value)
             G.EGG1 = Value
