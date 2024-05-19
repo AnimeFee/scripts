@@ -85,14 +85,19 @@ end
         end
     })
 local playerNames = {}
-for _, player in pairs(game.Players:GetPlayers()) do
-    tlocal playerNames = {}
-for _, player in pairs(game.Players:GetPlayers()) do
-    if player ~= game.Players.LocalPlayer then
-        table.insert(playerNames, player.Name)
-    end
-end
 
+
+PlayerTab:AddButton({
+        Name = "Dupe",
+        Callback = function()
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy()
+    end
+})
+autoGainPower = false
+autoGailocal playerNames = {}
+for _, player in pairs(game.Players:GetPlayers()) do
+    table.insert(playerNames, player.Name)
+end
 PlayerTab:AddDropdown(
     {
         Name = "Select Player",
@@ -102,7 +107,6 @@ PlayerTab:AddDropdown(
         end
     }
 )
-
 PlayerTab:AddButton(
     {
         Name = "Trade Selected Player",
@@ -117,30 +121,16 @@ PlayerTab:AddButton(
         end
     }
 )
-
 PlayerTab:AddButton(
     {Name = "Refresh Player List", Callback = function()
             playerNames = {}
             for _, player in pairs(game.Players:GetPlayers()) do
-                if player ~= game.Players.LocalPlayer then
-                    table.insert(playerNames, player.Name)
-                end
+                table.insert(playerNames, player.Name)
             end
             PlayerTab:GetElement("Select Player"):UpdateOptions(playerNames)
             getgenv().Settings.selectedPlayer = nil
         end
-    }
-)
-
-
-PlayerTab:AddButton({
-        Name = "Dupe",
-        Callback = function()
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy()
-    end
-})
-autoGainPower = false
-autoGainPowerLoop = nil
+})nPowerLoop = nil
 fireDelay = 0.1 
 ScriptsTab:AddToggle({
     Name = "AutoGainPower",
