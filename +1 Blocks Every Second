@@ -7,7 +7,7 @@
 
     -- Creating the main window
     local Window = OrionLib:MakeWindow({
-        Name = "Gyat Simulator",
+        Name = "+1 Block E Second",
         HidePremium = false,
         SaveConfig = true,
         ConfigFolder = "WendelCfg",
@@ -41,14 +41,7 @@
             G.Click = Value
             if Value then
                 while G.Click do
-local args = {
-    [1] = "Weight"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("Tool"):WaitForChild("[C-S]TryEquipTool"):FireServer(unpack(args))
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("Game"):WaitForChild("[C-S]TryClick"):FireServer()
-                    wait(1) -- Adjust the delay as needed
+game:GetService("ReplicatedStorage").Remotes.PlaceBlock:FireServer()
                 end
             end
         end,
@@ -62,8 +55,11 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"
             G.Rebirth = Value
             if Value then
                 while G.Rebirth do
-game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("Eco"):WaitForChild("[C-S]PlayerTryRebirth"):FireServer()
-                    wait(1) -- Adjust the delay as needed
+local args = {
+            [1] = "RebirthShop"
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.Rebirth:InvokeServer(unpack(args))
                 end
             end
         end,
@@ -74,13 +70,7 @@ PlayerTab:AddButton({
 Name = "Daily Gifts",
 Callback = function()
 while wait() do
-for x = 1, 1000 do
-local args = {
-    [1] = x
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("DailySign"):WaitForChild("[C-S]PlayerTrySign"):FireServer(unpack(args))
-game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Function"):WaitForChild("DailySign"):WaitForChild("isCanSign"):InvokeServer()
+game:GetService("ReplicatedStorage").Remotes.ClaimGift:InvokeServer()
 end
 end
 end
@@ -88,20 +78,17 @@ end
 
 
    EggsTab:AddToggle({
-        Name = "Auto Buy Egg(50 diamond)",
+        Name = "Auto Buy Grass Egg(500)",
         Default = false,
         Callback = function(Value)
             G.EGG1 = Value
             if Value then
                 while G.EGG1 do
 local args = {
-    [1] = "Egg1",
-    [2] = 1
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Function"):WaitForChild("Luck"):WaitForChild("[C-S]DoLuck"):InvokeServer(unpack(args))
-
-
+            [1] = "Grass",
+            [2] = "Single"
+        }
+        game:GetService("ReplicatedStorage").RemoteEvents.EggOpen:InvokeServer(unpack(args))
                     wait(1) -- Adjust the delay as needed
                 end
             end
