@@ -8,7 +8,7 @@
 
     -- Creating the main window
     local Window = OrionLib:MakeWindow({
-        Name = "Gyat Simulator",
+        Name = "Animal evolve simulator",
         HidePremium = false,
         SaveConfig = true,
         ConfigFolder = "WendelCfg",
