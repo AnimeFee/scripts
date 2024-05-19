@@ -75,7 +75,6 @@ while wait() do
 game:GetService("ReplicatedStorage").Remotes.ClaimGift:InvokeServer()
 end
 end
-end
 })
 
 
