@@ -1,0 +1,101 @@
+    -- Loading the OrionLib library
+    local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+    if not OrionLib then
+        error("Failed to load the OrionLib library")
+        return
+    end
+
+    -- Creating the main window
+    local Window = OrionLib:MakeWindow({
+        Name = "Cultivation Online",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "WendelCfg",
+        IntroEnabled = false
+    })
+
+    -- Table to store global variables
+    local G = {
+	BreakThrough = false,
+	Reroll_Life = false,
+	R_Shop = {
+            [1] = false,
+            [2] = false,
+            [3] = false,
+            [4] = false,
+            [5] = false,
+            [6] = false,
+            [7] = false,
+            [8] = false,
+			 }
+}
+
+    -- Creating the Player tab
+    local PlayerTab = Window:MakeTab({
+        Name = "Player",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    -- Creating the Player tab
+    local RebirthShop = Window:MakeTab({
+        Name = "R-Shop",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+   PlayerTab:AddToggle({
+        Name = "Auto Breakthrough",
+        Default = false,
+        Callback = function(Value)
+            G.BreakThrough = Value
+            if Value then
+                while G.BreakThrough do
+
+game:GetService("ReplicatedStorage"):WaitForChild("RequestBreakthrough"):FireServer()
+
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+
+ PlayerTab:AddButton({
+    Name = "Auto Reroll Life",
+    Callback = function()
+        -- Use a local variable to avoid polluting the global namespace
+        local rerollLife = true
+        while rerollLife do
+            -- Use a consistent naming convention (e.g., PascalCase)
+            game:GetService("ReplicatedStorage"):WaitForChild("ActivateInstantReroll"):FireServer()
+            game:GetService("ReplicatedStorage"):WaitForChild("ClearData"):FireServer()
+            wait(0.3) -- Adjust the delay as needed
+        end
+    end,
+})
+
+
+local function createToggle(name, index)
+    RebirthShop:AddToggle({
+        Name = name,
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                while Value do
+                    local args = { [1] = index }
+                    game:GetService("ReplicatedStorage"):WaitForChild("RebirthShopPurchase"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+end
+
+createToggle ("Qi Gain Multi", 1)
+createToggle ("RP GAIN MULTI", 2)
+createToggle ("Talent Increase", 3)
+createToggle ("Auto Breakthrough", 4)
+createToggle ("Minimum Affinity", 5)
+createToggle ("Affinity Luck", 6)
+createToggle ("Lifespan Multi", 7)
+createToggle ("Starting Level", 8)
