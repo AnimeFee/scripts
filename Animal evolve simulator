@@ -69,25 +69,7 @@ local args = {
     [2] = "EvoCoins"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpdateStatEvent"):FireServer(unpack(args))end
+wait(1) -- wait for 1 second before adding the next point
 end
 end,})
-
-
-
-   v1:AddToggle({
-        Name = "Apples",
-        Default = false,
-        Callback = function(Value)
-            G.Daily = Value
-            if Value then
-                while G.Daily do
-local args = {
-    [1] = "05/18/2024"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DailyGiftEvent"):FireServer(unpack(args))
-                end
-            end
-        end,
-    })
 
