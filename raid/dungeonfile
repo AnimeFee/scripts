@@ -1,0 +1,96 @@
+local AutoRaidTab = Window:MakeTab({
+        Name = "Auto-Raid",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+AutoRaidTab:AddButton({
+        Name = "AutoCollectChestInRaid",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
+        end
+    })
+    local difficultyDropdown = AutoRaidTab:AddDropdown({
+        Name = "Difficulty",
+        Options = {"Easy", "Medium", "Hard", "Impossible"},
+        CurrentOption = "1",
+        Callback = function(option)
+            G.difficulty = tonumber(option)
+        end
+    })
+    local AutoRaidToggle = AutoRaidTab:AddToggle({
+        Name = "Auto-Raid",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                local function restartScript()
+                    local userID = game.Players.LocalPlayer.UserId
+                    local args = {
+                        [1] = "Room3"
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
+                    args = {
+                        [1] = {
+                            ["difficulty"] = G.difficulty,
+                            ["roomName"] = "Room3",
+                            ["selectMapId"] = 50105
+                        }
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
+                    args = {
+                        [1] = {
+                            ["userIds"] = {
+                                [1] = userID
+                            },
+                            ["roomName"] = "Room3"
+                        }
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer()
+                    wait(240)
+                    args = {
+                        [1] = {
+                            ["currentSlotIndex"] = 1,
+                            ["toMapId"] = 50201
+                        }
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
+                    wait(60)
+                    restartScript()
+                end
+                restartScript()
+            end
+        end
+    })
+
+local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+    -- Teleport the player to the specified dungeon
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
+        {
+            ["mapId"] = dungeonMapId
+        }
+    )
+    wait(returnTime)
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
+        {
+            ["mapId"] = returnMapId
+        }
+    )
+end
+local AutoDungeonToggle =
+    AutoDungeonTab:AddToggle(
+    {
+        Name = "Auto-Dungeon(FINALLY FIXED!!!)",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                while true do
+                    local currentTime = os.time()
+                    local nextTeleportTime = math.ceil(currentTime / (30 * 60)) * (30 * 60) - 15
+                    local waitTime = nextTeleportTime - currentTime
+                    wait(waitTime)
+                    TeleportToAndFromDungeon(50016, 50001, 15 * 60)
+                end
+            end
+        end
+    }
+)
