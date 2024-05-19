@@ -19,6 +19,12 @@
     Click = false,
     Rebirth = false,
     EGG1 = false,
+    EGG2 = false,
+    EGG3 = false,
+    EGG4 = false,
+    EGG5 = false,
+    EGG6 = false,
+    Tower = false,
 }
 
     -- Creating the Player tab
@@ -84,6 +90,25 @@ end
         end,
     })
 
+PlayerTab:AddToggle({
+        Name = "Auto Purchase Tower Level",
+        Default = false,
+        Callback = function(Value)
+            G.Tower = Value
+            if Value then
+                while G.Tower do
+for x = 1, 100 do
+local args = {
+    [1] = x
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PurchaseTower"):InvokeServer(unpack(args))end
+               wait(1)
+end
+            end
+        end,
+    })
+
 
 PlayerTab:AddButton({
 Name = "Daily Gifts",
@@ -112,3 +137,96 @@ local args = {
             end
         end,
     })
+
+EggsTab:AddToggle({
+        Name = "Auto Buy Stone Egg",
+        Default = false,
+        Callback = function(Value)
+            G.EGG2 = Value
+            if Value then
+                while G.EGG2 do
+local args = {
+    [1] = "Stone",
+    [2] = "Single"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("EggOpen"):InvokeServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+
+EggsTab:AddToggle({
+        Name = "Auto Buy Christmas Egg",
+        Default = false,
+        Callback = function(Value)
+            G.EGG3 = Value
+            if Value then
+                while G.EGG3 do
+local args = {
+    [1] = "Christmas",
+    [2] = "Single"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("EggOpen"):InvokeServer(unpack(args))
+wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+
+EggsTab:AddToggle({
+        Name = "Auto Buy Void Egg",
+        Default = false,
+        Callback = function(Value)
+            G.EGG4 = Value
+            if Value then
+                while G.EGG4 do
+local args = {
+    [1] = "Void",
+    [2] = "Single"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("EggOpen"):InvokeServer(unpack(args))                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+
+EggsTab:AddToggle({
+        Name = "Auto Buy Atlantis Egg",
+        Default = false,
+        Callback = function(Value)
+            G.EGG5 = Value
+            if Value then
+                while G.EGG5 do
+local args = {
+    [1] = "Atlantis",
+    [2] = "Single"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("EggOpen"):InvokeServer(unpack(args))
+wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+
+EggsTab:AddToggle({
+        Name = "Auto Buy Lava Egg",
+        Default = false,
+        Callback = function(Value)
+            G.EGG6 = Value
+            if Value then
+                while G.EGG6 do
+local args = {
+    [1] = "Lava",
+    [2] = "Single"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("EggOpen"):InvokeServer(unpack(args))                end
+            end
+        end,
+    })
+
