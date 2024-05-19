@@ -1,0 +1,38 @@
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("TimeEvent"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("AttackEvent"):FireServer()
+local args = {
+    [1] = "giftDailyTimeLeft",
+    [2] = 0
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpdateStatEvent"):FireServer(unpack(args))
+local args = {
+    [1] = game:GetService("Players").LocalPlayer,
+    [2] = 1000000
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("SetExpTextEvent"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RebirthEvent"):FireServer()
+local args = {
+    [1] = true
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DailyQuestsEvent"):FireServer(unpack(args))
+
+local args = {
+    [1] = true
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DailyQuestsEvent"):FireServer(unpack(args))
+local args = {
+    [1] = "2000 EvoCoin0s",
+    [2] = "EvoCoins"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpdateStatEvent"):FireServer(unpack(args))
+
+local args = {
+    [1] = "05/18/2024"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DailyGiftEvent"):FireServer(unpack(args))
