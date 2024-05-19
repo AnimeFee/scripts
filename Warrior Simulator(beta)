@@ -22,10 +22,7 @@ end
     EGG6 = false,
     Upgrade = false,
     Click = false,
-    Damage = false,
-    Defense = false,
-    Luck = false,
-    Speed = false,
+
 
 
 }
