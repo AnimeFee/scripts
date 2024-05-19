@@ -42,7 +42,8 @@
             if Value then
                 while G.Click do
 game:GetService("ReplicatedStorage").Remotes.PlaceBlock:FireServer()
-                end
+               wait(1)
+end
             end
         end,
     })
@@ -60,7 +61,8 @@ local args = {
         }
 
         game:GetService("ReplicatedStorage").Remotes.Rebirth:InvokeServer(unpack(args))
-                end
+               wait(1)
+end
             end
         end,
     })
