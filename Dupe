@@ -142,7 +142,6 @@ ScriptsTab:AddToggle({
     Default = false,
     Callback = function(Value)
         autoGainPower = Value
-        print("Auto Gain Pwr is " .. tostring(autoGainPower))
         if autoGainPower then
             autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
                 local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes")
