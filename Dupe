@@ -795,3 +795,4 @@ FuseGemTab:AddButton({
         FuseGems()
     end
 })
+end
