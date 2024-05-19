@@ -55,6 +55,21 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Commo
 end
 })
 
+v1:AddButton({
+    Name = "Redeem Codes",
+    Callback = function()
+        local rewardCodes = {"like200k", "like15k", "3000like", "welcome", "1000like"}
+        while wait() do
+            for _, code in ipairs(rewardCodes) do
+                local args = {
+                    [1] = code
+                }
+
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("CodeReward"):FireServer(unpack(args))
+            end
+        end
+    end
+})
 
 v2:AddToggle({
 Name = "Auto Buy Egg(10 Wins)",
@@ -230,18 +245,3 @@ for _, world in ipairs(worlds) do
 end
 
 
-v1:AddButton({
-    Name = "Redeem Daily Reward",
-    Callback = function()
-        local rewardCodes = {"like200k", "like15k", "3000like", "welcome", "1000like"}
-        while wait() do
-            for _, code in ipairs(rewardCodes) do
-                local args = {
-                    [1] = code
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("CodeReward"):FireServer(unpack(args))
-            end
-        end
-    end
-})
