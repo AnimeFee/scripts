@@ -234,7 +234,6 @@ end,
 
 
 local worlds = {1, 2, 3, 4, 5, 6}
-
 for _, world in ipairs(worlds) do
     v4:AddButton({
         Name = world,
