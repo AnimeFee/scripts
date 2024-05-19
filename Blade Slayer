@@ -456,25 +456,6 @@ for level = 1, 9 do
         end
     })
 end    
-local AutoRaidTab = Window:MakeTab({
-        Name = "Auto-Raid",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
-AutoRaidTab:AddButton({
-        Name = "AutoCollectChestInRaid",
-        Callback = function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
-        end
-    })
-    local difficultyDropdown = AutoRaidTab:AddDropdown({
-        Name = "Difficulty",
-        Options = {"Easy", "Medium", "Hard", "Impossible"},
-        CurrentOption = "1",
-        Callback = function(option)
-            G.difficulty = tonumber(option)
-        end
-    })
     local AutoRaidTab = Window:MakeTab({
         Name = "Auto-Raid",
         Icon = "rbxassetid://4483345998",
