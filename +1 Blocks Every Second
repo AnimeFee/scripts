@@ -42,12 +42,29 @@
             if Value then
                 while G.Click do
 game:GetService("ReplicatedStorage").Remotes.PlaceBlock:FireServer()
-               wait(1)
+               wait(.1)
 end
             end
         end,
     })
 
+PlayerTab:AddToggle({
+        Name = "Auto Equip Best Pet",
+        Default = false,
+        Callback = function(Value)
+            G.Bp = Value
+            if Value then
+                while G.Bp do
+local args = {
+    [1] = "Equip Best"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("PetActionRequest"):InvokeServer(unpack(args))
+               wait(1)
+end
+            end
+        end,
+    })
 
    PlayerTab:AddToggle({
         Name = "Auto Rebirth",
