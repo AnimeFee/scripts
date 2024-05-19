@@ -47,11 +47,6 @@ getgenv().Settings = {
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-local AutoBuyTab = Window:MakeTab({
-        Name = "Shop",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
 ScriptsTab:AddToggle({
     Name = "Kill Aura/Auto Collect",
     Callback = function(state)
@@ -91,8 +86,13 @@ end
     })
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
-    table.insert(playerNames, player.Name)
+    tlocal playerNames = {}
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player ~= game.Players.LocalPlayer then
+        table.insert(playerNames, player.Name)
+    end
 end
+
 PlayerTab:AddDropdown(
     {
         Name = "Select Player",
@@ -102,6 +102,7 @@ PlayerTab:AddDropdown(
         end
     }
 )
+
 PlayerTab:AddButton(
     {
         Name = "Trade Selected Player",
@@ -116,16 +117,20 @@ PlayerTab:AddButton(
         end
     }
 )
+
 PlayerTab:AddButton(
     {Name = "Refresh Player List", Callback = function()
             playerNames = {}
             for _, player in pairs(game.Players:GetPlayers()) do
-                table.insert(playerNames, player.Name)
+                if player ~= game.Players.LocalPlayer then
+                    table.insert(playerNames, player.Name)
+                end
             end
             PlayerTab:GetElement("Select Player"):UpdateOptions(playerNames)
             getgenv().Settings.selectedPlayer = nil
         end
-})
+    }
+)
 
 
 PlayerTab:AddButton({
