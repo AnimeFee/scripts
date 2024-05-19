@@ -689,7 +689,7 @@ FuseGemTab:AddButton({
                 local gemID = GetNextGemID(currentLevel)
                 if gemID then
                     print("Level", currentLevel, "gem ID found:", gemID)
-                    for fuseLevel = currentLevel, 8 do
+                    for fuseLevel = currentLevel, 10 do
                         -- Construct the args table with gemID repeated five times
                         local args = {
                             [1] = {
@@ -703,7 +703,7 @@ FuseGemTab:AddButton({
                         print("Invoking FuseGem remote with args:", args)
                         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(args))
                         -- Wait for some time before checking for the next level
-                        wait(0.000001)
+                        wait()
                     end
                 else
                     print("Error: Could not find gem ID for level", currentLevel)
@@ -719,8 +719,7 @@ FuseGemTab:AddButton({
             local list = bgImage:WaitForChild("List")
             local scrollingFrame = list:WaitForChild("ScrollingFrame")
             if scrollingFrame then
-                local children = scrollingFrame:GetChildren()
-                for _, child in ipairs(children) do
+                for _, child in ipairs(scrollingFrame:GetChildren()) do
                     local numtext = child:FindFirstChild("NumText")
                     if numtext then
                         local level = tonumber(numtext.Text:match("%d+"))
