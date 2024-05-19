@@ -76,7 +76,8 @@ VirtualUser:CaptureController()
 VirtualUser:ClickButton2(Vector2.new())
 end
 end)
-    ScriptsTab:AddButton({
+   
+ ScriptsTab:AddButton({
         Name = "Auto Fuse Swords",
         Callback = function()
             while wait() do
@@ -108,10 +109,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Delet
         PremiumOnly = false
     })
 
--- Creating a tab for legendary items
 local legendaryTab = Window:MakeTab({Name="Roll-Tab-Legendary", Icon="rbxassetid://4483345998", PremiumOnly=false})
-
--- Function to reroll a legendary mask
 local function rerollLegendaryMask()
     local rerollFound = false
     repeat
@@ -133,13 +131,9 @@ local function rerollLegendaryMask()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a legendary mask
 legendaryTab:AddButton({Name="Reroll Mask", Callback=rerollLegendaryMask})
 
--- Function to reroll a legendary awakening
 local function rerollLegendaryAwakening()
     local rerollFound = false
     repeat
@@ -161,13 +155,9 @@ local function rerollLegendaryAwakening()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a legendary awakening
 legendaryTab:AddButton({Name="Reroll Awakening", Callback=rerollLegendaryAwakening})
 
--- Function to reroll a legendary ornament
 local function rerollLegendaryOrnament()
     local rerollFound = false
     repeat
@@ -189,13 +179,9 @@ local function rerollLegendaryOrnament()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a legendary ornament
 legendaryTab:AddButton({Name="Reroll Ornament", Callback=rerollLegendaryOrnament})
 
--- Function to reroll a legendary trail
 local function rerollLegendaryTrail()
     local rerollFound = false
     repeat
@@ -217,16 +203,10 @@ local function rerollLegendaryTrail()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a legendary trail
 legendaryTab:AddButton({Name="Reroll Trail", Callback=rerollLegendaryTrail})
 
--- Creating a tab for mythic items
 local mythicTab = Window:MakeTab({Name="Roll-Tab-Mythics", Icon="rbxassetid://4483345998", PremiumOnly=false})
-
--- Function to reroll a mythic mask
 local function rerollMythicMask()
     local rerollFound = false
     repeat
@@ -245,13 +225,9 @@ local function rerollMythicMask()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a mythic mask
 mythicTab:AddButton({Name="Reroll Mask", Callback=rerollMythicMask})
 
--- Function to reroll a mythic awakening
 local function rerollMythicAwakening()
     local rerollFound = false
     repeat
@@ -271,13 +247,9 @@ local function rerollMythicAwakening()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a mythic awakening
 mythicTab:AddButton({Name="Reroll Awakening", Callback=rerollMythicAwakening})
 
--- Function to reroll a mythic ornament
 local function rerollMythicOrnament()
     local rerollFound = false
     repeat
@@ -297,13 +269,9 @@ local function rerollMythicOrnament()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a mythic ornament
 mythicTab:AddButton({Name="Reroll Ornament", Callback=rerollMythicOrnament})
 
--- Function to reroll a mythic trail
 local function rerollMythicTrail()
     local rerollFound = false
     repeat
@@ -323,10 +291,7 @@ local function rerollMythicTrail()
             rerollFound = true
         end
     until rerollFound
-    print("Script stopped !")
 end
-
--- Adding a button to reroll a mythic trail
 mythicTab:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail}) 
 
 local function findGemIds(level)
