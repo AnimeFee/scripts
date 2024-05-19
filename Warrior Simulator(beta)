@@ -235,7 +235,7 @@ end,
 local worlds = {1, 2, 3, 4, 5, 6}
 
 for _, world in ipairs(worlds) do
-    v1:AddButton({
+    v4:AddButton({
         Name = world,
         Callback = function()
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Door"):WaitForChild("Teleport"):FireServer(world)
