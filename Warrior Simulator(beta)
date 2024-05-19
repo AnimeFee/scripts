@@ -26,7 +26,6 @@ end
     Defense = false,
     Luck = false,
     Speed = false,
-    Code = false,
     Group = false,
     Daily = false,
     Gifts = false,
@@ -274,27 +273,6 @@ end
 end
 end})
 
-v1:AddToggle({
-    Name = "Redeem Codes",
-    Default = false,
-    Callback = function(Value)
-        G.Code = Value
-        if Value then
-            while G.Code do
-                local rewardCodes = {"like200k", "like15k", "3000like", "welcome", "1000like"}
-                while wait() do
-                    for _, code in ipairs(rewardCodes) do
-                        local args = {
-                            [1] = code
-                        }
-                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("CodeReward"):FireServer(unpack(args))
-                    end
-                    break
-                end
-            end
-        end
-    end
-})
 
 v1:AddToggle({
 Name = "Redeem Group Reward",
@@ -348,4 +326,18 @@ end
 end
 })
 
+v1:AddButton({
+    Name = "Redeem Daily Reward",
+    Callback = function()
+        local rewardCodes = {"like200k", "like15k", "3000like", "welcome", "1000like"}
+        while wait() do
+            for _, code in ipairs(rewardCodes) do
+                local args = {
+                    [1] = code
+                }
 
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("CodeReward"):FireServer(unpack(args))
+            end
+        end
+    end
+})
