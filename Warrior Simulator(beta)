@@ -62,7 +62,6 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("GroupReward"):FireServer(unpack(args))
 end
-end
 })
 
 
