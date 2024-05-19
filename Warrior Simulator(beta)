@@ -26,9 +26,7 @@ end
     Defense = false,
     Luck = false,
     Speed = false,
-    Group = false,
-    Daily = false,
-    Gifts = false,
+
 
 }
 
@@ -55,6 +53,18 @@ end
         PremiumOnly = false
     })
 
+v1:AddButton({
+Name = "Group Reward",
+Callback = function()
+local args = {
+    [1] = true
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("GroupReward"):FireServer(unpack(args))
+end
+})
+
+
 v2:AddToggle({
 Name = "Auto Buy Egg(10 Wins)",
 Default = false,
@@ -71,7 +81,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Hatch"):WaitForChild("EggHatch"):InvokeServer(unpack(args))
 end
 end
-end})
+end,})
 
 v2:AddToggle({
 Name = "Auto Buy Egg(40 Wins",
@@ -89,7 +99,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Hatch"):WaitForChild("EggHatch"):InvokeServer(unpack(args))
 end
 end
-end})
+end,})
 
 v2:AddToggle({
 Name = "Auto Buy Egg(250 Wins)",
@@ -107,7 +117,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Hatch"):WaitForChild("EggHatch"):InvokeServer(unpack(args))
 end
 end
-end})
+end,})
 
 v2:AddToggle({
 Name = "Auto Buy Egg(500 Wins)",
@@ -125,7 +135,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Hatch"):WaitForChild("EggHatch"):InvokeServer(unpack(args))
 end
 end
-end})
+end,})
 
 v2:AddToggle({
 Name = "Auto Buy Egg(2k Wins)",
@@ -143,7 +153,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Hatch"):WaitForChild("EggHatch"):InvokeServer(unpack(args))
 end
 end
-end})
+end,})
 
 v2:AddToggle({
 Name = "Auto Buy Egg(6.5k Wins)",
@@ -161,9 +171,37 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Hatch"):WaitForChild("EggHatch"):InvokeServer(unpack(args))
 end
 end
-end})
+end,})
 
+v1:AddButton({
+Name = "Auto Redeem Gifts",
+Callback = function()
+while wait() do
+for x = 1, 10 do
+local args = {
+    [1] = x
+}
 
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Online"):WaitForChild("TryGetOnlineGift"):InvokeServer(unpack(args))
+end
+end
+end
+})
+
+v1:AddButton({
+Name = "Redeem Daily Reward",
+Callback = function()
+while wait() do
+for x = 1, 10 do
+local args = {
+    [1] = x
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("DailyReward"):InvokeServer(unpack(args))
+end
+end
+end
+})
 
 v1:AddToggle({
 Name = "Auto Upgrade Weapon",
@@ -176,7 +214,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Weapo
 wait() 
 end
 end
-end
+end,
 })
 
 v1:AddToggle({
@@ -190,7 +228,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Weapo
 wait()
 end
 end
-end
+end,
 })
 
 
@@ -220,7 +258,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
 end
 end
-end})
+end,})
 
 v3:AddToggle({
 Name = "Defense Stat",
@@ -237,7 +275,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
 end
 end
-end})
+end,})
 
 v3:AddToggle({
 Name = "Luck Stat",
@@ -254,7 +292,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
 end
 end
-end})
+end,})
 
 v3:AddToggle({
 Name = "Speed Stat",
@@ -271,61 +309,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Profile"):WaitForChild("AddPoint"):FireServer(unpack(args))
 end
 end
-end})
-
-
-v1:AddToggle({
-Name = "Redeem Group Reward",
-Default = false,
-Callback = function(Value)
-G.Group = Value
-if Value then
-while G.Group do
-Callback = function()
-local args = {
-    [1] = true
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("GroupReward"):FireServer(unpack(args))
-end
-end
-})
-
-v1:AddToggle({
-Name = "Auto Redeem Gifts",
-Default = false,
-Callback = function(Value)
-G.Gifts = Value
-if Value then
-while G.Gifts do
-for x = 1, 10 do
-local args = {
-    [1] = x
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Online"):WaitForChild("TryGetOnlineGift"):InvokeServer(unpack(args))
-end
-end
-end
-})
-
-v1:AddToggle({
-Name = "Auto Redeem Daily Rewards",
-Default = false,
-Callback = function(Value)
-G.Daily = Value
-if Value then
-while G.Daily do
-for x = 1, 10 do
-local args = {
-    [1] = x
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Common"):WaitForChild("Reward"):WaitForChild("DailyReward"):InvokeServer(unpack(args))
-end
-end
-end
-})
+end,})
 
 v1:AddButton({
     Name = "Redeem Daily Reward",
