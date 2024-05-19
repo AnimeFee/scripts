@@ -1,0 +1,72 @@
+
+    -- Loading the OrionLib library
+    local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+    if not OrionLib then
+        error("Failed to load the OrionLib library")
+        return
+    end
+
+    -- Creating the main window
+    local Window = OrionLib:MakeWindow({
+        Name = "Cool Hub",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "WendelCfg",
+        IntroEnabled = false
+    })
+
+    -- Table to store global variables
+    local G = {
+    EGG1 = false,
+}
+
+    -- Creating the Player tab
+    local PlayerTab = Window:MakeTab({
+        Name = "Scripts",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+ 
+   local EggsTab = Window:MakeTab({
+        Name = "Eggs",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+PlayerTab:AddButton({
+Name = "Daily Gifts",
+Callback = function()
+while wait() do
+for x = 1, 1000 do
+local args = {
+    [1] = x
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("DailySign"):WaitForChild("[C-S]PlayerTrySign"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Function"):WaitForChild("DailySign"):WaitForChild("isCanSign"):InvokeServer()
+end
+end
+end
+})
+
+
+   EggsTab:AddToggle({
+        Name = "Auto Buy Egg(50 diamond)",
+        Default = false,
+        Callback = function(Value)
+            G.EGG1 = Value
+            if Value then
+                while G.EGG1 do
+local args = {
+    [1] = "Egg1",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Function"):WaitForChild("Luck"):WaitForChild("[C-S]DoLuck"):InvokeServer(unpack(args))
+
+
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
