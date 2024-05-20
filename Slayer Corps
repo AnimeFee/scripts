@@ -564,20 +564,27 @@ spawn(function()
 end)
 
 ScriptsTab:AddToggle({
-    Name = "Level 10 Gems 🤑 ",
+    Name = "Auto Fuse Level 10 Gems",
     Callback = function(state)
         if state then
             getgenv().Settings.lv10gem = true
-            pcall(function()
-                local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
-                for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
-                    if (v.equipPosition == nil or v.equipPosition == "") and getgenv().Settings.DeleteLowerLvlGems then
-                        local args = { [1] = { [1] = v.guid,[2] = v.guid,[3] = v.guid,[4] = v.guid,[5] = v.guid } }
-                        game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
-                        task.wait()
+            while getgenv().Settings.lv10gem do
+                pcall(function()
+                    local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+                    for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
+                        pcall(function()
+                            if v.equipPosition == nil or v.equipPosition == "" then
+                                local args = {
+                                    [1] = {[1] = v.guid,[2] = v.guid,[3] = v.guid,[4] = v.guid,[5] = v.guid}
+                                }
+                                game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
+                                task.wait()
+                            end
+                        end)
                     end
-                end
-            end)
+                end)
+                task.wait()
+            end
         else
             getgenv().Settings.lv10gem = false
         end
@@ -585,20 +592,27 @@ ScriptsTab:AddToggle({
 })
 
 ScriptsTab:AddToggle({
-    Name = "Delete level 9 below Gems ",
+    Name = "Delete lvl 9",
     Callback = function(state)
         if state then
             getgenv().Settings.delgem = true
-            pcall(function()
-                local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
-                for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
-                    if (v.equipPosition == nil or v.equipPosition == "") and getgenv().Settings.DeleteLowerLvlGems then
-                        local args = { [1] = { [1] = v.guid } }
-                        game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
-                        task.wait()
+            while getgenv().Settings.delgem do
+                pcall(function()
+                    local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+                    for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
+                        pcall(function()
+                            if v.equipPosition == nil or v.equipPosition == "" then
+                                local args = {
+                                    [1] = {[1] = v.guid,}
+                                }
+                                game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
+                                task.wait()
+                            end
+                        end)
                     end
-                end
-            end)
+                end)
+                task.wait()
+            end
         else
             getgenv().Settings.delgem = false
         end
