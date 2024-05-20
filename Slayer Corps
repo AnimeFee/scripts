@@ -19,8 +19,9 @@ getgenv().Settings = {
 	WalkToEnemy = false,
 	DamageBoost = false,
 	GoldCollect = false,
-    }
-    local PlayerTab = Window:MakeTab({
+    }}
+   
+ local PlayerTab = Window:MakeTab({
         Name = "Player",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
