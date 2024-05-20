@@ -107,7 +107,7 @@ THIS SECTION IS FOR AUTO DUNGEON AND RAID
 
 
 
-]]==
+]]--
 
 
 FuseGemTab:AddToggle({Name="Level 10 Gems",Callback=function(v0)
