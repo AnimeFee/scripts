@@ -77,7 +77,6 @@ ScriptsTab:AddToggle({Name="Damage Boost",Callback=function(v2)
 end});
 ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
 	Settings.AutoAtk = Value;
-	print("Auto Gain Pwr is " .. tostring(Settings.AutoAtk));
 	if Settings.AutoAtk then
 		autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
 			local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes");
