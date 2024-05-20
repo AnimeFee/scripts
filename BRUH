@@ -206,7 +206,7 @@ local Raid = AutoDRTab:AddSection({
 	Name = "Raid"
 })
 
-Tab:AddButton({
+Raid:AddButton({
 	Name = "WIP",
 	Callback = function()
       		print("button pressed")
