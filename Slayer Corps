@@ -19,6 +19,8 @@ getgenv().Settings = {
 	WalkToEnemy = false,
 	DamageBoost = false,
 	GoldCollect = false,
+	lv10gem = false,
+	delgem = false,
     }}
    
  local PlayerTab = Window:MakeTab({
@@ -561,3 +563,45 @@ spawn(function()
         end
     end
 end)
+
+ScriptsTab:AddToggle({
+    Name = "Level 10 Gems 🤑 ",
+    Callback = function(state)
+        if state then
+            getgenv().Settings.lv10gem = true
+            pcall(function()
+                local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+                for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
+                    if (v.equipPosition == nil or v.equipPosition == "") and getgenv().Settings.DeleteLowerLvlGems then
+                        local args = { [1] = { [1] = v.guid,[2] = v.guid,[3] = v.guid,[4] = v.guid,[5] = v.guid } }
+                        game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
+                        task.wait()
+                    end
+                end
+            end)
+        else
+            getgenv().Settings.lv10gem = false
+        end
+    end,
+})
+
+ScriptsTab:AddToggle({
+    Name = "Delete level 9 below Gems ",
+    Callback = function(state)
+        if state then
+            getgenv().Settings.delgem = true
+            pcall(function()
+                local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+                for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
+                    if (v.equipPosition == nil or v.equipPosition == "") and getgenv().Settings.DeleteLowerLvlGems then
+                        local args = { [1] = { [1] = v.guid } }
+                        game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
+                        task.wait()
+                    end
+                end
+            end)
+        else
+            getgenv().Settings.delgem = false
+        end
+    end,
+})
