@@ -34,8 +34,6 @@ PlayerTab:AddButton({Name="Dupe",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
 
---[[
-
 ScriptsTab:AddButton({Name="Auto Fuse Swords",Callback=function()
 	while wait() do
 		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer();
