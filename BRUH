@@ -8,7 +8,10 @@ Range=500,
 AutoFarm=false,
 WalkToEnemy=false,
 DamageBoost=false,
-GoldCollect=false,};
+GoldCollect=false,
+deleteGems=false,
+fuseLevel10Gems=false,
+};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -101,7 +104,7 @@ end});
 
 
 
-FuseGemTab:AddToggle({
+FuseTab:AddToggle({
 	Name = "Fuse Level 10 Gems",
 	Callback = function(fuseLevel10Gems)
 		if fuseLevel10Gems then
@@ -124,7 +127,7 @@ FuseGemTab:AddToggle({
 	end
 })
 
-FuseGemTab:AddToggle({
+FuseTab:AddToggle({
 	Name = "Delete Gems",
 	Callback = function(deleteGems)
 		if deleteGems then
