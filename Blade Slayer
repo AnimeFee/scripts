@@ -48,13 +48,27 @@ getgenv().Settings = {
         PremiumOnly = false
     })
 ScriptsTab:AddToggle({
-    Name = "Kill Aura/Auto Collect",
+    Name = "Kill Aura",
     Callback = function(state)
         if state then
             getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm
         end
     end,
 })
+ScriptsTab:AddToggle({Name="Auto Collect Drops",Callback=function(state)
+	if state then
+		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
+		if getgenv().Settings.GoldCollect then
+			spawn(function()
+				while wait(1) do
+					for _, v in pairs(game.Workspace.Golds:GetChildren()) do
+						v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+					end
+				end
+			end);
+		end
+	end
+end});
 ScriptsTab:AddToggle({
     Name = "Damage Boost",
     Callback = function(state)
@@ -552,13 +566,6 @@ local AutoDungeonToggle =
     }
 )
            
-		spawn(function()
-                while wait(1) do
-                    for _, v in pairs(game.Workspace.Golds:GetChildren()) do
-                        v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                    end
-                end
-            end)
 		local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
             pcall(function()
                 for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
