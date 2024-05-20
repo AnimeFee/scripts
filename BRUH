@@ -104,44 +104,7 @@ end});
 
 
 
-FuseGemTab:AddToggle({Name="Level 10 Gems",Callback=function(GemDupe)
-	if GemDupe then
-		getgenv().Settings.lv10gem = true;
-		pcall(function()
-			local v6 = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-			for v8, v9 in pairs(v6.localPlayerData.gems) do
-				pcall(function()
-					if ((v9.equipPosition == nil) or (v9.equipPosition == "")) then
-						local v12 = {[1]={[1]=v9.guid,[2]=v9.guid,[3]=v9.guid,[4]=v9.guid,[5]=v9.guid}};
-						game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(v12));
-						wait();
-					end
-				end);
-			end
-		end);
-	else
-		getgenv().Settings.lv10gem = false;
-	end
-end});
-FuseGemTab:AddToggle({Name="Delete Gem",Callback=function(v1)
-	if v1 then
-		getgenv().Settings.delgem = true;
-		pcall(function()
-			local v7 = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-			for v10, v11 in pairs(v7.localPlayerData.gems) do
-				pcall(function()
-					if ((v11.equipPosition == nil) or (v11.equipPosition == "")) then
-						local v13 = {[1]={[1]=v11.guid}};
-						game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(v13));
-						wait();
-					end
-				end);
-			end
-		end);
-	else
-		getgenv().Settings.delgem = false;
-	end
-end});
+
 
 local Legendary = AccesoryTab:AddSection({
 	Name = "Legendary"
