@@ -1,0 +1,159 @@
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
+local Window = OrionLib:MakeWindow({Name="CoolHub",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
+
+getgenv().Settings = {AutoAtk=false,AutoDungeon=false,mespetsequiper={},Range=500,AutoFarm=false,WalkToEnemy=false,DamageBoost=false,Nolv1=false,GoldCollect=false,};
+
+local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local AutoDungeonTab = Window:MakeTab({Name="Auto-Dungeon",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local FuseTab = Window:MakeTab({Name="Auto-FuseGem",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local legendaryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local mythicTab = Window:MakeTab({Name="Roll-Tab-Mythics",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local AutoRaidTab = Window:MakeTab({Name="Auto-Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
+
+PlayerTab:AddDropdown({Name="Select Player",Options=playerNames,Callback=function(selectedPlayer)
+	getgenv().Settings.selectedPlayer = selectedPlayer;
+end});
+PlayerTab:AddButton({Name="Trade Selected Player",Callback=function()
+	if getgenv().Settings.selectedPlayer then
+		game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer]);
+	else
+		warn("No player selected.");
+	end
+end});
+PlayerTab:AddButton({Name="Refresh Player List",Callback=function()
+	playerNames = {};
+	for _, player in pairs(game.Players:GetPlayers()) do
+		table.insert(playerNames, player.Name);
+	end
+	PlayerTab:GetElement("Select Player"):UpdateOptions(playerNames);
+	getgenv().Settings.selectedPlayer = nil;
+end});
+PlayerTab:AddButton({Name="Dupe",Callback=function()
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
+end});
+
+--[[
+
+ScriptsTab:AddButton({Name="Auto Fuse Swords",Callback=function()
+	while wait() do
+		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer();
+	end
+end});
+ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
+	Settings.AutoAtk = Value;
+	print("Auto Gain Pwr is " .. tostring(Settings.AutoAtk));
+	if Settings.AutoAtk then
+		autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
+			local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes");
+			if (remotes and remotes:FindFirstChild("PlayerClickAttack")) then
+				remotes.PlayerClickAttack:FireServer();
+			end
+			wait(0.1);
+		end);
+	elseif autoGainPowerLoop then
+		autoGainPowerLoop:Disconnect();
+		autoGainPowerLoop = nil;
+	end
+end});
+ScriptsTab:AddToggle({Name="Damage Boost",Callback=function(state)
+	if state then
+		getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost;
+	end
+end});
+game:GetService("RunService").Heartbeat:Connect(function()
+	if getgenv().Settings.DamageBoost then
+		local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+		for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+			if (v.isEquip == true) then
+				for skillId = 200001, 200020 do
+					local a = {[1]={heroGuid=tostring(v.guid),harmIndex=1,isSkill=false,skillId=skillId}};
+					game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a));
+				end
+			end
+		end
+	end
+end);
+ScriptsTab:AddToggle({Name="Delete Lower Lvl Gems",Callback=function(state)
+	if state then
+		getgenv().Settings.Nolv1 = not getgenv().Settings.DeleteLowerLvlGems;
+		if getgenv().Settings.Nolv1 then
+			pcall(function()
+				local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+				for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
+					pcall(function()
+						if ((v.equipPosition == nil) or (v.equipPosition == "")) then
+							local args = {[1]={[1]=v.guid}};
+							game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args));
+							task.wait();
+						end
+					end);
+				end
+			end);
+		end
+	end
+end});
+ScriptsTab:AddToggle({Name="Auto Collect Drops",Callback=function(state)
+	if state then
+		getgenv().Settings.GoldCollect = not getgenv().Settings.MoveGolds;
+		if getgenv().Settings.GoldCollect then
+			spawn(function()
+				while wait(1) do
+					for _, v in pairs(game.Workspace.Golds:GetChildren()) do
+						v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+					end
+				end
+			end);
+		end
+	end
+end});
+ScriptsTab:AddToggle({Name="Auto Farm",Default=false,Callback=function(state)
+	if state then
+		getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm;
+		if getgenv().Settings.AutoFarm then
+			autoGainPower = false;
+			autoGainPowerLoop = nil;
+			fireDelay = 0.1;
+			autoFarmLoop = game:GetService("RunService").Heartbeat:Connect(function()
+				if getgenv().Settings.AutoFarm then
+					local nearestEnemy = Getenemies();
+					if nearestEnemy then
+						if getgenv().Settings.WalkToEnemy then
+							player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position);
+						end
+						local args = {nearestEnemy:GetAttribute("EnemyGuid")};
+						game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args));
+						game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args));
+					end
+				end
+			end);
+		elseif autoFarmLoop then
+			autoFarmLoop:Disconnect();
+			autoFarmLoop = nil;
+		end
+	end
+end});
+local function Getenemies()
+	local nearest, dist = nil, getgenv().Settings.Range;
+	local Players = game.Players;
+	local localPlayer = Players.LocalPlayer;
+	local localCharacter = localPlayer.Character;
+	local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart");
+	if not humanoidRootPart then
+		return;
+	end
+	for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+		if (enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and (enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0")) then
+			local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude;
+			if (distance < dist) then
+				dist = distance;
+				nearest = enemy;
+			end
+		end
+	end
+	return nearest;
+end
+ScriptsTab:AddButton({Name="SimpleSpy",Callback=function()
+	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
+end});
