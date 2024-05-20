@@ -71,12 +71,6 @@ ScriptsTab:AddToggle({Name="Damage Boost",Callback=function(v2)
 		getgenv().Settings.DamageBoost = false;
 	end
 end});
-
-ScriptsTab:AddButton({Name="Auto Fuse Swords",Callback=function()
-	while wait() do
-		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer();
-	end
-end});
 ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
 	Settings.AutoAtk = Value;
 	print("Auto Gain Pwr is " .. tostring(Settings.AutoAtk));
@@ -93,10 +87,13 @@ ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=fun
 		autoGainPowerLoop = nil;
 	end
 end});
-
-ScriptsTab:AddButton({Name="SimpleSpy",Callback=function()
-	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
+ScriptsTab:AddButton({Name="Auto Fuse Swords",Callback=function()
+	while wait() do
+		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer();
+	end
 end});
+
+
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
@@ -444,755 +441,109 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
-pcall(function()
-    for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-        if v.isEquip == true then
-            table.insert(getgenv().Settings.mespetsequiper, v.guid)
-        end
-    end
-end)
-
-spawn(function()
-    local function GetEnemies()
-        local nearest, dist = nil, getgenv().Settings.Range
-        local Players = game.Players
-        local localPlayer = Players.LocalPlayer
-        local localCharacter = localPlayer.Character
-        local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
-        if not humanoidRootPart then return end
-        for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-            if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
-                local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
-                if distance < dist then
-                    dist = distance
-                    nearest = enemy
-                end
+MiscTab:AddButton({
+Name = "Group Rewards",
+Callback = function()
+while wait() do
+game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer()
+end
+end
+})
+ 
+MiscTab:AddButton({
+Name = "Daily Gifts",
+Callback = function()
+while wait() do
+for x = 1, 7 do
+local args = {
+[1] = x
+}
+game:GetService("ReplicatedStorage").Remotes.ClaimSevenLoginReward:FireServer(unpack(args))
+end
+end
+end
+})
+ 
+ 
+MiscTab:AddButton({
+Name = "Redeem Codes",
+Callback = function()
+while wait() do
+for x = 1, 1000 do
+local args = {
+    [1] = x
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args))
+end
+end
+end
+})
+
+
+MiscTab:AddButton({
+Name = "Redeem Spins",
+Callback = function()
+while wait() do
+for x = 1, 10 do
+local args = {
+    [1] = x
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimActivitySpinTicket"):InvokeServer(unpack(args))
+end
+end
+end
+})
+
+MiscTab:AddButton({
+    Name = "Fps Booster",
+    Callback = function()
+        for a, b in pairs(game.ReplicatedStorage.SkillEffects:GetDescendants()) do
+            if b:IsA("Part") or b:IsA("MeshPart") then
+                b.Transparency = 1
+            end
+            if b:IsA("ParticleEmitter") or b:IsA("Beam") then
+                b.Enabled = false
             end
         end
-        return nearest
-    end
+        game.ReplicatedStorage.Effect.AttackNum.Enabled = false
 
-    while task.wait() do
-        if getgenv().Settings.AutoFarm then
-            local nearestEnemy = GetEnemies()
-            if nearestEnemy then
-                if getgenv().Settings.WalkToEnemy then
-                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
-                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
-                    end
-                end
-                if getgenv().Settings.DamageBoost then
-                    for c, d in pairs(getgenv().Settings.mespetsequiper) do
-                        local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
-                        game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
-                    end
-                end
-                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
-                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
-                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+        local c = game
+        local d = c.Workspace
+        local e = c.Lighting
+        local f = d.Terrain
+        f.WaterWaveSize = 0
+        f.WaterWaveSpeed = 0
+        f.WaterReflectance = 0
+        f.WaterTransparency = 0
+        e.GlobalShadows = false
+        e.FogEnd = 9e9
+        e.Brightness = 0
+        settings().Rendering.QualityLevel = "Level01"
+        for g, h in pairs(c:GetDescendants()) do
+            if h:IsA("Part") or h:IsA("Union") or h:IsA("CornerWedgePart") or h:IsA("TrussPart") then
+                h.Reflectance = 0
+            elseif h:IsA("Decal") or h:IsA("Texture") then
+                h.Transparency = 0
+            elseif h:IsA("ParticleEmitter") or h:IsA("Trail") then
+                h.Lifetime = NumberRange.new(0)
+            elseif h:IsA("Explosion") then
+                h.BlastPressure = 0
+                h.BlastRadius = 0
+            elseif h:IsA("Fire") or h:IsA("SpotLight") or h:IsA("Smoke") or h:IsA("Sparkles") then
+                h.Enabled = false
+            elseif h:IsA("MeshPart") then
+                h.Reflectance = 0
             end
         end
-    end
-end)
+        for g, i in pairs(e:GetChildren()) do
+            if i:IsA("BlurEffect") or i:IsA("SunRaysEffect") or i:IsA("ColorCorrectionEffect") or i:IsA("BloomEffect") or i:IsA("DepthOfFieldEffect") then
+                i.Enabled = false
+            end
+        end
+        sethiddenproperty(game.Lighting, "Technology", "Compatibility")
+    end,
+})
+
+MiscTab:AddButton({Name="SimpleSpy",Callback=function()
+	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
+end});
