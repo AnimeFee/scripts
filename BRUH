@@ -121,21 +121,22 @@ local SwordSec = ScriptsTab:AddSection({
 })
 
 SwordSec:AddToggle({
-	Name = "Auto Fuse Swords",
-	Callback = function(autoFuseSwords)
-		if autoFuseSwords then
-			getgenv().Settings.autoFuseSwords = true
-			while true do
-				wait()
-				pcall(function()
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
-				wait(5)
-				end)
-			end
-		else
-			getgenv().Settings.autoFuseSwords = false
-		end
-	end
+    Name = "Auto Fuse Swords",
+    Callback = function(autoFuseSwords)
+        if autoFuseSwords then
+            getgenv().Settings.autoFuseSwords = true
+            while true do
+                wait()
+                pcall(function()
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
+                    wait(3)
+                end)
+            end
+        else
+            getgenv().Settings.autoFuseSwords = false
+            task.wait()
+        end
+    end
 })
 
 ScriptsTab:AddToggle({
@@ -154,13 +155,14 @@ ScriptsTab:AddToggle({
                                 }
                             }
                             game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
-                            wait(5) -- Wait for 5 seconds before checking again
+                            wait(1)
                         end
                     end
                 end)
             end
         else
             getgenv().Settings.autoDeleteUnequippedWeapons = false
+            task.wait() 
         end
     end
 })
