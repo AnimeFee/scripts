@@ -15,7 +15,7 @@ autodungeon=false,
 deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
-autoSellSwords=false,
+autoDeleteUnequippedWeapons=false,
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -126,10 +126,9 @@ SwordSec:AddToggle({
         if autoFuseSwords then
             getgenv().Settings.autoFuseSwords = true
             while true do
-                wait()
+                wait(1)
                 pcall(function()
                     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
-                    wait(3)
                 end)
             end
         else
@@ -139,13 +138,13 @@ SwordSec:AddToggle({
     end
 })
 
-ScriptsTab:AddToggle({
+SwordSec:AddToggle({
     Name = "Auto Delete Unequipped Weapons",
     Callback = function(autoDeleteUnequippedWeapons)
         if autoDeleteUnequippedWeapons then
             getgenv().Settings.autoDeleteUnequippedWeapons = true
             while true do
-                wait()
+                wait(1)
                 pcall(function()
                     for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
                         if not v.isEquip then
@@ -155,7 +154,6 @@ ScriptsTab:AddToggle({
                                 }
                             }
                             game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
-                            wait(1)
                         end
                     end
                 end)
