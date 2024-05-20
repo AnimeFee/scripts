@@ -8,8 +8,6 @@ Range=500,
 AutoFarm=false,
 WalkToEnemy=false,
 DamageBoost=false,
-lv10gem=false,
-delgem=false,
 GoldCollect=false,};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
