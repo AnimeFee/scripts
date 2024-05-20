@@ -9,8 +9,7 @@ AutoFarm=false,
 WalkToEnemy=false,
 DamageBoost=false,
 GoldCollect=false,
-autoRaid=false,
-CurrentOption = "1",
+autodungeon=false,
 deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
@@ -164,61 +163,50 @@ spawn(function()
     end
 end)
 
-
-
-
-
-AutoDRTab:AddButton({
-        Name = "AutoCollectChestInRaid",
-        Callback = function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
-        end
-    })
-
-AutoDRTab:AddDropdown({
-	Name = "Difficulty",
-	Options = {"1", "2", "3", "4"},
-	CurrentOption = AutoDRTab.Settings.CurrentOption,
-	Callback = function(option)
-		AutoDRTab.Settings.CurrentOption = option
-		G.difficulty = tonumber(option)
-	end
+local DungeonSec = AutoDRTab:AddSection({
+	Name = "Dungeon"
 })
 
-AutoDRTab:AddToggle({
-	Name="Auto-Raid",
-	Default=false,
-	Callback=function(autoRaid)
-	if autoRaid then
-		AutoDRTab.Settings.autoRaid = true;
-		local function restartScript()
-			if (game.Players.LocalPlayer.Team.Name == "Raid") then
-				if (game.Players.LocalPlayer.leaderstats.RaidPoints.Value >= 10) then
-					local userID = game.Players.LocalPlayer.UserId;
-					local args = {[1]="Room3"};
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
-					args = {[1]={difficulty=G.difficulty,roomName="Room3",selectMapId=50105}};
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
-					args = {[1]={userIds={[1]=userID},roomName="Room3"}};
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
-					wait(240);
-					args = {[1]={currentSlotIndex=1,toMapId=50201}};
-					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
-					wait(60);
-					restartScript();
-				else
-					print("Not enough Raid Points");
-				end
-			else
-				print("Not in a Raid");
-			end
-		end
-		restartScript();
-	else
-		AutoDRTab.Settings.autoRaid = false;
-	end
-end});
+local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+    -- Teleport the player to the specified dungeon
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
+        {
+            ["mapId"] = dungeonMapId
+        }
+    )
+    wait(returnTime)
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
+        {
+            ["mapId"] = returnMapId
+        }
+    )
+end
+local AutoDungeonToggle =
+    DungeonSec:AddToggle(
+    {
+        Name = "Auto-Dungeon(FINALLY FIXED!!!)",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                while true do
+                    local currentTime = os.time()
+                    local nextTeleportTime = math.ceil(currentTime / (30 * 60)) * (30 * 60) - 15
+                    local waitTime = nextTeleportTime - currentTime
+                    wait(waitTime)
+                    TeleportToAndFromDungeon(50016, 50001, 15 * 60)
+                end
+            end
+        end
+    }
+)
+
+
+local Raid = AutoDRTab:AddSection({
+	Name = "Raid"
+})
+
+
+
 
 
 FuseTab:AddToggle({
