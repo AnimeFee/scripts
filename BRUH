@@ -82,7 +82,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end);
 ScriptsTab:AddToggle({Name="Delete Lower Lvl Gems",Callback=function(state)
 	if state then
-		getgenv().Settings.Nolv1 = not getgenv().Settings.DeleteLowerLvlGems;
+		getgenv().Settings.Nolv1 = not getgenv().Settings.Nolv1;
 		if getgenv().Settings.Nolv1 then
 			pcall(function()
 				local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
