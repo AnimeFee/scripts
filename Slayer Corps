@@ -497,31 +497,22 @@ spawn(function()
     end
 end)
 
-
-FuseGemTab:AddButton({
-    Name = "Level 10 Gems 🤑 ",
-    Callback = toggleFuseLevel10Gems
-})
-
-local toggleState = false
-local function toggleFuseLevel10Gems()
-    toggleState = not toggleState
-    if toggleState then
-        getgenv().Settings.lv10gem = true
-        pcall(function()
-            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+FuseGemTab:AddToggle({Name="Level 10 Gems :money_mouth: ",Callback=function(v59)
+	if v59 then
+		getgenv().Settings.lv10gem = true;
+		pcall(function()
+local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
             for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
                 pcall(function()
                     if v.equipPosition == nil or v.equipPosition == "" then
-                        local args = {
-                            [1] = {[1] = v.guid,[2] = v.guid,[3] = v.guid,[4] = v.guid,[5] = v.guid}}
+                        local args = {[1] = {[1] = v.guid,[2] = v.guid,[3] = v.guid,[4] = v.guid,[5] = v.guid}}
                         game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
                         task.wait()
                     end
                 end)
             end
-        end)
-    else
-        getgenv().Settings.lv10gem = false
-    end
-end
+        end);
+	else
+		getgenv().Settings.lv10gem = false;
+	end
+end});
