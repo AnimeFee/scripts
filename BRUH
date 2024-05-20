@@ -3,13 +3,13 @@ local Window = OrionLib:MakeWindow({Name="CoolHub",HidePremium=false,SaveConfig=
 
 getgenv().Settings = {
 AutoAtk=false,
-AutoDungeon=false,
 mespetsequiper={},
-Range=250,
+Range=500,
 AutoFarm=false,
 WalkToEnemy=false,
 DamageBoost=false,
-Nolv1=false,
+lv10gem=false,
+delgem=false,
 GoldCollect=false,};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
