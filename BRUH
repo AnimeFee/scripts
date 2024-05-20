@@ -9,6 +9,8 @@ AutoFarm=false,
 WalkToEnemy=false,
 DamageBoost=false,
 GoldCollect=false,
+autoRaid=false,
+CurrentOption = "1",
 deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
@@ -174,59 +176,49 @@ AutoDRTab:AddButton({
     })
 
 AutoDRTab:AddDropdown({
-        Name = "Difficulty",
-        Options = {"1", "2", "3", "4"},
-        CurrentOption = "1",
-        Callback = function(option)
-            G.difficulty = tonumber(option)
-        end
-    })
+	Name = "Difficulty",
+	Options = {"1", "2", "3", "4"},
+	CurrentOption = AutoDRTab.Settings.CurrentOption,
+	Callback = function(option)
+		AutoDRTab.Settings.CurrentOption = option
+		G.difficulty = tonumber(option)
+	end
+})
 
 AutoDRTab:AddToggle({
-        Name = "Auto-Raid",
-        Default = false,
-        Callback = function(Value)
-            if Value then
-                local function restartScript()
-                    local userID = game.Players.LocalPlayer.UserId
-                    local args = {
-                        [1] = "Room3"
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
-                    args = {
-                        [1] = {
-                            ["difficulty"] = G.difficulty,
-                            ["roomName"] = "Room3",
-                            ["selectMapId"] = 50105
-                        }
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
-                    args = {
-                        [1] = {
-                            ["userIds"] = {
-                                [1] = userID
-                            },
-                            ["roomName"] = "Room3"
-                        }
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer()
-                    wait(240)
-                    args = {
-                        [1] = {
-                            ["currentSlotIndex"] = 1,
-                            ["toMapId"] = 50201
-                        }
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
-                    wait(60)
-                    restartScript()
-                end
-                restartScript()
-            end
-        end
-    })
-
+	Name="Auto-Raid",
+	Default=false,
+	Callback=function(autoRaid)
+	if autoRaid then
+		AutoDRTab.Settings.autoRaid = true;
+		local function restartScript()
+			if (game.Players.LocalPlayer.Team.Name == "Raid") then
+				if (game.Players.LocalPlayer.leaderstats.RaidPoints.Value >= 10) then
+					local userID = game.Players.LocalPlayer.UserId;
+					local args = {[1]="Room3"};
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
+					args = {[1]={difficulty=G.difficulty,roomName="Room3",selectMapId=50105}};
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
+					args = {[1]={userIds={[1]=userID},roomName="Room3"}};
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
+					wait(240);
+					args = {[1]={currentSlotIndex=1,toMapId=50201}};
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
+					wait(60);
+					restartScript();
+				else
+					print("Not enough Raid Points");
+				end
+			else
+				print("Not in a Raid");
+			end
+		end
+		restartScript();
+	else
+		AutoDRTab.Settings.autoRaid = false;
+	end
+end});
 
 
 FuseTab:AddToggle({
