@@ -165,7 +165,66 @@ end)
 
 
 
---[[
+AutoRaidTab:AddButton({
+        Name = "AutoCollectChestInRaid",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
+        end
+    })
+
+AutoRaidTab:AddDropdown({
+        Name = "Difficulty",
+        Options = {"1", "2", "3", "4"},
+        CurrentOption = "1",
+        Callback = function(option)
+            G.difficulty = tonumber(option)
+        end
+    })
+
+AutoRaidTab:AddToggle({
+        Name = "Auto-Raid",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                local function restartScript()
+                    local userID = game.Players.LocalPlayer.UserId
+                    local args = {
+                        [1] = "Room3"
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
+                    args = {
+                        [1] = {
+                            ["difficulty"] = G.difficulty,
+                            ["roomName"] = "Room3",
+                            ["selectMapId"] = 50105
+                        }
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
+                    args = {
+                        [1] = {
+                            ["userIds"] = {
+                                [1] = userID
+                            },
+                            ["roomName"] = "Room3"
+                        }
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer()
+                    wait(240)
+                    args = {
+                        [1] = {
+                            ["currentSlotIndex"] = 1,
+                            ["toMapId"] = 50201
+                        }
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
+                    wait(60)
+                    restartScript()
+                end
+                restartScript()
+            end
+        end
+    })
 
 
 
@@ -195,8 +254,6 @@ end)
 
 
 
-
-]]--
 
 
 
