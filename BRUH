@@ -235,12 +235,7 @@ local Raid = AutoDRTab:AddSection({
 
 Raid:AddButton({
         Name = "WIP",
-        Callback = function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
-        end
     })
-
-
 
 
 
