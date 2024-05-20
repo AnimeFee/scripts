@@ -92,7 +92,7 @@ ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=fun
 	end
 end});
 
-local Sword = ScriptsTab:AddSection({
+local SwordSec = ScriptsTab:AddSection({
 	Name = "Fuse/Sell Swords"
 })
 
@@ -114,7 +114,33 @@ SwordSec:AddToggle({
 	end
 })
 
-
+SwordSec:AddToggle({
+    Name = "Auto Delete Unequipped Weapons",
+    Callback = function(autoDeleteUnequippedWeapons)
+        if autoDeleteUnequippedWeapons then
+            getgenv().Settings.autoDeleteUnequippedWeapons = true
+            while true do
+                wait()
+                pcall(function()
+                    local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+                    for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                        if not v.isEquip then
+                            local args = {
+                                [1] = {
+                                    [1] = v.guid
+                                }
+                            }
+                            game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
+                            wait(5) -- Wait for 5 seconds before checking again
+                        end
+                    end
+                end)
+            end
+        else
+            getgenv().Settings.autoDeleteUnequippedWeapons = false
+        end
+    end
+})
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
