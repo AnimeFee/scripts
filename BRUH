@@ -5,11 +5,10 @@ getgenv().Settings = {AutoAtk=false,AutoDungeon=false,mespetsequiper={},Range=50
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local AutoDungeonTab = Window:MakeTab({Name="Auto-Dungeon",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local AutoDungeonTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local FuseTab = Window:MakeTab({Name="Auto-FuseGem",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local legendaryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local mythicTab = Window:MakeTab({Name="Roll-Tab-Mythics",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local AutoRaidTab = Window:MakeTab({Name="Auto-Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 PlayerTab:AddDropdown({Name="Select Player",Options=playerNames,Callback=function(selectedPlayer)
