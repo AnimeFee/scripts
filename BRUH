@@ -125,18 +125,16 @@ SwordSec:AddToggle({
             getgenv().Settings.autoSellWeapons = true
             while getgenv().Settings.autoSellWeapons do
                 wait(1)
-                pcall(function()
-                    for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
-                        if not v.isEquip then
-                            local args = {
-                                [1] = {
-                                    [1] = v.guid
-                                }
+                for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                    if not v.isEquip then
+                        local args = {
+                            [1] = {
+                                [1] = v.guid
                             }
-                            game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
-                        end
+                        }
+                        game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
                     end
-                end)
+                end
             end
         else
             getgenv().Settings.autoSellWeapons = false
