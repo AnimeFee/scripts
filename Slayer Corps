@@ -528,7 +528,7 @@ FuseGemTab:AddToggle({Name="Delete Gem",Callback=function(Deletegem)
                         local args = {[1] = {[1] = v.guid}}
                         game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
                   wait()
-  end
+		  end	
                 end)
             end
         end);
