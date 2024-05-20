@@ -74,7 +74,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
                 for skillId = 200001, 200020 do
                     local a = { [1] = { ["heroGuid"] = tostring(v.guid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = skillId } }
                     game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
-                    task.wait(1) 
+                    task.wait(5) 
                 end
             end
         end
