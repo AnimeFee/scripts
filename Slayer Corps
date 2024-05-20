@@ -399,18 +399,19 @@ local function fuseGems(level)
     end
 end
 
-for level = 1, 9 do
-    FuseTab:AddToggle({
+FuseTab:AddToggle({
         Name = "Auto Fuse Lvl " .. level .. " Gems",
         Default = false,
         Callback = function(enabled)
-            getgenv().Settings["AutoFuseGemsLevel" .. level] = enabled
-            if enabled then
+for level = 1, 9 do                        
+	getgenv().Settings["AutoFuseGemsLevel" .. level] = enabled
+		if enabled then
                 while getgenv().Settings["AutoFuseGemsLevel" .. level] do
                     fuseGems(level)
-                end
-            end
-        end
+                		end
+            		end
+        	end
+	end
     })
 end    
     
