@@ -13,22 +13,13 @@ local Window = OrionLib:MakeWindow({
 getgenv().Settings = {
         AutoAtk = false, 
         AutoDungeon = false, 
-        AutoBuyGems = {
-            [10008] = false,
-            [10009] = false,
-            [10010] = false,
-            [10011] = false,
-            [10012] = false,
-            [10013] = false,
-            [10014] = false,
-            [10015] = false,
-            [10016] = false,
-         },
 	mespetsequiper = {},
 	Range = 500,
 	AutoFarm = false,
 	WalkToEnemy = false,
 	DamageBoost = false,
+	lv10gem = false,
+	delgem = false,
     }
     local function AutoAtk()
         while G.AutoAtk do
@@ -179,11 +170,7 @@ ScriptsTab:AddToggle({
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-    local FuseTab = Window:MakeTab({
-        Name = "Auto-FuseGem",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
+
 -- Creating a tab for legendary items
 local legendaryTab = Window:MakeTab({Name="Roll-Tab-Legendary", Icon="rbxassetid://4483345998", PremiumOnly=false})
 
@@ -405,71 +392,6 @@ end
 -- Adding a button to reroll a mythic trail
 mythicTab:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail})
 
-local function findGemIds(level)
-    local localPlayer = game.Players.LocalPlayer
-    local playerGui = localPlayer:WaitForChild("PlayerGui")
-    local gemsPanel = playerGui:WaitForChild("GemsPanel")
-    local frame = gemsPanel:WaitForChild("Frame")
-    local backgroundImage = frame:WaitForChild("BgImage")
-    local list = backgroundImage:WaitForChild("List")
-    local scrollingFrame = list:WaitForChild("ScrollingFrame")
-    local gem1, gem2, gem3, gem4, gem5
-
-    if scrollingFrame then
-        local count = 0
-        for _, child in ipairs(scrollingFrame:GetChildren()) do
-            if count >= 5 then break end
-            local numText = child:FindFirstChild("NumText")
-            if numText and numText.Text == "Lv." .. level then
-                count = count + 1
-                if count == 1 then gem1 = child.Name elseif count == 2 then gem2 = child.Name elseif count == 3 then gem3 = child.Name elseif count == 4 then gem4 = child.Name elseif count == 5 then gem5 = child.Name end
-            end
-        end
-
-        if count > 0 then
-            print("Gem IDs found:")
-            print("gem1:", gem1)
-            print("gem2:", gem2)
-            print("gem3:", gem3)
-            print("gem4:", gem4)
-            print("gem5:", gem5)
-        else
-            print("No gem IDs found.")
-        end
-    else
-        error("Error: ScrollingFrame not found.")
-    end
-    return gem1, gem2, gem3, gem4, gem5
-end
-
-local function fuseGems(level)
-    while true do
-        local gem1, gem2, gem3, gem4, gem5 = findGemIds(level)
-        if gem1 and gem2 and gem3 and gem4 and gem5 then
-            local gemIds = {[1] = {[1] = gem1, [2] = gem2, [3] = gem3, [4] = gem4, [5] = gem5}}
-            print("Invoking FuseGem remote with args:", gemIds)
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(gemIds))
-        else
-            print("Error: Could not find five gem IDs.")
-        end
-        wait(0.1)
-    end
-end
-
-for level = 1, 9 do
-    FuseTab:AddToggle({
-        Name = "Auto Fuse Lvl " .. level .. " Gems",
-        Default = false,
-        Callback = function(enabled)
-            getgenv().Settings["AutoFuseGemsLevel" .. level] = enabled
-            if enabled then
-                while getgenv().Settings["AutoFuseGemsLevel" .. level] do
-                    fuseGems(level)
-                end
-            end
-        end
-    })
-end    
     local AutoRaidTab = Window:MakeTab({
         Name = "Auto-Raid",
         Icon = "rbxassetid://4483345998",
@@ -753,3 +675,50 @@ MiscTab:AddButton({
         sethiddenproperty(game.Lighting, "Technology", "Compatibility")
     end,
 })
+
+
+    local FuseGemTab = Window:MakeTab({
+        Name = "Auto-FuseGem",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+FuseGemTab:AddToggle({Name="Level 10 Gems",Callback=function(v59)
+	if v59 then
+		getgenv().Settings.lv10gem = true;
+		pcall(function()
+		local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+            for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
+                pcall(function()
+                    if v.equipPosition == nil or v.equipPosition == "" then
+                        local args = {[1] = {[1] = v.guid,[2] = v.guid,[3] = v.guid,[4] = v.guid,[5] = v.guid}}
+                        game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
+                  wait()
+  end
+                end)
+            end
+        end);
+	else
+		getgenv().Settings.lv10gem = false;
+	end
+end});
+
+FuseGemTab:AddToggle({Name="Delete Gem",Callback=function(Deletegem)
+	if Deletegem then
+		getgenv().Settings.delgem = true;
+		pcall(function()
+		local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+            for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
+                pcall(function()
+                    if v.equipPosition == nil or v.equipPosition == "" then
+                        local args = {[1] = {[1] = v.guid}}
+                        game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args))
+                  wait()
+		  end	
+                end)
+            end
+        end);
+	else
+		getgenv().Settings.delgem = false;
+	end
+end});
