@@ -295,10 +295,6 @@ local Mythic = AccesoryTab:AddSection({
 })
 
 
-
--- Creating a tab for legendary items
-local Legendary = Window:MakeTab({Name="Roll-Tab-Legendary", Icon="rbxassetid://4483345998", PremiumOnly=false})
-
 -- Function to reroll a legendary mask
 local function rerollLegendaryMask()
     local rerollFound = false
@@ -410,9 +406,6 @@ end
 
 -- Adding a button to reroll a legendary trail
 Legendary:AddButton({Name="Reroll Trail", Callback=rerollLegendaryTrail})
-
--- Creating a tab for mythic items
-local Mythic = Window:MakeTab({Name="Roll-Tab-Mythics", Icon="rbxassetid://4483345998", PremiumOnly=false})
 
 -- Function to reroll a mythic mask
 local function rerollMythicMask()
