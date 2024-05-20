@@ -11,7 +11,8 @@ DamageBoost=false,
 GoldCollect=false,
 deleteGems=false,
 fuseLevel10Gems=false,
-};
+autoFuseSwords=false,
+}
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -23,6 +24,7 @@ local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",Premi
 PlayerTab:AddDropdown({Name="Select Player",Options=playerNames,Callback=function(selectedPlayer)
 	getgenv().Settings.selectedPlayer = selectedPlayer;
 end});
+
 PlayerTab:AddButton({Name="Trade Selected Player",Callback=function()
 	if getgenv().Settings.selectedPlayer then
 		game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer]);
@@ -39,7 +41,7 @@ PlayerTab:AddButton({Name="Refresh Player List",Callback=function()
 	getgenv().Settings.selectedPlayer = nil;
 end});
 
-PlayerTab:AddButton({Name="Dupe",Callback=function()
+PlayerTab:AddButton({Name="Dupe(Need To Trade)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
 
@@ -87,11 +89,24 @@ ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=fun
 		autoGainPowerLoop = nil;
 	end
 end});
-ScriptsTab:AddButton({Name="Auto Fuse Swords",Callback=function()
-	while wait() do
-		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer();
+
+ScriptsTab:AddToggle({
+	Name = "Auto Fuse Swords",
+	Callback = function(autoFuseSwords)
+		if autoFuseSwords then
+			getgenv().Settings.autoFuseSwords = true
+			while true do
+				wait()
+				pcall(function()
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
+				wait(5)
+				end)
+			end
+		else
+			getgenv().Settings.autoFuseSwords = false
+		end
 	end
-end});
+})
 
 
 
