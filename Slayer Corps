@@ -12,7 +12,6 @@ local Window = OrionLib:MakeWindow({
     })
 getgenv().Settings = {
         AutoDungeon = false, 
-        AutoBuyGems = {
 	mespetsequiper = {},
 	Range = 500,
 	AutoFarm = false,
@@ -21,7 +20,7 @@ getgenv().Settings = {
 	GoldCollect = false,
 	lv10gem = false,
 	delgem = false,
-    }}
+    }
    
  local PlayerTab = Window:MakeTab({
         Name = "Player",
