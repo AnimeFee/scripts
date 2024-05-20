@@ -29,23 +29,45 @@ local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
     table.insert(playerNames, player.Name)
 end
+
 PlayerTab:AddDropdown({
-        Name = "Select Player",
-        Options = playerNames,
-        Callback = function(selectedPlayer)
-            getgenv().Settings.selectedPlayer = selectedPlayer
-        end})
+    Name = "Select Player",
+    Options = playerNames,
+    Callback = function(selectedPlayer)
+        getgenv().Settings.selectedPlayer = selectedPlayer
+    end
+})
 
 PlayerTab:AddButton({
-        Name = "Trade Selected Player",
-        Callback = function()
-            if getgenv().Settings.selectedPlayer then
-                game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer])
-            else
-                warn("No player selected.")
-            end
+    Name = "Trade Selected Player",
+    Callback = function()
+        if getgenv().Settings.selectedPlayer then
+            game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer])
+        else
+            warn("No player selected.")
         end
-    })
+    end
+})
+
+PlayerTab:AddButton({
+    Name = "Refresh",
+    Callback = function()
+        PlayerTab:RemoveDropdown("Select Player")
+        local updatedPlayerNames = {}
+        for _, player in pairs(game.Players:GetPlayers()) do
+            table.insert(updatedPlayerNames, player.Name)
+        end
+        PlayerTab:AddDropdown({
+            Name = "Select Player",
+            Options = updatedPlayerNames,
+            Callback = function(selectedPlayer)
+                getgenv().Settings.selectedPlayer = selectedPlayer
+            end
+        })
+    end
+})
+
+
 PlayerTab:AddButton({Name="Dupe(Need To Trade)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
