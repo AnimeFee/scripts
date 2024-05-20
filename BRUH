@@ -149,23 +149,23 @@ FuseGemTab:AddToggle({Name="Delete Gem",Callback=function(v1)
 	end
 end});
 
-local Section = AccesoryTab:AddSection({
+local Legendary = AccesoryTab:AddSection({
 	Name = "Legendary"
 })
 
-AccesoryTab:AddButton({Name="Reroll Mask",Callback=rerollLegendaryMask});
-AccesoryTab:AddButton({Name="Reroll Awakening",Callback=rerollLegendaryAwakening});
-AccesoryTab:AddButton({Name="Reroll Ornament",Callback=rerollLegendaryOrnament});
-AccesoryTab:AddButton({Name="Reroll Trail",Callback=rerollLegendaryTrail});
+Legendary:AddButton({Name="Reroll Mask",Callback=rerollLegendaryMask});
+Legendary:AddButton({Name="Reroll Awakening",Callback=rerollLegendaryAwakening});
+Legendary:AddButton({Name="Reroll Ornament",Callback=rerollLegendaryOrnament});
+Legendary:AddButton({Name="Reroll Trail",Callback=rerollLegendaryTrail});
 
-local Section = AccesoryTab:AddSection({
+local Mythic = AccesoryTab:AddSection({
 	Name = "Mythic"
 })
 
-AccesoryTab:AddButton({Name="Reroll Mask",Callback=rerollMythicMask});
-AccesoryTab:AddButton({Name="Reroll Awakening",Callback=rerollMythicAwakening});
-AccesoryTab:AddButton({Name="Reroll Ornament",Callback=rerollMythicOrnament});
-AccesoryTab:AddButton({Name="Reroll Trail",Callback=rerollMythicTrail});
+Mythic:AddButton({Name="Reroll Mask",Callback=rerollMythicMask});
+Mythic:AddButton({Name="Reroll Awakening",Callback=rerollMythicAwakening});
+Mythic:AddButton({Name="Reroll Ornament",Callback=rerollMythicOrnament});
+Mythic:AddButton({Name="Reroll Trail",Callback=rerollMythicTrail});
 
 
 
