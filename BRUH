@@ -1,6 +1,8 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
 local Window = OrionLib:MakeWindow({Name="CoolHub",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
 
+local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+
 getgenv().Settings = {
 AutoAtk=false,
 mespetsequiper={},
@@ -13,6 +15,7 @@ autodungeon=false,
 deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
+autoSellSwords=false,
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -111,6 +114,33 @@ SwordSec:AddToggle({
 			getgenv().Settings.autoFuseSwords = false
 		end
 	end
+})
+
+ScriptsTab:AddToggle({
+    Name = "Auto Delete Unequipped Weapons",
+    Callback = function(autoDeleteUnequippedWeapons)
+        if autoDeleteUnequippedWeapons then
+            getgenv().Settings.autoDeleteUnequippedWeapons = true
+            while true do
+                wait()
+                pcall(function()
+                    for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                        if not v.isEquip then
+                            local args = {
+                                [1] = {
+                                    [1] = v.guid
+                                }
+                            }
+                            game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
+                            wait(5) -- Wait for 5 seconds before checking again
+                        end
+                    end
+                end)
+            end
+        else
+            getgenv().Settings.autoDeleteUnequippedWeapons = false
+        end
+    end
 })
 
 
