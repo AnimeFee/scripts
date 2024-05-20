@@ -92,7 +92,11 @@ ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=fun
 	end
 end});
 
-ScriptsTab:AddToggle({
+local Sword = ScriptsTab:AddSection({
+	Name = "Fuse/Sell Swords"
+})
+
+SwordSec:AddToggle({
 	Name = "Auto Fuse Swords",
 	Callback = function(autoFuseSwords)
 		if autoFuseSwords then
@@ -110,7 +114,33 @@ ScriptsTab:AddToggle({
 	end
 })
 
-
+SwordSec:AddToggle({
+    Name = "Auto Delete Unequipped Weapons",
+    Callback = function(autoDeleteUnequippedWeapons)
+        if autoDeleteUnequippedWeapons then
+            getgenv().Settings.autoDeleteUnequippedWeapons = true
+            while true do
+                wait()
+                pcall(function()
+                    local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+                    for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                        if not v.isEquip then
+                            local args = {
+                                [1] = {
+                                    [1] = v.guid
+                                }
+                            }
+                            game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
+                            wait(5) -- Wait for 5 seconds before checking again
+                        end
+                    end
+                end)
+            end
+        else
+            getgenv().Settings.autoDeleteUnequippedWeapons = false
+        end
+    end
+})
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
@@ -168,7 +198,7 @@ local DungeonSec = AutoDRTab:AddSection({
 	Name = "Dungeon"
 })
 
-local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+local function TeleportToAndFromDungeon(dungeonMapId, returnTime)
     -- Teleport the player to the specified dungeon
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
         {
@@ -178,7 +208,7 @@ local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
     wait(returnTime)
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
         {
-            ["mapId"] = returnMapId
+            ["mapId"] = 50001
         }
     )
 end
@@ -189,11 +219,11 @@ local AutoDungeonToggle =
         Callback = function(Value)
             if Value then
                 while true do
-                    local currentTime = os.time()
-                    local nextTeleportTime = math.ceil(currentTime / (30 * 60)) * (30 * 60) - 15
-                    local waitTime = nextTeleportTime - currentTime
-                    wait(waitTime)
-                    TeleportToAndFromDungeon(50016, 50001, 15 * 60)
+			local currentTime = os.time()
+			local nextTeleportTime = math.ceil(currentTime / (30 * 60)) * (30 * 60) - 15
+			local waitTime = nextTeleportTime - currentTime
+			wait(waitTime)
+			TeleportToAndFromDungeon(50016, 15 * 60)
                 end
             end
         end})
@@ -202,6 +232,13 @@ local AutoDungeonToggle =
 local Raid = AutoDRTab:AddSection({
 	Name = "Raid"
 })
+
+Raid:AddButton({
+        Name = "WIP",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
+        end
+    })
 
 
 
