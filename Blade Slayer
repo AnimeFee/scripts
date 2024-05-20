@@ -38,6 +38,12 @@ getgenv().Settings = {
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
+    local FuseGemTab = Window:MakeTab({
+        Name = "Auto-FuseGem",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
 ScriptsTab:AddToggle({
     Name = "Kill Aura",
     Callback = function(state)
@@ -675,13 +681,6 @@ MiscTab:AddButton({
         sethiddenproperty(game.Lighting, "Technology", "Compatibility")
     end,
 })
-
-
-    local FuseGemTab = Window:MakeTab({
-        Name = "Auto-FuseGem",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
 
 FuseGemTab:AddToggle({Name="Level 10 Gems",Callback=function(v59)
 	if v59 then
