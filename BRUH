@@ -208,9 +208,6 @@ local Raid = AutoDRTab:AddSection({
 
 
 
-
-
-
 FuseTab:AddToggle({
 	Name = "Fuse Level 10 Gems",
 	Callback = function(fuseLevel10Gems)
