@@ -214,7 +214,7 @@ local function TeleportToAndFromDungeon(dungeonMapId, returnTime)
 end
 local AutoDungeonToggle =
     DungeonSec:AddToggle({
-        Name = "Auto-Dungeon(FINALLY FIXED!!!)",
+        Name = "Auto-Dungeon",
         Default = false,
         Callback = function(Value)
             if Value then
@@ -230,7 +230,7 @@ local AutoDungeonToggle =
 
 
 local Raid = AutoDRTab:AddSection({
-	Name = "Raid"
+	Name = "Raid(WIP)"
 })
 
 
