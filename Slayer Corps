@@ -497,12 +497,6 @@ spawn(function()
     end
 end)
 
-FuseGemTab:MakeNotification({
-    Name = "Level 10 Gems Toggle",
-    Content = "Toggled " .. tostring(toggleState),
-    Image = "rbxassetid://4483345998",
-    Time = 3
-})
 
 FuseGemTab:AddButton({
     Name = "Level 10 Gems 🤑 ",
