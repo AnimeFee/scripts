@@ -97,21 +97,15 @@ ScriptsTab:AddButton({Name="SimpleSpy",Callback=function()
 	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
 end});
 
---[[
-
-
-
-THIS SECTION IS FOR AUTO DUNGEON AND RAID
 
 
 
 
 
-]]--
 
 
-FuseGemTab:AddToggle({Name="Level 10 Gems",Callback=function(v0)
-	if v0 then
+FuseGemTab:AddToggle({Name="Level 10 Gems",Callback=function(GemDupe)
+	if GemDupe then
 		getgenv().Settings.lv10gem = true;
 		pcall(function()
 			local v6 = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
