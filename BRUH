@@ -30,6 +30,9 @@ PlayerTab:AddButton({Name="Refresh Player List",Callback=function()
 	PlayerTab:GetElement("Select Player"):UpdateOptions(playerNames);
 	getgenv().Settings.selectedPlayer = nil;
 end});
+
+
+
 PlayerTab:AddButton({Name="Dupe",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
@@ -55,23 +58,28 @@ ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=fun
 		autoGainPowerLoop = nil;
 	end
 end});
-ScriptsTab:AddToggle({Name="Damage Boost",Callback=function(state)
-	if state then
-		getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost;
-	end
-end});
+ScriptsTab:AddToggle({
+    Name = "Damage Boost",
+    Callback = function(state)
+        if state then
+            getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
+        end
+    end,
+})
+
 game:GetService("RunService").Heartbeat:Connect(function()
-	if getgenv().Settings.DamageBoost then
-		local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-		for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-			if (v.isEquip == true) then
-				for skillId = 200001, 200020 do
-					local a = {[1]={heroGuid=tostring(v.guid),harmIndex=1,isSkill=false,skillId=skillId}};
-					game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a));
-				end
-			end
-		end
-	end
+    if getgenv().Settings.DamageBoost then
+        local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+        for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+            if v.isEquip == true then
+                for skillId = 200001, 200020 do
+                    local a = { [1] = { ["heroGuid"] = tostring(v.guid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = skillId } }
+                    game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
+                    task.wait(1) 
+                end
+            end
+        end
+    end
 end);
 ScriptsTab:AddToggle({Name="Delete Lower Lvl Gems",Callback=function(state)
 	if state then
