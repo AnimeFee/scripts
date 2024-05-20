@@ -1,14 +1,22 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
 local Window = OrionLib:MakeWindow({Name="CoolHub",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
 
-getgenv().Settings = {AutoAtk=false,AutoDungeon=false,mespetsequiper={},Range=250,AutoFarm=false,WalkToEnemy=false,DamageBoost=false,Nolv1=false,GoldCollect=false,};
+getgenv().Settings = {
+AutoAtk=false,
+AutoDungeon=false,
+mespetsequiper={},
+Range=250,
+AutoFarm=false,
+WalkToEnemy=false,
+DamageBoost=false,
+Nolv1=false,
+GoldCollect=false,};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local AutoDungeonTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local FuseTab = Window:MakeTab({Name="Auto-FuseGem",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local legendaryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local mythicTab = Window:MakeTab({Name="Roll-Tab-Mythics",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 PlayerTab:AddDropdown({Name="Select Player",Options=playerNames,Callback=function(selectedPlayer)
@@ -30,10 +38,37 @@ PlayerTab:AddButton({Name="Refresh Player List",Callback=function()
 	getgenv().Settings.selectedPlayer = nil;
 end});
 
-
-
 PlayerTab:AddButton({Name="Dupe",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
+end});
+
+ScriptsTab:AddToggle({Name="Auto Farm",Callback=function(v0)
+	if v0 then
+		getgenv().Settings.AutoFarm = true;
+	else
+		getgenv().Settings.AutoFarm = false;
+	end
+end});
+ScriptsTab:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
+	if v1 then
+		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
+		if getgenv().Settings.GoldCollect then
+			spawn(function()
+				while wait() do
+					for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
+						v9.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+					end
+				end
+			end);
+		end
+	end
+end});
+ScriptsTab:AddToggle({Name="Damage Boost",Callback=function(v2)
+	if v2 then
+		getgenv().Settings.DamageBoost = true;
+	else
+		getgenv().Settings.DamageBoost = false;
+	end
 end});
 
 ScriptsTab:AddButton({Name="Auto Fuse Swords",Callback=function()
@@ -57,108 +92,1013 @@ ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=fun
 		autoGainPowerLoop = nil;
 	end
 end});
-ScriptsTab:AddToggle({
-    Name = "Damage Boost",
-    Callback = function(state)
-        if state then
-            getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
-        end
-    end,
-})
 
-game:GetService("RunService").Heartbeat:Connect(function()
-    if getgenv().Settings.DamageBoost then
-        local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
-        for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-            if v.isEquip == true then
-                for skillId = 200001, 200020 do
-                    local a = { [1] = { ["heroGuid"] = tostring(v.guid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = skillId } }
-                    game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
-                    task.wait(5) 
-                end
-            end
-        end
-    end
-end);
-ScriptsTab:AddToggle({Name="Delete Lower Lvl Gems",Callback=function(state)
-	if state then
-		getgenv().Settings.Nolv1 = not getgenv().Settings.Nolv1;
-		if getgenv().Settings.Nolv1 then
-			pcall(function()
-				local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-				for _, v in pairs(WeaponsInventory.localPlayerData.gems) do
-					pcall(function()
-						if ((v.equipPosition == nil) or (v.equipPosition == "")) then
-							local args = {[1]={[1]=v.guid}};
-							game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args));
-							task.wait();
-						end
-					end);
-				end
-			end);
-		end
-	end
-end});
-ScriptsTab:AddToggle({Name="Auto Farm",Default=false,Callback=function(state)
-	if state then
-		getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm;
-		if getgenv().Settings.AutoFarm then
-			autoGainPower = false;
-			autoGainPowerLoop = nil;
-			fireDelay = 0.1;
-			autoFarmLoop = game:GetService("RunService").Heartbeat:Connect(function()
-				if getgenv().Settings.AutoFarm then
-					local nearestEnemy = Getenemies();
-					if nearestEnemy then
-						if getgenv().Settings.WalkToEnemy then
-							player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position);
-						end
-						local args = {nearestEnemy:GetAttribute("EnemyGuid")};
-						game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args));
-						game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args));
-					end
-				end
-			end);
-		elseif autoFarmLoop then
-			autoFarmLoop:Disconnect();
-			autoFarmLoop = nil;
-		end
-	end
-end});
-ScriptsTab:AddToggle({Name="Auto Collect Drops",Callback=function(state)
-	if state then
-		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
-		if getgenv().Settings.GoldCollect then
-			spawn(function()
-				while wait(1) do
-					for _, v in pairs(game.Workspace.Golds:GetChildren()) do
-						v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
-					end
-				end
-			end);
-		end
-	end
-end});
-local function Getenemies()
-	local nearest, dist = nil, getgenv().Settings.Range;
-	local Players = game.Players;
-	local localPlayer = Players.LocalPlayer;
-	local localCharacter = localPlayer.Character;
-	local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart");
-	if not humanoidRootPart then
-		return;
-	end
-	for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-		if (enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and (enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0")) then
-			local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude;
-			if (distance < dist) then
-				dist = distance;
-				nearest = enemy;
-			end
-		end
-	end
-	return nearest;
-end
 ScriptsTab:AddButton({Name="SimpleSpy",Callback=function()
 	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
 end});
+
+--[[
+
+
+
+THIS SECTION IS FOR AUTO DUNGEON AND RAID
+
+
+
+
+
+]]==
+
+
+FuseGemTab:AddToggle({Name="Level 10 Gems",Callback=function(v0)
+	if v0 then
+		getgenv().Settings.lv10gem = true;
+		pcall(function()
+			local v6 = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+			for v8, v9 in pairs(v6.localPlayerData.gems) do
+				pcall(function()
+					if ((v9.equipPosition == nil) or (v9.equipPosition == "")) then
+						local v12 = {[1]={[1]=v9.guid,[2]=v9.guid,[3]=v9.guid,[4]=v9.guid,[5]=v9.guid}};
+						game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(v12));
+						wait();
+					end
+				end);
+			end
+		end);
+	else
+		getgenv().Settings.lv10gem = false;
+	end
+end});
+FuseGemTab:AddToggle({Name="Delete Gem",Callback=function(v1)
+	if v1 then
+		getgenv().Settings.delgem = true;
+		pcall(function()
+			local v7 = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+			for v10, v11 in pairs(v7.localPlayerData.gems) do
+				pcall(function()
+					if ((v11.equipPosition == nil) or (v11.equipPosition == "")) then
+						local v13 = {[1]={[1]=v11.guid}};
+						game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(v13));
+						wait();
+					end
+				end);
+			end
+		end);
+	else
+		getgenv().Settings.delgem = false;
+	end
+end});
+
+local Section = AccesoryTab:AddSection({
+	Name = "Legendary"
+})
+
+AccesoryTab:AddButton({Name="Reroll Mask",Callback=rerollLegendaryMask});
+AccesoryTab:AddButton({Name="Reroll Awakening",Callback=rerollLegendaryAwakening});
+AccesoryTab:AddButton({Name="Reroll Ornament",Callback=rerollLegendaryOrnament});
+AccesoryTab:AddButton({Name="Reroll Trail",Callback=rerollLegendaryTrail});
+
+local Section = AccesoryTab:AddSection({
+	Name = "Mythic"
+})
+
+AccesoryTab:AddButton({Name="Reroll Mask",Callback=rerollMythicMask});
+AccesoryTab:AddButton({Name="Reroll Awakening",Callback=rerollMythicAwakening});
+AccesoryTab:AddButton({Name="Reroll Ornament",Callback=rerollMythicOrnament});
+AccesoryTab:AddButton({Name="Reroll Trail",Callback=rerollMythicTrail});
+
+
+
+local function rerollLegendaryMask()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400001};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410001") and (tostring(rerollResult.ornamentId) ~= "410002") and (tostring(rerollResult.ornamentId) ~= "410003") and (tostring(rerollResult.ornamentId) ~= "410004") and (tostring(rerollResult.ornamentId) ~= "410005")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410004") or (tostring(rerollResult.ornamentId) == "410005")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410004") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410005") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+local function rerollLegendaryAwakening()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400002};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410006") and (tostring(rerollResult.ornamentId) ~= "410007") and (tostring(rerollResult.ornamentId) ~= "410008") and (tostring(rerollResult.ornamentId) ~= "410009") and (tostring(rerollResult.ornamentId) ~= "410010")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410009") or (tostring(rerollResult.ornamentId) == "410010")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410009") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410010") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+local function rerollLegendaryOrnament()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400003};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410011") and (tostring(rerollResult.ornamentId) ~= "410012") and (tostring(rerollResult.ornamentId) ~= "410013") and (tostring(rerollResult.ornamentId) ~= "410014") and (tostring(rerollResult.ornamentId) ~= "410015")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410014") or (tostring(rerollResult.ornamentId) == "410015")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410014") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410015") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+local function rerollLegendaryTrail()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400004};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410016") and (tostring(rerollResult.ornamentId) ~= "410017") and (tostring(rerollResult.ornamentId) ~= "410018") and (tostring(rerollResult.ornamentId) ~= "410019") and (tostring(rerollResult.ornamentId) ~= "410020")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410019") or (tostring(rerollResult.ornamentId) == "410020")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410019") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410020") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+local function rerollMythicMask()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400001};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410001") and (tostring(rerollResult.ornamentId) ~= "410002") and (tostring(rerollResult.ornamentId) ~= "410003") and (tostring(rerollResult.ornamentId) ~= "410004") and (tostring(rerollResult.ornamentId) ~= "410005")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410005") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410005") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+local function rerollMythicAwakening()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400002};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410006") and (tostring(rerollResult.ornamentId) ~= "410007") and (tostring(rerollResult.ornamentId) ~= "410008") and (tostring(rerollResult.ornamentId) ~= "410009") and (tostring(rerollResult.ornamentId) ~= "410010")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410010") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410010") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+
+local function rerollMythicOrnament()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400003};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410011") and (tostring(rerollResult.ornamentId) ~= "410012") and (tostring(rerollResult.ornamentId) ~= "410013") and (tostring(rerollResult.ornamentId) ~= "410014") and (tostring(rerollResult.ornamentId) ~= "410015")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410015") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410015") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+
+local function rerollMythicTrail()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400004};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410016") and (tostring(rerollResult.ornamentId) ~= "410017") and (tostring(rerollResult.ornamentId) ~= "410018") and (tostring(rerollResult.ornamentId) ~= "410019") and (tostring(rerollResult.ornamentId) ~= "410020")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410020") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410020") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+pcall(function()
+    for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+        if v.isEquip == true then
+            table.insert(getgenv().Settings.mespetsequiper, v.guid)
+        end
+    end
+end)
+
+spawn(function()
+    local function GetEnemies()
+        local nearest, dist = nil, getgenv().Settings.Range
+        local Players = game.Players
+        local localPlayer = Players.LocalPlayer
+        local localCharacter = localPlayer.Character
+        local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+        if not humanoidRootPart then return end
+        for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+            if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+                if distance < dist then
+                    dist = distance
+                    nearest = enemy
+                end
+            end
+        end
+        return nearest
+    end
+
+    while task.wait() do
+        if getgenv().Settings.AutoFarm then
+            local nearestEnemy = GetEnemies()
+            if nearestEnemy then
+                if getgenv().Settings.WalkToEnemy then
+                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
+                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+                    end
+                end
+                if getgenv().Settings.DamageBoost then
+                    for c, d in pairs(getgenv().Settings.mespetsequiper) do
+                        local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                        game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
+                    end
+                end
+                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
+                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
+                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+            end
+        end
+    end
+end)
