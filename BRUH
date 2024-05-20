@@ -15,7 +15,7 @@ autodungeon=false,
 deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
-autoDeleteUnequippedWeapons=false,
+autoSellWeapons=false,
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -48,25 +48,6 @@ PlayerTab:AddButton({
         end
     end
 })
-
-PlayerTab:AddButton({
-    Name = "Refresh",
-    Callback = function()
-        PlayerTab:RemoveDropdown("Select Player")
-        local updatedPlayerNames = {}
-        for _, player in pairs(game.Players:GetPlayers()) do
-            table.insert(updatedPlayerNames, player.Name)
-        end
-        PlayerTab:AddDropdown({
-            Name = "Select Player",
-            Options = updatedPlayerNames,
-            Callback = function(selectedPlayer)
-                getgenv().Settings.selectedPlayer = selectedPlayer
-            end
-        })
-    end
-})
-
 
 PlayerTab:AddButton({Name="Dupe(Need To Trade)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
@@ -125,7 +106,7 @@ SwordSec:AddToggle({
     Callback = function(autoFuseSwords)
         if autoFuseSwords then
             getgenv().Settings.autoFuseSwords = true
-            while true do
+            while getgenv().Settings.autoFuseSwords do
                 wait(1)
                 pcall(function()
                     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
@@ -133,17 +114,16 @@ SwordSec:AddToggle({
             end
         else
             getgenv().Settings.autoFuseSwords = false
-            task.wait()
         end
     end
 })
 
 SwordSec:AddToggle({
     Name = "Auto Delete Unequipped Weapons",
-    Callback = function(autoDeleteUnequippedWeapons)
-        if autoDeleteUnequippedWeapons then
-            getgenv().Settings.autoDeleteUnequippedWeapons = true
-            while true do
+    Callback = function(autoSellWeapons)
+        if autoSellWeapons then
+            getgenv().Settings.autoSellWeapons = true
+            while getgenv().Settings.autoSellWeapons do
                 wait(1)
                 pcall(function()
                     for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
@@ -159,12 +139,10 @@ SwordSec:AddToggle({
                 end)
             end
         else
-            getgenv().Settings.autoDeleteUnequippedWeapons = false
-            task.wait() 
+            getgenv().Settings.autoSellWeapons = false
         end
     end
 })
-
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
