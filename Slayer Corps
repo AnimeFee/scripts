@@ -192,23 +192,6 @@ SwordSec:AddToggle({
 })
 
 SwordSec:AddToggle({
-    Name = "Auto Fuse Swords",
-    Callback = function(autoFuseSwords)
-        if autoFuseSwords then
-            getgenv().Settings.autoFuseSwords = true
-            while getgenv().Settings.autoFuseSwords do
-                wait(1)
-                pcall(function()
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
-                end)
-            end
-        else
-            getgenv().Settings.autoFuseSwords = false
-        end
-    end
-})
-
-SwordSec:AddToggle({
     Name = "Auto Delete Unequipped Weapons",
     Callback = function(autoSellWeapons)
         if autoSellWeapons then
