@@ -30,10 +30,12 @@ local Discord = PlayerTab:AddSection({Name="Join Our Discord >.<"});
 local EMount = PlayerTab:AddSection({Name="Mounts"});
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local FpsNoQuirk = PlayerTab:AddSection({Name="Fps Booster"});
-local FarmSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
+local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
+local Lvl10 = FuseTab:AddSection({Name="Auto Lvl 10 gem(Need Gems To Work)"});
+local Del1to9 = FuseTab:AddSection({Name="Delete Gem"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 
@@ -436,7 +438,7 @@ local AutoDungeonToggle =
 
 
 
-FuseTab:AddToggle({
+Lvl10:AddToggle({
 	Name = "Fuse Level 10 Gems",
 	Callback = function(fuseLevel10Gems)
 		if fuseLevel10Gems then
@@ -459,7 +461,7 @@ FuseTab:AddToggle({
 	end
 })
 
-FuseTab:AddToggle({
+Del1to9:AddToggle({
 	Name = "Delete Gems",
 	Callback = function(deleteGems)
 		if deleteGems then
