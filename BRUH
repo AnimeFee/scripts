@@ -26,11 +26,19 @@ local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
+PlayerTab:AddButton({
+  Name = "Copy Discord Link",
+  Callback = function()
+      setclipboard("https://discord.gg/88dfBYQk")
+      print("Discord link copied to clipboard")
+  end    
+})
+
 local TradeSec = PlayerTab:AddSection({
 	Name = "Trade"
 })
 
-TradeSec:AddButton({
+PlayerTab:AddButton({
   Name = "Copy Discord Link",
   Callback = function()
       setclipboard("https://discord.gg/88dfBYQk")
