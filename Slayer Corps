@@ -87,13 +87,13 @@ EMount:AddDropdown({
 EMount:AddButton({
     Name = "Click To Use The Mount",
     Callback = function()
-        if selectedValue then
+        if selectedValue and nameMap[selectedValue] then
             local args = {
                 [1] = selectedValue
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
         else
-            print("No value selected!")
+            print("No value selected or invalid mount ID!")
         end
     end
 })
