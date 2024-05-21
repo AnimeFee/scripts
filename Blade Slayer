@@ -4,6 +4,7 @@ local Window = OrionLib:MakeWindow({Name="CoolHub",HidePremium=false,SaveConfig=
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 
 getgenv().Settings = {
+AutoAtk=false,
 mespetsequiper={},
 Range=500,
 AutoFarm=false,
@@ -15,7 +16,7 @@ deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
 autoSellWeapons=false,
-selectedValue = nil,
+autoForgeWeapon=false,
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -26,9 +27,18 @@ local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
-local Discord = PlayerTab:AddSection({
-	Name = "Join Our Discord >.<"
-})
+local Discord = PlayerTab:AddSection({Name="Join Our Discord >.<"});
+local EMount = PlayerTab:AddSection({Name="Mounts"});
+local TradeSec = PlayerTab:AddSection({Name="Trade"});
+local FpsNoQuirk = PlayerTab:AddSection({Name="Fps Booster"});
+local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
+local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
+local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
+local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
+local Lvl10 = FuseTab:AddSection({Name="Auto Lvl 10 gem(Need Gems To Work)"});
+local Del1to9 = FuseTab:AddSection({Name="Delete Gem"});
+local Legendary = AccesoryTab:AddSection({Name="Legendary"});
+local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 
 Discord:AddButton({
   Name = "Copy Discord Link",
@@ -38,32 +48,56 @@ Discord:AddButton({
   end    
 })
 
-local EMount = PlayerTab:AddSection({
-	Name = "Mounts"
-})
+local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Gold Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Pomni",[100007]="Doge Car",[100008]="Magic Carpet",[100009]="Tron Bike",[100010]="Fire Wheel",[100011]="Water Wheel",[100012]="Sleigh",[100013]="Banana Car",[100014]="Flying Swords",[100015]="Motor Bike",[100016]="Broken Sky",[100017]="Broom",[100018]="Rubber Ducky",[100019]="Bat Mobile",[100020]="Tank",[100021]="Superman",[100022]="UFO",[100023]="Rocket",[100024]="Pirate Ship",[100025]="Leaf",[100026]="Plane"};
+local mountNames = {};
+for _, name in pairs(nameMap) do
+	table.insert(mountNames, name);
+end
+EMount:AddDropdown({Name="Select Mount",Options=mountNames,Callback=function(selectedMount)
+	getgenv().Settings.selectedMount = selectedMount;
+end});
+EMount:AddButton({Name="Use Selected Mount",Callback=function()
+	if getgenv().Settings.selectedMount then
+		for id, name in pairs(nameMap) do
+			if (name == getgenv().Settings.selectedMount) then
+				local args = {[1]=id};
+				game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args));
+				break;
+			end
+		end
+	else
+		warn("No mount selected.");
+	end
+end});
 
-getgenv().Settings.dropdown = EMount:AddDropdown({
-    Name = "Dropdown",
-    Default = "1",
-    Options = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"},
-    Callback = function(Value)
-       getgenv().Settings.selectedValue = Value
+local playerNames = {}
+for _, player in pairs(game.Players:GetPlayers()) do
+    table.insert(playerNames, player.Name)
+end
+
+TradeSec:AddDropdown({
+    Name = "Select Player",
+    Options = playerNames,
+    Callback = function(selectedPlayer)
+        getgenv().Settings.selectedPlayer = selectedPlayer
     end
 })
 
-getgenv().Settings.button = EMount:AddButton({
-    Name = "Click To Use The Mount",
+TradeSec:AddButton({
+    Name = "Trade Selected Player",
     Callback = function()
-        local args = {
-            [1] = getgenv().Settings.selectedValue
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
+        if getgenv().Settings.selectedPlayer then
+            game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer])
+        else
+            warn("No player selected.")
+        end
     end
 })
 
-local FpsNoQuirk  = PlayerTab:AddSection({
-	Name = "Fps Booster"
-})
+TradeSec:AddButton({Name="Dupe(Need To Trade)",Callback=function()
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
+end});
+
 
 FpsNoQuirk:AddButton({
     Name = "Fps Booster",
@@ -115,14 +149,14 @@ FpsNoQuirk:AddButton({
     end,
 })
 
-ScriptsTab:AddToggle({Name="Auto Farm",Callback=function(v0)
+FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	if v0 then
 		getgenv().Settings.AutoFarm = true;
 	else
 		getgenv().Settings.AutoFarm = false;
 	end
 end});
-ScriptsTab:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
+FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	if v1 then
 		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
 		if getgenv().Settings.GoldCollect then
@@ -136,18 +170,28 @@ ScriptsTab:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 		end
 	end
 end});
-ScriptsTab:AddToggle({Name="Damage Boost",Callback=function(v2)
+FarmSec:AddToggle({Name="Damage Boost",Callback=function(v2)
 	if v2 then
 		getgenv().Settings.DamageBoost = true;
 	else
 		getgenv().Settings.DamageBoost = false;
 	end
 end});
-
-
-local SwordSec = ScriptsTab:AddSection({
-	Name = "Fuse/Sell Swords"
-})
+FarmSec:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
+	Settings.AutoAtk = Value;
+	if Settings.AutoAtk then
+		autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
+			local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes");
+			if (remotes and remotes:FindFirstChild("PlayerClickAttack")) then
+				remotes.PlayerClickAttack:FireServer();
+			end
+			wait(0.1);
+		end);
+	elseif autoGainPowerLoop then
+		autoGainPowerLoop:Disconnect();
+		autoGainPowerLoop = nil;
+	end
+end});
 
 SwordSec:AddToggle({
     Name = "Auto Fuse Swords",
@@ -186,6 +230,39 @@ SwordSec:AddToggle({
             end
         else
             getgenv().Settings.autoSellWeapons = false
+        end
+    end
+})
+
+local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+pcall(function()
+    for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+        if v.isEquip == true then
+            table.insert(getgenv().Settings.mespetsequiper, v.guid)
+        end
+    end
+end)
+
+SwordSec:AddToggle({
+    Name = "Auto Forge Equipped Weapon",
+    Callback = function(autoForgeWeapon)
+        if autoForgeWeapon then
+            getgenv().Settings.autoForgeWeapon = true
+            while getgenv().Settings.autoForgeWeapon do
+                wait(0.00000000001)
+                for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                    if v.isEquip then
+                        local args = {
+                            [1] = {
+                                [1] = v.guid
+                            }
+                        }
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ForgeWeapon"):InvokeServer(unpack(args))
+                    end
+                end
+            end
+        else
+            getgenv().Settings.autoForgeWeapon = false
         end
     end
 })
@@ -244,7 +321,7 @@ end)
 
 
 TeleportTab:AddButton({
-    Name = "Novice Village(World 1)",
+    Name = "Fantasy Valley(World 1)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -255,7 +332,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 })
 
 TeleportTab:AddButton({
-    Name = "Final Selection(World 2)",
+    Name = "Seaside Villa(World 2)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -266,7 +343,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 })
 
 TeleportTab:AddButton({
-    Name = "Column Meeting(World 3)",
+    Name = "Congress Hall(World 3)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -277,7 +354,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 })
 
 TeleportTab:AddButton({
-    Name = "Monolithic Trials(World 4)",
+    Name = "Border Territory(World 4)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -289,7 +366,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 
 
 TeleportTab:AddButton({
-    Name = "Fujikasane Yama(World 5)",
+    Name = "Polar Plain(World 5)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -300,7 +377,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 })
 
 TeleportTab:AddButton({
-    Name = "Muzan Kibutsuji(World 6)",
+    Name = "Ghost Forest(World 6)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -312,7 +389,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 
 
 TeleportTab:AddButton({
-    Name = "Infinite Train(World 7)",
+    Name = "Demon Station(World 7)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -323,7 +400,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 })
 
 TeleportTab:AddButton({
-    Name = "Infinite City(World 8)",
+    Name = "Hashira Training(World 8)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -335,7 +412,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 
 
 TeleportTab:AddButton({
-    Name = "Hashira Training(World 9)",
+    Name = "Infinite City(World 9)",
     Callback = function()
 	local args = {
   	  [1] = {
@@ -358,9 +435,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 
 
 
-local DungeonSec = AutoDRTab:AddSection({
-	Name = "Dungeon"
-})
+
 
 local function TeleportToAndFromDungeon(dungeonMapId, returnTime)
     -- Teleport the player to the specified dungeon
@@ -393,14 +468,11 @@ local AutoDungeonToggle =
         end})
 
 
-local Raid = AutoDRTab:AddSection({
-	Name = "Raid(WIP)"
-})
 
 
 
 
-FuseTab:AddToggle({
+Lvl10:AddToggle({
 	Name = "Fuse Level 10 Gems",
 	Callback = function(fuseLevel10Gems)
 		if fuseLevel10Gems then
@@ -423,7 +495,7 @@ FuseTab:AddToggle({
 	end
 })
 
-FuseTab:AddToggle({
+Del1to9:AddToggle({
 	Name = "Delete Gems",
 	Callback = function(deleteGems)
 		if deleteGems then
@@ -447,16 +519,6 @@ FuseTab:AddToggle({
 })
 
 
-
-
-local Legendary = AccesoryTab:AddSection({
-	Name = "Legendary"
-})
-
-
-local Mythic = AccesoryTab:AddSection({
-	Name = "Mythic"
-})
 
 local function rerollLegendaryMask()
     local rerollFound = false
