@@ -95,7 +95,10 @@ EMount:AddButton({
             for id, name in pairs(nameMap) do
                 if name == getgenv().Settings.selectedMount then
                     -- Use the selected mount ID here
-                    print("Using mount ID:", id)
+                    local args = {
+                        [1] = id
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
                     break
                 end
             end
@@ -104,6 +107,7 @@ EMount:AddButton({
         end
     end
 })
+
 local FpsNoQuirk  = PlayerTab:AddSection({
 	Name = "Fps Booster"
 })
