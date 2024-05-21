@@ -57,11 +57,11 @@ TradeSec:AddButton({Name="Dupe(Need To Trade)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
 
-local Fps/NoQuirk  = PlayerTab:AddSection({
+local FpsNoQuirk  = PlayerTab:AddSection({
 	Name = "Fuse/Sell Swords"
 })
 
-Fps/NoQuirk:AddToggle({Name="No Quirk Animation(this can break alot of things)",Callback=function(v1)
+FpsNoQuirk:AddToggle({Name="No Quirk Animation(this can break alot of things)",Callback=function(v1)
 	if v1 then
 		getgenv().Settings.GeniusMode = true
 		local old_wait = wait
@@ -74,7 +74,7 @@ Fps/NoQuirk:AddToggle({Name="No Quirk Animation(this can break alot of things)",
 	end
 end});
 
-Fps/NoQuirk:AddButton({
+FpsNoQuirk:AddButton({
     Name = "Fps Booster",
     Callback = function()
         for a, b in pairs(game.ReplicatedStorage.SkillEffects:GetDescendants()) do
