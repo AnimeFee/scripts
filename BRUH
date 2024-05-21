@@ -208,7 +208,7 @@ spawn(function()
                 end
 if getgenv().Settings.DamageBoost then
     for _, d in pairs(getgenv().Settings.mespetsequiper) do
-        for x = 200000, 200050 do
+        for x = 200000, 200020 do
             local args = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = x }
             game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(args)
         end
