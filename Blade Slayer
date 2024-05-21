@@ -252,9 +252,10 @@ SwordSec:AddToggle({
                 wait(0.00000000001)
                 for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
                     if v.isEquip then
+                        local weaponId = v.mespetsequiper
                         local args = {
                             [1] = {
-                                [1] = v.guid
+                                [1] = weaponId
                             }
                         }
                         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ForgeWeapon"):InvokeServer(unpack(args))
