@@ -16,18 +16,6 @@ deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
 autoSellWeapons=false,
-mapIds = {
-["Fantasy Valley"] = 50001,
-["Seaside Villa"] = 50002,
-["Congress Hall"] = 50003,
-["Border Territory"] = 50004,
-["Polar Plain"] = 50005,
-["Ghost Forest"] = 50006,
-["Demon Station"] = 50007,
-["Hashira's Training"] = 50008,
-["Infinite City"] = 50009,
-["One Punch Man"] = 50010,
-},
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -265,33 +253,28 @@ spawn(function()
     end
 end)
 
-TeleportTab:AddDropdown({
-    Name = "Select Map",
-    Options = {"Fantasy Valley", "Seaside Villa", "Congress Hall", "Border Territory", "Polar Plain", "Ghost Forest", "Demon Station", "Hashira's Training", "Infinite City", "One Punch Man"},
-    Callback = function(selectedMap)
-        local mapId = mapIds[selectedMap]
-        getgenv().Settings.selectedMap = mapId
+
+TeleportTab:AddButton({
+    Name = "Fantasy Valley(World 1)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50001
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
     end
 })
 
 TeleportTab:AddButton({
-    Name = "Teleport to Selected Map",
+    Name = "Seaside Villa(World 2)",
     Callback = function()
-        local selectedMap = getgenv().Settings.selectedMap
-        if selectedMap then
-            local args = {
-                [1] = {
-                    ["mapId"] = selectedMap
-                }
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        else
-            warn("No map selected.")
-        end
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50002
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
     end
 })
-
-
 
 
 
