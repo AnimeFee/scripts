@@ -15,7 +15,6 @@ deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
 autoSellWeapons=false,
-selectedValue = 1,
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -39,25 +38,29 @@ Discord:AddButton({
 })
 
 local EMount = PlayerTab:AddSection({
-	Name = "Mounts"
+    Name = "Mounts"
 })
 
-getgenv().Settings.dropdown = EMount:AddDropdown({
+EMount:AddDropdown({
     Name = "Dropdown",
     Default = "1",
     Options = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"},
     Callback = function(Value)
-       getgenv().Settings.selectedValue = Value
+        selectedValue = Value
     end
 })
 
-getgenv().Settings.button = EMount:AddButton({
+EMount:AddButton({
     Name = "Click To Use The Mount",
     Callback = function()
-        local args = {
-            [1] = getgenv().Settings.selectedValue
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
+        if selectedValue then
+            local args = {
+                [1] = selectedValue
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
+        else
+            print("No value selected!")
+        end
     end
 })
 
