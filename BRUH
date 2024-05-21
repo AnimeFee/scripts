@@ -30,6 +30,13 @@ local TradeSec = PlayerTab:AddSection({
 	Name = "Trade"
 })
 
+TradeSec:AddButton({
+  Name = "Copy Discord Link",
+  Callback = function()
+      setclipboard("https://discord.gg/88dfBYQk")
+      print("Discord link copied to clipboard")
+  end    
+})
 
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
