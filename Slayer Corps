@@ -75,27 +75,23 @@ local nameMap = {
     [100031] = "Plane",
 }
 
+local mountNames = {}
+for _, name in pairs(nameMap) do
+    table.insert(mountNames, name)
+end
+
 EMount:AddDropdown({
     Name = "Dropdown",
-    Default = 100001,
-    Options = nameMap,
+    Default = "Cloud",
+    Options = mountNames,
     Callback = function(Value)
-        selectedValue = Value
-    end
-})
-
-EMount:AddButton({
-    Name = "Click To Use The Mount",
-    Callback = function()
-        if selectedValue and nameMap[selectedValue] then
-            local args = {
-                [1] = selectedValue
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
-        else
-            print("No value selected or invalid mount ID!")
+        for id, name in pairs(nameMap) do
+            if name == Value then
+                selectedValue = id
+                break
+            end
         end
-    end
+    end    
 })
 
 local FpsNoQuirk  = PlayerTab:AddSection({
