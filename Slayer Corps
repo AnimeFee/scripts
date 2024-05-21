@@ -94,7 +94,6 @@ EMount:AddButton({
         if getgenv().Settings.selectedMount then
             for id, name in pairs(nameMap) do
                 if name == getgenv().Settings.selectedMount then
-                    -- Use the selected mount ID here
                     local args = {
                         [1] = id
                     }
