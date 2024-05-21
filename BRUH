@@ -26,9 +26,15 @@ local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
-local Discord = PlayerTab:AddSection({
-	Name = "Join Our Discord >.<"
-})
+local Discord = PlayerTab:AddSection({Name="Join Our Discord >.<"});
+local EMount = PlayerTab:AddSection({Name="Mounts"});
+local TradeSec = PlayerTab:AddSection({Name="Trade"});
+local FpsNoQuirk = PlayerTab:AddSection({Name="Fps Booster"});
+local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
+local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
+local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
+local Legendary = AccesoryTab:AddSection({Name="Legendary"});
+local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 
 Discord:AddButton({
   Name = "Copy Discord Link",
@@ -38,9 +44,27 @@ Discord:AddButton({
   end    
 })
 
-local TradeSec = PlayerTab:AddSection({
-	Name = "Trade"
-})
+local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Somersault Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Magic Carpet",[100007]="Pop Car",[100008]="Pomni",[100009]="Sleigh",[100010]="Precious Toilet",[100011]="Banana Cat",[100012]="Electronic Fantasy",[100013]="Doge Car",[100014]="Fire Wheel",[100015]="Water Wheel 1",[100016]="Water Wheel 2",[100017]="Hot Wheels",[100018]="Banana Car",[100019]="Flying Swords",[100020]="Justince Onslaught",[100021]="Broken Sky",[100022]="Nimbus",[100023]="Rubber Dukiro",[100024]="Batmobile",[100025]="Torrent Of Steel",[100026]="Super Daddy",[100027]="Flying Saucer",[100028]="Rocket",[100029]="SpaceShip",[100030]="Flying Leaves",[100031]="Plane"};
+local mountNames = {};
+for _, name in pairs(nameMap) do
+	table.insert(mountNames, name);
+end
+EMount:AddDropdown({Name="Select Mount",Options=mountNames,Callback=function(selectedMount)
+	getgenv().Settings.selectedMount = selectedMount;
+end});
+EMount:AddButton({Name="Use Selected Mount",Callback=function()
+	if getgenv().Settings.selectedMount then
+		for id, name in pairs(nameMap) do
+			if (name == getgenv().Settings.selectedMount) then
+				local args = {[1]=id};
+				game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args));
+				break;
+			end
+		end
+	else
+		warn("No mount selected.");
+	end
+end});
 
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
@@ -70,9 +94,6 @@ TradeSec:AddButton({Name="Dupe(Need To Trade)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
 
-local FpsNoQuirk  = PlayerTab:AddSection({
-	Name = "Fps Booster"
-})
 
 FpsNoQuirk:AddButton({
     Name = "Fps Booster",
@@ -167,10 +188,6 @@ ScriptsTab:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=fun
 		autoGainPowerLoop = nil;
 	end
 end});
-
-local SwordSec = ScriptsTab:AddSection({
-	Name = "Fuse/Sell Swords"
-})
 
 SwordSec:AddToggle({
     Name = "Auto Fuse Swords",
@@ -381,9 +398,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 
 
 
-local DungeonSec = AutoDRTab:AddSection({
-	Name = "Dungeon"
-})
+
 
 local function TeleportToAndFromDungeon(dungeonMapId, returnTime)
     -- Teleport the player to the specified dungeon
@@ -416,9 +431,6 @@ local AutoDungeonToggle =
         end})
 
 
-local Raid = AutoDRTab:AddSection({
-	Name = "Raid(WIP)"
-})
 
 
 
@@ -470,16 +482,6 @@ FuseTab:AddToggle({
 })
 
 
-
-
-local Legendary = AccesoryTab:AddSection({
-	Name = "Legendary"
-})
-
-
-local Mythic = AccesoryTab:AddSection({
-	Name = "Mythic"
-})
 
 local function rerollLegendaryMask()
     local rerollFound = false
