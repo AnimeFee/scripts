@@ -15,6 +15,7 @@ deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
 autoSellWeapons=false,
+autoForgeWeapon=false,
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -40,70 +41,7 @@ Discord:AddButton({
 local EMount = PlayerTab:AddSection({ Name = "Mounts" })
 
 local nameMap = {
-    [100001] = "Cloud",
-    [100002] = "Lightning Cloud",
-    [100003] = "Somersault Cloud",
-    [100004] = "Magic Skateboard",
-    [100005] = "Sci-Fi Skateboard",
-    [100006] = "Magic Carpet",
-    [100007] = "Pop Car",
-    [100008] = "Pomni",
-    [100009] = "Sleigh",
-    [100010] = "Precious Toilet",
-    [100011] = "Banana Cat",
-    [100012] = "Electronic Fantasy",
-    [100013] = "Doge Car",
-    [100014] = "Fire Wheel",
-    [100015] = "Water Wheel 1",
-    [100016] = "Water Wheel 2",
-    [100017] = "Hot Wheels",
-    [100018] = "Banana Car",
-    [100019] = "Flying Swords",
-    [100020] = "Justince Onslaught",
-    [100021] = "Broken Sky",
-    [100022] = "Nimbus",
-    [100023] = "Rubber Dukiro",
-    [100024] = "Batmobile",
-    [100025] = "Torrent Of Steel",
-    [100026] = "Super Daddy",
-    [100027] = "Flying Saucer",
-    [100028] = "Rocket",
-    [100029] = "SpaceShip",
-    [100030] = "Flying Leaves",
-    [100031] = "Plane",
-}
-
-local mountNames = {}
-for _, name in pairs(nameMap) do
-    table.insert(mountNames, name)
-end
-
-EMount:AddDropdown({
-    Name = "Select Mount",
-    Options = mountNames,
-    Callback = function(selectedMount)
-        getgenv().Settings.selectedMount = selectedMount
-    end
-})
-
-EMount:AddButton({
-    Name = "Use Selected Mount",
-    Callback = function()
-        if getgenv().Settings.selectedMount then
-            for id, name in pairs(nameMap) do
-                if name == getgenv().Settings.selectedMount then
-                    local args = {
-                        [1] = id
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
-                    break
-                end
-            end
-        else
-            warn("No mount selected.")
-        end
-    end
-})
+    [
 
 local FpsNoQuirk  = PlayerTab:AddSection({
 	Name = "Fps Booster"
@@ -233,6 +171,32 @@ SwordSec:AddToggle({
         end
     end
 })
+
+SwordSec:AddToggle({
+    Name = "Auto Forge Equipped Weapon",
+    Callback = function(autoForgeWeapon)
+        if autoForgeWeapon then
+            getgenv().Settings.autoForgeWeapon = true
+            while getgenv().Settings.autoForgeWeapon do
+                wait(0.000000000000001)
+                for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                    if v.isEquip then
+                        local args = {
+                            [1] = {
+                                [1] = v.guid
+                            }
+                        }
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ForgeWeapon"):InvokeServer(unpack(args))
+                    end
+                end
+            end
+        else
+            getgenv().Settings.autoForgeWeapon = false
+        end
+    end
+})
+
+
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
@@ -751,3 +715,69 @@ spawn(function()
         VirtualUser:ClickButton2(Vector2.new())
     end
 end)
+
+
+100001] = "Cloud",
+    [100002] = "Lightning Cloud",
+    [100003] = "Somersault Cloud",
+    [100004] = "Magic Skateboard",
+    [100005] = "Sci-Fi Skateboard",
+    [100006] = "Magic Carpet",
+    [100007] = "Pop Car",
+    [100008] = "Pomni",
+    [100009] = "Sleigh",
+    [100010] = "Precious Toilet",
+    [100011] = "Banana Cat",
+    [100012] = "Electronic Fantasy",
+    [100013] = "Doge Car",
+    [100014] = "Fire Wheel",
+    [100015] = "Water Wheel 1",
+    [100016] = "Water Wheel 2",
+    [100017] = "Hot Wheels",
+    [100018] = "Banana Car",
+    [100019] = "Flying Swords",
+    [100020] = "Justince Onslaught",
+    [100021] = "Broken Sky",
+    [100022] = "Nimbus",
+    [100023] = "Rubber Dukiro",
+    [100024] = "Batmobile",
+    [100025] = "Torrent Of Steel",
+    [100026] = "Super Daddy",
+    [100027] = "Flying Saucer",
+    [100028] = "Rocket",
+    [100029] = "SpaceShip",
+    [100030] = "Flying Leaves",
+    [100031] = "Plane",
+}
+
+local mountNames = {}
+for _, name in pairs(nameMap) do
+    table.insert(mountNames, name)
+end
+
+EMount:AddDropdown({
+    Name = "Select Mount",
+    Options = mountNames,
+    Callback = function(selectedMount)
+        getgenv().Settings.selectedMount = selectedMount
+    end
+})
+
+EMount:AddButton({
+    Name = "Use Selected Mount",
+    Callback = function()
+        if getgenv().Settings.selectedMount then
+            for id, name in pairs(nameMap) do
+                if name == getgenv().Settings.selectedMount then
+                    local args = {
+                        [1] = id
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args))
+                    break
+                end
+            end
+        else
+            warn("No mount selected.")
+        end
+    end
+})
