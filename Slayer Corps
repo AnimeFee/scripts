@@ -80,27 +80,30 @@ for _, name in pairs(nameMap) do
     table.insert(mountNames, name)
 end
 
-local selectedValue = nil
-
-Tab:AddButton({
+EMount:AddDropdown({
     Name = "Select Mount",
-    Callback = function()
-        local selectedMount = OrionLib:ShowDropdown({
-            Name = "Select a Mount",
-            Options = mountNames,
-            Default = "Cloud",
-            MultiSelect = false
-        })
-        
-        for id, name in pairs(nameMap) do
-            if name == selectedMount then
-                selectedValue = id
-                break
-            end
-        end
+    Options = mountNames,
+    Callback = function(selectedMount)
+        getgenv().Settings.selectedMount = selectedMount
     end
 })
 
+EMount:AddButton({
+    Name = "Use Selected Mount",
+    Callback = function()
+        if getgenv().Settings.selectedMount then
+            for id, name in pairs(nameMap) do
+                if name == getgenv().Settings.selectedMount then
+                    -- Use the selected mount ID here
+                    print("Using mount ID:", id)
+                    break
+                end
+            end
+        else
+            warn("No mount selected.")
+        end
+    end
+})
 local FpsNoQuirk  = PlayerTab:AddSection({
 	Name = "Fps Booster"
 })
