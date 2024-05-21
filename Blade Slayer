@@ -249,7 +249,7 @@ SwordSec:AddToggle({
         if autoForgeSword then
             getgenv().Settings.autoForgeSword = true
             while getgenv().Settings.autoForgeSword do
-                wait(1)
+                wait(.0000001)
                 for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
                     if v.isEquip then
                         local args = {
