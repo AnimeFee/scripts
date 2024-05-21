@@ -307,7 +307,7 @@ TeleportTab:AddButton({
     Callback = function()
 	local args = {
   	  [1] = {
-          ["mapId"] = 50006
+          ["mapId"] = 50013
     }}
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
     end
@@ -319,7 +319,7 @@ TeleportTab:AddButton({
     Callback = function()
 	local args = {
   	  [1] = {
-          ["mapId"] = 50007
+          ["mapId"] = 50015
     }}
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
     end
@@ -330,7 +330,7 @@ TeleportTab:AddButton({
     Callback = function()
 	local args = {
   	  [1] = {
-          ["mapId"] = 50008
+          ["mapId"] = 50017
     }}
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
     end
@@ -342,7 +342,7 @@ TeleportTab:AddButton({
     Callback = function()
 	local args = {
   	  [1] = {
-          ["mapId"] = 50009
+          ["mapId"] = 50018
     }}
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
     end
@@ -353,7 +353,7 @@ TeleportTab:AddButton({
     Callback = function()
 	local args = {
   	  [1] = {
-          ["mapId"] = 50010
+          ["mapId"] = 50019
     }}
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
     end
