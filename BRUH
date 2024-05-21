@@ -61,6 +61,20 @@ local FpsNoQuirk  = PlayerTab:AddSection({
 	Name = "Fuse/Sell Swords"
 })
 
+local old_wait = wait
+local toggle = false
+
+FpsNoQuirk:AddToggle({Name="Fast Quirk Anims(Can Break The Game)",Callback=function(v1)
+    toggle = v1
+    if toggle then
+        wait = function(seconds)
+            return 0
+        end
+    else
+        wait = old_wait
+    end
+end})
+
 FpsNoQuirk:AddButton({
     Name = "Fps Booster",
     Callback = function()
