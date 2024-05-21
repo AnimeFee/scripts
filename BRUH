@@ -30,6 +30,15 @@ local TradeSec = PlayerTab:AddSection({
 	Name = "Trade"
 })
 
+TradeSec:AddLabel("Join Our Discord")
+TradeSec:AddButton({
+  Name = "Copy Discord Link",
+  Callback = function()
+      setclipboard("https://discord.gg/88dfBYQk")
+      print("Discord link copied to clipboard")
+  end    
+})
+
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
     table.insert(playerNames, player.Name)
@@ -276,6 +285,96 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
     end
 })
 
+TeleportTab:AddButton({
+    Name = "Congress Hall(World 3)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50003
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
+
+TeleportTab:AddButton({
+    Name = "Border Territory(World 4)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50004
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
+
+
+TeleportTab:AddButton({
+    Name = "Polar Plain(World 5)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50005
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
+
+TeleportTab:AddButton({
+    Name = "Ghost Forest(World 6)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50006
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
+
+
+TeleportTab:AddButton({
+    Name = "Demon Station(World 7)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50007
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
+
+TeleportTab:AddButton({
+    Name = ""Hashira's Training(World 8)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50008
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
+
+
+TeleportTab:AddButton({
+    Name = "Infinite City(World 9)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50009
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
+
+TeleportTab:AddButton({
+    Name = "One Punch Man(World 10)",
+    Callback = function()
+	local args = {
+  	  [1] = {
+          ["mapId"] = 50010
+    }}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+    end
+})
 
 
 
