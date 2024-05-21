@@ -41,7 +41,6 @@ local EMount = PlayerTab:AddSection({
     Name = "Mounts"
 })
 
-local selectedValue = nil
 local nameMap = {
     [100001] = "Cloud",
     [100002] = "Lightning Cloud",
