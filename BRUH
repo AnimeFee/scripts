@@ -206,14 +206,12 @@ spawn(function()
                         player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
                     end
                 end
-if getgenv().Settings.DamageBoost then
-    for _, d in pairs(getgenv().Settings.mespetsequiper) do
-        for x = 200000, 200020 do
-            local args = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = x }
-            game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(args)
-        end
-    end
-end
+                if getgenv().Settings.DamageBoost then
+                    for c, d in pairs(getgenv().Settings.mespetsequiper) do
+                        local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                        game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
+                    end
+                end
                 local args = { nearestEnemy:GetAttribute("EnemyGuid") }
                 game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
                 game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
