@@ -80,18 +80,25 @@ for _, name in pairs(nameMap) do
     table.insert(mountNames, name)
 end
 
-EMount:AddDropdown({
-    Name = "Dropdown",
-    Default = "Cloud",
-    Options = mountNames,
-    Callback = function(Value)
+local selectedValue = nil
+
+Tab:AddButton({
+    Name = "Select Mount",
+    Callback = function()
+        local selectedMount = OrionLib:ShowDropdown({
+            Name = "Select a Mount",
+            Options = mountNames,
+            Default = "Cloud",
+            MultiSelect = false
+        })
+        
         for id, name in pairs(nameMap) do
-            if name == Value then
+            if name == selectedMount then
                 selectedValue = id
                 break
             end
         end
-    end    
+    end
 })
 
 local FpsNoQuirk  = PlayerTab:AddSection({
