@@ -40,9 +40,6 @@ Discord:AddButton({
 
 local EMount = PlayerTab:AddSection({ Name = "Mounts" })
 
-local nameMap = {
-    [
-
 local FpsNoQuirk  = PlayerTab:AddSection({
 	Name = "Fps Booster"
 })
@@ -717,39 +714,7 @@ spawn(function()
 end)
 
 
-100001] = "Cloud",
-    [100002] = "Lightning Cloud",
-    [100003] = "Somersault Cloud",
-    [100004] = "Magic Skateboard",
-    [100005] = "Sci-Fi Skateboard",
-    [100006] = "Magic Carpet",
-    [100007] = "Pop Car",
-    [100008] = "Pomni",
-    [100009] = "Sleigh",
-    [100010] = "Precious Toilet",
-    [100011] = "Banana Cat",
-    [100012] = "Electronic Fantasy",
-    [100013] = "Doge Car",
-    [100014] = "Fire Wheel",
-    [100015] = "Water Wheel 1",
-    [100016] = "Water Wheel 2",
-    [100017] = "Hot Wheels",
-    [100018] = "Banana Car",
-    [100019] = "Flying Swords",
-    [100020] = "Justince Onslaught",
-    [100021] = "Broken Sky",
-    [100022] = "Nimbus",
-    [100023] = "Rubber Dukiro",
-    [100024] = "Batmobile",
-    [100025] = "Torrent Of Steel",
-    [100026] = "Super Daddy",
-    [100027] = "Flying Saucer",
-    [100028] = "Rocket",
-    [100029] = "SpaceShip",
-    [100030] = "Flying Leaves",
-    [100031] = "Plane",
-}
-
+local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Gold Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Pomni",[100007]="Doge Car",[100008]="Magic Carpet",[100009]="Tron Bike",[100010]="Fire Wheel",[100011]="Water Wheel",[100012]="Sleigh",[100013]="Banana Car",[100014]="Flying Swords",[100015]="Motor Bike",[100016]="Broken Sky",[100017]="Broom",[100018]="Rubber Ducky",[100019]="Bat Mobile",[100020]="Tank",[100021]="Superman",[100022]="UFO",[100023]="Rocket",[100024]="Pirate Ship",[100025]="Leaf",[100026]="Plane"};
 local mountNames = {}
 for _, name in pairs(nameMap) do
     table.insert(mountNames, name)
