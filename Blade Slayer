@@ -16,7 +16,7 @@ deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
 autoSellWeapons=false,
-autoForgeWeapon=false,
+autoForgeSword=false,
 }
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -244,26 +244,23 @@ pcall(function()
 end)
 
 SwordSec:AddToggle({
-    Name = "Auto Forge Equipped Weapon",
-    Callback = function(autoForgeWeapon)
-        if autoForgeWeapon then
-            getgenv().Settings.autoForgeWeapon = true
-            while getgenv().Settings.autoForgeWeapon do
-                wait(0.00000000001)
+    Name = "Auto Forge Equipped Sword",
+    Callback = function(autoForgeSword)
+        if autoForgeSword then
+            getgenv().Settings.autoForgeSword = true
+            while getgenv().Settings.autoForgeSword do
+                wait(1)
                 for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
                     if v.isEquip then
-                        local weaponId = v.mespetsequiper
                         local args = {
-                            [1] = {
-                                [1] = weaponId
-                            }
+                            [1] = v.guid
                         }
                         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ForgeWeapon"):InvokeServer(unpack(args))
                     end
                 end
             end
         else
-            getgenv().Settings.autoForgeWeapon = false
+            getgenv().Settings.autoForgeSword = false
         end
     end
 })
