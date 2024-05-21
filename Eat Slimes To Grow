@@ -1,0 +1,40 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({
+Name = "Eat Slimes To Grow", 
+HidePremium = false, 
+SaveConfig = true, 
+ConfigFolder = "Idk",
+IntroEnabled = true,
+IntroText = "Cool Hub",
+Icon = "https://wallpapercave.com/wp/wp5998946.jpg",
+})
+
+local debounce = require(game.ReplicatedStorage.Debounce) -- Assuming Debounce library is stored in ReplicatedStorage
+
+Tab:AddSlider({
+    Name = "WalkSpeed", 
+    Min = 50, 
+    Max = 1000, 
+    Default = 100,
+    Increment = 10, 
+    Callback = function(Value) 
+        getgenv().playerSpeed = Value
+        local humanoid = game.Players.LocalPlayer.Character.Humanoid
+        local mt = {}
+        local updating = false
+        mt.__newindex = function(self, idx, val)
+            if idx == 'WalkSpeed' and not updating then 
+                updating = true
+                debounce(function()
+                    playerSpeed = val
+                    rawset(self, idx, playerSpeed)
+                    updating = false
+                end, 0.1) 
+            else
+                rawset(self, idx, val)
+            end
+        end
+        setmetatable(humanoid, mt)
+    end
+})
