@@ -335,7 +335,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Local
 })
 
 TeleportTab:AddButton({
-    Name = ""Hashira's Training(World 8)",
+    Name = ""Hashira Training(World 8)",
     Callback = function()
 	local args = {
   	  [1] = {
