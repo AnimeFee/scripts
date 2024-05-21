@@ -176,6 +176,52 @@ FarmSec:AddToggle({Name="Damage Boost",Callback=function(v2)
 		getgenv().Settings.DamageBoost = false;
 	end
 end});
+
+spawn(function()
+    local function GetEnemies()
+        local nearest, dist = nil, getgenv().Settings.Range
+        local Players = game.Players
+        local localPlayer = Players.LocalPlayer
+        local localCharacter = localPlayer.Character
+        local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+        if not humanoidRootPart then return end
+        for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+            if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+                if distance < dist then
+                    dist = distance
+                    nearest = enemy
+                end
+            end
+        end
+        return nearest
+    end
+
+    while task.wait() do
+        if getgenv().Settings.AutoFarm then
+            local nearestEnemy = GetEnemies()
+            if nearestEnemy then
+                if getgenv().Settings.WalkToEnemy then
+                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
+                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+                    end
+                end
+if getgenv().Settings.DamageBoost then
+    for _, d in pairs(getgenv().Settings.mespetsequiper) do
+        for x = 200000, 200050 do
+            local args = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = x }
+            game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(args)
+        end
+    end
+end
+                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
+                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
+                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+            end
+        end
+    end
+end)
+
 FarmSec:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
 	Settings.AutoAtk = Value;
 	if Settings.AutoAtk then
@@ -242,48 +288,28 @@ pcall(function()
     end
 end)
 
-spawn(function()
-    local function GetEnemies()
-        local nearest, dist = nil, getgenv().Settings.Range
-        local Players = game.Players
-        local localPlayer = Players.LocalPlayer
-        local localCharacter = localPlayer.Character
-        local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
-        if not humanoidRootPart then return end
-        for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-            if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
-                local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
-                if distance < dist then
-                    dist = distance
-                    nearest = enemy
+SwordSec:AddToggle({
+    Name = "Auto Forge Equipped Sword",
+    Callback = function(autoForgeSword)
+        if autoForgeSword then
+            getgenv().Settings.autoForgeSword = true
+            while getgenv().Settings.autoForgeSword do
+                wait(.0000001)
+                for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                    if v.isEquip then
+                        local args = {
+                            [1] = v.guid
+                        }
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ForgeWeapon"):InvokeServer(unpack(args))
+                    end
                 end
             end
+        else
+            getgenv().Settings.autoForgeSword = false
         end
-        return nearest
     end
+})
 
-    while task.wait() do
-        if getgenv().Settings.AutoFarm then
-            local nearestEnemy = GetEnemies()
-            if nearestEnemy then
-                if getgenv().Settings.WalkToEnemy then
-                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
-                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
-                    end
-                end
-                if getgenv().Settings.DamageBoost then
-                    for c, d in pairs(getgenv().Settings.mespetsequiper) do
-                        local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
-                        game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
-                    end
-                end
-                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
-                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
-                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
-            end
-        end
-    end
-end)
 
 
 TeleportTab:AddButton({
