@@ -41,10 +41,45 @@ local EMount = PlayerTab:AddSection({
     Name = "Mounts"
 })
 
+local selectedValue = nil
+local nameMap = {
+    [100001] = "Cloud",
+    [100002] = "Lightning Cloud",
+    [100003] = "Somersault Cloud",
+    [100004] = "Magic Skateboard",
+    [100005] = "Sci-Fi Skateboard",
+    [100006] = "Magic Carpet",
+    [100007] = "Pop Car",
+    [100008] = "Pomni",
+    [100009] = "Sleigh",
+    [100010] = "Precious Toilet",
+    [100011] = "Banana Cat",
+    [100012] = "Electronic Fantasy",
+    [100013] = "Doge Car",
+    [100014] = "Fire Wheel",
+    [100015] = "Water Wheel 1",
+    [100016] = "Water Wheel 2",
+    [100017] = "Hot Wheels",
+    [100018] = "Banana Car",
+    [100019] = "Flying Swords",
+    [100020] = "Justince Onslaught",
+    [100021] = "Broken Sky",
+    [100022] = "Nimbus",
+    [100023] = "Rubber Dukiro",
+    [100024] = "Batmobile",
+    [100025] = "Torrent Of Steel",
+    [100026] = "Super Daddy",
+    [100027] = "Flying Saucer",
+    [100028] = "Rocket",
+    [100029] = "SpaceShip",
+    [100030] = "Flying Leaves",
+    [100031] = "Plane",
+}
+
 EMount:AddDropdown({
     Name = "Dropdown",
-    Default = "100001",
-    Options = {"100001", "100002", "100003", "100004", "100005", "100006", "100007", "100008", "100009", "100010", "100011", "100012", "100013", "100014", "100015", "100016", "100017", "100018", "100019", "100020", "100021", "100022", "100023", "100024", "100025", "100026", "100027", "100028", "100029"},
+    Default = 100001,
+    Options = nameMap,
     Callback = function(Value)
         selectedValue = Value
     end
