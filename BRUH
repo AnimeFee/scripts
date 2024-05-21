@@ -615,3 +615,17 @@ MiscTab:AddButton({
 MiscTab:AddButton({Name="SimpleSpy",Callback=function()
 	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
 end});
+
+spawn(function()
+for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
+v:Disable()
+end
+end)
+
+spawn(function()
+while wait(30) do
+local VirtualUser=game:service'VirtualUser'
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end
+end)
