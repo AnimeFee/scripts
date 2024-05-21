@@ -268,7 +268,7 @@ local mapIds = {
 
 TeleportTab:AddDropdown({
     Name = "Select Map",
-    Options = {"Fantasy Valley", "Seaside Villa", "Congress Hall","Border Territory", "Polar Plain", "Ghost Forest,""Demon Station", "Hashira's Training", "Infinite City","One Punch Man"},
+    Options = {"Fantasy Valley", "Seaside Villa", "Congress Hall", "Border Territory", "Polar Plain", "Ghost Forest", "Demon Station", "Hashira's Training", "Infinite City","One Punch Man"},
     Callback = function(selectedMap)
         local mapId = mapIds[selectedMap]
         getgenv().Settings.selectedMap = mapId
