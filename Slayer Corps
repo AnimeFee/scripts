@@ -37,9 +37,7 @@ Discord:AddButton({
   end    
 })
 
-local EMount = PlayerTab:AddSection({
-    Name = "Mounts"
-})
+local EMount = PlayerTab:AddSection({ Name = "Mounts" })
 
 local nameMap = {
     [100001] = "Cloud",
