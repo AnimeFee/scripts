@@ -20,6 +20,7 @@ autoSellWeapons=false,
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -251,6 +252,49 @@ spawn(function()
         end
     end
 end)
+
+local mapIds = {
+["Fantasy Valley"] = 50001,
+["Seaside Villa"] = 50002,
+["Congress Hall"] = 50003,
+["Border Territory"] = 50004,
+["Polar Plain"] = 50005,
+["Ghost Forest"] = 50006,
+["Demon Station"] = 50007,
+["Hashira's Training"] = 50008,
+["Infinite City"] = 50009,
+["One Punch Man"] = 50010,
+}
+
+TeleportTab:AddDropdown({
+    Name = "Select Map",
+    Options = {"Fantasy Valley", "Seaside Villa", "Congress Hall","Border Territory", "Polar Plain", "Ghost Forest,""Demon Station", "Hashira's Training", "Infinite City","One Punch Man"},
+    Callback = function(selectedMap)
+        local mapId = mapIds[selectedMap]
+        getgenv().Settings.selectedMap = mapId
+    end
+})
+
+TeleportTab:AddButton({
+    Name = "Teleport to Selected Map",
+    Callback = function()
+        local selectedMap = getgenv().Settings.selectedMap
+        if selectedMap then
+            local args = {
+                [1] = {
+                    ["mapId"] = selectedMap
+                }}
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
+        else
+            warn("No map selected.")
+        end
+    end
+})
+
+
+
+
+
 
 local DungeonSec = AutoDRTab:AddSection({
 	Name = "Dungeon"
