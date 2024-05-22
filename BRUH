@@ -510,6 +510,14 @@ Del1to9:AddToggle({
 })
 
 
+Legendary:AddButton({Name="Reroll Mask", Callback=rerollLegendaryMask})
+Legendary:AddButton({Name="Reroll Awakening", Callback=rerollLegendaryAwakening})
+Legendary:AddButton({Name="Reroll Ornament", Callback=rerollLegendaryOrnament})
+Legendary:AddButton({Name="Reroll Trail", Callback=rerollLegendaryTrail})
+Mythic:AddButton({Name="Reroll Mask", Callback=rerollMythicMask})
+Mythic:AddButton({Name="Reroll Awakening", Callback=rerollMythicAwakening})
+Mythic:AddButton({Name="Reroll Ornament", Callback=rerollMythicOrnament})
+Mythic:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail})
 
 local function rerollLegendaryMask()
     local rerollFound = false
@@ -534,7 +542,7 @@ local function rerollLegendaryMask()
     until rerollFound
     print("Script stopped !")
 end
-Legendary:AddButton({Name="Reroll Mask", Callback=rerollLegendaryMask})
+
 local function rerollLegendaryAwakening()
     local rerollFound = false
     repeat
@@ -558,7 +566,8 @@ local function rerollLegendaryAwakening()
     until rerollFound
     print("Script stopped !")
 end
-Legendary:AddButton({Name="Reroll Awakening", Callback=rerollLegendaryAwakening})
+
+
 local function rerollLegendaryOrnament()
     local rerollFound = false
     repeat
@@ -582,7 +591,7 @@ local function rerollLegendaryOrnament()
     until rerollFound
     print("Script stopped !")
 end
-Legendary:AddButton({Name="Reroll Ornament", Callback=rerollLegendaryOrnament})
+
 local function rerollLegendaryTrail()
     local rerollFound = false
     repeat
@@ -606,7 +615,7 @@ local function rerollLegendaryTrail()
     until rerollFound
     print("Script stopped !")
 end
-Legendary:AddButton({Name="Reroll Trail", Callback=rerollLegendaryTrail})
+
 local function rerollMythicMask()
     local rerollFound = false
     repeat
@@ -627,7 +636,7 @@ local function rerollMythicMask()
     until rerollFound
     print("Script stopped !")
 end
-Mythic:AddButton({Name="Reroll Mask", Callback=rerollMythicMask})
+
 local function rerollMythicAwakening()
     local rerollFound = false
     repeat
@@ -649,7 +658,7 @@ local function rerollMythicAwakening()
     until rerollFound
     print("Script stopped !")
 end
-Mythic:AddButton({Name="Reroll Awakening", Callback=rerollMythicAwakening})
+
 local function rerollMythicOrnament()
     local rerollFound = false
     repeat
@@ -671,7 +680,7 @@ local function rerollMythicOrnament()
     until rerollFound
     print("Script stopped !")
 end
-Mythic:AddButton({Name="Reroll Ornament", Callback=rerollMythicOrnament})
+
 local function rerollMythicTrail()
     local rerollFound = false
     repeat
@@ -693,7 +702,6 @@ local function rerollMythicTrail()
     until rerollFound
     print("Script stopped !")
 end
-Mythic:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail})
 
 
 
