@@ -307,46 +307,23 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local a
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-local returnMaps = {
-    {Name="Map 1",Value=50001},
-    {Name="Map 2",Value=50002},
-    {Name="Map 3",Value=50003},
-    {Name="Map 4",Value=50004},
-    {Name="Map 5",Value=50005},
-    {Name="Map 6",Value=50006},
-    {Name="Map 7",Value=50007},
-    {Name="Map 8",Value=50008},
-    {Name="Map 9",Value=50009},
-    {Name="Map 10",Value=50010}
-};
-
--- Define a variable to store the selected map's value
-local selectedMap;
-
-DungeonSec:AddDropdown({Name="Return to Map",Options=returnMaps,Callback=function(map)
-    -- Set the selected map's value to the variable
-    selectedMap = map.Value;
-end});
-
 local function TeleportToAndFromDungeon(dungeonMapId, returnTime)
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=dungeonMapId});
-    wait(returnTime);
-    -- Use the selected map's value to return to the desired map
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=selectedMap});
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=dungeonMapId});
+	wait(returnTime);
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=50009});
 end
 
 local AutoDungeonToggle = DungeonSec:AddToggle({Name="Auto-Dungeon",Default=false,Callback=function(Value)
-    if Value then
-        while true do
-            local currentTime = os.time();
-            local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 15;
-            local waitTime = nextTeleportTime - currentTime;
-            wait(waitTime);
-            TeleportToAndFromDungeon(50016, 15 * 60);
-        end
-    end
+	if Value then
+		while true do
+			local currentTime = os.time();
+			local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 15;
+			local waitTime = nextTeleportTime - currentTime;
+			wait(waitTime);
+			TeleportToAndFromDungeon(50016, 15 * 60);
+		end
+	end
 end});
-
 
 Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	if fuseLevel10Gems then
@@ -624,3 +601,5 @@ spawn(function()
 		VirtualUser:ClickButton2(Vector2.new());
 	end
 end);
+
+OrionLib:Init();
