@@ -1,0 +1,68 @@
+local mapnames = {
+[50102]="Souls",
+[50103]="Book 1",
+[50104]="Book 2",
+[50105]="Book 3"}
+local mapdiff = {
+[1]="Easy",
+[2]="Medium",
+[3]="Hard",
+[4]="Impossible"}
+local worldnames = {};
+local diff = {};
+
+for _, name in pairs(mapnames) do
+	table.insert(worldnames, name);
+end
+
+for _, name in pairs(mapdiff) do
+	table.insert(diff, name);
+end
+
+RaidTab:AddDropdown({
+Name="Select Raid Map",
+Options=worldnames,
+Callback=function(selectedmap)
+getgenv().Settings.selectedmap = selectedmap;
+end});
+
+RaidTab:AddDropdown({
+Name="Select Raid Difficulty",
+Options=diff,
+Callback=function(selecteddiff)
+getgenv().Settings.selecteddiff = selecteddiff;
+end});
+
+
+
+AutoRaidTab:AddToggle({
+    Name = "Turn On To Start",
+    Default = false,
+    Callback = function(AutoRaid)
+    
+
+
+})
+args = {
+        [1] = "Room3"
+    } game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
+
+    args = {
+        [1] = {
+            ["difficulty"] = selecteddiff,
+            ["roomName"] = "Room3",
+            ["selectMapId"] = selectedmap
+        }
+    }
+
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
+
+    args = {
+        [1] = {
+            ["userIds"] = {
+                [1] = userID
+            },
+            ["roomName"] = "Room3"
+        }
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
