@@ -1,5 +1,4 @@
 local mapnames = {
-[50102]="Souls",
 [50103]="Book 1",
 [50104]="Book 2",
 [50105]="Book 3"}
