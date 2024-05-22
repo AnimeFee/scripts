@@ -264,16 +264,16 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local a
 end});
 
 local mapData = {
-    [50001] = "Map 1",
-    [50002] = "Map 2",
-    [50003] = "Map 3",
-    [50004] = "Map 4",
-    [50005] = "Map 5",
-    [50006] = "Map 6",
-    [50007] = "Map 7",
-    [50008] = "Map 8",
-    [50009] = "Map 9",
-    [50010] = "Map 10"
+    [50001] = "Fantasy Valley(World 1)",
+    [50002] = "Seaside Villa(World 2)",
+    [50003] = "Congress Hall(World 3)",
+    [50004] = "Border Territory(World 4)",
+    [50005] = "Polar Plain(World 5)",
+    [50006] = "Ghost Forest(World 6)",
+    [50007] = "Demon Station(World 7)",
+    [50008] = "Hashira Training(World 8)",
+    [50009] = "Infinite City(World 9)",
+    [50010] = "One Punch Man(World 10)",
 };
 
 local mapNames = {};
