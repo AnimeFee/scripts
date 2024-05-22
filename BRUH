@@ -12,8 +12,8 @@ local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
-local EMount = PlayerTab:AddSection({Name="Mounts"});
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
+local EMount = PlayerTab:AddSection({Name="Mounts"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
