@@ -15,7 +15,6 @@ local EMount = PlayerTab:AddSection({Name="Mounts"});
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local FpsNoQuirk = PlayerTab:AddSection({Name="Fps Booster"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
-local Freeze = ScriptsTab:AddSection({Name="Freeze"});
 local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
@@ -201,13 +200,6 @@ FarmSec:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=functi
 	end
 end});
 
-local Player = game.Players.LocalPlayer
-local Character = Player.Character
-local Humanoid = Character:WaitForChild("Humanoid")
-
-Freeze:AddToggle({Name="Freeze",Callback=function(Value)
-    Humanoid.Freeze = not Value
-end})
 
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
