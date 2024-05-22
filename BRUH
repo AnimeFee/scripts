@@ -520,7 +520,7 @@ Mythic:AddButton({Name="Reroll Awakening", Callback=rerollMythicAwakening})
 Mythic:AddButton({Name="Reroll Ornament", Callback=rerollMythicOrnament})
 Mythic:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail})
 
-local function rerollLegendaryMask()
+function rerollLegendaryMask()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400001}
@@ -544,7 +544,7 @@ local function rerollLegendaryMask()
     print("Script stopped !")
 end
 
-local function rerollLegendaryAwakening()
+function rerollLegendaryAwakening()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400002}
@@ -568,7 +568,7 @@ local function rerollLegendaryAwakening()
     print("Script stopped !")
 end
 
-local function rerollLegendaryOrnament()
+function rerollLegendaryOrnament()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400003}
@@ -592,7 +592,7 @@ local function rerollLegendaryOrnament()
     print("Script stopped !")
 end
 
-local function rerollLegendaryTrail()
+function rerollLegendaryTrail()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400004}
@@ -616,7 +616,7 @@ local function rerollLegendaryTrail()
     print("Script stopped !")
 end
 
-local function rerollMythicMask()
+function rerollMythicMask()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400001}local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt))
@@ -637,7 +637,7 @@ local function rerollMythicMask()
     print("Script stopped !")
 end
 
-local function rerollMythicAwakening()
+function rerollMythicAwakening()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400002}
@@ -659,7 +659,7 @@ local function rerollMythicAwakening()
     print("Script stopped !")
 end
 
-local function rerollMythicOrnament()
+function rerollMythicOrnament()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400003}
@@ -681,7 +681,7 @@ local function rerollMythicOrnament()
     print("Script stopped !")
 end
 
-local function rerollMythicTrail()
+function rerollMythicTrail()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400004}
