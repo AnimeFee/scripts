@@ -509,7 +509,7 @@ end
 Legendary:AddButton({Name="Reroll Mask",Callback=rerollLegendaryMask});
 Legendary:AddButton({Name="Reroll Awakening",Callback=rerollLegendaryAwakening});
 Legendary:AddButton({Name="Reroll Ornament",Callback=rerollLegendaryOrnament});
-Legendary:AddButton({Name="Revel Trail",Callback=rerollLegendaryTrail});
+Legendary:AddButton({Name="Reroll Trail",Callback=rerollLegendaryTrail});
 Mythic:AddButton({Name="Reroll Mask",Callback=rerollMythicMask});
 Mythic:AddButton({Name="Reroll Awakening",Callback=rerollMythicAwakening});
 Mythic:AddButton({Name="Reroll Ornament",Callback=rerollMythicOrnament});
