@@ -693,6 +693,7 @@ local function rerollMythicTrail()
     until rerollFound
     print("Script stopped !")
 end
+Mythic:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail})
 
 
 
