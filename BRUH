@@ -11,7 +11,6 @@ local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
-local Discord = PlayerTab:AddSection({Name="Join Our Discord >.<"});
 local EMount = PlayerTab:AddSection({Name="Mounts"});
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local FpsNoQuirk = PlayerTab:AddSection({Name="Fps Booster"});
@@ -23,11 +22,6 @@ local Lvl10 = FuseTab:AddSection({Name="Auto Lvl 10 gem(Need Gems To Work)"});
 local Del1to9 = FuseTab:AddSection({Name="Delete Gem"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
-
-Discord:AddButton({Name="Copy Discord Link",Callback=function()
-	setclipboard("https://discord.gg/88dfBYQk");
-	print("Discord link copied to clipboard");
-end});
 
 local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Gold Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Pomni",[100007]="Doge Car",[100008]="Magic Carpet",[100009]="Tron Bike",[100010]="Fire Wheel",[100011]="Water Wheel",[100012]="Sleigh",[100013]="Banana Car",[100014]="Flying Swords",[100015]="Motor Bike",[100016]="Broken Sky",[100017]="Broom",[100018]="Rubber Ducky",[100019]="Bat Mobile",[100020]="Tank",[100021]="Superman",[100022]="UFO",[100023]="Rocket",[100024]="Pirate Ship",[100025]="Leaf",[100026]="Plane"};
 local mountNames = {};
