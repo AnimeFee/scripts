@@ -266,7 +266,7 @@ end});
 
 
 
-local returnMaps = {{Name="Map 1",Value=10001},{Name="Map 2",Value=10002},{Name="Map 3",Value=10003},{Name="Map 4",Value=10004},{Name="Map 5",Value=10005},{Name="Map 6",Value=10006},{Name="Map 7",Value=10007},{Name="Map 8",Value=10008},{Name="Map 9",Value=10009},{Name="Map 10",Value=10010}};
+local returnMaps = {{Name="Map 1",Value=50001},{Name="Map 2",Value=50002},{Name="Map 3",Value=50003},{Name="Map 4",Value=50004},{Name="Map 5",Value=50005},{Name="Map 6",Value=50006},{Name="Map 7",Value=50007},{Name="Map 8",Value=50008},{Name="Map 9",Value=50009},{Name="Map 10",Value=50010}};
 DungeonSec:AddDropdown({Name="Return to Map",Options=returnMaps,Callback=function(selectedMap)
 	Returntomap = selectedMap.Value;
 end});
@@ -275,8 +275,7 @@ local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
 	wait(returnTime);
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=returnMapId});
 end
-local AutoDungeonToggle = DungeonSec:AddToggle({Name="Auto-Dungeon",Default=getgenv().Settings.AutoDungeon,Callback=function(Value)
-	getgenv().Settings.AutoDungeon = Value;
+local AutoDungeonToggle = DungeonSec:AddToggle({Name="Auto-Dungeon",Default=false,Callback=function(Value)
 	if Value then
 		while true do
 			local currentTime = os.time();
