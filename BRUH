@@ -1,7 +1,5 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
-local Window = OrionLib:MakeWindow({Name="CoolHub",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
-
-local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "OhItsMeGoku"})
 
 getgenv().Settings = {
 AutoAtk=false,
