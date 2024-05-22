@@ -510,10 +510,11 @@ Del1to9:AddToggle({
 })
 
 
+-- Button creations
 Legendary:AddButton({Name="Reroll Mask", Callback=rerollLegendaryMask})
 Legendary:AddButton({Name="Reroll Awakening", Callback=rerollLegendaryAwakening})
 Legendary:AddButton({Name="Reroll Ornament", Callback=rerollLegendaryOrnament})
-Legendary:AddButton({Name="Reroll Trail", Callback=rerollLegendaryTrail})
+Legendary:AddButton({Name="Revel Trail", Callback=rerollLegendaryTrail})
 Mythic:AddButton({Name="Reroll Mask", Callback=rerollMythicMask})
 Mythic:AddButton({Name="Reroll Awakening", Callback=rerollMythicAwakening})
 Mythic:AddButton({Name="Reroll Ornament", Callback=rerollMythicOrnament})
@@ -566,7 +567,6 @@ local function rerollLegendaryAwakening()
     until rerollFound
     print("Script stopped !")
 end
-
 
 local function rerollLegendaryOrnament()
     local rerollFound = false
@@ -702,6 +702,13 @@ local function rerollMythicTrail()
     until rerollFound
     print("Script stopped !")
 end
+
+
+
+
+
+
+
 
 
 
