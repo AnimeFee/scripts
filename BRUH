@@ -539,7 +539,7 @@ MiscTab:AddButton({
 Name = "Redeem Codes",
 Callback = function()
 while wait() do
-for x = 1, 100 do
+for x = 1, 40 do
 local args = {
     [1] = x
 }
