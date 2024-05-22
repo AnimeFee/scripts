@@ -117,6 +117,14 @@ FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	end
 end});
 
+local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local Humanoid = Character:WaitForChild("Humanoid")
+
+FarmSec:AddToggle({Name="To Freeze(If You Use Wizard)",Callback=function(Value)
+    InfiniteYield_Player.FreezePlayer(Player, not Value)
+end})
+
 FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	if v1 then
 		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
