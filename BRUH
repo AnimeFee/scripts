@@ -545,6 +545,7 @@ for x = 1, 100 do
 local args = {
     [1] = x
 }
+
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args))
 end
 end
