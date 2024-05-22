@@ -201,14 +201,6 @@ FarmSec:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=functi
 	end
 end});
 
-local Player = game.Players.LocalPlayer;
-local Character = Player.Character;
-local Humanoid = Character:WaitForChild("Humanoid");
-
-FreezeToggle:AddToggle({Name="Freeze(If Using Wizard)",Callback=function(Value)
-	InfiniteYield_Player.FreezePlayer(Player, not Value);
-end});
-
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
 		getgenv().Settings.autoFuseSwords = true;
