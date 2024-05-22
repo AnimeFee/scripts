@@ -15,6 +15,7 @@ local EMount = PlayerTab:AddSection({Name="Mounts"});
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local FpsNoQuirk = PlayerTab:AddSection({Name="Fps Booster"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
+local FreezeToggle = ScriptsTab:AddSection({Name="Auto Farm"});
 local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
@@ -117,14 +118,6 @@ FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	end
 end});
 
-local Player = game.Players.LocalPlayer
-local Character = Player.Character
-local Humanoid = Character:WaitForChild("Humanoid")
-
-FarmSec:AddToggle({Name="To Freeze(If You Use Wizard)",Callback=function(Value)
-    InfiniteYield_Player.FreezePlayer(Player, not Value)
-end})
-
 FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	if v1 then
 		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
@@ -206,6 +199,14 @@ FarmSec:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=functi
 		autoGainPowerLoop:Disconnect();
 		autoGainPowerLoop = nil;
 	end
+end});
+
+local Player = game.Players.LocalPlayer;
+local Character = Player.Character;
+local Humanoid = Character:WaitForChild("Humanoid");
+
+FreezeToggle:AddToggle({Name="Freeze(If Using Wizard)",Callback=function(Value)
+	InfiniteYield_Player.FreezePlayer(Player, not Value);
 end});
 
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
