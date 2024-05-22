@@ -264,12 +264,16 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local a
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-local function TeleportToAndFromDungeon(dungeonMapId, returnTime)
+local returnMaps = {{Name="Map 1",Value=10001},{Name="Map 2",Value=10002},{Name="Map 3",Value=10003}};
+local Returntomap = 10001;
+DungeonSec:AddDropdown({Name="Return to Map",Options=returnMaps,Callback=function(selectedMap)
+	Returntomap = selectedMap.Value;
+end});
+local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=dungeonMapId});
 	wait(returnTime);
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=Returntomap});
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=returnMapId});
 end
-
 local AutoDungeonToggle = DungeonSec:AddToggle({Name="Auto-Dungeon",Default=false,Callback=function(Value)
 	if Value then
 		while true do
@@ -277,7 +281,7 @@ local AutoDungeonToggle = DungeonSec:AddToggle({Name="Auto-Dungeon",Default=fals
 			local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 15;
 			local waitTime = nextTeleportTime - currentTime;
 			wait(waitTime);
-			TeleportToAndFromDungeon(50016,Returntomap, 15 * 60);
+			TeleportToAndFromDungeon(50016, Returntomap, 15 * 60);
 		end
 	end
 end});
