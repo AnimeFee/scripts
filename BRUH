@@ -510,17 +510,7 @@ Del1to9:AddToggle({
 })
 
 
--- Button creations
-Legendary:AddButton({Name="Reroll Mask", Callback=rerollLegendaryMask})
-Legendary:AddButton({Name="Reroll Awakening", Callback=rerollLegendaryAwakening})
-Legendary:AddButton({Name="Reroll Ornament", Callback=rerollLegendaryOrnament})
-Legendary:AddButton({Name="Revel Trail", Callback=rerollLegendaryTrail})
-Mythic:AddButton({Name="Reroll Mask", Callback=rerollMythicMask})
-Mythic:AddButton({Name="Reroll Awakening", Callback=rerollMythicAwakening})
-Mythic:AddButton({Name="Reroll Ornament", Callback=rerollMythicOrnament})
-Mythic:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail})
-
-function rerollLegendaryMask()
+function Lmask()
     local rerollFound = false
     repeat
         local rerollAttempt = {[1]=400001}
@@ -703,12 +693,14 @@ function rerollMythicTrail()
     print("Script stopped !")
 end
 
-
-
-
-
-
-
+Legendary:AddButton({Name="Reroll Mask", Callback=rerollLegendaryMask})
+Legendary:AddButton({Name="Reroll Awakening", Callback=rerollLegendaryAwakening})
+Legendary:AddButton({Name="Reroll Ornament", Callback=rerollLegendaryOrnament})
+Legendary:AddButton({Name="Revel Trail", Callback=rerollLegendaryTrail})
+Mythic:AddButton({Name="Reroll Mask", Callback=rerollMythicMask})
+Mythic:AddButton({Name="Reroll Awakening", Callback=rerollMythicAwakening})
+Mythic:AddButton({Name="Reroll Ornament", Callback=rerollMythicOrnament})
+Mythic:AddButton({Name="Reroll Trail", Callback=rerollMythicTrail})
 
 
 
@@ -740,7 +732,7 @@ MiscTab:AddButton({
 Name = "Redeem Codes",
 Callback = function()
 while wait() do
-for x = 1, 1000 do
+for x = 1, 100 do
 local args = {
     [1] = x
 }
@@ -755,7 +747,7 @@ MiscTab:AddButton({
 Name = "Redeem Spins",
 Callback = function()
 while wait() do
-for x = 1, 10 do
+for x = 1, 8 do
 local args = {
     [1] = x
 }
