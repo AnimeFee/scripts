@@ -7,18 +7,18 @@ local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",P
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local SNGTab = Window:MakeTab({Name="Sword And Gems",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local EMount = PlayerTab:AddSection({Name="Mounts"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
-local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
-local Lvl10 = FuseTab:AddSection({Name="Auto Lvl 10 gem(Need Gems To Work)"});
-local Del1to9 = FuseTab:AddSection({Name="Delete Gem"});
+local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
+local Lvl10 = SNGTab:AddSection({Name="Auto Lvl 10 gem(Need Gems To Work)"});
+local Del1to9 = SNGTab:AddSection({Name="Delete Gem"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 local Claim = MiscTab:AddSection({Name="Claim"});
