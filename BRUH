@@ -290,7 +290,7 @@ DungeonSec:AddDropdown({
 });
 
 local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = dungeonMapId});
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
     wait(returnTime);
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = returnMapId});
 end
