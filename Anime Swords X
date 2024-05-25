@@ -608,53 +608,5 @@ PlayerTab:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
-local worldDropdown = Farms:AddDropdown({
-    Name = "World",
-    Default = "World1",
-    Options = {"World1", "World2", "World3"},
-    Callback = function(Value)
-        print("World selected:", Value)
-    end
-})
-
-local enemyDropdown = Farms:AddDropdown({
-    Name = "Enemy",
-    Default = "Enemy1",
-    Options = {"Enemy1", "Enemy2", "Enemy3"},
-    Callback = function(Value)
-        print("Enemy selected:", Value)
-    end
-})
-
-local attackToggle = Farms:AddToggle({
-    Name = "Auto Attack",
-    Default = false,
-    Callback = function(Value)
-        if Value then
-            print("Auto attack enabled!")
-            while Value do
-                local selectedWorld = worldDropdown:GetValue()
-                local selectedEnemy = enemyDropdown:GetValue()
-                print("Attacking " .. selectedEnemy .. " in " .. selectedWorld .. "!")
-                
-                -- Attack logic
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild(selectedWorld):WaitForChild(selectedEnemy),
-                        ["Type"] = "World"
-                    }
-                }
-                
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                
-                wait(1) -- wait 1 second before attacking again
-            end
-        else
-            print("Auto attack disabled!")
-        end
-    end
-})
 
 OrionLib:Init()
