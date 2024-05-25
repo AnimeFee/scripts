@@ -1,3 +1,56 @@
+-- Loading the OrionLib library
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+if not OrionLib then
+    error("Failed to load the OrionLib library")
+    return
+end
+
+-- Creating the main window
+local Window = OrionLib:MakeWindow({
+    Name = "Gyat Simulator",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "WendelCfg",
+    IntroEnabled = false
+})
+
+-- Creating the Player tab
+local PlayerTab = Window:MakeTab({
+    Name = "Scripts",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+-- Table to store global variables
+local G = {
+    Click = false,
+    Rebirth = false,
+
+}
+
+-- Adding a toggle to the Player tab
+PlayerTab:AddToggle({
+    Name = "Auto Click",
+    Default = false,
+    Callback = function(Value)
+        G.Click = Value
+        if Value then
+            while G.Click do
+                -- Add your code here
+                wait(1) -- Adjust the delay as needed
+            end
+        end
+    end,
+})
+
+-- Adding a button to the Player tab
+PlayerTab:AddButton({
+    Name = "Daily Gifts",
+    Callback = function()
+        -- Add your code here
+    end
+})
+
 local args = {
     [1] = "Attack",
     [2] = "Click",
