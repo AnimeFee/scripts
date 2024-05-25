@@ -14,10 +14,7 @@ deleteGems=false,
 fuseLevel10Gems=false,
 autoFuseSwords=false,
 autoSellWeapons=false,
-autoForgeSword=false};
-
-getgenv().Dungeon =
-{
+autoForgeSword=false
 mapData = {
     [50001] = "Fantasy Valley(World 1)",
     [50002] = "Seaside Villa(World 2)",
@@ -29,10 +26,7 @@ mapData = {
     [50008] = "Hashira Training(World 8)",
     [50009] = "Infinite City(World 9)",
     [50010] = "One Punch Man(World 10)",
-}}
-
-gengenv().Mounts =
-{
+}
 Mountname = {
 [100001]="Cloud",
 [100002]="Lightning Cloud",
@@ -60,7 +54,7 @@ Mountname = {
 [100024]="Pirate Ship",
 [100025]="Leaf",
 [100026]="Plane"}
-}
+};
 
 
 local PlayerTab = Window:MakeTab({
