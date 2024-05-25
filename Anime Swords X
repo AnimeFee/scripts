@@ -695,5 +695,162 @@ Farms:AddToggle({
     end
 })
 
+Farms:AddToggle({
+    Name = "World 2",
+    Default = false,
+    Callback = function(Value)
+        G.World2 = Value
+        if Value then
+            while G.World2 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Early Syng"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Tom"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Shadow Monarch"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Hwunge"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+Farms:AddToggle({
+    Name = "Boss World 2",
+    Default = false,
+    Callback = function(Value)
+        G.BossWorld2 = Value
+        if Value then
+            while G.BossWorld2 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Leveling Island"):WaitForChild("Cha"),
+                        ["Type"] = "Boss"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+Farms:AddToggle({
+    Name = "World 3",
+    Default = false,
+    Callback = function(Value)
+        G.World3 = Value
+        if Value then
+            while G.World3 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Itado"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Noba"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Megu"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Murky"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+Farms:AddToggle({
+    Name = "Boss World 3",
+    Default = false,
+    Callback = function(Value)
+        G.BossWorld3= Value
+        if Value then
+            while G.BossWorld3 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Cursed Island"):WaitForChild("Guje"),
+                        ["Type"] = "Boss"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Cursed Island"):WaitForChild("Gojou"),
+                        ["Type"] = "Boss"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
 OrionLib:Init()
