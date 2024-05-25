@@ -53,9 +53,17 @@ Mountname = {
 [100023]="Rocket",
 [100024]="Pirate Ship",
 [100025]="Leaf",
-[100026]="Plane"}
-},;
+[100026]="Plane"},
+}
 
+local mountNames = {};
+for _, name in pairs (getgenv().Settings.mapData) do
+	table.insert(mountNames, name);
+end
+local playerNames = {};
+for _, player in pairs(game.Players:GetPlayers()) do
+	table.insert(playerNames, player.Name);
+end
 
 local PlayerTab = Window:MakeTab({
 Name="Player",
@@ -109,10 +117,6 @@ Name="Claim"});
 local Others = MiscTab:AddSection({
 Name="Others"});
 
-local mountNames = {};
-for _, name in pairs (getgenv().Mountname) do
-	table.insert(mountNames, name);
-end
 
 EMount:AddDropdown({
 Name="Select Mount",
@@ -125,23 +129,16 @@ EMount:AddButton({
 Name="Use Selected Mount",
 Callback=UseMount})
 
-local playerNames = {};
-for _, player in pairs(game.Players:GetPlayers()) do
-	table.insert(playerNames, player.Name);
-end
+
 TradeSec:AddDropdown({
 Name="Select Player",
 Options=playerNames,
 Callback=function(selectedPlayer)
 getgenv().Settings.selectedPlayer = selectedPlayer;
 end});
-
 TradeSec:AddButton({
 Name="Trade Selected Player",
 Callback=TradeB})
-
-
-
 TradeSec:AddButton({
 Name="Dupe(Need To Trade)",
 Callback=Dupe})	
