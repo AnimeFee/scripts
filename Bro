@@ -56,15 +56,6 @@ Mountname = {
 [100026]="Plane"},
 }
 
-local mountNames = {}
-for _, name in pairs (getgenv().Settings.mapData) do
-	table.insert(mountNames, name)
-end
-local playerNames = {}
-for _, player in pairs(game.Players:GetPlayers()) do
-	table.insert(playerNames, player.Name)
-end
-
 local PlayerTab = Window:MakeTab({
 Name="Player",
 Icon="rbxassetid://4483345998",
@@ -117,19 +108,24 @@ Name="Claim"});
 local Others = MiscTab:AddSection({
 Name="Others"});
 
-
+local mountNames = {}
+for _, name in pairs (getgenv().Settings.Mountname) do
+	table.insert(mountNames, name)
+end
 EMount:AddDropdown({
 Name="Select Mount",
 Options=mountNames,
 Callback=function(selectedMount)
 getgenv().Settings.selectedMount = selectedMount;
-end});
-
+end})
 EMount:AddButton({
 Name="Use Selected Mount",
 Callback=UseMount})
 
-
+local playerNames = {}
+for _, player in pairs(game.Players:GetPlayers()) do
+	table.insert(playerNames, player.Name)
+end
 TradeSec:AddDropdown({
 Name="Select Player",
 Options=playerNames,
@@ -243,7 +239,7 @@ pcall(function()
 end)
 
 mapNames = {};
-for _, name in pairs(mapData) do
+for _, name in pairs(getgenv().Settings.mapData) do
     table.insert(mapNames, name);
 end
 
