@@ -74,6 +74,9 @@ local G = {
     egg6 = false,
     egg7 = false,
     egg8 = false,
+    World1 = false,
+    BossWorld1 = false,
+
 
 }
 
@@ -607,6 +610,80 @@ PlayerTab:AddButton({Name="Fps Booster",Callback=function()
 	end
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
+
+Farms:AddToggle({
+    Name = "World 1",
+    Default = false,
+    Callback = function(Value)
+        G.World1 = Value
+        if Value then
+            while G.World1 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild("Bandit"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild("Kuro"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild("Alvida"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild("Kaku"),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+Farms:AddToggle({
+    Name = "Boss World 1",
+    Default = false,
+    Callback = function(Value)
+        G.BossWorld1 = Value
+        if Value then
+            while G.BossWorld1 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Boss Island"):WaitForChild("Sasori"),
+                        ["Type"] = "Boss"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
 
 OrionLib:Init()
