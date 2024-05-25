@@ -595,26 +595,239 @@ W1:AddDropdown({
     Default = "Bandit",
     Options = {"Bandit", "Kuro", "Alvida", "Kaku"},
     Callback = function(Value)
-        W1:AddToggle({
-            Name = "Execute",
-            Default = false,
-            Callback = function(ToggleValue)
-                if ToggleValue then
-                    local args = {
-                        [1] = "Attack",
-                        [2] = "Click",
-                        [3] = {
-                            ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild(Value),
-                            ["Type"] = "World"
-                        }
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                    wait(.01)
-                end
-            end
-        })
+        G.WorldValue = Value
     end
 })
+W1:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            while Value do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild(G.WorldValue),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+W2:AddDropdown({
+    Name = "World 2",
+    Default = "Early Syng",
+    Options = {"Early Syng", "Tom", "Shadow Monarch", "Hwunge"},
+    Callback = function(Value)
+        G.World2Value = Value
+    end
+})
+
+W2:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        G.World2 = Value
+        if Value then
+            while G.World2 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild(G.World2Value),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+W3:AddDropdown({
+    Name = "World 3",
+    Default = "Itado",
+    Options = {"Itado", "Noba", "Megu", "Murky"},
+    Callback = function(Value)
+        G.World3Value = Value
+    end
+})
+
+W3:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        G.World3 = Value
+        if Value then
+            while G.World3 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild(G.World3Value),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+W4:AddDropdown({
+    Name = "World 4",
+    Default = "Vegete",
+    Options = {"Vegete", "Gohan", "Tronks", "Broli"},
+    Callback = function(Value)
+        G.World4Value = Value
+    end
+})
+
+W4:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        G.World4 = Value
+        if Value then
+            while G.World4 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Dragon Island"):WaitForChild(G.World4Value),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+W5:AddDropdown({
+    Name = "World 5",
+    Default = "Zenitsu",
+    Options = {"Zenitsu", "Inosuke", "Nezuko", "Rengoku"},
+    Callback = function(Value)
+        G.World5Value = Value
+    end
+})
+
+W5:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        G.World5 = Value
+        if Value then
+            while G.World5 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Slayer Island"):WaitForChild(G.World5Value),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+W6:AddDropdown({
+    Name = "World 6",
+    Default = "Alice",
+    Options = {"Alice", "Leafa", "Asuna", "Eugeo"},
+    Callback = function(Value)
+        G.World6Value = Value
+    end
+})
+
+W7:AddDropdown({
+    Name = "World 7",
+    Default = "Kakyon",
+    Options = {"Kakyon", "Jonathan", "Josuko", "Giorne"},
+    Callback = function(Value)
+        G.World7Value = Value
+    end
+})
+
+W7:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        G.World7 = Value
+        if Value then
+            while G.World7 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Bizzare Island"):WaitForChild(G.World7Value),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+W8:AddDropdown({
+    Name = "World 8",
+    Default = "Finray",
+    Options = {"Finray", "Vanessa", "Zenon", "Jiulius"},
+    Callback = function(Value)
+        G.World8Value = Value
+    end
+})
+
+W8:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        G.World8 = Value
+        if Value then
+            while G.World8 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clover Island"):WaitForChild(G.World8Value),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 W1:AddToggle({
     Name = "Kill Bigmom/Buggy",
@@ -647,59 +860,6 @@ W1:AddToggle({
         end
     end
 })
-
-W2:AddToggle({
-    Name = "World 2",
-    Default = false,
-    Callback = function(Value)
-        G.World2 = Value
-        if Value then
-            while G.World2 do
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Early Syng"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Tom"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Shadow Monarch"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Leveling Island"):WaitForChild("Hwunge"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-            end
-        end
-    end
-})
-
 W2:AddToggle({
     Name = "Auto Farm Cha",
     Default = false,
@@ -721,59 +881,6 @@ W2:AddToggle({
         end
     end
 })
-
-W3:AddToggle({
-    Name = "World 3",
-    Default = false,
-    Callback = function(Value)
-        G.World3 = Value
-        if Value then
-            while G.World3 do
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Itado"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Noba"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Megu"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Murky"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-            end
-        end
-    end
-})
-
 W3:AddToggle({
     Name = "Auto Farm Guje/Gojou",
     Default = false,
@@ -805,59 +912,6 @@ W3:AddToggle({
         end
     end
 })
-
-W4:AddToggle({
-    Name = "World 4",
-    Default = false,
-    Callback = function(Value)
-        G.World4 = Value
-        if Value then
-            while G.World4 do
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Dragon Island"):WaitForChild("Vegete"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Dragon Island"):WaitForChild("Gohan"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Dragon Island"):WaitForChild("Tronks"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Dragon Island"):WaitForChild("Broli"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(0.01)
-            end
-        end
-    end
-})
-
 W4:AddToggle({
     Name = "Auto Farm Frieza",
     Default = false,
@@ -879,59 +933,6 @@ W4:AddToggle({
         end
     end
 })
-
-W5:AddToggle({
-    Name = "World 5",
-    Default = false,
-    Callback = function(Value)
-        G.World5 = Value
-        if Value then
-            while G.World5 do
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Slayer Island"):WaitForChild("Zenitsu"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Slayer Island"):WaitForChild("Inosuke"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Slayer Island"):WaitForChild("Nezuko"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Slayer Island"):WaitForChild("Rengoku"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(0.01)
-            end
-        end
-    end
-})
-
 W5:AddToggle({
     Name = "Auto Farm Tanjiro",
     Default = false,
@@ -953,59 +954,6 @@ W5:AddToggle({
         end
     end
 })
-
-W6:AddToggle({
-    Name = "World 6",
-    Default = false,
-    Callback = function(Value)
-        G.World6 = Value
-        if Value then
-            while G.World6 do
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Online Island"):WaitForChild("Alice"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Online Island"):WaitForChild("Leafa"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Online Island"):WaitForChild("Asuna"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Online Island"):WaitForChild("Eugeo"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(0.01)
-            end
-        end
-    end
-})
-
 W6:AddToggle({
     Name = "Auto Farm Kirito",
     Default = false,
@@ -1027,59 +975,6 @@ W6:AddToggle({
         end
     end
 })
-
-W7:AddToggle({
-    Name = "World 7",
-    Default = false,
-    Callback = function(Value)
-        G.World7 = Value
-        if Value then
-            while G.World7 do
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Bizzare Island"):WaitForChild("Kakyon"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Bizzare Island"):WaitForChild("Jonathan"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Bizzare Island"):WaitForChild("Josuko"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Bizzare Island"):WaitForChild("Giorne"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(0.01)
-            end
-        end
-    end
-})
-
 W7:AddToggle({
     Name = "Auto Farm Jotaro",
     Default = false,
@@ -1101,59 +996,6 @@ W7:AddToggle({
         end
     end
 })
-
-W8:AddToggle({
-    Name = "World 8",
-    Default = false,
-    Callback = function(Value)
-        G.World8 = Value
-        if Value then
-            while G.World8 do
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clover Island"):WaitForChild("Finray"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clover Island"):WaitForChild("Vanessa"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clover Island"):WaitForChild("Zenon"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(.01)
-                local args = {
-                    [1] = "Attack",
-                    [2] = "Click",
-                    [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clover Island"):WaitForChild("Jiulius"),
-                        ["Type"] = "World"
-                    }
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-                wait(0.01)
-            end
-        end
-    end
-})
-
 W8:AddToggle({
     Name = "Auto Farm Jotaro",
     Default =false,
