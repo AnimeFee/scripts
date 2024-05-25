@@ -1,4 +1,4 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
 local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"})
 
 getgenv().Settings = {
@@ -56,13 +56,13 @@ Mountname = {
 [100026]="Plane"},
 }
 
-local mountNames = {};
+local mountNames = {}
 for _, name in pairs (getgenv().Settings.mapData) do
-	table.insert(mountNames, name);
+	table.insert(mountNames, name)
 end
-local playerNames = {};
+local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
-	table.insert(playerNames, player.Name);
+	table.insert(playerNames, player.Name)
 end
 
 local PlayerTab = Window:MakeTab({
