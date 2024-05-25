@@ -14,9 +14,9 @@ local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",Premi
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local EMount = PlayerTab:AddSection({Name="Mounts"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
-local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
+local FarmSec2 = ScriptsTab:AddSection({Name="Others"})
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
-local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
+local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"})
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
 local Lvl10 = SNGTab:AddSection({Name="Auto lvl10/Delete gem(Need Gems To Work)"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
