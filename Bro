@@ -343,20 +343,20 @@ Name="Reroll Trail",
 Callback=rerollMythicTrail})
 
 Claim:AddButton({
-Name="Group Rewards",Callback=Group})
+Name="Group Rewards",Callback=group})
 Claim:AddButton({
-Name="Daily Gifts",Callback=Gifts})
+Name="Daily Gifts",Callback=gifts})
 Claim:AddButton({
-Name="Redeem Codes",Callback=Codes})
+Name="Redeem Codes",Callback=codes})
 Claim:AddButton({
-Name="Redeem Spins",Callback= Spins})
+Name="Redeem Spins",Callback= spins})
 
 Others:AddButton({
 Name="Fps Booster",
-Callback=FpsBoost})
+Callback=fpsBoost})
 Others:AddButton({
 Name="SimpleSpy",
-Callback=Simple})	
+Callback=simple})	
 
 function TradeB()
 	if getgenv().Settings.selectedPlayer then	game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer]);
@@ -489,45 +489,45 @@ function deleteGems()
 	end
 end
 
-function W1()
+function w1()
 args = {[1]={mapId=50001}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W2()
+function w2()
 args = {[1]={mapId=50002}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W3()
+function w3()
 args = {[1]={mapId=50003}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W4()
+function w4()
 args = {[1]={mapId=50004}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W5()
+function w5()
 args = {[1]={mapId=50005}};	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W6()
+function w6()
 args = {[1]={mapId=50006}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W7()
+function w7()
 args = {[1]={mapId=50007}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W8() 
+function w8() 
 args = {[1]={mapId=50008}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W9()
+function w9()
 args = {[1]={mapId=50009}};	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function W10()
+function w10()
 args = {[1]={mapId=50010}};
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
 
 
-function Group()
+function group()
 while wait() do	game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer();
 	end
 end
 
-function Gifts()
+function gifts()
 while wait() do
 		for x = 1, 7 do
 			local args = {[1]=x};
@@ -536,16 +536,16 @@ while wait() do
 	end
 end
 
-function Codes()
+function codes()
 while wait() do
-		for x = 1, 40 do
+		for x = 1, 1000 do
 			local args = {[1]=x};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args));
 		end
 	end
 end
 
-function Spins()
+function spins()
 while wait() do
 		for x = 1, 8 do
 			local args = {[1]=x}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimActivitySpinTicket"):InvokeServer(unpack(args))
@@ -553,7 +553,7 @@ while wait() do
 	end
 end
 
-function FpsBoost()
+function fpsBoost()
 	for a, b in pairs(game.ReplicatedStorage.SkillEffects:GetDescendants()) do
 		if (b:IsA("Part") or b:IsA("MeshPart")) then
 			b.Transparency = 1;
@@ -599,7 +599,7 @@ function FpsBoost()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility")
 end
 
-function Simple()
+function simple()
 loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))()
 end
 
