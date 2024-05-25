@@ -63,6 +63,8 @@ local BestTab = BaldTab2:AddSection({Name="Gacha/Equip Best"});
 local PotionTab = BaldTab2:AddSection({Name="Potions"});
 local StatsTab = BaldTab3:AddSection({Name="Stats"});
 local DungeonTab = BaldTab4:AddSection({Name="Dungeon"});
+local DungeonTab2 = BaldTab4:AddSection({Name="Auto Kill Dungeon Enemies"});
+
 
 
 local G = {
@@ -87,7 +89,19 @@ local G = {
     BossWorld1 = false,
     World2 = false,
     BossWorld2 = false,
-    
+    World3 = false,
+    BossWorld3 = false,
+    World4 = false,
+    BossWorld4 = false,
+    World5 = false,
+    BossWorld5 = false,
+    World6 = false,
+    BossWorld6 = false,
+    World7 = false,
+    BossWorld7 = false,
+    World8 = false,
+    BossWorld8 = false,
+    DungeonKill = false
 
 
 }
@@ -1183,6 +1197,68 @@ W8:AddToggle({
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
                 wait(0.01)
+            end
+        end
+    end
+})
+
+DungeonTab2:AddToggle({
+    Name = "Dungeon Aura",
+    Default = false,
+    Callback = function(Value)
+        G.DungeonKill = Value
+        if Value then
+            while G.DungeonKill do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Dungeon"):WaitForChild("Early Syng"),
+                        ["Type"] = "Dungeon"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Dungeon"):WaitForChild("Tom"),
+                        ["Type"] = "Dungeon"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Dungeon"):WaitForChild("Shadow Monarch"),
+                        ["Type"] = "Dungeon"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Dungeon"):WaitForChild("Hwunge"),
+                        ["Type"] = "Dungeon"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Dungeon"):WaitForChild("Cha"),
+                        ["Type"] = "Dungeon"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
             end
         end
     end
