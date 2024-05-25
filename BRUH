@@ -183,22 +183,25 @@ SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	end
 end});
 
-SwordSec:AddToggle({Name="Auto Delete Unequipped Weapons",Callback=function(autoSellWeapons)
-	if autoSellWeapons then
-		getgenv().Settings.autoSellWeapons = true;
-		while getgenv().Settings.autoSellWeapons do
-			wait(1);
-			for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
-				if not v.isEquip and not v.isLock then
-					local args = {[1]={[1]=v.guid}};
-					game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args));
-				end
-			end
-		end
-	else
-		getgenv().Settings.autoSellWeapons = false;
-	end
-end});
+SwordSec:AddToggle({
+    Name="Auto Delete Weapons",
+    Callback=function(autoSellWeapons)
+        if autoSellWeapons then
+            getgenv().Settings.autoSellWeapons = true;
+            while getgenv().Settings.autoSellWeapons do
+                wait(1);
+                for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                    if not v.isEquip and not v.isLock then
+                        local args = {[1]={[1]=v.guid}};
+                        game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args));
+                    end
+                end
+            end
+        else
+            getgenv().Settings.autoSellWeapons = false;
+        end
+    end
+});
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
 pcall(function()
