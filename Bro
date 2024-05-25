@@ -245,7 +245,7 @@ end})
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
 pcall(function()
 	for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-		if (v.isEquip == true) then
+		if (v.isEquip == true) and (v.isLock == true )then
 			table.insert(getgenv().Settings.mespetsequiper, v.guid)
 		end
 	end
@@ -427,7 +427,7 @@ if autoSellWeapons then
 		while getgenv().Settings.autoSellWeapons do
 			wait(1);
 			for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
-				if not v.isEquip,v.isLock then
+				if not v.isEquip and not v.isLock then
 					local args = {[1]={[1]=v.guid}}
 					game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args))
 				end
@@ -721,7 +721,7 @@ end
 function Group()
 while wait() do	game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer();
 	end
-end});
+end
 
 function Gifts()
 while wait() do
