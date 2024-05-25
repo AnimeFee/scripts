@@ -13,7 +13,6 @@ local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",Premi
 
 local EMount = PlayerTab:AddSection({Name="Mounts"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
-local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
