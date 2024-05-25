@@ -6,7 +6,7 @@ if not OrionLib then
 end
 
 local Window = OrionLib:MakeWindow({
-    Name = "Gyat Simulator",
+    Name = "Anime Swords X",
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "WendelCfg",
@@ -500,47 +500,83 @@ end
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local args = {
-    [1] = "Attack",
-    [2] = "Click",
-    [3] = {
-        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Clown Island"):WaitForChild("Buggy"),
-        ["Type"] = "Boss"
-    }
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
+PlayerTab:AddButton({
+    Name = "Redeem Codes",
+    Callback = function()
 local args = {
     [1] = "Codes",
     [2] = "Redeem",
-    [3] = "UPDA4FIXES"
+    [3] = "UPDATE4FIXES" -- Free Rewards (NEW)
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATE4" -- Free Rewards (NEW)
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "GRIMOIRES" -- Free Rewards (NEW)
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATE3FIXES" -- Free Rewards
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATE3BUFFS" -- Free Rewards
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATE3" -- Free Rewards
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "STANDS" -- Free Rewards
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATE2FIX" -- Free Rewards
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "Craft" -- Free Rewards
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATE1" -- Energy Potion and 2x Reset Status
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATE1FIX" -- Energy Potion and Reset Status
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "3KLIKES" -- Energy Potion and Reset Status
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "UPDATEBUFF" -- Pink Gems, Energy Potion, and Reset Status
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "BUGSFIX" -- Pink Gems, Energy Potion, and Reset Status
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+args[3] = "Release" -- 5 Shadow Keys
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
