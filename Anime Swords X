@@ -18,6 +18,12 @@ local BaldTab = Window:MakeTab({
     PremiumOnly = false
 })
 
+local Farms = Window:MakeTab({
+    Name = "Farms",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
 local EGGSTab = Window:MakeTab({
     Name = "Eggs",
     Icon = "rbxassetid://4483345998",
@@ -607,20 +613,88 @@ end});
 
 
 
+local worldDropdown
+local enemyDropdown
+
+worldDropdown = Tab:AddDropdown({
+	Name = "World",
+	Default = "Select a World",
+	Options = {"Select a World", "World One", "World Two", "World Three"},
+	Callback = function(Value)
+		if Value == "World One" then
+			enemyDropdown = Tab:AddDropdown({
+				Name = "Enemy",
+				Default = "Select an Enemy",
+				Options = {"Select an Enemy", "Enemy 1", "Enemy 2", "Enemy 3", "Enemy 4", "Enemy 5"},
+				Callback = function(Value)
+					print("Enemy selected: " .. Value)
+				end
+			})
+			enemyDropdown:Show()
+		elseif Value == "World Two" then
+			-- Add options for World Two here
+			if enemyDropdown then
+				enemyDropdown:Hide()
+			end
+		elseif Value == "World Three" then
+			-- Add options for World Three here
+			if enemyDropdown then
+				enemyDropdown:Hide()
+			end
+		end
+	end
+})
 
 
 
 
+local worldDropdown = Farms:AddDropdown({
+    Name = "World",
+    Default = "World1",
+    Options = {"World1", "World2", "World3"},
+    Callback = function(Value)
+        print("World selected:", Value)
+    end
+})
 
+local enemyDropdown = Farms:AddDropdown({
+    Name = "Enemy",
+    Default = "Enemy1",
+    Options = {"Enemy1", "Enemy2", "Enemy3"},
+    Callback = function(Value)
+        print("Enemy selected:", Value)
+    end
+})
 
+local attackToggle = Farms:AddToggle({
+    Name = "Auto Attack",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            print("Auto attack enabled!")
+            while Value do
+                local selectedWorld = worldDropdown:GetValue()
+                local selectedEnemy = enemyDropdown:GetValue()
+                print("Attacking " .. selectedEnemy .. " in " .. selectedWorld .. "!")
+                
+                -- Attack logic
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild(selectedWorld):WaitForChild(selectedEnemy),
+                        ["Type"] = "World"
+                    }
+                }
+                
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                
+                wait(1) -- wait 1 second before attacking again
+            end
+        else
+            print("Auto attack disabled!")
+        end
+    end
+})
 
-
-
-
-
-
-
-
-
-
-
+OrionLib:Init()
