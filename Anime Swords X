@@ -1,0 +1,113 @@
+local args = {
+    [1] = "Attack",
+    [2] = "Click",
+    [3] = {
+        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Itado"),
+        ["Type"] = "World"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Attack",
+    [2] = "Click",
+    [3] = {
+        ["Type"] = "Defense"
+    }
+}
+
+local args = {
+    [1] = "Pets",
+    [2] = "Best"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Attack",
+    [2] = "Click",
+    [3] = {
+        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Dragon Island"):WaitForChild("Frieza"),
+        ["Type"] = "Boss"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Gacha",
+    [2] = "Spin"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Potions",
+    [2] = "Use",
+    [3] = "Energy Potion"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Achievements",
+    [2] = "Redeem",
+    [3] = "Time I"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "RankUp",
+    [2] = "Evolve"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "SoloStatus",
+    [2] = "Add",
+    [3] = "Energy"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Merchant",
+    [2] = "Buy",
+    [3] = "Gamepass2"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Merchant",
+    [2] = "Buy",
+    [3] = "Sword"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Merchant",
+    [2] = "Buy",
+    [3] = "Gamepass"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+local args = {
+    [1] = "Dungeon",
+    [2] = "Start",
+    [3] = "Public"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+local args = {
+    [1] = "Dungeon",
+    [2] = "Start",
+    [3] = "Friend"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
