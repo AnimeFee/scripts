@@ -76,6 +76,9 @@ local G = {
     egg8 = false,
     World1 = false,
     BossWorld1 = false,
+    World2 = false,
+    BossWorld2 = false,
+    
 
 
 }
