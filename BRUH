@@ -18,8 +18,7 @@ local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
-local Lvl10 = SNGTab:AddSection({Name="Auto Lvl 10 gem(Need Gems To Work)"});
-local Del1to9 = SNGTab:AddSection({Name="Delete Gem"});
+local Lvl10 = SNGTab:AddSection({Name="Auto Sell/Lvl 10 gem(Need Gems To Work)"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 local Claim = MiscTab:AddSection({Name="Claim"});
@@ -346,7 +345,7 @@ Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	end
 end});
 
-Del1to9:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
+Lvl10:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
 	if deleteGems then
 		getgenv().Settings.deleteGems = true;
 		pcall(function()
