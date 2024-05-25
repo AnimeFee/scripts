@@ -199,52 +199,53 @@ SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForge
 	end
 end});
 
-TeleportTab:AddButton({Name="Fantasy Valley(World 1)",Callback=function()
+TeleportTab:AddButton({Name="Novice Village(World 1)",Callback=function()
 	local args = {[1]={mapId=50001}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Seaside Villa(World 2)",Callback=function()
+TeleportTab:AddButton({Name="Final Selection(World 2)",Callback=function()
 	local args = {[1]={mapId=50002}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Congress Hall(World 3)",Callback=function()
+TeleportTab:AddButton({Name="Column Meeting(World 3)",Callback=function()
 	local args = {[1]={mapId=50003}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Border Territory(World 4)",Callback=function()
+TeleportTab:AddButton({Name="Monolithic Trials(World 4)",Callback=function()
 	local args = {[1]={mapId=50004}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Polar Plain(World 5)",Callback=function()
-	local args = {[1]={mapId=50005}};
+TeleportTab:AddButton({Name="Fujikasane Yama(World 5)",Callback=function()
+	local args = {[1]={mapId=50013}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Ghost Forest(World 6)",Callback=function()
-	local args = {[1]={mapId=50006}};
+TeleportTab:AddButton({Name="Muzan Kibutsuji(World 6)",Callback=function()
+	local args = {[1]={mapId=50013}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Demon Station(World 7)",Callback=function()
-	local args = {[1]={mapId=50007}};
+TeleportTab:AddButton({Name="Infinite Train(World 7)",Callback=function()
+	local args = {[1]={mapId=50015}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Hashira Training(World 8)",Callback=function()
-	local args = {[1]={mapId=50008}};
+TeleportTab:AddButton({Name="Infinite City(World 8)",Callback=function()
+	local args = {[1]={mapId=50017}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Infinite City(World 9)",Callback=function()
-	local args = {[1]={mapId=50009}};
+TeleportTab:AddButton({Name="Hashiras Training(World 9)",Callback=function()
+	local args = {[1]={mapId=50018}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local args = {[1]={mapId=50010}};
+TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()
+	local args = {[1]={mapId=50019}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
