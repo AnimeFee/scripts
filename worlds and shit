@@ -1,4 +1,4 @@
-WORLD 1
+# WORLD 1
 local args = {
     [1] = "Attack",
     [2] = "Click",
@@ -39,7 +39,8 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args)) 
-Boss World 1
+
+# Boss World 1
 local args = {
     [1] = "Attack",
     [2] = "Click",
@@ -61,7 +62,8 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-World 2
+
+# World 2
 local args = {
     [1] = "Attack",
     [2] = "Click",
@@ -102,7 +104,8 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-Boss World 2
+
+# Boss World 2
 local args = {
     [1] = "Attack",
     [2] = "Click",
@@ -113,7 +116,8 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-World 3
+
+# World 3
 local args = {
     [1] = "Attack",
     [2] = "Click",
@@ -154,7 +158,8 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-Boss World 3
+
+# Boss World 3
 local args = {
     [1] = "Attack",
     [2] = "Click",
