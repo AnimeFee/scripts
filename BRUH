@@ -185,11 +185,16 @@ end});
 
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
 pcall(function()
-    for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
-        if v.isEquip and v.isLock then
-            table.insert(getgenv().Settings.mespetsequiper, v.guid);
+    if WeaponsInventory.localPlayerData then
+        for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
         end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
     end
 end);
 SwordSec:AddToggle({
@@ -199,11 +204,15 @@ SwordSec:AddToggle({
             getgenv().Settings.autoSellWeapons = true;
             while getgenv().Settings.autoSellWeapons do
                 wait(1);
-                for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
-                    if not v.isEquip and not v.isLock then
-                        local args = {[1]={[1]=v.guid}};
-                        game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args));
+                if WeaponsInventory.localPlayerData then
+                    for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                        if not v.isEquip and not v.isLock then
+                            local args = {[1]={[1]=v.guid}};
+                            game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args));
+                        end
                     end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
                 end
             end
         else
