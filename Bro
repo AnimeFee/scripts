@@ -238,7 +238,7 @@ pcall(function()
 	end
 end)
 
-mapNames = {};
+local mapNames = {};
 for _, name in pairs(getgenv().Settings.mapData) do
     table.insert(mapNames, name);
 end
@@ -253,7 +253,6 @@ DungeonSec:AddDropdown({
 
 DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
-    Default = false,
     Callback = function(AutoDungeon)
         if Autodungeon then
             while true do
