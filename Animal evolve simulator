@@ -44,7 +44,7 @@ v1:AddToggle({
 })
 
 local function rebirth()
-        while G.Rebirth do
+while G.Rebirth do
             game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RebirthEvent"):FireServer()
             task.wait(0.001)
         end
@@ -52,7 +52,7 @@ local function rebirth()
 end
 
 local function daily()
-        while G.Daily do
+while G.Daily do
             local args = {
                 [1] = "05/18/2024"
             }
@@ -63,7 +63,7 @@ local function daily()
 end
 
 local function coins()
-        while G.Coins do
+while G.Coins do
             local args = {
                 [1] = "5000 EvoCoin0s",
                 [2] = "EvoCoins"
@@ -73,3 +73,31 @@ local function coins()
         end
     end)
 end
+
+
+
+
+local args = {
+    [1] = "DmgLevel",
+    [2] = 3000
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpgradeStatEvent"):FireServer(unpack(args))
+local args = {
+    [1] = "HpLevel",
+    [2] = 0
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpgradeStatEvent"):FireServer(unpack(args))
+local args = {
+    [1] = "CritRateLevel",
+    [2] = 0
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpgradeStatEvent"):FireServer(unpack(args))
+local args = {
+    [1] = "CritDmgLevel",
+    [2] = 0
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpgradeStatEvent"):FireServer(unpack(args))
