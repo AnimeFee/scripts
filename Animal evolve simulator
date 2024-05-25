@@ -1,12 +1,9 @@
-
-    -- Loading the OrionLib library
     local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
     if not OrionLib then
         error("Failed to load the OrionLib library")
         return
     end
 
-    -- Creating the main window
     local Window = OrionLib:MakeWindow({
         Name = "Animal evolve simulator",
         HidePremium = false,
@@ -15,12 +12,10 @@
         IntroEnabled = false
     })
 
-    -- Table to store global variables
     local G = {
     Coins = false,
     Rebirth = false,
     Daily = false,
-
 }
 
     -- Creating the Player tab
@@ -49,7 +44,6 @@ v1:AddToggle({
 })
 
 local function rebirth()
-    spawn(function()
         while G.Rebirth do
             game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RebirthEvent"):FireServer()
             task.wait(0.001)
@@ -58,7 +52,6 @@ local function rebirth()
 end
 
 local function daily()
-    spawn(function()
         while G.Daily do
             local args = {
                 [1] = "05/18/2024"
@@ -70,7 +63,6 @@ local function daily()
 end
 
 local function coins()
-    spawn(function()
         while G.Coins do
             local args = {
                 [1] = "5000 EvoCoin0s",
