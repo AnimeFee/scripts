@@ -31,45 +31,53 @@
     })
  
 v1:AddToggle({
-Name = "Auto Rebirth",
-Default = false,
-Callback = function(Value)
-G.Rebirth = Value
-if Value then
-while G.Rebirth do
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RebirthEvent"):FireServer()
-end
-end
-end,})
+    Name = "Auto Rebirth",
+    Default = false,
+    Callback = rebirth
+})
 
 v1:AddToggle({
-Name = "Free Apples",
-Default = false,
-Callback = function(Value)
-G.Daily = Value
-if Value then
-while G.Daily do
-local args = {
-    [1] = "05/18/2024"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DailyGiftEvent"):FireServer(unpack(args))end
-end
-end,})
+    Name = "Free Apples",
+    Default = false,
+    Callback = daily
+})
 
 v1:AddToggle({
-Name = "Free EvoCoins",
-Default = false,
-Callback = function(Value)
-G.Coins = Value
-if Value then
-while G.Coins do
-local args = {
-    [1] = "5000 EvoCoin0s",
-    [2] = "EvoCoins"
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpdateStatEvent"):FireServer(unpack(args))end
-wait(1) -- wait for 1 second before adding the next point
-end
-end,})
+    Name = "Free EvoCoins",
+    Default = false,
+    Callback = coins
+})
 
+local function rebirth()
+    spawn(function()
+        while G.Rebirth do
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RebirthEvent"):FireServer()
+            task.wait(0.001)
+        end
+    end)
+end
+
+local function daily()
+    spawn(function()
+        while G.Daily do
+            local args = {
+                [1] = "05/18/2024"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DailyGiftEvent"):FireServer(unpack(args))
+            task.wait(0.001)
+        end
+    end)
+end
+
+local function coins()
+    spawn(function()
+        while G.Coins do
+            local args = {
+                [1] = "5000 EvoCoin0s",
+                [2] = "EvoCoins"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UpdateStatEvent"):FireServer(unpack(args))
+            task.wait(0.001)
+        end
+    end)
+end
