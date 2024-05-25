@@ -608,46 +608,6 @@ PlayerTab:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
-
-
-
-
-
-local worldDropdown
-local enemyDropdown
-
-worldDropdown = Tab:AddDropdown({
-	Name = "World",
-	Default = "Select a World",
-	Options = {"Select a World", "World One", "World Two", "World Three"},
-	Callback = function(Value)
-		if Value == "World One" then
-			enemyDropdown = Tab:AddDropdown({
-				Name = "Enemy",
-				Default = "Select an Enemy",
-				Options = {"Select an Enemy", "Enemy 1", "Enemy 2", "Enemy 3", "Enemy 4", "Enemy 5"},
-				Callback = function(Value)
-					print("Enemy selected: " .. Value)
-				end
-			})
-			enemyDropdown:Show()
-		elseif Value == "World Two" then
-			-- Add options for World Two here
-			if enemyDropdown then
-				enemyDropdown:Hide()
-			end
-		elseif Value == "World Three" then
-			-- Add options for World Three here
-			if enemyDropdown then
-				enemyDropdown:Hide()
-			end
-		end
-	end
-})
-
-
-
-
 local worldDropdown = Farms:AddDropdown({
     Name = "World",
     Default = "World1",
