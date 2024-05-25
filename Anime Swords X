@@ -5,7 +5,6 @@ if not OrionLib then
     return
 end
 
--- Creating the main window
 local Window = OrionLib:MakeWindow({
     Name = "Gyat Simulator",
     HidePremium = false,
@@ -14,21 +13,50 @@ local Window = OrionLib:MakeWindow({
     IntroEnabled = false
 })
 
--- Creating the Player tab
-local PlayerTab = Window:MakeTab({
+local BaldTab = Window:MakeTab({
     Name = "Scripts",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
--- Table to store global variables
+local BaldTab2 = Window:MakeTab({
+    Name = "Potions",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local BaldTab3 = Window:MakeTab({
+    Name = "Potions",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local BaldTab4 = Window:MakeTab({
+    Name = "Potions",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local PlayerTab = BaldTab:AddSection({Name="Scripts"});
+local BestTab = BaldTab2:AddSection({Name="Gacha/Equip Best"});
+local PotionTab = BaldTab2:AddSection({Name="Potions"});
+local StatsTab = BaldTab3:AddSection({Name="Stats"});
+local DungeonTab = BaldTab4:AddSection({Name="Dungeon"});
+
+
 local G = {
     Click = false,
     Rebirth = false,
+    Gacha = false,
+    EquipPets = false,
+    EquipSwords = false,
+    Stat1 = false,
+    Stat2 = false,
+    Stat3 = false,
+    Stat4 = false,
 
 }
 
--- Adding a toggle to the Player tab
 PlayerTab:AddToggle({
     Name = "Auto Click",
     Default = false,
@@ -36,90 +64,143 @@ PlayerTab:AddToggle({
         G.Click = Value
         if Value then
             while G.Click do
-                -- Add your code here
-                wait(1) -- Adjust the delay as needed
+            local args = {
+                [1] = "Attack",
+                [2] = "Click",
+                [3] = {
+                ["Type"] = "Defense"
+                }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
             end
         end
-    end,
-})
-
--- Adding a button to the Player tab
-PlayerTab:AddButton({
-    Name = "Daily Gifts",
-    Callback = function()
-        -- Add your code here
     end
 })
 
-local args = {
-    [1] = "Attack",
-    [2] = "Click",
-    [3] = {
-        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Cursed Island"):WaitForChild("Itado"),
-        ["Type"] = "World"
-    }
-}
+PlayerTab:AddToggle({
+    Name = "Auto Rank Up",
+    Default = false,
+    Callback = function(Value)
+        G.Rebirth = Value
+        if Value then
+            while G.Rebirth do
+            local args = {
+            [1] = "RankUp",
+            [2] = "Evolve"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+BestTab:AddToggle({
+    Name = "Spin Gacha(Shadows)",
+    Default = false,
+    Callback = function(Value)
+        G.Gacha = Value
+        if Value then
+            while G.Gacha do
+            local args = {
+            [1] = "Gacha",
+            [2] = "Spin"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
-local args = {
-    [1] = "Attack",
-    [2] = "Click",
-    [3] = {
-        ["Type"] = "Defense"
-    }
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
+BestTab:AddToggle({
+    Name = "Auto Equip Best Pets",
+    Default = false,
+    Callback = function(Value)
+        G.EquipPets = Value
+        if Value then
+            while G.EquipPets do
 local args = {
     [1] = "Pets",
     [2] = "Best"
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
+BestTab:AddToggle({
+    Name = "Auto Equip Best Swords",
+    Default = false,
+    Callback = function(Value)
+        G.EquipSwords = Value
+        if Value then
+            while G.EquipSwords do
 local args = {
-    [1] = "Attack",
-    [2] = "Click",
-    [3] = {
-        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Dragon Island"):WaitForChild("Frieza"),
-        ["Type"] = "Boss"
-    }
+    [1] = "Swords",
+    [2] = "Best"
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
-local args = {
-    [1] = "Gacha",
-    [2] = "Spin"
-}
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
 
-local args = {
+
+PotionTab:AddButton({
+    Name = "Use Energy Potions",
+    Callback = function()
+    local args = {
     [1] = "Potions",
     [2] = "Use",
     [3] = "Energy Potion"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))    
+end
+})
 
-local args = {
-    [1] = "Achievements",
-    [2] = "Redeem",
-    [3] = "Time I"
+PotionTab:AddButton({
+    Name = "Use Damage Potions",
+    Callback = function()
+    local args = {
+    [1] = "Potions",
+    [2] = "Use",
+    [3] = "Damage Potion"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))    
+end
+})
 
-local args = {
-    [1] = "RankUp",
-    [2] = "Evolve"
+PotionTab:AddButton({
+    Name = "Use Gems Potions",
+    Callback = function()
+    local args = {
+    [1] = "Potions",
+    [2] = "Use",
+    [3] = "Gems Potion"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))    
+end
+})
 
+StatsTab:AddToggle({
+    Name = "Auto Stat Energy",
+    Default = false,
+    Callback = function(Value)
+        G.Stat1 = Value
+        if Value then
+            while G.Stat1 do
 local args = {
     [1] = "SoloStatus",
     [2] = "Add",
@@ -127,42 +208,125 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
+StatsTab:AddToggle({
+    Name = "Auto Stat Gems",
+    Default = false,
+    Callback = function(Value)
+        G.Stat2 = Value
+        if Value then
+            while G.Stat2 do
 local args = {
-    [1] = "Merchant",
-    [2] = "Buy",
-    [3] = "Gamepass2"
+    [1] = "SoloStatus",
+    [2] = "Add",
+    [3] = "Gems"
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
+StatsTab:AddToggle({
+    Name = "Auto Stat Damage",
+    Default = false,
+    Callback = function(Value)
+        G.Stat3 = Value
+        if Value then
+            while G.Stat3 do
 local args = {
-    [1] = "Merchant",
-    [2] = "Buy",
-    [3] = "Sword"
+    [1] = "SoloStatus",
+    [2] = "Add",
+    [3] = "Damage"
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
+StatsTab:AddToggle({
+    Name = "Auto Stat Lucky",
+    Default = false,
+    Callback = function(Value)
+        G.Stat4 = Value
+        if Value then
+            while G.Stat4 do
 local args = {
-    [1] = "Merchant",
-    [2] = "Buy",
-    [3] = "Gamepass"
+    [1] = "SoloStatus",
+    [2] = "Add",
+    [3] = "Lucky"
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
+
+
+
+
+DungeonTab:AddButton({
+    Name = "Enter Dungeon(Public)",
+    Callback = function()
 local args = {
     [1] = "Dungeon",
     [2] = "Start",
     [3] = "Public"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))  
+end
+})
+DungeonTab:AddButton({
+    Name = "Enter Dungeon(Private)",
+    Callback = function()
 local args = {
     [1] = "Dungeon",
     [2] = "Start",
     [3] = "Friend"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))  
+end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
