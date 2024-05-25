@@ -247,7 +247,7 @@ DungeonSec:AddDropdown({
     Name = "Select Return Map",
     Options = mapNames,
     Callback = function(selectedMap)
-        getgenv().Dungeon.selectedReturnMap = selectedMap
+        getgenv().Settings.selectedMap = selectedMap
     end
 })
 
