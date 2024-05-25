@@ -674,7 +674,7 @@ Farms:AddToggle({
                     [1] = "Attack",
                     [2] = "Click",
                     [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Boss Island"):WaitForChild("Sasori"),
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Clown Island"):WaitForChild("Buggy"),
                         ["Type"] = "Boss"
                     }
                 }
