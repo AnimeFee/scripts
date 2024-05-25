@@ -1,35 +1,23 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
 local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"})
 
-getgenv().Settings = {
-mespetsequiper={},
-Range=500,
-AutoFarm=false,
-WalkToEnemy=false,
-DamageBoost=false,
-GoldCollect=false,
-autodungeon=false,
-deleteGems=false,
-fuseLevel10Gems=false,
-autoFuseSwords=false,
-autoSellWeapons=false,
-autoForgeSword=false}
+getgenv().Settings = {mespetsequiper={},Range=500,AutoFarm=false,WalkToEnemy=false,DamageBoost=false,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local FuseTab = Window:MakeTab({Name="Gem Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local SNGTab = Window:MakeTab({Name="Sword And Gems",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 local EMount = PlayerTab:AddSection({Name="Mounts"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
-local SwordSec = ScriptsTab:AddSection({Name="Fuse/Sell Swords"});
+local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
-local Lvl10 = FuseTab:AddSection({Name="Auto Lvl 10 gem(Need Gems To Work)"});
-local Del1to9 = FuseTab:AddSection({Name="Delete Gem"});
+local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
+local Lvl10 = SNGTab:AddSection({Name="Auto Sell/Lvl 10 gem(Need Gems To Work)"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 local Claim = MiscTab:AddSection({Name="Claim"});
@@ -133,6 +121,19 @@ dist = distance;
 	end
 end);
 
+FarmSec2:AddToggle({Name = "Auto Rebirth",Default = Settings.AutoReborn,Callback = function(Value)
+            Settings.AutoReborn = Value;
+            if Value then
+                while Settings.AutoReborn do
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayerReborn"):FireServer()
+                    wait(1)
+                end
+            end
+        end,
+    })
+
+
+
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
 		getgenv().Settings.autoFuseSwords = true;
@@ -147,22 +148,43 @@ SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	end
 end});
 
-SwordSec:AddToggle({Name="Auto Delete Unequipped Weapons",Callback=function(autoSellWeapons)
-	if autoSellWeapons then
-		getgenv().Settings.autoSellWeapons = true;
-		while getgenv().Settings.autoSellWeapons do
-			wait(1);
-			for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
-				if not v.isEquip then
-					local args = {[1]={[1]=v.guid}};
-					game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args));
-				end
-			end
-		end
-	else
-		getgenv().Settings.autoSellWeapons = false;
-	end
-end});
+
+local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if WeaponsInventory.localPlayerData then
+        for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
+SwordSec:AddToggle({
+    Name="Auto Delete Weapons",
+    Callback=function(autoSellWeapons)
+        if autoSellWeapons then
+            getgenv().Settings.autoSellWeapons = true;
+            while getgenv().Settings.autoSellWeapons do
+                wait(1);
+                if WeaponsInventory.localPlayerData then
+                    for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
+                        if not v.isEquip and not v.isLock then
+                            local args = {[1]={[1]=v.guid}};
+                            game:GetService("ReplicatedStorage").Remotes.DeleteWeapons:FireServer(unpack(args));
+                        end
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoSellWeapons = false;
+        end
+    end
+});
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
 pcall(function()
@@ -309,7 +331,7 @@ Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	end
 end});
 
-Del1to9:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
+Lvl10:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
 	if deleteGems then
 		getgenv().Settings.deleteGems = true;
 		pcall(function()
