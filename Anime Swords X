@@ -19,25 +19,32 @@ local BaldTab = Window:MakeTab({
     PremiumOnly = false
 })
 
+local EGGSTab = Window:MakeTab({
+    Name = "Eggs",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
 local BaldTab2 = Window:MakeTab({
-    Name = "Potions",
+    Name = "Potion/EquipBest/Gacha",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
 local BaldTab3 = Window:MakeTab({
-    Name = "Potions",
+    Name = "Stats3",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
 local BaldTab4 = Window:MakeTab({
-    Name = "Potions",
+    Name = "Enter",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
 local PlayerTab = BaldTab:AddSection({Name="Scripts"});
+local Eggs = EGGSTab:AddSection({Name="Auto Hatch Eggs"});
 local BestTab = BaldTab2:AddSection({Name="Gacha/Equip Best"});
 local PotionTab = BaldTab2:AddSection({Name="Potions"});
 local StatsTab = BaldTab3:AddSection({Name="Stats"});
@@ -54,6 +61,14 @@ local G = {
     Stat2 = false,
     Stat3 = false,
     Stat4 = false,
+    egg1 = false,
+    egg2 = false,
+    egg3 = false,
+    egg4 = false,
+    egg5 = false,
+    egg6 = false,
+    egg7 = false,
+    egg8 = false,
 
 }
 
@@ -152,8 +167,189 @@ game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(ar
     end
 })
 
+EGGSTab:AddToggle({
+    Name = "Auto Clown Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg1 = Value
+        if Value then
+            while G.egg1 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Clown Island",
+        ["Type"] = "Open"
+    }
+}
 
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
+EGGSTab:AddToggle({
+    Name = "Auto Leveling Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg2 = Value
+        if Value then
+            while G.egg2 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Leveling Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+EGGSTab:AddToggle({
+    Name = "Auto Cursed Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg3 = Value
+        if Value then
+            while G.egg3 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Cursed Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+EGGSTab:AddToggle({
+    Name = "Auto Dragon Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg4 = Value
+        if Value then
+            while G.egg4 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Dragon Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+EGGSTab:AddToggle({
+    Name = "Auto Slayer Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg5 = Value
+        if Value then
+            while G.egg5 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Slayer Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+EGGSTab:AddToggle({
+    Name = "Auto Online Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg6 = Value
+        if Value then
+            while G.egg6 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Online Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+EGGSTab:AddToggle({
+    Name = "Auto Bizzare Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg7 = Value
+        if Value then
+            while G.egg7 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Bizzare Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+EGGSTab:AddToggle({
+    Name = "Auto Clover Island Egg(Needs To Be Close To The Egg)",
+    Default = false,
+    Callback = function(Value)
+        G.egg8 = Value
+        if Value then
+            while G.egg8 do
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Clover Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
 
 PotionTab:AddButton({
     Name = "Use Energy Potions",
@@ -329,14 +525,5 @@ end
 
 
 
-local args = {
-    [1] = "Stars",
-    [2] = "Roll",
-    [3] = {
-        ["Map"] = "Clown Island",
-        ["Type"] = "Open"
-    }
-}
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
 
