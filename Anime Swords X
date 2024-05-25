@@ -329,4 +329,14 @@ end
 
 
 
+local args = {
+    [1] = "Stars",
+    [2] = "Roll",
+    [3] = {
+        ["Map"] = "Clown Island",
+        ["Type"] = "Open"
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
 
