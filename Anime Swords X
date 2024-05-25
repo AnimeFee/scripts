@@ -62,7 +62,15 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
 
+local args = {
+    [1] = "Attack",
+    [2] = "Click",
+    [3] = {
+        ["Type"] = "Defense"
+    }
+}
 
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
 
 local args = {
     [1] = "Pets",
