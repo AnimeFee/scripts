@@ -629,7 +629,7 @@ W1:AddToggle({
 })
 
 W1:AddToggle({
-    Name = "Boss World 1",
+    Name = "Kill Bigmom/Buggy",
     Default = false,
     Callback = function(Value)
         G.BossWorld1 = Value
@@ -713,7 +713,7 @@ W2:AddToggle({
 })
 
 W2:AddToggle({
-    Name = "Boss World 2",
+    Name = "Auto Farm Cha",
     Default = false,
     Callback = function(Value)
         G.BossWorld2 = Value
@@ -787,7 +787,7 @@ W3:AddToggle({
 })
 
 W3:AddToggle({
-    Name = "Boss World 3",
+    Name = "Auto Farm Guje/Gojou",
     Default = false,
     Callback = function(Value)
         G.BossWorld3= Value
@@ -871,7 +871,7 @@ W4:AddToggle({
 })
 
 W4:AddToggle({
-    Name = "Boss World 4",
+    Name = "Auto Farm Frieza",
     Default = false,
     Callback = function(Value)
         G.BossWorld4 = Value
@@ -945,7 +945,7 @@ W5:AddToggle({
 })
 
 W5:AddToggle({
-    Name = "Boss World 5",
+    Name = "Auto Farm Tanjiro",
     Default = false,
     Callback = function(Value)
         G.BossWorld5 = Value
@@ -1019,7 +1019,7 @@ W6:AddToggle({
 })
 
 W6:AddToggle({
-    Name = "Boss World 6",
+    Name = "Auto Farm Kirito",
     Default = false,
     Callback = function(Value)
         G.BossWorld6 = Value
@@ -1093,7 +1093,7 @@ W7:AddToggle({
 })
 
 W7:AddToggle({
-    Name = "Boss World 7",
+    Name = "Auto Farm Jotaro",
     Default = false,
     Callback = function(Value)
         G.BossWorld7 = Value
@@ -1167,7 +1167,7 @@ W8:AddToggle({
 })
 
 W8:AddToggle({
-    Name = "Boss World 8",
+    Name = "Auto Farm Jotaro",
     Default =false,
     Callback = function(Value)
         G.BossWorld8 = Value
@@ -1177,7 +1177,7 @@ W8:AddToggle({
                     [1] = "Attack",
                     [2] = "Click",
                     [3] = {
-                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Clover Island"):WaitForChild("Jotaro"),
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("Boss"):WaitForChild("Clover Island"):WaitForChild("Asta"),
                         ["Type"] = "Boss"
                     }
                 }
