@@ -537,3 +537,10 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
 
+local args = {
+    [1] = "Codes",
+    [2] = "Redeem",
+    [3] = "UPDA4FIXES"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
