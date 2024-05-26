@@ -607,8 +607,9 @@ W1:AddToggle({
     Name = "Auto Attack",
     Default = false,
     Callback = function(Value)
-        if Value then
-            while Value do
+     World  = Value
+	if Value then 
+            while World do
                 local args = {
                     [1] = "Attack",
                     [2] = "Click",
