@@ -48,6 +48,10 @@ getgenv().G = {
     Spin = false,
     World4Value = "Lobby",
     Egg = "Cursed Chest"
+    Dungeon1 = false ,
+    Dungeon2 = false , 
+    Dungeon3 = false ,
+    Dungeon4 = false ,
 }
 
 Sec1:AddToggle({
@@ -354,5 +358,119 @@ V4:AddButton({
         redeemCode("RELEASE")
     end
 })
+
+Sec2:AddToggle({
+    Name = "Auto Enter Dungeon(Easy)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon1 = Value
+        if Value then
+            spawn(function()
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Dungeon",
+            [3] = "Join",
+            [4] = "Easy"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Dungeon1 = false
+        end
+    end
+})
+
+Sec2:AddToggle({
+    Name = "Auto Enter Dungeon(Medium)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon2 = Value
+        if Value then
+            spawn(function()
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Dungeon",
+            [3] = "Join",
+            [4] = "Medium"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Dungeon2 = false
+        end
+    end
+})
+
+Sec2:AddToggle({
+    Name = "Auto Enter Dungeon(Hard)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon3 = Value
+        if Value then
+            spawn(function()
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Dungeon",
+            [3] = "Join",
+            [4] = "Hard"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Dungeon3 = false
+        end
+    end
+})
+
+Sec2:AddToggle({
+    Name = "Auto Enter Dungeon(Insane)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon4 = Value
+        if Value then
+            spawn(function()
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Dungeon",
+            [3] = "Join",
+            [4] = "Insane"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Dungeon4 = false
+        end
+    end
+})
+
+
 
 OrionLib:Init();
