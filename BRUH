@@ -595,7 +595,7 @@ end});
 
 Claim:AddButton({Name="Redeem Codes",Callback=function()
 	while wait() do
-		for x = 1, 40 do
+		for x = 1, 1000 do
 			local args = {[1]=x};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args));
 		end
