@@ -619,6 +619,24 @@ W1:AddToggle({
                     }
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+		local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild(G.WorldValue),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+		local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Clown Island"):WaitForChild(G.WorldValue),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
                 wait(.01)
             end
         end
