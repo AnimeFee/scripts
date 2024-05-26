@@ -539,60 +539,40 @@ end
 })
 
 
+-- Add "Redeem Codes" button with a callback function
 PlayerTab:AddButton({
     Name = "Redeem Codes",
     Callback = function()
-local args = {
-    [1] = "Codes",
-    [2] = "Redeem",
-    [3] = "UPDATE4FIXES" -- Free Rewards (NEW)
-}
+        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+        }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+        -- List of codes for free rewards
+        local codes = {
+            "UPDATE4FIXES", -- Free Rewards (NEW)
+            "UPDATE4", -- Free Rewards (NEW)
+            "GRIMOIRES", -- Free Rewards (NEW)
+            "UPDATE3FIXES", -- Free Rewards
+            "UPDATE3BUFFS", -- Free Rewards
+            "UPDATE3", -- Free Rewards
+            "STANDS", -- Free Rewards
+            "UPDATE2FIX", -- Free Rewards
+            "Craft", -- Free Rewards
+            "UPDATE1", -- Energy Potion and 2x Reset Status
+            "UPDATE1FIX", -- Energy Potion and Reset Status
+            "3KLIKES", -- Energy Potion and Reset Status
+            "UPDATEBUFF", -- Pink Gems, Energy Potion, and Reset Status
+            "BUGSFIX", -- Pink Gems, Energy Potion, and Reset Status
+            "Release", -- 5 Shadow Keys
+        }
 
-args[3] = "UPDATE4" -- Free Rewards (NEW)
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "GRIMOIRES" -- Free Rewards (NEW)
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "UPDATE3FIXES" -- Free Rewards
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "UPDATE3BUFFS" -- Free Rewards
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "UPDATE3" -- Free Rewards
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "STANDS" -- Free Rewards
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "UPDATE2FIX" -- Free Rewards
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "Craft" -- Free Rewards
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "UPDATE1" -- Energy Potion and 2x Reset Status
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "UPDATE1FIX" -- Energy Potion and Reset Status
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "3KLIKES" -- Energy Potion and Reset Status
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "UPDATEBUFF" -- Pink Gems, Energy Potion, and Reset Status
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "BUGSFIX" -- Pink Gems, Energy Potion, and Reset Status
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-args[3] = "Release" -- 5 Shadow Keys
-game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-
-end
+        -- Iterate through the codes and fire the server function
+        for _, code in ipairs(codes) do
+            args[3] = code
+            game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+        end
+    end
 })
 
 W1:AddDropdown({
