@@ -42,8 +42,6 @@ PlayerSpin = false,
 Spin = false,
 World4Value = "Lobby"
 
-
-
 }
 
 
@@ -257,17 +255,17 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpa
     end
 })
 
-V2:AddDropdown({
-    Name = "Pick Teleport",
-    Default = "Lobby",
+V3:AddDropdown({
+    Name = "Eggs",
+    Default = "Cursed Chest",
     Options = {"Cursed Chest","Bizzare Chest"},
     Callback = function(Value)
         G.Egg = Value
     end
 })
 
-V2:AddButton({
-    Name = "Tp To Chosen Map",
+Eggs:AddButton({
+    Name = "Eggs",
     Callback = function()
 local args = {
     [1] = {
