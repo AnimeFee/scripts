@@ -218,7 +218,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Clown Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
@@ -241,7 +241,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Leveling Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
@@ -264,7 +264,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Cursed Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
@@ -287,7 +287,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Dragon Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
@@ -310,7 +310,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Slayer Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
@@ -333,7 +333,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Online Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
@@ -356,7 +356,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Bizzare Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
@@ -379,7 +379,7 @@ local args = {
     [2] = "Roll",
     [3] = {
         ["Map"] = "Clover Island",
-        ["Type"] = "Open"
+        ["Type"] = "Multi"
     }
 }
 
