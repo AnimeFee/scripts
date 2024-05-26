@@ -1,0 +1,1074 @@
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Click",
+            [3] = "Execute"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Weapons",
+            [3] = "Equip",
+            [4] = "c0ea50aba05e4c2ebc4aa90a0bc84c29"
+        },
+        [2] = {
+            [1] = "\3",
+            [2] = "Weapons",
+            [3] = "Equip",
+            [4] = "824ad6f417e34d87ae87303915e72eea"
+        },
+        [3] = {
+            [1] = "\3",
+            [2] = "Weapons",
+            [3] = "Equip",
+            [4] = "824ad6f417e34d87ae87303915e72eea"
+        },
+        [4] = {
+            [1] = "\3",
+            [2] = "Weapons",
+            [3] = "Equip",
+            [4] = "c0ea50aba05e4c2ebc4aa90a0bc84c29",
+            [5] = false,
+            [6] = true
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "DailyRewards",
+            [3] = "Claim",
+            [4] = "3"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "1",
+            [5] = "Free"
+        },
+        [2] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "1",
+            [5] = "Premium"
+        },
+        [3] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "2",
+            [5] = "Free"
+        },
+        [4] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "2",
+            [5] = "Premium"
+        },
+        [5] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "3",
+            [5] = "Free"
+        },
+        [6] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "3",
+            [5] = "Premium"
+        },
+        [7] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "4",
+            [5] = "Free"
+        },
+        [8] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "4",
+            [5] = "Premium"
+        },
+        [9] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "5",
+            [5] = "Free"
+        },
+        [10] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "5",
+            [5] = "Premium"
+        },
+        [11] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "6",
+            [5] = "Free"
+        },
+        [12] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "6",
+            [5] = "PremaimReward",
+            [4] = "45",
+            [5] = "Premium"
+        },
+        [91] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "46",
+            [5] = "Free"
+        },
+        [92] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "46",
+            [5] = "Premium"
+        },
+        [93] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "47",
+            [5] = "Free"
+        },
+        [94] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "47",
+            [5] = "Premium"
+        },
+        [95] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "48",
+            [5] = "Free"
+        },
+        [96] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "48",
+            [5] = "Premium"
+        },
+        [97] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "49",
+            [5] = "Free"
+        },
+        [98] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "49",
+            [5] = "Premium"
+        },
+        [99] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "50",
+            [5] = "Free"
+        },
+        [100] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "50",
+            [5] = "Premium"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+ium"
+        },
+        [13] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "7",
+            [5] = "Free"
+        },
+        [14] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "7",
+            [5] = "Premium"
+        },
+        [15] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "8",
+            [5] = "Free"
+        },
+        [16] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "8",
+            [5] = "Premium"
+        },
+        [17] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "9",
+            [5] = "Free"
+        },
+        [18] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "9",
+            [5] = "Premium"
+        },
+        [19] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "10",
+            [5] = "Free"
+        },
+        [20] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "10",
+            [5] = "Premium"
+        },
+        [21] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "11",
+            [5] = "Free"
+        },
+        [22] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "11",
+            [5] = "Premium"
+        },
+        [23] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "12",
+            [5] = "Free"
+        },
+        [24] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "12",
+            [5] = "Premium"
+        },
+        [25] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "13",
+            [5] = "Free"
+        },
+        [26] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "13",
+            [5] = "Premium"
+        },
+        [27] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "14",
+            [5] = "Free"
+        },
+        [28] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "14",
+            [5] = "Premium"
+        },
+        [29] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "15",
+            [5] = "Free"
+        },
+        [30] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "15",
+            [5] = "Premium"
+        },
+        [31] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "16",
+            [5] = "Free"
+        },
+        [32] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "16",
+            [5] = "Premium"
+        },
+        [33] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "17",
+            [5] = "Free"
+        },
+        [34] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "17",
+            [5] = "Premium"
+        },
+        [35] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "18",
+            [5] = "Free"
+        },
+        [36] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "18",
+            [5] = "Premium"
+        },
+        [37] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "19",
+            [5] = "Free"
+        },
+        [38] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "19",
+            [5] = "Premium"
+        },
+        [39] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "20",
+            [5] = "Free"
+        },
+        [40] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "20",
+            [5] = "Premium"
+        },
+        [41] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "21",
+            [5] = "Free"
+        },
+        [42] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "21",
+            [5] = "Premium"
+        },
+        [43] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "22",
+            [5] = "Free"
+        },
+        [44] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "22",
+            [5] = "Premium"
+        },
+        [45] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "23",
+            [5] = "Free"
+        },
+        [46] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "23",
+            [5] = "Premium"
+        },
+        [47] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "24",
+            [5] = "Free"
+        },
+        [48] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "24",
+            [5] = "Premium"
+        },
+        [49] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "25",
+            [5] = "Free"
+        },
+        [50] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "25",
+            [5] = "Premium"
+        },
+        [51] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "26",
+            [5] = "Free"
+        },
+        [52] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "26",
+            [5] = "Premium"
+        },
+        [53] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "27",
+            [5] = "Free"
+        },
+        [54] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "27",
+            [5] = "Premium"
+        },
+        [55] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "28",
+            [5] = "Free"
+        },
+        [56] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "28",
+            [5] = "Premium"
+        },
+        [57] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "29",
+            [5] = "Free"
+        },
+        [58] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "29",
+            [5] = "Premium"
+        },
+        [59] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "30",
+            [5] = "Free"
+        },
+        [60] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "30",
+            [5] = "Premium"
+        },
+        [61] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "31",
+            [5] = "Free"
+        },
+        [62] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "31",
+            [5] = "Premium"
+        },
+        [63] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "32",
+            [5] = "Free"
+        },
+        [64] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "32",
+            [5] = "Premium"
+        },
+        [65] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "33",
+            [5] = "Free"
+        },
+        [66] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "33",
+            [5] = "Premium"
+        },
+        [67] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "34",
+            [5] = "Free"
+        },
+        [68] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "34",
+            [5] = "Premium"
+        },
+        [69] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "35",
+            [5] = "Free"
+        },
+        [70] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "35",
+            [5] = "Premium"
+        },
+        [71] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "36",
+            [5] = "Free"
+        },
+        [72] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "36",
+            [5] = "Premium"
+        },
+        [73] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "37",
+            [5] = "Free"
+        },
+        [74] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "37",
+            [5] = "Premium"
+        },
+        [75] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "38",
+            [5] = "Free"
+        },
+        [76] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "38",
+            [5] = "Premium"
+        },
+        [77] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "39",
+            [5] = "Free"
+        },
+        [78] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "39",
+            [5] = "Premium"
+        },
+        [79] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "40",
+            [5] = "Free"
+        },
+        [80] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "40",
+            [5] = "Premium"
+        },
+        [81] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "41",
+            [5] = "Free"
+        },
+        [82] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "41",
+            [5] = "Premium"
+        },
+        [83] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "42",
+            [5] = "Free"
+        },
+        [84] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "42",
+            [5] = "Premium"
+        },
+        [85] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "43",
+            [5] = "Free"
+        },
+        [86] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "43",
+            [5] = "Premium"
+        },
+        [87] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "44",
+            [5] = "Free"
+        },
+        [88] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "44",
+            [5] = "Premium"
+        },
+        [89] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "45",
+            [5] = "Free"
+        },
+        [90] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "45",
+            [5] = "Premium"
+        },
+        [91] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "46",
+            [5] = "Free"
+        },
+        [92] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "46",
+            [5] = "Premium"
+        },
+        [93] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "47",
+            [5] = "Free"
+        },
+        [94] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "47",
+            [5] = "Premium"
+        },
+        [95] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "48",
+            [5] = "Free"
+        },
+        [96] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "48",
+            [5] = "Premium"
+        },
+        [97] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "49",
+            [5] = "Free"
+        },
+        [98] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "49",
+            [5] = "Premium"
+        },
+        [99] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "50",
+            [5] = "Free"
+        },
+        [100] = {
+            [1] = "\3",
+            [2] = "Battlepass",
+            [3] = "ClaimReward",
+            [4] = "50",
+            [5] = "Premium"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+
+
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Avatars",
+            [3] = "Spin"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Ascension",
+            [3] = "Make"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "GroupChest",
+            [3] = "Claim"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Passive",
+            [3] = "PlayerSpin"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Passive",
+            [3] = "PetSpin",
+            [4] = "d8a0227d72f548ababfbbc3abc3d3542"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Enchantment",
+            [3] = "Spin",
+            [4] = "a4660f8ff8b6487689373944da4d6053"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Weapons",
+            [3] = "Buy",
+            [4] = "spike_sword"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+
+
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Portal",
+            [3] = "Open",
+            [4] = true,
+            [5] = "E"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Portal",
+            [3] = "Open",
+            [4] = false,
+            [5] = "E"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Wheel",
+            [3] = "Spin"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Teleport",
+            [3] = "To",
+            [4] = "Lobby"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Teleport",
+            [3] = "To",
+            [4] = 1
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "AFK",
+            [3] = "Set",
+            [4] = "AutoOpening",
+            [5] = false
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Pets",
+            [3] = "Open",
+            [4] = "Cursed Chest",
+            [5] = "One"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Pets",
+            [3] = "Open",
+            [4] = "Bizarre Chest",
+            [5] = "All"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "WorldBoss",
+            [3] = "Join",
+            [4] = 1
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Click",
+            [3] = "Execute",
+            [4] = workspace:WaitForChild("_ENEMIES"):WaitForChild("WorldBoss"):WaitForChild("1"):WaitForChild("1")
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Click",
+            [3] = "Execute",
+            [4] = workspace:WaitForChild("_ENEMIES"):WaitForChild("2"):WaitForChild("kars")
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
