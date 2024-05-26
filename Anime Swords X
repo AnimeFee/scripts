@@ -5,7 +5,7 @@ if not OrionLib then
 end
 
 local Window = OrionLib:MakeWindow({
-    Name = "Anime Swords X",
+    Name = "Anime Swords ",
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "WendelCfg",
