@@ -358,14 +358,14 @@ Others:AddButton({
 Name="SimpleSpy",
 Callback=simple})	
 
-function TradeB()
+local function TradeB()
 	if getgenv().Settings.selectedPlayer then	game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer]);
 	else
 		warn("No player selected.");
 	end
 end
 
-function TeleportToAndFromDungeon(returnMapId, returnTime)
+local function TeleportToAndFromDungeon(returnMapId, returnTime)
  
 getgenv().Settings.AutoFarm = true
 getgenv().Settings.GoldCollect = true
@@ -377,11 +377,11 @@ getgenv().Settings.GoldCollect = false
 getgenv().Settings.DamageBoost = false
 end
 
-function Dupe()
+local function Dupe()
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end
 
-function UseMount()
+local function UseMount()
 	if getgenv().Settings.selectedMount then
 		for id, name in pairs(nameMap) do
 			if (name == getgenv().Settings.selectedMount) then
@@ -394,7 +394,7 @@ function UseMount()
 	end
 end
 
-function autoFuseSwords()
+local function autoFuseSwords()
 	if autoFuseSwords then
 		getgenv().Settings.autoFuseSwords = true
 		while getgenv().Settings.autoFuseSwords do
@@ -407,7 +407,7 @@ function autoFuseSwords()
 	end
 end
 
-function autoSellWeapons()
+local function autoSellWeapons()
 if autoSellWeapons then
 		getgenv().Settings.autoSellWeapons = true;
 		while getgenv().Settings.autoSellWeapons do
@@ -424,7 +424,7 @@ if autoSellWeapons then
 	end
 end
 
-function autoForgeSword()
+local function autoForgeSword()
 	if autoForgeSword then
 		getgenv().Settings.autoForgeSword = true;
 		while getgenv().Settings.autoForgeSword do
@@ -441,7 +441,7 @@ function autoForgeSword()
 	end
 end
 
-function fuseLevel10Gems()
+local function fuseLevel10Gems()
 	if fuseLevel10Gems then
 		getgenv().Settings.fuseLevel10Gems = true;
 		pcall(function()
@@ -469,7 +469,7 @@ local args = {
 end
 
 
-function deleteGems()
+local function deleteGems()
 	if deleteGems then
 		getgenv().Settings.deleteGems = true;
 		pcall(function()
@@ -489,45 +489,45 @@ function deleteGems()
 	end
 end
 
-function w1()
+local function w1()
 args = {[1]={mapId=50001}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w2()
+local function w2()
 args = {[1]={mapId=50002}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w3()
+local function w3()
 args = {[1]={mapId=50003}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w4()
+local function w4()
 args = {[1]={mapId=50004}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w5()
+local function w5()
 args = {[1]={mapId=50005}};	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w6()
+local function w6()
 args = {[1]={mapId=50006}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w7()
+local function w7()
 args = {[1]={mapId=50007}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w8() 
+local function w8() 
 args = {[1]={mapId=50008}}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w9()
+local function w9()
 args = {[1]={mapId=50009}};	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
-function w10()
+local function w10()
 args = {[1]={mapId=50010}};
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
 end
 
 
-function group()
+local function group()
 while wait() do	game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer();
 	end
 end
 
-function gifts()
+local function gifts()
 while wait() do
 		for x = 1, 7 do
 			local args = {[1]=x};
@@ -536,7 +536,7 @@ while wait() do
 	end
 end
 
-function codes()
+local function codes()
 while wait() do
 		for x = 1, 1000 do
 			local args = {[1]=x};
@@ -545,7 +545,7 @@ while wait() do
 	end
 end
 
-function spins()
+local function spins()
 while wait() do
 		for x = 1, 8 do
 			local args = {[1]=x}	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimActivitySpinTicket"):InvokeServer(unpack(args))
@@ -553,7 +553,7 @@ while wait() do
 	end
 end
 
-function fpsBoost()
+local function fpsBoost()
 	for a, b in pairs(game.ReplicatedStorage.SkillEffects:GetDescendants()) do
 		if (b:IsA("Part") or b:IsA("MeshPart")) then
 			b.Transparency = 1;
@@ -599,7 +599,7 @@ function fpsBoost()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility")
 end
 
-function simple()
+local function simple()
 loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))()
 end
 
@@ -611,5 +611,187 @@ spawn(function()
 	end
 end)
 
+local function rerollLegendaryMask()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400001};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410001") and (tostring(rerollResult.ornamentId) ~= "410002") and (tostring(rerollResult.ornamentId) ~= "410003") and (tostring(rerollResult.ornamentId) ~= "410004") and (tostring(rerollResult.ornamentId) ~= "410005")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410004") or (tostring(rerollResult.ornamentId) == "410005")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410004") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410005") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
+
+local function rerollLegendaryAwakening()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400002};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410006") and (tostring(rerollResult.ornamentId) ~= "410007") and (tostring(rerollResult.ornamentId) ~= "410008") and (tostring(rerollResult.ornamentId) ~= "410009") and (tostring(rerollResult.ornamentId) ~= "410010")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410009") or (tostring(rerollResult.ornamentId) == "410010")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410009") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410010") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
+
+local function rerollLegendaryOrnament()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400003};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410011") and (tostring(rerollResult.ornamentId) ~= "410012") and (tostring(rerollResult.ornamentId) ~= "410013") and (tostring(rerollResult.ornamentId) ~= "410014") and (tostring(rerollResult.ornamentId) ~= "410015")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410014") or (tostring(rerollResult.ornamentId) == "410015")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410014") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410015") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
+
+local function rerollLegendaryTrail()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400004};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410016") and (tostring(rerollResult.ornamentId) ~= "410017") and (tostring(rerollResult.ornamentId) ~= "410018") and (tostring(rerollResult.ornamentId) ~= "410019") and (tostring(rerollResult.ornamentId) ~= "410020")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if ((tostring(rerollResult.ornamentId) == "410019") or (tostring(rerollResult.ornamentId) == "410020")) then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410019") then
+				rerollType = "Legendary";
+			elseif (tostring(rerollResult.ornamentId) == "410020") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
+
+local function rerollMythicMask()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400001};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410001") and (tostring(rerollResult.ornamentId) ~= "410002") and (tostring(rerollResult.ornamentId) ~= "410003") and (tostring(rerollResult.ornamentId) ~= "410004") and (tostring(rerollResult.ornamentId) ~= "410005")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410005") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410005") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
+
+local function rerollMythicAwakening()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400002};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410006") and (tostring(rerollResult.ornamentId) ~= "410007") and (tostring(rerollResult.ornamentId) ~= "410008") and (tostring(rerollResult.ornamentId) ~= "410009") and (tostring(rerollResult.ornamentId) ~= "410010")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410010") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410010") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
+
+local function rerollMythicOrnament()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400003};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410011") and (tostring(rerollResult.ornamentId) ~= "410012") and (tostring(rerollResult.ornamentId) ~= "410013") and (tostring(rerollResult.ornamentId) ~= "410014") and (tostring(rerollResult.ornamentId) ~= "410015")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410015") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410015") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
+
+local function rerollMythicTrail()
+	local rerollFound = false;
+	repeat
+		local rerollAttempt = {[1]=400004};
+		local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+		wait(0.1);
+		if ((tostring(rerollResult.ornamentId) ~= "410016") and (tostring(rerollResult.ornamentId) ~= "410017") and (tostring(rerollResult.ornamentId) ~= "410018") and (tostring(rerollResult.ornamentId) ~= "410019") and (tostring(rerollResult.ornamentId) ~= "410020")) then
+			print("Unknown reroll found ! : " .. tostring(rerollResult.ornamentId));
+			rerollFound = true;
+		end
+		if (tostring(rerollResult.ornamentId) == "410020") then
+			local rerollType = "None";
+			if (tostring(rerollResult.ornamentId) == "410020") then
+				rerollType = "Rainbow";
+			end
+			print("!! REROLL FOUND !! : " .. rerollType);
+			rerollFound = true;
+		end
+	until rerollFound 
+	print("Script stopped !");
+end
 
 OrionLib:Init();
