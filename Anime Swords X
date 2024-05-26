@@ -591,7 +591,7 @@ end
 })
 
 W1:AddDropdown({
-    Name = "World",
+    Name = "Clown Island",
     Default = "Bandit",
     Options = {"Bandit", "Kuro", "Alvida", "Kaku"},
     Callback = function(Value)
@@ -599,7 +599,7 @@ W1:AddDropdown({
     end
 })
 W1:AddToggle({
-    Name = "Execute",
+    Name = "Auto Attack",
     Default = false,
     Callback = function(Value)
         if Value then
@@ -620,7 +620,7 @@ W1:AddToggle({
 })
 
 W2:AddDropdown({
-    Name = "World 2",
+    Name = "Leveling Island",
     Default = "Early Syng",
     Options = {"Early Syng", "Tom", "Shadow Monarch", "Hwunge"},
     Callback = function(Value)
@@ -629,7 +629,7 @@ W2:AddDropdown({
 })
 
 W2:AddToggle({
-    Name = "Execute",
+    Name = "Auto Attack",
     Default = false,
     Callback = function(Value)
         G.World2 = Value
@@ -651,7 +651,7 @@ W2:AddToggle({
 })
 
 W3:AddDropdown({
-    Name = "World 3",
+    Name = "Cursed Island",
     Default = "Itado",
     Options = {"Itado", "Noba", "Megu", "Murky"},
     Callback = function(Value)
@@ -660,7 +660,7 @@ W3:AddDropdown({
 })
 
 W3:AddToggle({
-    Name = "Execute",
+    Name = "Auto Attack",
     Default = false,
     Callback = function(Value)
         G.World3 = Value
@@ -682,7 +682,7 @@ W3:AddToggle({
 })
 
 W4:AddDropdown({
-    Name = "World 4",
+    Name = "Dragon Island",
     Default = "Vegete",
     Options = {"Vegete", "Gohan", "Tronks", "Broli"},
     Callback = function(Value)
@@ -691,7 +691,7 @@ W4:AddDropdown({
 })
 
 W4:AddToggle({
-    Name = "Execute",
+    Name = "Auto Attack",
     Default = false,
     Callback = function(Value)
         G.World4 = Value
@@ -713,7 +713,7 @@ W4:AddToggle({
 })
 
 W5:AddDropdown({
-    Name = "World 5",
+    Name = "Slayer Island",
     Default = "Zenitsu",
     Options = {"Zenitsu", "Inosuke", "Nezuko", "Rengoku"},
     Callback = function(Value)
@@ -722,7 +722,7 @@ W5:AddDropdown({
 })
 
 W5:AddToggle({
-    Name = "Execute",
+    Name = "Auto Attack",
     Default = false,
     Callback = function(Value)
         G.World5 = Value
@@ -744,7 +744,7 @@ W5:AddToggle({
 })
 
 W6:AddDropdown({
-    Name = "World 6",
+    Name = "Online Island",
     Default = "Alice",
     Options = {"Alice", "Leafa", "Asuna", "Eugeo"},
     Callback = function(Value)
@@ -752,8 +752,30 @@ W6:AddDropdown({
     end
 })
 
+W6:AddToggle({
+    Name = "Execute",
+    Default = false,
+    Callback = function(Value)
+        G.World6 = Value
+        if Value then
+            while G.World6 do
+                local args = {
+                    [1] = "Attack",
+                    [2] = "Click",
+                    [3] = {
+                        ["Enemy"] = workspace:WaitForChild("Server"):WaitForChild("Enemies"):WaitForChild("World"):WaitForChild("Online Island"):WaitForChild(G.World6Value),
+                        ["Type"] = "World"
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
 W7:AddDropdown({
-    Name = "World 7",
+    Name = "Bizzare Island",
     Default = "Kakyon",
     Options = {"Kakyon", "Jonathan", "Josuko", "Giorne"},
     Callback = function(Value)
@@ -762,7 +784,7 @@ W7:AddDropdown({
 })
 
 W7:AddToggle({
-    Name = "Execute",
+    Name = "Auto Attack",
     Default = false,
     Callback = function(Value)
         G.World7 = Value
@@ -784,7 +806,7 @@ W7:AddToggle({
 })
 
 W8:AddDropdown({
-    Name = "World 8",
+    Name = "CLover Island",
     Default = "Finray",
     Options = {"Finray", "Vanessa", "Zenon", "Jiulius"},
     Callback = function(Value)
@@ -813,21 +835,6 @@ W8:AddToggle({
         end
     end
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 W1:AddToggle({
     Name = "Kill Bigmom/Buggy",
