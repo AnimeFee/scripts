@@ -59,11 +59,11 @@ mainTab:AddButton({
 })
 
 mainTab:AddButton({
-  Name =  " instant 5 b power ",
+  Name =  "power",
   Callback = function()
 local args = {
     [1] = "Power",
-    [2] = 99999999999
+    [2] = 9999999999
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimReward"):FireServer(unpack(args))
