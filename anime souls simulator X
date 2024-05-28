@@ -56,6 +56,7 @@ getgenv().G = {
     Dungeon2 = false , 
     Dungeon3 = false ,
     Dungeon4 = false ,
+    AutoFarm = false ,
 }
 
 Sec1:AddToggle({
@@ -433,9 +434,9 @@ FarmSec:AddToggle({
     Name = "Auto Farm",
     Callback = function(v0)
         if v0 then
-            getgenv().Settings.AutoFarm = true;
+            getgenv().G.AutoFarm = true;
             spawn(function()
-                while getgenv().Settings.AutoFarm do
+                while getgenv().G.AutoFarm do
                     -- Farming logic goes here
                     local player = game.Players.LocalPlayer
                     local character = player.Character
@@ -477,7 +478,7 @@ FarmSec:AddToggle({
                 end
             end)
         else
-            getgenv().Settings.AutoFarm = false;
+            getgenv().G.AutoFarm = false;
         end
     end
 });
