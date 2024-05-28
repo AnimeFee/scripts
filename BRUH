@@ -296,10 +296,6 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local a
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Naruto(World 11)",Callback=function()local args = {[1]={mapId=50011}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
 local mapData = {
     [50001] = "Fantasy Valley(World 1)",
     [50002] = "Seaside Villa(World 2)",
@@ -311,7 +307,6 @@ local mapData = {
     [50008] = "Hashira Training(World 8)",
     [50009] = "Infinite City(World 9)",
     [50010] = "One Punch Man(World 10)",    
-    [50011] = "Naruto(World 11)",
 };
 
 local mapNames = {};
@@ -340,7 +335,7 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
         if Value then
             while true do
                 local currentTime = os.time();
-                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 15;
+                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 50;
                 local waitTime = nextTeleportTime - currentTime;
                 wait(waitTime);
                 TeleportToAndFromDungeon(50001, 1, 300);
