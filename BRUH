@@ -743,4 +743,3 @@ EGG:AddToggle({
 });
 
 
-OrionLib:Init();
