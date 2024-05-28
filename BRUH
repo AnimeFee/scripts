@@ -315,10 +315,6 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
     end
 })
 
-
-
-
-
 Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	if fuseLevel10Gems then
 		getgenv().Settings.fuseLevel10Gems = true;
