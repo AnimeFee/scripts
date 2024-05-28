@@ -292,37 +292,6 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local a
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-local mapData = {
-    [50001] = "Fantasy Valley(World 1)",
-    [50002] = "Seaside Villa(World 2)",
-    [50003] = "Congress Hall(World 3)",
-    [50004] = "Border Territory(World 4)",
-    [50005] = "Polar Plain(World 5)",
-    [50006] = "Ghost Forest(World 6)",
-    [50007] = "Demon Station(World 7)",
-    [50008] = "Hashira Training(World 8)",
-    [50009] = "Infinite City(World 9)",
-    [50010] = "One Punch Man(World 10)",    
-};
-
-local mapNames = {};
-for _, name in pairs(mapData) do
-    table.insert(mapNames, name);
-end
-
-DungeonSec:AddDropdown({
-    Name = "Select Return Map",
-    Options = mapNames,
-    Callback = function(selectedMap)
-        getgenv().Settings.selectedReturnMap = selectedMap;
-    end
-});
-
-local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
-    wait(returnTime);
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = returnMapId});
-end
 
 local AutoDungeonToggle = DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
@@ -331,14 +300,21 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
         if Value then
             while true do
                 local currentTime = os.time();
-                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 50;
+                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 15;
                 local waitTime = nextTeleportTime - currentTime;
                 wait(waitTime);
-                TeleportToAndFromDungeon(50001, 1, 300);
+                TeleportToAndFromDungeon(50016, 50001, 300);
             end
         end
     end
-});
+})
+
+
+local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = dungeonMapId});
+    wait(returnTime);
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = returnMapId});
+end
 
 
 
