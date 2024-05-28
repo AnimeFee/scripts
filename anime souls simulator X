@@ -46,6 +46,8 @@ local Dungeon = V2:AddSection({Name="Dungeon"});
 getgenv().G = {
     Click = false,
     Avatar = false,
+    Stands = false,
+    CursedTechnique = false,
     Ascend = false,
     PlayerSpin = false,
     Spin = false,
@@ -129,6 +131,55 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpa
     end
 })
 
+Perks:AddToggle({
+    Name = "Auto Spin Stands",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Stands = Value
+        if Value then
+            spawn(function()
+                while getgenv().G.Avatar do
+                local args = {
+                [1] = {
+                [1] = {
+                [1] = "\3",
+                [2] = "Stands",
+                [3] = "Spin"
+                }}}
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Stands = false
+        end
+    end
+})
+
+Perks:AddToggle({
+    Name = "Auto Spin Cursed Technique",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.CursedTechnique = Value
+        if Value then
+            spawn(function()
+                while getgenv().G.CursedTechnique do
+                local args = {
+                [1] = {
+                [1] = {
+                [1] = "\3",
+                [2] = "CursedTechnique",
+                [3] = "Spin"
+                }}}
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.CursedTechnique = false
+        end
+    end
+})
 
 Perks:AddToggle({
     Name = "Auto Spin Avatars",
