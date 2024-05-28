@@ -1,5 +1,5 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
-local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"});
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
+local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"})
 
 getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,WalkToEnemy=false,DamageBoost=false,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
@@ -131,20 +131,6 @@ spawn(function()
         end
     end
 end)
-
-afrm:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
-	if v1 then
-		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
-		if getgenv().Settings.GoldCollect then
-			spawn(function()
-				while wait() do
-					for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
-						v9.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
-					end
-				end
-			end);
-		end
-	end})
 
 FarmSec2:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
 	Settings.AutoAtk = Value;
@@ -292,9 +278,34 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local a
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
+local mapData = {
+    [50001] = "Fantasy Valley(World 1)",
+    [50002] = "Seaside Villa(World 2)",
+    [50003] = "Congress Hall(World 3)",
+    [50004] = "Border Territory(World 4)",
+    [50005] = "Polar Plain(World 5)",
+    [50006] = "Ghost Forest(World 6)",
+    [50007] = "Demon Station(World 7)",
+    [50008] = "Hashira Training(World 8)",
+    [50009] = "Infinite City(World 9)",
+    [50010] = "One Punch Man(World 10)",    
+};
+
+local mapNames = {};
+for _, name in pairs(mapData) do
+    table.insert(mapNames, name);
+end
+
+DungeonSec:AddDropdown({
+    Name = "Select Return Map",
+    Options = mapNames,
+    Callback = function(selectedMap)
+        getgenv().Settings.selectedReturnMap = selectedMap;
+    end
+});
 
 local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = dungeonMapId});
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
     wait(returnTime);
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = returnMapId});
 end
@@ -306,14 +317,16 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
         if Value then
             while true do
                 local currentTime = os.time();
-                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 15;
+                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 50;
                 local waitTime = nextTeleportTime - currentTime;
                 wait(waitTime);
-                TeleportToAndFromDungeon(50016, 50001, 300);
+                TeleportToAndFromDungeon(50001, 1, 300);
             end
         end
     end
-})
+});
+
+
 
 Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	if fuseLevel10Gems then
@@ -354,7 +367,6 @@ Lvl10:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
 		getgenv().Settings.deleteGems = false;
 	end
 end});
-
 
 function rerollLegendaryMask()
 	local rerollFound = false;
@@ -547,7 +559,6 @@ Mythic:AddButton({Name="Reroll Mask",Callback=rerollMythicMask});
 Mythic:AddButton({Name="Reroll Awakening",Callback=rerollMythicAwakening});
 Mythic:AddButton({Name="Reroll Ornament",Callback=rerollMythicOrnament});
 Mythic:AddButton({Name="Reroll Trail",Callback=rerollMythicTrail});
-
 
 Claim:AddButton({Name="Group Rewards",Callback=function()
 	while wait() do
