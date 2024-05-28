@@ -1,0 +1,167 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+--window
+local Window = OrionLib:MakeWindow({Name = "All universe hub kamehameha sim", HidePremium = false, IntroText = "All universe hub", SaveConfig = true, ConfigFolder = "OrionTest"})
+
+--tabs
+local mainTab = Window:MakeTab({
+  Name = "main",
+  Icon = "rbxassetid://4483345998",
+  PremiumOnly = false
+})
+
+local TpTab = Window:MakeTab({
+  Name = "pet",
+  Icon = "rbxassetid://4483345998",
+  PremiumOnly = false
+})
+
+local petTab = Window:MakeTab({
+  Name = "pet",
+  Icon = "rbxassetid://4483345998",
+  PremiumOnly = false
+})
+
+--section
+local Section = mainTab:AddSection({
+  Name = "farm"
+})
+
+local Section = petTab:AddSection({
+  Name = "pets"
+})
+
+local Section = TpTab:AddSection({
+  Name = "Teleport"
+})
+
+--values
+getgenv().punch = false
+
+
+--functionns
+function dopunch()
+while getgenv().punch == true do
+local args = {
+    [1] = 1
+}
+
+game:GetService("Players").LocalPlayer.Character.Punch.Event:FireServer(unpack(args))
+
+    wait(0.1)
+      end
+    end 
+
+--toggles
+mainTab:AddToggle({
+  Name = "auto sell",
+  Default = false,
+  Callback = function(bool)
+    getgenv().punch = bool
+    if bool then 
+      dopunch()
+    end
+  end})
+--buttons
+mainTab:AddButton({
+  Name = "maximum multiple!",
+  Callback = function()
+      local args = {
+        [1] = 40
+      }
+
+      game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoublePower"):FireServer(unpack(args))
+          print("button pressed")
+    end    
+})
+
+mainTab:AddButton({
+  Name =  " instant 5 b power ",
+  Callback = function()
+local args = {
+    [1] = "Power",
+    [2] = 99999999999
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimReward"):FireServer(unpack(args))
+           print("buttonpressed")
+    end    
+})  
+
+petTab:AddButton({
+  Name = "ClaimTimePet",
+  Callback = function()
+      local args = {
+        [1] = true
+      }
+
+      game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimTimePet"):InvokeServer(unpack(args))
+          print("button pressed")
+    end    
+})
+
+
+--drop down
+mainTab:AddDropdown({
+    Name = "weapon",
+    Default = "1",
+    Options = {"1","2","3","4","5","6","7"},
+    Callback = function(number)
+        if number == "1" then
+            local args = { [1] = 2 }
+            game:GetService("Players").LocalPlayer.Character.Punch.Event:FireServer(unpack(args))
+        elseif number == "2" then
+            local args = { [1] = 2 }
+            game:GetService("Players").LocalPlayer.Character.Scythe.Event:FireServer(unpack(args))
+        elseif number == "3" then
+            local args = { [1] = 3 }
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Cosmic Sword").Event:FireServer(unpack(args))
+        elseif number == "4" then
+            local args = { [1] = 2 }
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Spiritual Staff").Event:FireServer(unpack(args))
+        elseif number == "5" then
+            local args = { [1] = 2 }
+            game:GetService("Players").LocalPlayer.Character.Dragonslayer.Event:FireServer(unpack(args))
+        elseif number == "6" then
+            local args = { [1] = 2 }
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Universe Destroyer").Event:FireServer(unpack(args))
+        elseif number == "7" then
+            local args = { [1] = 2 }
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Ancient Dragon Blade").Event:FireServer(unpack(args))
+        end
+    end
+})
+
+TpTab:AddDropdown({
+	Name = "Dropdown",
+	Default = "1",
+	Options = {
+		"1",
+		"2",
+		"5x",
+		"10x",
+		"1.5",
+		"20x",
+		"15x",
+		"2.5x",
+		"King"
+	},
+	Callback = function(Value)
+		if Value == "5x" then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(238.135849, 19.8551025, -266.960266, 0.0225593168, -5.56288384e-08, -0.999745488, -6.42673257e-08, 1, -5.70931924e-08, 0.999745488, 6.55389556e-08, 0.0225593168))
+		elseif Value == "10x" then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-290.034088, 18.1037712, -283.053314, 0.188990638, -2.66618141e-08, 0.981978893, -6.36907984e-08, 1, 3.94089739e-08, -0.981978893, -6.99909464e-08, 0.188990638))
+		elseif Value == "1.5" then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-153.467468, 18.319809, -11.5099306, -0.994199038, 2.06622914e-08, -0.107556, 2.18308447e-08, 1, -9.68717995e-09, 0.107556, -1.19790231e-08, -0.994199038))
+		elseif Value == "20x" then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-243.338013, 18.7885056, 268.328278, -0.723544955, 1.12574341e-07, 0.690277278, 3.82861138e-08, 1, -1.22954376e-07, -0.690277278, -6.2534987e-08, -0.723544955))
+		elseif Value == "15x" then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(104.56678, 20.3216152, 336.564758, -0.313290209, -3.21208837e-08, -0.94965744, -7.76361819e-08, 1, -3.52732834e-08, 0.94965744, -5.04135024e-08, 0.313290209))
+		elseif Value == "2.5x" then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-212.287445, 19.4527245, -173.818023, -0.80713963, -2.35842683e-08, -0.544563747, -3.11723188e-08, 1, -4.13527207e-08, 0.544563747, -6.61132411e-08, -0.80713963))
+		elseif Value == "King" then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-220.508881, 20.3610627, -310.510803, -0.658232038, -3.65221279e-08, -0.773683015, -6.38014424e-08, 1, -3.85002512e-08, 0.773683015, -6.65887339e-08, -0.658232038))
+		end
+	end
+})
+
