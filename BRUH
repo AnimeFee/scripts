@@ -132,6 +132,20 @@ spawn(function()
     end
 end)
 
+afrm:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
+	if v1 then
+		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
+		if getgenv().Settings.GoldCollect then
+			spawn(function()
+				while wait() do
+					for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
+						v9.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+					end
+				end
+			end);
+		end
+	end
+
 FarmSec2:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
 	Settings.AutoAtk = Value;
 	if Settings.AutoAtk then
