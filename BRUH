@@ -717,6 +717,7 @@ EGG:AddToggle({
     end
 })
 
+local HeroesInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 EGG:AddToggle({
     Name="Auto Sell Unequipped/Unlocked Heroes",
     Callback=function(autoSellHeroes)
