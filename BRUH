@@ -683,6 +683,8 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
+local openEgg = false
+
 EGG:AddDropdown({
     Name = "Pick Egg",
     Default = "",
@@ -701,23 +703,28 @@ EGG:AddDropdown({
             ["World 10"] = 70019,
             ["World 11"] = 70021,
         }
-        G.EGG = EGGS[Value]
+        EGG.EggId = EGGS[Value]
     end
 })
 
 EGG:AddToggle({
     Name = "Open Eggs",
     Callback = function(Value)
-        getgenv().G.OpenEgg = Value
+        openEgg = Value
         if Value then
-            while getgenv().G.OpenEgg do
+            while openEgg do
                 local args = {
                     [1] = {
-                        ["drawCardPlatformId"] = G.EGG,
+                        ["drawCardPlatformId"] = EGG.EggId,
                         ["count"] = 10
                     }
                 }
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+                local success, errorMessage = pcall(function()
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+                end)
+                if not success then
+                    print("Error:", errorMessage)
+                end
                 wait(0.1) -- adjust the delay as needed
             end
         end
