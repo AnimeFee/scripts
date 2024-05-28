@@ -1,0 +1,402 @@
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+if not OrionLib then
+    error("Failed to load the OrionLib library")
+    return
+end
+
+local Window = OrionLib:MakeWindow({
+    Name = "Anime Souls Simulator X",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "ExampleCfg",
+    IntroEnabled = false
+})
+
+local V1 = Window:MakeTab({
+    Name = "Scripts",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local V2 = Window:MakeTab({
+    Name = "Teleport",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local V3 = Window:MakeTab({
+    Name = "Eggs",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local V4 = Window:MakeTab({
+    Name = "Misc",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local Sec1 = V1:AddSection({Name="Farm"});
+local Sec2 = V1:AddSection({Name="Auto idk"});
+local Teleport = V2:AddSection({Name="Teleport"});
+local Dungeon = V2:AddSection({Name="Dungeon"});
+
+
+getgenv().G = {
+    Click = false,
+    Avatar = false,
+    Ascend = false,
+    PlayerSpin = false,
+    Spin = false,
+    World4Value = "Lobby",
+    Egg = "Cursed Chest",
+    Dungeon1 = false ,
+    Dungeon2 = false , 
+    Dungeon3 = false ,
+    Dungeon4 = false ,
+}
+
+Sec1:AddToggle({
+    Name = "Auto Click",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Click = Value
+        if Value then
+            spawn(function()
+                while getgenv().G.Click do
+                    local args = {
+                        [1] = {
+                            [1] = {
+                                [1] = "\3",
+                                [2] = "Click",
+                                [3] = "Execute"
+                            }
+                        }
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+            getgenv().G.Click = false
+        end
+    end
+})
+
+
+V4:AddButton({
+    Name = "Claim Daily Rewards",
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "\3",
+                [2] = "DailyRewards",
+                [3] = "Claim",
+                [4] = "1"             }
+        }
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        args[1][4] = "2"
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        args[1][4] = "3" 
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        args[1][4] = "4" 
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        args[1][4] = "5" 
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        args[1][4] = "6" 
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+    end
+})
+
+V4:AddButton({
+    Name = "Claim Group Rewards",
+    Callback = function()
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "GroupChest",
+            [3] = "Claim"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+    end
+})
+
+
+Sec2:AddToggle({
+    Name = "Auto Spin Avatars",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Avatar = Value
+        if Value then
+            spawn(function()
+                while getgenv().G.Avatar do
+                local args = {
+                [1] = {
+                [1] = {
+                [1] = "\3",
+                [2] = "Avatars",
+                [3] = "Spin"
+                }}}
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Avatar = false
+        end
+    end
+})
+
+Sec1:AddToggle({
+    Name = "Auto Ascend",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Ascend = Value
+        if Value then
+            spawn(function()
+                while getgenv().G.Ascend do
+                local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Ascension",
+            [3] = "Make"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Ascend = false
+        end
+    end
+})
+
+
+Sec2:AddToggle({
+    Name = "Auto Spin Wheels",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Spin = Value
+        if Value then
+            spawn(function()
+                while getgenv().G.Spin do
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Wheel",
+            [3] = "Spin"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.Spin = false
+        end
+    end
+})
+
+
+Sec2:AddToggle({
+    Name = "Auto Spin Player Passives",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.PlayerSpin = Value
+        if Value then
+            spawn(function()
+                while getgenv().G.PlayerSpin do
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Passive",
+            [3] = "PlayerSpin"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                    wait(0.01)
+                end
+            end)
+        else
+        getgenv().G.PlayerSpin = false
+        end
+    end
+})
+
+
+Teleport:AddDropdown({
+    Name = "Pick Teleport",
+    Default = "Lobby",
+    Options = {"Lobby", "World1",1 ,2,3,4,5,6,7,8},
+    Callback = function(Value)
+        G.World4Value = Value
+    end
+})
+
+Teleport:AddButton({
+    Name = "Tp To Chosen Map",
+    Callback = function()
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Teleport",
+            [3] = "To",
+            [4] = G.World4Value
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+    end
+})
+
+V3:AddDropdown({
+    Name = "Eggs",
+    Default = "Cursed Chest",
+    Options = {"Cursed Chest","Bizzare Chest","Ninja Chest","Hunter Chest","Spirit Chest","Dragon Chest","Ghoul Chest","Marine Chest","Leveling Chest","Titan Chest","XYZ Chest","Clover Chest","Marine Chest","Leveling Chest","Titan Chest","XYZ Chest","Clover Chest",},
+    Callback = function(Value)
+        G.Egg = Value
+    end
+})
+
+V3:AddButton({
+    Name = "Open Eggs",
+    Callback = function()
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\3",
+            [2] = "Pets",
+            [3] = "Open",
+            [4] = G.Egg,
+            [5] = "All"
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+    end
+})
+
+Dungeon:AddToggle({
+    Name = "Auto Enter Dungeon(Easy)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon1 = Value
+        if Value then
+            spawn(function()
+                local args = {
+                    [1] = {
+                        [1] = {
+                            [1] = "\3",
+                            [2] = "Dungeon",
+                            [3] = "Join",
+                            [4] = "Easy"
+                        }
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                wait(0.01)
+            end)
+        else
+            getgenv().G.Dungeon1 = false
+        end
+    end
+})
+
+Dungeon:AddToggle({
+    Name = "Auto Enter Dungeon(Medium)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon2 = Value
+        if Value then
+            spawn(function()
+                local args = {
+                    [1] = {
+                        [1] = {
+                            [1] = "\3",
+                            [2] = "Dungeon",
+                            [3] = "Join",
+                            [4] = "Medium"
+                        }
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                wait(0.01)
+            end)
+        else
+            getgenv().G.Dungeon2 = false
+        end
+    end
+})
+
+Dungeon:AddToggle({
+    Name = "Auto Enter Dungeon(Hard)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon3 = Value
+        if Value then
+            spawn(function()
+                local args = {
+                    [1] = {
+                        [1] = {
+                            [1] = "\3",
+                            [2] = "Dungeon",
+                            [3] = "Join",
+                            [4] = "Hard"
+                        }
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                wait(0.01)
+            end)
+        else
+            getgenv().G.Dungeon3 = false
+        end
+    end
+})
+
+Dungeon:AddToggle({
+    Name = "Auto Enter Dungeon(Insane)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().G.Dungeon4 = Value
+        if Value then
+            spawn(function()
+                local args = {
+                    [1] = {
+                        [1] = {
+                            [1] = "\3",
+                            [2] = "Dungeon",
+                            [3] = "Join",
+                            [4] = "Insane"
+                        }
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+                wait(0.01)
+            end)
+        else
+            getgenv().G.Dungeon4 = false
+        end
+    end
+})
+
+
+OrionLib:Init();
