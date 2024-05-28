@@ -25,7 +25,7 @@ local V2 = Window:MakeTab({
 })
 
 local V3 = Window:MakeTab({
-    Name = "Eggs",
+    Name = "Eggs&shi",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
@@ -37,8 +37,9 @@ local V4 = Window:MakeTab({
 })
 
 local Sec1 = V1:AddSection({Name="Farm"});
-local Sec2 = V1:AddSection({Name="Auto idk"});
 local Teleport = V2:AddSection({Name="Teleport"});
+local Eggs = V3:AddSection({Name="Eggs"});
+local Perks = V3:AddSection({Name="Perks"});
 local Dungeon = V2:AddSection({Name="Dungeon"});
 
 
