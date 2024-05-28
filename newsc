@@ -12,6 +12,7 @@ local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid:/
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 local EMount = PlayerTab:AddSection({Name="Mounts"});
+local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
@@ -42,6 +43,21 @@ EMount:AddButton({Name="Use Selected Mount",Callback=function()
 		end
 	else
 		warn("No mount selected.");
+	end
+end});
+
+local playerNames = {};
+for _, player in pairs(game.Players:GetPlayers()) do
+	table.insert(playerNames, player.Name);
+end
+TradeSec:AddDropdown({Name="Select Player",Options=playerNames,Callback=function(selectedPlayer)
+	getgenv().Settings.selectedPlayer = selectedPlayer;
+end});
+TradeSec:AddButton({Name="Trade Selected Player",Callback=function()
+	if getgenv().Settings.selectedPlayer then
+		game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer]);
+	else
+		warn("No player selected.");
 	end
 end});
 
@@ -220,7 +236,7 @@ TeleportTab:AddButton({Name="Monolithic Trials(World 4)",Callback=function()
 end});
 
 TeleportTab:AddButton({Name="Fujikasane Yama(World 5)",Callback=function()
-	local args = {[1]={mapId=50013}};
+	local args = {[1]={mapId=50005}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
@@ -249,6 +265,11 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
+TeleportTab:AddButton({Name="Naruto World(World 11)",Callback=function()
+	local args = {[1]={mapId=50020}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
 local mapData = {
     [50001] = "Fantasy Valley(World 1)",
     [50002] = "Seaside Villa(World 2)",
@@ -256,10 +277,11 @@ local mapData = {
     [50004] = "Border Territory(World 4)",
     [50005] = "Polar Plain(World 5)",
     [50006] = "Ghost Forest(World 6)",
-    [50007] = "Demon Station(World 7)",
-    [50008] = "Hashira Training(World 8)",
-    [50009] = "Infinite City(World 9)",
-    [50010] = "One Punch Man(World 10)",
+    [50015] = "Demon Station(World 7)",
+    [50017] = "Hashira Training(World 8)",
+    [50018] = "Infinite City(World 9)",
+    [50019] = "One Punch Man(World 10)",
+    [50020] = "Naruto(World 11)",
 };
 
 local mapNames = {};
