@@ -718,18 +718,6 @@ EGG:AddToggle({
 })
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-
-pcall(function()
-    if WeaponsInventory.localPlayerData then
-        for _, v in pairs(WeaponsInventory.localPlayerData.heroes) do
-            if v.isEquip and v.isLock then
-                table.insert(getgenv().Settings.mespetsequiper, v.guid);
-            end
-        end
-    else
-        print("localPlayerData is not loaded yet. Please try again later.")
-    end
-end);
 EGG:AddToggle({
     Name="Auto Delete Unequipped/Unlocked Heroes",
     Callback=function(autoDeleteHeroes)
