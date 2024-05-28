@@ -710,16 +710,19 @@ EGG:AddToggle({
     Callback = function(Value)
         getgenv().G.OpenEgg = Value
         if Value then
-	local args = {
-   	[1] = {
-        ["drawCardPlatformId"] = G.EGG,
-        ["count"] = 10
-    }
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+            while getgenv().G.OpenEgg do
+                local args = {
+                    [1] = {
+                        ["drawCardPlatformId"] = G.EGG,
+                        ["count"] = 10
+                    }
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+                wait(0.1) -- adjust the delay as needed
+            end
         end
-    end})
+    end
+})
 
 EGG:AddToggle({
     Name="Auto Delete Uneqquiped/Unlocked Heroes",
