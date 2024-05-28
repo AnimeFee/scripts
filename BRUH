@@ -64,30 +64,6 @@ pcall(function()
     end
 end);
 
-EGG:AddToggle({
-    Name="Auto Delete Uneqquiped/Unlocked Heroes",
-    Callback=function(autoSellHeroes)
-        if autoSellHeroes then
-            getgenv().Settings.autoSellHeroes = true;
-            while getgenv().Settings.autoSellHeroes do
-                wait(1);
-                if HeroesInventory.localPlayerData then
-                    for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
-                        if not v.isEquip and not v.isLock then
-                            local args = {[1]={[1]=v.guid}};
-                            game:GetService("ReplicatedStorage").Remotes.DeleteHeroes:FireServer(unpack(args));
-                        end
-                    end
-                else
-                    print("localPlayerData is not loaded yet. Please try again later.")
-                end
-            end
-        else
-            getgenv().Settings.autoSellHeroes = false;
-        end
-    end
-});
-
 local playerNames = {};
 for _, player in pairs(game.Players:GetPlayers()) do
 	table.insert(playerNames, player.Name);
@@ -744,6 +720,30 @@ EGG:AddToggle({
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
         end
     end})
+
+EGG:AddToggle({
+    Name="Auto Delete Uneqquiped/Unlocked Heroes",
+    Callback=function(autoSellHeroes)
+        if autoSellHeroes then
+            getgenv().Settings.autoSellHeroes = true;
+            while getgenv().Settings.autoSellHeroes do
+                wait(1);
+                if HeroesInventory.localPlayerData then
+                    for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
+                        if not v.isEquip and not v.isLock then
+                            local args = {[1]={[1]=v.guid}};
+                            game:GetService("ReplicatedStorage").Remotes.DeleteHeroes:FireServer(unpack(args));
+                        end
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoSellHeroes = false;
+        end
+    end
+});
 
 
 OrionLib:Init();
