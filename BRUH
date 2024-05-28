@@ -667,3 +667,4 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 end});
 
 
+OrionLib:Init();
