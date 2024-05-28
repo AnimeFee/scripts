@@ -155,6 +155,13 @@ Perks:AddToggle({
     end
 })
 
+V4:AddButton({
+    Name = "Go To Avatar Place",
+    Callback = function()
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(354.764679, 6287.00488, -914.953125, 0.564200222, 5.01994935e-09, -0.825637996, 3.04489989e-09, 1, 8.16081958e-09, 0.825637996, -7.11832149e-09, 0.564200222))
+    end
+})
+
 Sec1:AddToggle({
     Name = "Auto Ascend",
     Default = false,
@@ -429,60 +436,6 @@ Dungeon:AddToggle({
         end
     end
 })
-
-
-Sec1:AddToggle({
-    Name = "Auto Farm",
-    Callback = function(v0)
-        if v0 then
-            getgenv().G.AutoFarm = true;
-            spawn(function()
-                while getgenv().G.AutoFarm do
-                    -- Farming logic goes here
-                    local player = game.Players.LocalPlayer
-                    local character = player.Character
-                    local humanoid = character:WaitForChild("Humanoid")
-                    
-                    -- Check if the player is near a farm
-                    local farms = game.Workspace._Enemies:GetChildren()
-                    local nearestFarm = nil
-                    local nearestDistance = math.huge
-                    for _, farm in pairs(farms) do
-                        local distance = (character.HumanoidRootPart.Position - farm.Position).magnitude
-                        if distance < nearestDistance then
-                            nearestFarm = farm
-                            nearestDistance = distance
-                        end
-                    end
-                    
-                    -- If a farm is found, farm it
-                    if nearestFarm then
-                        -- Move to the farm
-                        humanoid.WalkToPoint = nearestFarm.Position
-                        wait(1)
-                        
-                        -- Interact with the farm
-                        fireproximityprompt(nearestFarm.ProximityPrompt)
-                        wait(1)
-                        
-                        -- Collect the rewards
-                        for _, reward in pairs(nearestFarm.Rewards:GetChildren()) do
-                            if reward:IsA("Part") then
-                                reward.CFrame = character.HumanoidRootPart.CFrame
-                                wait(0.1)
-                            end
-                        end
-                    else
-                        -- If no farm is found, wait for a bit and try again
-                        wait(5)
-                    end
-                end
-            end)
-        else
-            getgenv().G.AutoFarm = false;
-        end
-    end
-});
 
 
 
