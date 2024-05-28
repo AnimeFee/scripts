@@ -1,0 +1,134 @@
+-- VARIABLES
+local mobs = {} -- MOBS TABLE
+getgenv().mob = nil -- SELECTED MOB
+
+-- Function to update the mobs table
+local function updateMobs()
+    -- Clear the mobs table
+    for i = #mobs, 1, -1 do
+        table.remove(mobs, i)
+    end
+
+    -- Repopulate the mobs table
+    for _, v in pairs(game:GetService("Workspace")._ENEMIES:GetChildren()) do
+        local insert = true
+        for _, v2 in pairs(mobs) do
+            if v2 == v.Name then
+                insert = false
+                break
+            end
+        end
+        if insert then
+            table.insert(mobs, v.Name)
+        end
+    end
+end
+
+-- Initial population of the mobs table
+updateMobs()
+
+-- ORION UI LIBRARY
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
+local Window = OrionLib:MakeWindow({Name = "Al Universe Hub", HidePremium = false, SaveConfig = true, ConfigFolder = "AlUniverseHub"})
+
+-- MAIN
+local MainTab = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local MobFarmSection = MainTab:AddSection({
+    Name = "Mob Farm"
+})
+
+local mobdropdown
+
+local function refreshDropdown()
+    updateMobs()
+    mobdropdown:Refresh(mobs)
+end
+
+mobdropdown = MobFarmSection:AddDropdown({
+    Name = "Choose Mob",
+    Default = "",
+    Options = mobs,
+    Callback = function(v)
+        getgenv().mob = v
+    end
+})
+
+MobFarmSection:AddButton({
+    Name = "Refresh Dropdown",
+    Callback = function()
+        refreshDropdown()
+        OrionLib:MakeNotification({
+            Name = "Refreshed!",
+            Content = "Mob list has been refreshed.",
+            Image = "rbxassetid://4483345998",
+            Time = 2.5
+        })
+    end
+})
+
+MobFarmSection:AddToggle({
+    Name = "Start Mob Farm",
+    Default = false,
+    Callback = function(v)
+        getgenv().autofarmmobs = v
+        while wait() do
+            if not getgenv().autofarmmobs then return end -- IF THE TOGGLE IS OFF THEN STOP THE LOOP
+            if not getgenv().mob then -- IF THE MOB ISN'T SELECTED
+                OrionLib:MakeNotification({
+                    Name = "Error!",
+                    Content = "You haven't selected a mob with the dropdown above\nUntoggle this toggle!",
+                    Image = "rbxassetid://4483345998",
+                    Time = 2.5
+                })
+                getgenv().autofarmmobs = false -- TURN OFF THE AUTO FARM
+                return -- MAKE SURE IT DOESN'T EXECUTE ANYTHING UNDER // FULLY TURN OFF THE LOOP
+            end
+            local mob = game:GetService("Workspace")._ENEMIES:FindFirstChild(getgenv().mob)
+            if not mob then
+                OrionLib:MakeNotification({
+                    Name = "Info!",
+                    Content = "There are currently no spawned mobs of this type!\nJust wait until they spawn",
+                    Image = "rbxassetid://4483345998",
+                    Time = 2.5
+                })
+                while wait() do
+                    wait() -- WAIT SO WE DON'T CRASH
+                    if not getgenv().autofarmmobs then return end -- IF THE TOGGLE IS OFF THEN STOP THE LOOP
+                    if game:GetService("Workspace")._ENEMIES:FindFirstChild(getgenv().mob) then break end
+                end
+            else
+                local mob2 = mob
+                while wait() do
+                    mob = game:GetService("Workspace")._ENEMIES:FindFirstChild(getgenv().mob)
+                    if mob ~= mob2 then break end
+                    if not getgenv().autofarmmobs then return end -- IF THE TOGGLE IS OFF THEN STOP THE LOOP
+                    if mob then
+                        if mob:FindFirstChild("Humanoid") and mob.Humanoid.Health == 0 then
+                            wait(0.1) mob:Destroy() break -- IF THE MOB IS DEAD THEN JUST DESTROY IT FOR FASTER FARMING
+                        end
+                        if mob:FindFirstChild("HumanoidRootPart") then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = mob.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2) -- TELEPORT TO THE MOB
+                        end
+                    end
+                    wait() -- WAIT SO WE DON'T CRASH
+                end
+            end
+        end
+    end
+})
+
+-- UPDATING THE MOBS
+game:GetService("Workspace")._ENEMIES.ChildAdded:Connect(function() -- WHEN MOB SPAWNS
+    refreshDropdown()
+end)
+
+game:GetService("Workspace")._ENEMIES.ChildRemoved:Connect(function() -- WHEN MOB DIES / GETS REMOVED
+    refreshDropdown()
+end)
+
+OrionLib:Init()
