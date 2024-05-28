@@ -206,7 +206,7 @@ Perks:AddToggle({
     end
 })
 
-V4:AddButton({
+Perks:AddButton({
     Name = "Go To Avatar Place",
     Callback = function()
 game.Players.LocalPlayer.Character:PivotTo(CFrame.new(354.764679, 6287.00488, -914.953125, 0.564200222, 5.01994935e-09, -0.825637996, 3.04489989e-09, 1, 8.16081958e-09, 0.825637996, -7.11832149e-09, 0.564200222))
