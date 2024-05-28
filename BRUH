@@ -1,10 +1,11 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
 local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"})
 
-getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,WalkToEnemy=false,DamageBoost=false,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=false,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local SNGTab = Window:MakeTab({Name="Sword And Gems",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -12,7 +13,8 @@ local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid:/
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
-local EMount = PlayerTab:AddSection({Name="Mounts"});
+local EMount = WhtvrTab:AddSection({Name="Mounts"});
+local EGG = WhtvrTab:AddSection({Name="Eggs"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
@@ -46,6 +48,86 @@ EMount:AddButton({Name="Use Selected Mount",Callback=function()
 		warn("No mount selected.");
 	end
 end});
+
+
+
+EGG:AddDropdown({
+    Name = "Pick Egg",
+    Default = "",
+    Options = {"World 1","World 2","World 3","World 4","World 5","World 6","World 7","World 8","World 9","World 10","World 11"},
+    Callback = function(Value)
+        EGGS mapIds = {
+            ["World 1"] = 70001,
+            ["World 2"] = 70003,
+            ["World 3"] = 70005,
+            ["World 4"] = 70007,
+            ["World 5"] = 70009,
+            ["World 6"] = 70011,
+            ["World 7"] = 70013,
+            ["World 8"] = 70015,
+            ["World 9"] = 70017,
+            ["World 10"] = 70019,
+            ["World 11"] = 70021,
+        }
+        G.EGG = EGGS[Value]
+    end
+})
+
+EGG:AddToggle({
+    Name = "Open Eggs",
+    Callback = function(Value)
+        getgenv().G.OpenEgg = Value
+        if Value then
+	local args = {
+   	[1] = {
+        ["drawCardPlatformId"] = G.EGG,
+        ["count"] = 10
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+        end
+    end})
+
+EGG:AddLabel("Lock Your Pets")
+
+local HeroesInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if HeroesInventory.localPlayerData then
+        for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
+
+EGG:AddToggle({
+    Name="Auto Delete Uneqquiped/Unlocked Heroes",
+    Callback=function(autoSellHeroes)
+        if autoSellHeroes then
+            getgenv().Settings.autoSellHeroes = true;
+            while getgenv().Settings.autoSellHeroes do
+                wait(1);
+                if HeroesInventory.localPlayerData then
+                    for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
+                        if not v.isEquip and not v.isLock then
+                            local args = {[1]={[1]=v.guid}};
+                            game:GetService("ReplicatedStorage").Remotes.DeleteHeroes:FireServer(unpack(args));
+                        end
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoSellHeroes = false;
+        end
+    end
+});
 
 local playerNames = {};
 for _, player in pairs(game.Players:GetPlayers()) do
