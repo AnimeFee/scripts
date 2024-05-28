@@ -1,10 +1,11 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
-local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"})
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
+local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"});
 
-getgenv().Settings = {mespetsequiper={},Range=500,AutoFarm=false,WalkToEnemy=false,DamageBoost=false,GoldCollect=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local SNGTab = Window:MakeTab({Name="Sword And Gems",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -12,7 +13,8 @@ local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid:/
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
-local EMount = PlayerTab:AddSection({Name="Mounts"});
+local EMount = WhtvrTab:AddSection({Name="Mounts"});
+local EGG = WhtvrTab:AddSection({Name="Eggs"});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
@@ -46,6 +48,8 @@ EMount:AddButton({Name="Use Selected Mount",Callback=function()
 	end
 end});
 
+
+
 local playerNames = {};
 for _, player in pairs(game.Players:GetPlayers()) do
 	table.insert(playerNames, player.Name);
@@ -59,6 +63,9 @@ TradeSec:AddButton({Name="Trade Selected Player",Callback=function()
 	else
 		warn("No player selected.");
 	end
+end});
+TradeSec:AddButton({Name="Dupe(Need To Trade)",Callback=function()
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
 
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
@@ -143,6 +150,7 @@ FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	end
 end})
 
+
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
 		getgenv().Settings.autoFuseSwords = true;
@@ -213,118 +221,54 @@ SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForge
 	end
 end});
 
-TeleportTab:AddButton({
-    Name = "Novice Village(World 1)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50001
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="Fantasy Valley(World 1)",Callback=function()
+	local args = {[1]={mapId=50001}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
-TeleportTab:AddButton({
-    Name = "Final Selection(World 2)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50002
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="Seaside Villa(World 2)",Callback=function()
+	local args = {[1]={mapId=50002}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
-TeleportTab:AddButton({
-    Name = "Column Meeting(World 3)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50003
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="Congress Hall(World 3)",Callback=function()
+	local args = {[1]={mapId=50003}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
-TeleportTab:AddButton({
-    Name = "Monolithic Trials(World 4)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50004
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="Border Territory(World 4)",Callback=function()
+	local args = {[1]={mapId=50004}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
+TeleportTab:AddButton({Name="Polar Plain(World 5)",Callback=function()
+	local args = {[1]={mapId=50005}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
-TeleportTab:AddButton({
-    Name = "Fujikasane Yama(World 5)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50005
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="Ghost Forest(World 6)",Callback=function()
+	local args = {[1]={mapId=50006}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
-TeleportTab:AddButton({
-    Name = "Muzan Kibutsuji(World 6)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50013
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="Demon Station(World 7)",Callback=function()
+	local args = {[1]={mapId=50007}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
+TeleportTab:AddButton({Name="Hashira Training(World 8)",Callback=function()
+	local args = {[1]={mapId=50008}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
-TeleportTab:AddButton({
-    Name = "Infinite Train(World 7)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50015
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="Infinite City(World 9)",Callback=function()
+	local args = {[1]={mapId=50009}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
-TeleportTab:AddButton({
-    Name = "Infinite City(World 8)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50017
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
-
-
-TeleportTab:AddButton({
-    Name = "Hashira Training(World 9)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50018
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
-
-TeleportTab:AddButton({
-    Name = "One Punch Man(World 10)",
-    Callback = function()
-	local args = {
-  	  [1] = {
-          ["mapId"] = 50019
-    }}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-    end
-})
+TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local args = {[1]={mapId=50010}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
 
 local mapData = {
     [50001] = "Fantasy Valley(World 1)",
@@ -699,5 +643,49 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
+local openEgg = false
 
-OrionLib:Init();
+EGG:AddDropdown({
+    Name = "Pick Egg",
+    Default = "",
+    Options = {"World 1","World 2","World 3","World 4","World 5","World 6","World 7","World 8","World 9","Naruto"},
+    Callback = function(Value)
+        local EGGS = {
+            ["World 1"] = 70001,
+            ["World 2"] = 70003,
+            ["World 3"] = 70005,
+            ["World 4"] = 70007,
+            ["World 5"] = 70009,
+            ["World 6"] = 70011,
+            ["World 7"] = 70013,
+            ["World 8"] = 70015,
+            ["World 9"] = 70017,
+            ["Naruto"] = 70019,
+        }
+        EGG.EggId = EGGS[Value]
+    end
+})
+
+EGG:AddToggle({
+    Name = "Open Eggs",
+    Callback = function(Value)
+        openEgg = Value
+        if Value then
+            while openEgg do
+                local args = {
+                    [1] = {
+                        ["drawCardPlatformId"] = EGG.EggId,
+                        ["count"] = 10
+                    }
+                }
+                local success, errorMessage = pcall(function()
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+                end)
+                if not success then
+                    print("Error:", errorMessage)
+                end
+                wait(0.1) -- adjust the delay as needed
+            end
+        end
+    end
+})
