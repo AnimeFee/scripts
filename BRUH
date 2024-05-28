@@ -725,8 +725,8 @@ EGG:AddToggle({
             getgenv().Settings.autoDeleteHeroes = true;
             while getgenv().Settings.autoDeleteHeroes do
                 wait(1);
-                if HeroesInventory.localPlayerData then
-                    for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
+                if WeaponsInventory.localPlayerData then
+                    for _, v in pairs(WeaponsInventory.localPlayerData.heroes) do
                         if not v.isEquipped and not v.isLocked then
                             local args = {[1]={[1]=v.heroId}};
                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(args));
