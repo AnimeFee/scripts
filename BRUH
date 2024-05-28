@@ -50,19 +50,6 @@ EMount:AddButton({Name="Use Selected Mount",Callback=function()
 end});
 
 
-local HeroesInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-
-pcall(function()
-    if HeroesInventory.localPlayerData then
-        for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
-            if v.isEquip and v.isLock then
-                table.insert(getgenv().Settings.mespetsequiper, v.guid);
-            end
-        end
-    else
-        print("localPlayerData is not loaded yet. Please try again later.")
-    end
-end);
 
 local playerNames = {};
 for _, player in pairs(game.Players:GetPlayers()) do
@@ -730,6 +717,21 @@ EGG:AddToggle({
         end
     end
 })
+
+
+local HeroesInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if HeroesInventory.localPlayerData then
+        for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
 
 EGG:AddToggle({
     Name="Auto Delete Uneqquiped/Unlocked Heroes",
