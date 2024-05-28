@@ -49,6 +49,7 @@ getgenv().G = {
     PlayerSpin = false,
     Spin = false,
     World4Value = "Lobby",
+    OpenEgg = false,
     Egg = "Cursed Chest",
     Dungeon1 = false ,
     Dungeon2 = false , 
@@ -275,24 +276,23 @@ V3:AddDropdown({
     end
 })
 
-V3:AddButton({
+V3:AddToggle({
     Name = "Open Eggs",
-    Callback = function()
-local args = {
-    [1] = {
-        [1] = {
-            [1] = "\3",
-            [2] = "Pets",
-            [3] = "Open",
-            [4] = G.Egg,
-            [5] = "All"
-        }
-    }
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
-    end
-})
+    Callback = function(Value)
+        getgenv().G.OpenEgg = Value
+        if Value then
+            local args = {
+                [1] = {
+                    [1] = {
+                        [1] = "\3",
+                        [2] = "Pets",
+                        [3] = "Open",
+                        [4] = G.Egg,
+                        [5] = "All"
+                    }}}
+            game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        end
+    end})
 
 Dungeon:AddToggle({
     Name = "Auto Enter Dungeon(Easy)",
@@ -312,7 +312,7 @@ Dungeon:AddToggle({
                     }
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
-                wait(0.01)
+                wait(5)
             end)
         else
             getgenv().G.Dungeon1 = false
@@ -338,7 +338,7 @@ Dungeon:AddToggle({
                     }
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
-                wait(0.01)
+                wait(5)
             end)
         else
             getgenv().G.Dungeon2 = false
@@ -364,7 +364,7 @@ Dungeon:AddToggle({
                     }
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
-                wait(0.01)
+                wait(5)
             end)
         else
             getgenv().G.Dungeon3 = false
@@ -390,13 +390,12 @@ Dungeon:AddToggle({
                     }
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
-                wait(0.01)
+                wait(5)
             end)
         else
             getgenv().G.Dungeon4 = false
         end
     end
 })
-
 
 OrionLib:Init();
