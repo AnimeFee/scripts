@@ -144,7 +144,7 @@ afrm:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 				end
 			end);
 		end
-	end
+	end})
 
 FarmSec2:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
 	Settings.AutoAtk = Value;
