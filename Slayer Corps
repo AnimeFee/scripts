@@ -60,9 +60,6 @@ TradeSec:AddButton({Name="Trade Selected Player",Callback=function()
 		warn("No player selected.");
 	end
 end});
-TradeSec:AddButton({Name="Dupe(Need To Trade)",Callback=function()
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
-end});
 
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	if v0 then
