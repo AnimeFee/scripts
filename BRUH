@@ -293,7 +293,7 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local a
 end});
 
 
-local AutoDungeonToggle = DungeonSec:AddToggle({
+DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
     Default = false,
     Callback = function(Value)
