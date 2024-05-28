@@ -243,27 +243,57 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpa
 Teleport:AddDropdown({
     Name = "Pick Teleport",
     Default = "Lobby",
-    Options = {"Lobby", "World1",1 ,2,3,4,5,6,7,8},
+    Options = {"Lobby", "Map1", "Map2", "Map3", "Map4", "Map5", "Map6", "Map7", "Map8", "Map9", "Map10", "Map11", "Map12", "Map13", "Map14", "Map15", "Map16", "Map17", "Map18", "Map19", "Map20", "Map21", "Map22", "Map23", "Map24", "Map25", "Map26", "Map27", "Map28"},
     Callback = function(Value)
-        G.World4Value = Value
+        local mapIds = {
+            ["Lobby"] = "Lobby",
+            ["Map1"] = 1,
+            ["Map2"] = 2,
+            ["Map3"] = 3,
+            ["Map4"] = 4,
+            ["Map5"] = 5,
+            ["Map6"] = 6,
+            ["Map7"] = 7,
+            ["Map8"] = 8,
+            ["Map9"] = 9,
+            ["Map10"] = 10,
+            ["Map11"] = 11,
+            ["Map12"] = 12,
+            ["Map13"] = 13,
+            ["Map14"] = 14,
+            ["Map15"] = 15,
+            ["Map16"] = 16,
+            ["Map17"] = 17,
+            ["Map18"] = 18,
+            ["Map19"] = 19,
+            ["Map20"] = 20,
+            ["Map21"] = 21,
+            ["Map22"] = 22,
+            ["Map23"] = 23,
+            ["Map24"] = 24,
+            ["Map25"] = 25,
+            ["Map26"] = 26,
+            ["Map27"] = 27
+        }
+        G.World4Value = mapIds[Value]
     end
 })
 
 Teleport:AddButton({
     Name = "Tp To Chosen Map",
     Callback = function()
-local args = {
-    [1] = {
-        [1] = {
-            [1] = "\3",
-            [2] = "Teleport",
-            [3] = "To",
-            [4] = G.World4Value
+        local args = {
+            [1] = {
+                [1] = {
+                    [1] = "\3",
+                    [2] = "Teleport",
+                    [3] = "To",
+                    [4] = G.World4Value
+                }
+            }
         }
-    }
-}
 
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
     end
 })
 
