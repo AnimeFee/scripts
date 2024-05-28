@@ -49,8 +49,6 @@ EMount:AddButton({Name="Use Selected Mount",Callback=function()
 	end
 end});
 
-
-
 EGG:AddDropdown({
     Name = "Pick Egg",
     Default = "",
@@ -89,7 +87,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Extra
         end
     end})
 
-EGG:AddLabel("Lock Your Pets")
 
 local HeroesInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
 
