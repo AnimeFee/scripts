@@ -546,32 +546,96 @@ PlayerTab:AddButton({
         local args = {
             [1] = "Codes",
             [2] = "Redeem",
+            [3] = "UPDATE4FIXES"
         }
-
-        -- List of codes for free rewards
-        local codes = {
-            "UPDATE4FIXES", -- Free Rewards (NEW)
-            "UPDATE4", -- Free Rewards (NEW)
-            "GRIMOIRES", -- Free Rewards (NEW)
-            "UPDATE3FIXES", -- Free Rewards
-            "UPDATE3BUFFS", -- Free Rewards
-            "UPDATE3", -- Free Rewards
-            "STANDS", -- Free Rewards
-            "UPDATE2FIX", -- Free Rewards
-            "Craft", -- Free Rewards
-            "UPDATE1", -- Energy Potion and 2x Reset Status
-            "UPDATE1FIX", -- Energy Potion and Reset Status
-            "3KLIKES", -- Energy Potion and Reset Status
-            "UPDATEBUFF", -- Pink Gems, Energy Potion, and Reset Status
-            "BUGSFIX", -- Pink Gems, Energy Potion, and Reset Status
-            "Release", -- 5 Shadow Keys
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATE4"
         }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "GRIMOIRES"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))	
+        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATE3FIXES"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+   
+        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATE3BUFFS"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATE3"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "STANDS"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))	
+        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATE2FIX"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
 
-        -- Iterate through the codes and fire the server function
-        for _, code in ipairs(codes) do
-            args[3] = code
-            game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
-        end
+        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "Craft"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATE1"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATE1FIX"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))	
+        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "3KLIKES"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "Release"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
+	        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "UPDATEBUFF"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))	
+        local args = {
+            [1] = "Codes",
+            [2] = "Redeem",
+            [3] = "BUGSFIX"
+        }
+	game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))
     end
 })
 
