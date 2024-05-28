@@ -444,7 +444,7 @@ Sec1:AddToggle({
                     local humanoid = character:WaitForChild("Humanoid")
                     
                     -- Check if the player is near a farm
-                    local farms = game.Workspace.Farms:GetChildren()
+                    local farms = game.Workspace._Enemies:GetChildren()
                     local nearestFarm = nil
                     local nearestDistance = math.huge
                     for _, farm in pairs(farms) do
