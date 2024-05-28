@@ -718,18 +718,19 @@ EGG:AddToggle({
 })
 
 local HeroesInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+
 EGG:AddToggle({
-    Name="Auto Sell Unequipped/Unlocked Heroes",
-    Callback=function(autoSellHeroes)
-        if autoSellHeroes then
-            getgenv().Settings.autoSellHeroes = true;
-            while getgenv().Settings.autoSellHeroes do
+    Name="Auto Delete Unequipped/Unlocked Heroes",
+    Callback=function(autoDeleteHeroes)
+        if autoDeleteHeroes then
+            getgenv().Settings.autoDeleteHeroes = true;
+            while getgenv().Settings.autoDeleteHeroes do
                 wait(1);
                 if HeroesInventory.localPlayerData then
                     for _, v in pairs(HeroesInventory.localPlayerData.heroes) do
-                        if not v.isEquip and not v.isLock then
-                            local args = {[1]={[1]=v.guid}};
-                            game:GetService("ReplicatedStorage").Remotes.SellHero:FireServer(unpack(args));
+                        if not v.isEquipped and not v.isLocked then
+                            local args = {[1]={[1]=v.heroId}};
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(args));
                         end
                     end
                 else
@@ -737,7 +738,7 @@ EGG:AddToggle({
                 end
             end
         else
-            getgenv().Settings.autoSellHeroes = false;
+            getgenv().Settings.autoDeleteHeroes = false;
         end
     end
 });
