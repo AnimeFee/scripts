@@ -155,7 +155,7 @@ Perks:AddToggle({
     end
 })
 
-Perks:AddToggle({
+Sec1:AddToggle({
     Name = "Auto Ascend",
     Default = false,
     Callback = function(Value)
@@ -299,7 +299,7 @@ Teleport:AddButton({
     end
 })
 
-V3:AddDropdown({
+Eggs:AddDropdown({
     Name = "Eggs",
     Default = "Cursed Chest",
     Options = {"Cursed Chest","Bizzare Chest","Ninja Chest","Hunter Chest","Spirit Chest","Dragon Chest","Ghoul Chest","Marine Chest","Leveling Chest","Titan Chest","XYZ Chest","Clover Chest","Marine Chest","Leveling Chest","Titan Chest","XYZ Chest","Clover Chest",},
@@ -308,7 +308,7 @@ V3:AddDropdown({
     end
 })
 
-V3:AddToggle({
+Eggs:AddToggle({
     Name = "Open Eggs",
     Callback = function(Value)
         getgenv().G.OpenEgg = Value
@@ -430,7 +430,8 @@ Dungeon:AddToggle({
     end
 })
 
-FarmSec:AddToggle({
+
+Sec1:AddToggle({
     Name = "Auto Farm",
     Callback = function(v0)
         if v0 then
@@ -482,5 +483,7 @@ FarmSec:AddToggle({
         end
     end
 });
+
+
 
 OrionLib:Init();
