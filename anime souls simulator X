@@ -130,7 +130,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpa
 })
 
 
-Sec2:AddToggle({
+Perks:AddToggle({
     Name = "Auto Spin Avatars",
     Default = false,
     Callback = function(Value)
@@ -155,7 +155,7 @@ Sec2:AddToggle({
     end
 })
 
-Sec1:AddToggle({
+Perks:AddToggle({
     Name = "Auto Ascend",
     Default = false,
     Callback = function(Value)
@@ -184,7 +184,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpa
 })
 
 
-Sec2:AddToggle({
+Perks:AddToggle({
     Name = "Auto Spin Wheels",
     Default = false,
     Callback = function(Value)
@@ -213,7 +213,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpa
 })
 
 
-Sec2:AddToggle({
+Perks:AddToggle({
     Name = "Auto Spin Player Passives",
     Default = false,
     Callback = function(Value)
