@@ -35,23 +35,6 @@ local Section = TpTab:AddSection({
   Name = "Teleport"
 })
 
---values
-getgenv().punch = false
-
-
---functionns
-function dopunch()
-while getgenv().punch == true do
-local args = {
-    [1] = 1
-}
-
-game:GetService("Players").LocalPlayer.Character.Punch.Event:FireServer(unpack(args))
-
-    wait(0.1)
-      end
-    end 
-
 --toggles
 mainTab:AddToggle({
   Name = "auto sell",
