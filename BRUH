@@ -727,7 +727,7 @@ EGG:AddToggle({
                 wait(1);
                 if WeaponsInventory.localPlayerData then
                     for _, v in pairs(WeaponsInventory.localPlayerData.heroes) do
-                        if not v.isEquipped and not v.isLocked then
+                        if not v.isEquip and not v.isLock then
                             local args = {[1]={[1]=v.heroId}};
                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(args));
                         end
