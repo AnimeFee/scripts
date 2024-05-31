@@ -1,0 +1,85 @@
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+if not OrionLib then
+    error("Failed to load the OrionLib library")
+    return
+end
+
+local Window = OrionLib:MakeWindow({
+    Name = "Strong Ninja Simulator",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "WendelCfg",
+    IntroEnabled = false
+})
+
+local Farms = Window:MakeTab({
+    Name = "Farms",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local W1 = Farms:AddSection({Name="Eggs"})
+local W2 = Farms:AddSection({Name="Farm"})
+
+W1:AddDropdown({
+    Name = "Clown Island",
+    Default = "Bandit",
+    Options = {"Beach Egg","Forest Egg","Dominus Egg","Dragon Egg","Alien Egg","Arctic Egg","Zombie Egg","Hell Egg","Heaven Egg"},
+    Callback = function(Value)
+        WorldValue = Value
+    end
+})
+
+W1:AddToggle({
+    Name = "Auto Attack",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            while Value do
+local args = {
+    [1] = {
+        [1] = WorldValue
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Framework"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Internal"):WaitForChild("Modules"):WaitForChild("2 | Network"):WaitForChild("Remotes"):WaitForChild("s_controller_buyegg"):InvokeServer(unpack(args))
+                wait(.01)
+            end
+        end
+    end
+})
+
+W2:AddToggle({
+    Name = "Rebirth",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            while Value do
+                local args = {
+                    [1] = {}
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Framework"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Internal"):WaitForChild("Modules"):WaitForChild("2 | Network"):WaitForChild("Remotes"):WaitForChild("s_controller_rebirth"):InvokeServer(unpack(args))
+                wait()
+            end
+        end
+    end
+})
+
+W2:AddToggle({
+    Name = "Spin Wheel",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            while Value do
+                local args = {
+                [1] = {}
+                }
+            game:GetService("ReplicatedStorage"):WaitForChild("Framework"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Internal"):WaitForChild("Modules"):WaitForChild("2 | Network"):WaitForChild("Remotes"):WaitForChild("s_controller_spinwheel"):InvokeServer(unpack(args))
+            wait()
+            end
+        end
+    end
+})
+
+
+OrionLib:Init()
