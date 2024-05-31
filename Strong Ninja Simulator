@@ -1,3 +1,27 @@
+--// Credits \\--
+--[[ Ezpi#0474 - Creator of this script ]]--
+
+--// Services \\--
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+
+--// Variables \\--
+local Player = Players.LocalPlayer
+local Enabled = false
+local Mouse = Player:GetMouse()
+local LastC = Color3.new(1, 0, 0)
+local LastU = tick()
+
+--// Exploit Fix \\--
+if not pcall(function() return syn.protect_gui end) then
+    syn = {}
+    syn.protect_gui = function(A_1)
+        A_1.Parent = CoreGui
+    end
+end
+
+
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 if not OrionLib then
     error("Failed to load the OrionLib library")
@@ -80,6 +104,24 @@ W2:AddToggle({
         end
     end
 })
+
+W1:AddToggle({
+    Name = "Auto Clicker",
+    Default = false,
+    Callback = function(Value)
+        Enabled = Value
+    end
+})
+
+-- AutoClick
+while wait() do
+    if Enabled then
+        X, Y = Mouse.X, Mouse.Y + 10
+        VirtualInputManager:SendMouseButtonEvent(X, Y, 0, true, game, 1)
+        VirtualInputManager:SendMouseButtonEvent(X, Y, 0, false, game, 1)
+        wait(1)
+    end
+end
 
 
 OrionLib:Init()
