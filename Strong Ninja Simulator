@@ -22,8 +22,8 @@ local W1 = Farms:AddSection({Name="Eggs"})
 local W2 = Farms:AddSection({Name="Farm"})
 
 W1:AddDropdown({
-    Name = "Clown Island",
-    Default = "Bandit",
+    Name = "Select Egg",
+    Default = "",
     Options = {"Beach Egg","Forest Egg","Dominus Egg","Dragon Egg","Alien Egg","Arctic Egg","Zombie Egg","Hell Egg","Heaven Egg"},
     Callback = function(Value)
         WorldValue = Value
@@ -31,7 +31,7 @@ W1:AddDropdown({
 })
 
 W1:AddToggle({
-    Name = "Auto Attack",
+    Name = "Toggle To Auto Open",
     Default = false,
     Callback = function(Value)
         if Value then
