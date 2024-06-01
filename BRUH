@@ -732,8 +732,10 @@ pcall(function()
     end
 end);
 
-EGG:AddToggle({
-    Name="Auto Delete Heroes",
+EGG1:AddLabel("Will Delete/Use Uneqquiped and Unlocked Heroes")
+
+EGG1:AddToggle({
+    Name="Auto Delete Unequipped/Locked Heroes",
     Callback=function(autoSellHeroes)
         if autoSellHeroes then
             getgenv().Settings.autoSellHeroes = true;
@@ -756,3 +758,38 @@ EGG:AddToggle({
     end
 });
 
+EGG1:AddToggle({
+    Name="Auto Fuse Heroes",
+    Callback=function(autoFuseHeroes)
+        if autoFuseHeroes then
+            getgenv().Settings.autoFuseHeroes = true;
+            while getgenv().Settings.autoFuseHeroes do
+                wait(1);
+                if BurgerInventory.localPlayerData then
+                    local equippedHeroGuid = nil;
+                    local unequippedHeroGuids = {};
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                        if v.isEquip and v.isLock then
+                            equippedHeroGuid = v.guid;
+                        elseif not v.isEquip and not v.isLock then
+                            table.insert(unequippedHeroGuids, v.guid);
+                        end
+                    end
+                    if equippedHeroGuid and #unequippedHeroGuids > 0 then
+                        local args = {
+                            [1] = {
+                                ["mainHeroGuid"] = equippedHeroGuid,
+                                ["decomposeHeroGuids"] = unequippedHeroGuids
+                            }
+                        };
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args));
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoFuseHeroes = false;
+        end
+    end
+});
