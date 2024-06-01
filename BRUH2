@@ -1,0 +1,122 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Super Gay Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "idk fuck you"});
+
+local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local EGG = WhtvrTab:AddSection({Name="Eggs"});
+local EGG1 = WhtvrTab:AddSection({Name="Lock Your Pets Before Using."});
+
+local openEgg = false
+
+EGG:AddDropdown({
+    Name = "Pick Egg",
+    Default = "",
+    Options = {"World 1","World 2","World 3","World 4","World 5","World 6","World 7","World 8","World 9","Naruto"},
+    Callback = function(Value)
+        local EGGS = {
+            ["World 1"] = 70001,
+            ["World 2"] = 70003,
+            ["World 3"] = 70005,
+            ["World 4"] = 70007,
+            ["World 5"] = 70009,
+            ["World 6"] = 70011,
+            ["World 7"] = 70013,
+            ["World 8"] = 70015,
+            ["World 9"] = 70017,
+            ["Naruto"] = 70019,
+        }
+        EGG.EggId = EGGS[Value]
+    end
+})
+
+EGG:AddToggle({
+    Name = "Open Eggs",
+    Callback = function(Value)
+        openEgg = Value
+        if Value then
+            while openEgg do
+                local args = {
+                    [1] = {
+                        ["drawCardPlatformId"] = EGG.EggId,
+                        ["count"] = 10
+                    }
+                }
+                local success, errorMessage = pcall(function()
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+                end)
+                if not success then
+                    print("Error:", errorMessage)
+                end
+                wait(0.1) -- adjust the delay as needed
+            end
+        end
+    end
+})
+
+local BurgerInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if BurgerInventory.localPlayerData then
+        for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
+
+EGG1:AddToggle({
+    Name="Auto Delete Heroes",
+    Callback=function(autoSellHeroes)
+        if autoSellHeroes then
+            getgenv().Settings.autoSellHeroes = true;
+            while getgenv().Settings.autoSellHeroes do
+                wait(1);
+                if BurgerInventory.localPlayerData then
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                        if not v.isEquip and not v.isLock then
+                            local x = {[1]={[1]=v.guid}};
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(x))
+                        end
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoSellHeroes = false;
+        end
+    end
+});
+
+EGG1:AddToggle({
+    Name="Auto Fuse to Equipped Hero",
+    Callback=function(autoFuseHero)
+        if autoFuseHero then
+            getgenv().Settings.autoFuseHero = true;
+            while getgenv().Settings.autoFuseHero do
+                wait(1e-7);
+                local equippedHeroGuid;
+                for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                    if v.isEquip == true then 
+                        equippedHeroGuid = v.guid;
+                    end
+                end
+                for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                    if v.isEquip == false and v.isLock == false then 
+                        local args = {
+                                ["mainHeroGuid"] = equippedHeroGuid,
+                                ["decomposeHeroGuids"] = {
+                                        [1] = v.guid
+                                }
+                        };
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args))
+                    end
+                end
+            end
+        else
+            getgenv().Settings.autoFuseHero = false;
+        end
+    end
+});
