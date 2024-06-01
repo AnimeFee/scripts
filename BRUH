@@ -732,6 +732,7 @@ pcall(function()
     end
 end);
 
+EGG1:AddLabel("Will Fuse to Equiped Heroes")
 EGG1:AddLabel("Will Delete/Use Uneqquiped and Unlocked Heroes")
 
 EGG1:AddToggle({
