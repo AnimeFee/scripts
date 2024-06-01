@@ -1,10 +1,9 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"});
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
 getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -15,7 +14,8 @@ local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",Premi
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local EMount = WhtvrTab:AddSection({Name="Mounts"});
 local EGG = WhtvrTab:AddSection({Name="Eggs"});
-local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
+local EGG1 = WhtvrTab:AddSection({Name="Lock Your Pets Before Using."});
+local FarmSec = PlayerTab:AddSection({Name="Auto Farm"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
@@ -63,6 +63,9 @@ TradeSec:AddButton({Name="Trade Selected Player",Callback=function()
 	else
 		warn("No player selected.");
 	end
+end});
+TradeSec:AddButton({Name="Dupe(Need To Trade)",Callback=function()
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
 
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
@@ -146,7 +149,6 @@ FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 		end
 	end
 end})
-
 
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
@@ -686,3 +688,80 @@ EGG:AddToggle({
         end
     end
 })
+
+local BurgerInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if BurgerInventory.localPlayerData then
+        for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
+
+EGG1:AddLabel("Will Fuse to Equiped Heroes")
+EGG1:AddLabel("Will Delete/Fuse The Uneqquiped and Unlocked Heroes")
+
+EGG1:AddToggle({
+    Name="Auto Delete Heroes",
+    Callback=function(autoSellHeroes)
+        if autoSellHeroes then
+            getgenv().Settings.autoSellHeroes = true;
+            while getgenv().Settings.autoSellHeroes do
+                wait(1);
+                if BurgerInventory.localPlayerData then
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                        if not v.isEquip and not v.isLock then
+                            local x = {[1]={[1]=v.guid}};
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(x))
+                        end
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoSellHeroes = false;
+        end
+    end
+});
+
+EGG1:AddToggle({
+    Name="Auto Fuse Heroes",
+    Callback=function(autoFuseHeroes)
+        if autoFuseHeroes then
+            getgenv().Settings.autoFuseHeroes = true;
+            while getgenv().Settings.autoFuseHeroes do
+                wait(1);
+                if BurgerInventory.localPlayerData then
+                    local equippedHeroGuid = nil;
+                    local unequippedHeroGuids = {};
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                        if v.isEquip and v.isLock then
+                            equippedHeroGuid = v.guid;
+                        elseif not v.isEquip and not v.isLock then
+                            table.insert(unequippedHeroGuids, v.guid);
+                        end
+                    end
+                    if equippedHeroGuid and #unequippedHeroGuids > 0 then
+                        local args = {
+                            [1] = {
+                                ["mainHeroGuid"] = equippedHeroGuid,
+                                ["decomposeHeroGuids"] = unequippedHeroGuids
+                            }
+                        };
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args));
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoFuseHeroes = false;
+        end
+    end
+});
