@@ -90,24 +90,23 @@ EGG1:AddToggle({
     end
 });
 
-EGG1:AddToggle({
-    Name="Auto Fuse Heroes",
-    Callback=function(autoFuseHeroes)
+-- Add a toggle for auto fuse
+EGG:AddToggle({
+    Name = "Auto Fuse Heroes",
+    Callback = function(autoFuseHeroes)
         if autoFuseHeroes then
             getgenv().Settings.autoFuseHeroes = true;
             while getgenv().Settings.autoFuseHeroes do
                 wait(1);
                 if BurgerInventory.localPlayerData then
-                    local equippedHeroGuid = nil;
+                    local equippedHeroGuid = EGG.EquippedHero.guid;
                     local unequippedHeroGuids = {};
                     for _, v in pairs(BurgerInventory.localPlayerData.heros) do
-                        if v.isEquip and v.isLock then
-                            equippedHeroGuid = v.guid;
-                        elseif not v.isEquip and not v.isLock then
+                        if not v.isEquip and not v.isLock then
                             table.insert(unequippedHeroGuids, v.guid);
                         end
                     end
-                    if equippedHeroGuid and #unequippedHeroGuids > 0 then
+                    if #unequippedHeroGuids > 0 then
                         local args = {
                             [1] = {
                                 ["mainHeroGuid"] = equippedHeroGuid,
@@ -125,3 +124,33 @@ EGG1:AddToggle({
         end
     end
 });
+
+EGG:AddDropdown({
+    Name = "Pick Equipped Hero",
+    Default = "",
+    Options = {},
+    Callback = function(Value)
+        EGG.SelectedEquippedHero = nil;
+        for i, hero in ipairs(BurgerInventory.localPlayerData.heros) do
+            if hero.guid == Value then
+                EGG.SelectedEquippedHero = hero;
+                break;
+            end
+        end
+    end
+});
+
+-- Populate the dropdown with equipped heroes
+local equippedHeroes = {};
+for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+    if v.isEquip then
+        table.insert(equippedHeroes, v.guid);
+    end
+end
+EGG.Dropdowns["Pick Equipped Hero"].Options = equippedHeroes;
+
+-- Set the default value for the equipped hero dropdown
+EGG:SetDropdownValue("Pick Equipped Hero", equippedHeroes[1]);
+
+-- Set the equipped hero variable
+EGG.EquippedHero = EGG.SelectedEquippedHero or equippedHeroes[1];
