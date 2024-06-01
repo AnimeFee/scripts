@@ -90,33 +90,68 @@ EGG1:AddToggle({
     end
 });
 
-EGG1:AddToggle({
-    Name="Auto Fuse to Equipped Hero",
-    Callback=function(autoFuseHero)
-        if autoFuseHero then
-            getgenv().Settings.autoFuseHero = true;
-            while getgenv().Settings.autoFuseHero do
-                wait(1e-7);
-                local equippedHeroGuid;
-                for _, v in pairs(BurgerInventory.localPlayerData.heros) do
-                    if v.isEquip == true then 
-                        equippedHeroGuid = v.guid;
-                    end
-                end
-                for _, v in pairs(BurgerInventory.localPlayerData.heros) do
-                    if v.isEquip == false and v.isLock == false then 
-                        local args = {
-                                ["mainHeroGuid"] = equippedHeroGuid,
-                                ["decomposeHeroGuids"] = {
-                                        [1] = v.guid
-                                }
-                        };
-                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args))
-                    end
-                end
+local BurgerInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if BurgerInventory.localPlayerData then
+        for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
             end
-        else
-            getgenv().Settings.autoFuseHero = false;
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
+
+local HeroSelectionMenu = {}
+local AutoFuseToggle = {}
+
+local equippedHeroes = {}
+for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+    if v.isEquip then
+        table.insert(equippedHeroes, v.name)
+    end
+end
+
+local selectedHero
+HeroSelectionMenu:AddDropdown({
+    Name = "Equipped Heroes",
+    Default = "",
+    Options = equippedHeroes,
+    Callback = function(Value)
+        selectedHero = Value
+    end
+})
+
+-- Now you can use the selected hero value as follows:
+print("Selected hero:", selectedHero)
+
+local function autoFuseHeroes()
+    while getgenv().Settings.autoFuseHero do
+        wait()
+        for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+            if v.isEquip == false and v.isLock == false then
+                local args = {
+                    ["mainHeroGuid"] = selectedHero,
+                    ["decomposeHeroGuids"] = {
+                        [1] = v.guid
+                    }
+                };
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args))
+            end
         end
     end
-});
+end
+
+AutoFuseToggle:AddToggle({
+    Name = "Auto Fuse to Equipped Hero",
+    Callback = function(autoFuseHero)
+        if autoFuseHero then
+            getgenv().Settings.autoFuseHero = true
+            autoFuseHeroes()
+        else
+            getgenv().Settings.autoFuseHero = false
+        end
+    end
+})
