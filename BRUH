@@ -15,6 +15,7 @@ local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",Premi
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local EMount = WhtvrTab:AddSection({Name="Mounts"});
 local EGG = WhtvrTab:AddSection({Name="Eggs"});
+local EGG1 = WhtvrTab:AddSection({Name="Lock Your Pets Before Using."});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
@@ -751,6 +752,61 @@ EGG:AddToggle({
             end
         else
             getgenv().Settings.autoSellHeroes = false;
+        end
+    end
+});
+
+Egg1:AddToggle({Name="Auto Fuse Equipped Hero",Callback=function(autoFuseHero)
+	if autoFuseHero then
+		getgenv().Settings.autoFuseHero = true;
+		while getgenv().Settings.autoFuseHero do
+			wait(1e-7);
+			for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+				if v.isEquip then 
+					local args = {
+						 ["mainHeroGuid"] =v.guid,
+						 ["decomposeHeroGuids"] = {
+       					     [1] = "da020ee0-320c-42fa-8dcf-c452f0d0cce0",
+        }
+    }
+											
+								};
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ForgeWeapon"):InvokeServer(unpack(args));
+				end
+			end
+		end
+	else
+		getgenv().Settings.autoFuseHero = false;
+	end
+end});
+
+Egg1:AddToggle({
+    Name="Auto Fuse to Equipped Hero",
+    Callback=function(autoFuseHero)
+        if autoFuseHero then
+            getgenv().Settings.autoFuseHero = true;
+            while getgenv().Settings.autoFuseHero do
+                wait(1e-7);
+                local equippedHeroGuid;
+                for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                    if v.isEquip == true then 
+                        equippedHeroGuid = v.guid;
+                    end
+                end
+                for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                    if v.isEquip == false and v.isLock == false then 
+                        local args = {
+                                ["mainHeroGuid"] = equippedHeroGuid,
+                                ["decomposeHeroGuids"] = {
+                                        [1] = v.guid
+                                }
+                        };
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args))
+                    end
+                end
+            end
+        else
+            getgenv().Settings.autoFuseHero = false;
         end
     end
 });
