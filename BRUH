@@ -717,15 +717,29 @@ EGG:AddToggle({
     end
 })
 
+local BurgerInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if BurgerInventory.localPlayerData then
+        for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
+
 EGG:AddToggle({
     Name="Auto Delete Heroes",
     Callback=function(autoSellHeroes)
-        if autoSellWeapons then
+        if autoSellHeroes then
             getgenv().Settings.autoSellHeroes = true;
             while getgenv().Settings.autoSellHeroes do
                 wait(1);
-                if WeaponsInventory.localPlayerData then
-                    for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+                if BurgerInventory.localPlayerData then
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
                         if not v.isEquip and not v.isLock then
                             local x = {[1]={[1]=v.guid}};
                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(x))
