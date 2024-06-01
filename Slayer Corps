@@ -217,85 +217,47 @@ SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForge
 	end
 end});
 
-TeleportTab:AddButton({Name="Fantasy Valley(World 1)",Callback=function()
-	local args = {[1]={mapId=50001}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Seaside Villa(World 2)",Callback=function()
-	local args = {[1]={mapId=50002}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Congress Hall(World 3)",Callback=function()
-	local args = {[1]={mapId=50003}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Border Territory(World 4)",Callback=function()
-	local args = {[1]={mapId=50004}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Polar Plain(World 5)",Callback=function()
-	local args = {[1]={mapId=50005}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Ghost Forest(World 6)",Callback=function()
-	local args = {[1]={mapId=50006}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Demon Station(World 7)",Callback=function()
-	local args = {[1]={mapId=50007}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Hashira Training(World 8)",Callback=function()
-	local args = {[1]={mapId=50008}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="Infinite City(World 9)",Callback=function()
-	local args = {[1]={mapId=50009}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
-TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()local args = {[1]={mapId=50010}};
-	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-end});
-
 local mapData = {
-    [50001] = "Fantasy Valley(World 1)",
-    [50002] = "Seaside Villa(World 2)",
-    [50003] = "Congress Hall(World 3)",
-    [50004] = "Border Territory(World 4)",
-    [50005] = "Polar Plain(World 5)",
-    [50006] = "Ghost Forest(World 6)",
-    [50007] = "Demon Station(World 7)",
-    [50008] = "Hashira Training(World 8)",
-    [50009] = "Infinite City(World 9)",
-    [50010] = "One Punch Man(World 10)",    
+    [50001] = "Novice Village(World 1)",
+    [50002] = "Final Selection(World 2)",
+    [50003] = "Column Meeting(World 3)",
+    [50004] = "Monolithic Trials(World 4)",
+    [50005] = "Fujikasane Yama(World 5)",
+    [50013] = "Muzan Kibutsuji(World 6)",
+    [50015] = "Infinite Train(World 7)",
+    [50016] = "Infinite City(World 8)",
+    [50018] = "Hashira Training(World 9)",
+    [50019] = "One Punch Man(World 10)",    
 };
 
 local mapNames = {};
-for _, name in pairs(mapData) do
+local mapIds = {};
+for mapId, name in pairs(mapData) do
     table.insert(mapNames, name);
+    table.insert(mapIds, mapId);
 end
 
-DungeonSec:AddDropdown({
-    Name = "Select Return Map",
+TeleportTab:AddDropdown({
+    Name = "Select Teleport Map",
     Options = mapNames,
     Callback = function(selectedMap)
-        getgenv().Settings.selectedReturnMap = selectedMap;
+        local selectedIndex = table.find(mapNames, selectedMap);
+        getgenv().Settings.TpToReturnMap = mapIds[selectedIndex];
     end
 });
 
-local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+TeleportTab:AddButton({
+    Name = "Teleport",
+    Callback = function()
+        local args = {[1]={mapId=getgenv().Settings.TpToReturnMap}};
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+    end
+});
+
+local function TeleportToAndFromDungeon(returnTime)
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
     wait(returnTime);
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = returnMapId});
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50019});
 end
 
 local AutoDungeonToggle = DungeonSec:AddToggle({
@@ -308,7 +270,7 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
                 local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 50;
                 local waitTime = nextTeleportTime - currentTime;
                 wait(waitTime);
-                TeleportToAndFromDungeon(50001, 1, 300);
+                TeleportToAndFromDungeon(300);
             end
         end
     end
