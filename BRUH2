@@ -104,7 +104,6 @@ pcall(function()
     end
 end);
 
-local HeroSelectionMenu = {}
 local AutoFuseToggle = {}
 
 local equippedHeroes = {}
@@ -115,7 +114,7 @@ for _, v in pairs(BurgerInventory.localPlayerData.heros) do
 end
 
 local selectedHero
-HeroSelectionMenu:AddDropdown({
+EGG1:AddDropdown({
     Name = "Equipped Heroes",
     Default = "",
     Options = equippedHeroes,
