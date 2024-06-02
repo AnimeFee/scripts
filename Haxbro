@@ -1,5 +1,6 @@
 local player = game.Players.LocalPlayer
 local username = player.Name
+local args = {
     [1] = {
         ["heroBagCount"] = 21,
         ["otherPlayer"] = username,
