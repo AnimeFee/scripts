@@ -1,8 +1,8 @@
-local username = tostring(game.Players.LocalPlayer.Username)
-local args = {
+local player = game.Players.LocalPlayer
+local username = player.Name
     [1] = {
         ["heroBagCount"] = 21,
-        ["otherPlayer"] = game:GetService("Players"):WaitForChild(username)
+        ["otherPlayer"] = username,
         ["heros"] = {
             ["55a1f610-7c24-44d4-b04c-8c17db83e43e"] = {
                 ["isLock"] = true,
