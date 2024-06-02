@@ -1,0 +1,30 @@
+local args = {
+    [1] = {
+        ["heroBagCount"] = 51,
+        ["otherPlayer"] = game:GetService("Players"):WaitForChild("PldtHome0816"),
+        ["heros"] = {
+            ["ca82aa7b-56bf-4468-a3ea-1d308a05eb42"] = {
+                ["isLock"] = true,
+                ["talents"] = {},
+                ["guid"] = "ca82aa7b-56bf-4468-a3ea-1d308a05eb42",
+                ["id"] = 40037,
+                ["isEquip"] = false,
+                ["ascensionLevel"] = 3,
+                ["quirks"] = {
+                    [1] = 99026,
+                    [2] = 99026,
+                    [3] = 99026
+                    [1] = 99026,
+                    [2] = 99026,
+                    [3] = 99026
+                },
+                ["exp"] = 0,
+                ["level"] = 120,
+                ["star"] = 0,
+                ["attack"] = 32266444400000000000000
+            },
+        ["readyType"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SendReadyTrade"):InvokeServer(unpack(args))
