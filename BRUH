@@ -795,15 +795,11 @@ EGG1:AddToggle({
     end
 });
 
-local FuseTab = Window:MakeTab({
-    Name = "Auto-FuseGem",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
+-- Function to get the first five gem IDs of a specified level
 local function GetFirstFiveGemIDs(level)
     local player = game.Players.LocalPlayer
 
+    -- Get a reference to the ScrollingFrame inside the player's GUI
     local gui = player:WaitForChild("PlayerGui")
     local gemsPanel = gui:WaitForChild("GemsPanel")
     local frame = gemsPanel:WaitForChild("Frame")
@@ -811,19 +807,28 @@ local function GetFirstFiveGemIDs(level)
     local list = bgImage:WaitForChild("List")
     local scrollingFrame = list:WaitForChild("ScrollingFrame")
 
-        local gem1, gem2, gem3, gem4, gem5
+    -- Variables to store the first five gem IDs found
+    local gem1, gem2, gem3, gem4, gem5
 
-        if scrollingFrame then
-                local count = 0
+    -- Check if the ScrollingFrame exists
+    if scrollingFrame then
+        -- Counter for the number of gem IDs found
+        local count = 0
 
-                for _, child in ipairs(scrollingFrame:GetChildren()) do
+        -- Iterate through each child of the ScrollingFrame
+        for _, child in ipairs(scrollingFrame:GetChildren()) do
             -- Check if we already found 5 gem IDs
             if count >= 5 then
                 break
             end
 
-           local numtext = child:FindFirstChild("NumText")
-               if numtext and numtext.Text == "Lv.".. level then                count = count + 1
+            -- Find the "numtext" child inside the current child
+            local numtext = child:FindFirstChild("NumText")
+
+            -- Check if "numtext" exists and if its text matches the specified level
+            if numtext and numtext.Text == "Lv.".. level then
+                -- Assign the child's name (assuming it's the ID) to gem variables
+                count = count + 1
                 if count == 1 then
                     gem1 = child.Name
                 elseif count == 2 then
@@ -856,11 +861,14 @@ local function GetFirstFiveGemIDs(level)
     return gem1, gem2, gem3, gem4, gem5
 end
 
+-- Function to fuse the first five gems of a specified level
 local function FuseFirstFiveGems(level)
     while true do
         local gem1, gem2, gem3, gem4, gem5 = GetFirstFiveGemIDs(level)
 
-     if gem1 and gem2 and gem3 and gem4 and gem5 then
+        -- Check if at least five gem IDs were found
+        if gem1 and gem2 and gem3 and gem4 and gem5 then
+            -- Construct the args table
             local args = {
                 [1] = {
                     [1] = gem1,
@@ -877,24 +885,34 @@ local function FuseFirstFiveGems(level)
         else
             print("Error: Could not find five gem IDs.")
         end
-        wait()
+
+        -- Wait for some time before fusing again (e.g., 5 seconds)
+        wait(0.1)
     end
 end
 
+-- Define the G table
+local G = {
+    AutoFuseGemsLevel = false
+}
+
+-- Adding AutoFuseGem toggle for all levels
 FuseTab:AddToggle({
     Name = "Auto Fuse All Gems",
     Default = false,
     Callback = function(Value)
-        for i = 1, 9 do
-            G["AutoFuseGemsLevel".. i] = Value
-            if Value then
-                spawn(function()
-                    while G["AutoFuseGemsLevel".. i] do
-                        FuseFirstFiveGems(i)
-                    end
-                end)
+        G.AutoFuseGemsLevel = Value
+        if Value then
+            local level = 1
+            local function FuseNextLevel()
+                if G.AutoFuseGemsLevel and level <= 9 then
+                    FuseFirstFiveGems(level)
+                    level = level + 1
+                    wait(1) -- Wait for 1 second before fusing the next level
+                    FuseNextLevel()
+                end
             end
+            FuseNextLevel()
         end
-    end
+    end,
 })
-
