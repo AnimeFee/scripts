@@ -1,6 +1,5 @@
-
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Blades Slayerz", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
+local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
 getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
@@ -83,7 +82,7 @@ end});
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
     for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-        if v.isEquip == true and v.isLock == true then
+        if v.isEquip == true then
             table.insert(getgenv().Settings.mespetsequiper, v.guid)
         end
     end
@@ -605,21 +604,6 @@ Claim:AddButton({Name="Redeem Codes",Callback=function()
 	end
 end});
 
-Claim:AddButton({Name="Achievements",Callback=function()
-	while wait() do
-		for i = 129900, 130200 do
-  local args = {
-    [1] = tostring(i)
-  }
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnlockAchievement"):InvokeServer(unpack(args))
-  wait(0) 
-end
-	end
-end});
-
-
-
-
 Claim:AddButton({Name="Redeem Spins",Callback=function()
 	while wait() do
 		for x = 1, 8 do
@@ -779,7 +763,7 @@ EGG1:AddToggle({
     Name="Auto Fuse Heroes",
     Callback=function(autoFuseHeroes)
         if autoFuseHeroes then
-            cautoFuseHeroes = true;
+            getgenv().Settings.autoFuseHeroes = true;
             while getgenv().Settings.autoFuseHeroes do
                 wait(1);
                 if BurgerInventory.localPlayerData then
@@ -817,9 +801,6 @@ local FuseTab = Window:MakeTab({
         PremiumOnly = false
     })
  
-
-FuseTab:AddLabel("Wip")
-
     -- Function to get the first five gem IDs of a specified level
     local function GetFirstFiveGemIDs(level)
         local player = game.Players.LocalPlayer
@@ -922,11 +903,12 @@ FuseTab:AddLabel("Wip")
             Name = "Auto Fuse Lvl " .. i .. " Gems",
             Default = false,
             Callback = function(Value)
-                getgenv().Settings.["AutoFuseGemsLevel" .. i] = Value
+                G["AutoFuseGemsLevel" .. i] = Value
                 if Value then
-                    while getgenv().Settings.["AutoFuseGemsLevel" .. i] do
+                    while G["AutoFuseGemsLevel" .. i] do
                         FuseFirstFiveGems(i)
                     end
                 end
             end,
         })
+    end
