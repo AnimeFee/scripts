@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
+local Window = OrionLib:MakeWindow({Name = "Blade Sigma", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
 getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
@@ -898,18 +898,20 @@ EGG1:AddToggle({
         end
     end
  
-    FuseTab:AddToggle({
+   FuseTab:AddToggle({
     Name = "Auto Fuse All Level Gems",
     Default = false,
     Callback = function(Value)
         getgenv().Settings.AutoFuseAllGems = Value
         if Value then
-            while getgenv().Settings.AutoFuseAllGems do
-                for i = 1, 9 do
-                    FuseFirstFiveGems(i)
+            spawn(function()
+                while getgenv().Settings.AutoFuseAllGems do
+                    for i = 1, 9 do
+                        FuseFirstFiveGems(i)
+                    end
+                    wait(0.1) -- add a small delay to avoid overwhelming the server
                 end
-                wait(0.1) -- add a small delay to avoid overwhelming the server
-            end
+            end)
         end
     end,
 })
