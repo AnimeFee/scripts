@@ -1,7 +1,23 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hubb",Icon="rbxassetid://17697131474"});
+local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
-getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {
+AutoAtk=false,
+mespetsequiper={},
+Range=500,
+AutoFarm=false,
+autoSellHeroes=false,
+WalkToEnemy=false,
+DamageBoost=true,
+GoldCollect=false,
+AutoFuseGemsLevel = false,
+AutoReborn=false,
+autodungeon=false,
+deleteGems=false,
+fuseLevel10Gems=false,
+autoFuseSwords=false,
+autoSellWeapons=false,
+autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -65,6 +81,7 @@ TradeSec:AddButton({Name="Trade Selected Player",Callback=function()
 	end
 end});
 
+
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	if v0 then
 		getgenv().Settings.AutoFarm = true;
@@ -77,7 +94,7 @@ end});
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
     for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-        if v.isEquip == true then
+        if v.isEquip == true and v.isLock == true then
             table.insert(getgenv().Settings.mespetsequiper, v.guid)
         end
     end
@@ -217,47 +234,91 @@ SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForge
 	end
 end});
 
+TeleportTab:AddButton({Name="Novice Village(World 1)",Callback=function()
+	local args = {[1]={mapId=50001}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Final Selection(World 2)",Callback=function()
+	local args = {[1]={mapId=50002}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Column Meeting(World 3)",Callback=function()
+	local args = {[1]={mapId=50003}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Monolithic Trials(World 4)",Callback=function()
+	local args = {[1]={mapId=50004}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Fujikasane Yama(World 5)",Callback=function()
+	local args = {[1]={mapId=50005}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Muzan Kibutsuji(World 6)",Callback=function()
+	local args = {[1]={mapId=50013}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Infinite Train(World 7)",Callback=function()
+	local args = {[1]={mapId=50015}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Infinite City(World 8)",Callback=function()
+	local args = {[1]={mapId=50017}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Hashiras Training(World 9)",Callback=function()
+	local args = {[1]={mapId=50018}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()
+	local args = {[1]={mapId=50019}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
+TeleportTab:AddButton({Name="Naruto World(World 11) Only On World 2 ",Callback=function()
+	local args = {[1]={mapId=50020}};
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+end});
+
 local mapData = {
-    [50001] = "Novice Village(World 1)",
-    [50002] = "Final Selection(World 2)",
-    [50003] = "Column Meeting(World 3)",
-    [50004] = "Monolithic Trials(World 4)",
-    [50005] = "Fujikasane Yama(World 5)",
-    [50013] = "Muzan Kibutsuji(World 6)",
-    [50015] = "Infinite Train(World 7)",
-    [50016] = "Infinite City(World 8)",
-    [50018] = "Hashira Training(World 9)",
-    [50019] = "One Punch Man(World 10)",    
+    [50001] = "Fantasy Valley(World 1)",
+    [50002] = "Seaside Villa(World 2)",
+    [50003] = "Congress Hall(World 3)",
+    [50004] = "Border Territory(World 4)",
+    [50005] = "Polar Plain(World 5)",
+    [50006] = "Ghost Forest(World 6)",
+    [50007] = "Demon Station(World 7)",
+    [50008] = "Hashira Training(World 8)",
+    [50009] = "Infinite City(World 9)",
+    [50010] = "One Punch Man(World 10)",    
 };
 
 local mapNames = {};
-local mapIds = {};
-for mapId, name in pairs(mapData) do
+for _, name in pairs(mapData) do
     table.insert(mapNames, name);
-    table.insert(mapIds, mapId);
 end
 
-TeleportTab:AddDropdown({
-    Name = "Select Teleport Map",
+DungeonSec:AddDropdown({
+    Name = "Select Return Map",
     Options = mapNames,
     Callback = function(selectedMap)
-        local selectedIndex = table.find(mapNames, selectedMap);
-        getgenv().Settings.TpToReturnMap = mapIds[selectedIndex];
+        getgenv().Settings.selectedReturnMap = selectedMap;
     end
 });
 
-TeleportTab:AddButton({
-    Name = "Teleport",
-    Callback = function()
-        local args = {[1]={mapId=getgenv().Settings.TpToReturnMap}};
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-    end
-});
-
-local function TeleportToAndFromDungeon(returnTime)
+local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
     wait(returnTime);
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50019});
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = returnMapId});
 end
 
 local AutoDungeonToggle = DungeonSec:AddToggle({
@@ -270,7 +331,7 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
                 local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 50;
                 local waitTime = nextTeleportTime - currentTime;
                 wait(waitTime);
-                TeleportToAndFromDungeon(300);
+                TeleportToAndFromDungeon(50001, 1, 300);
             end
         end
     end
@@ -278,31 +339,25 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
 
 
 
-Lvl10:AddToggle({
-    Name = "Fuse Level 10 Gems",
-    Callback = function(fuseLevel10Gems)
-        if fuseLevel10Gems then
-            getgenv().Settings.fuseLevel10Gems = true;
-            while getgenv().Settings.fuseLevel10Gems do
-                pcall(function()
-                    local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-                    for _, gem in pairs(WeaponsInventory.localPlayerData.gems) do
-                        pcall(function()
-                            if ((gem.equipPosition == nil) or (gem.equipPosition == "")) then
-                                local args = {[1]={[1]=gem.guid,[2]=gem.guid,[3]=gem.guid,[4]=gem.guid,[5]=gem.guid}};
-                                game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args));
-                                wait();
-                            end
-                        end);
-                    end
-                end);
-                wait(0.1); -- add a small delay to avoid spamming the server
-            end
-        else
-            getgenv().Settings.fuseLevel10Gems = false;
-        end
-    end
-});
+Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
+	if fuseLevel10Gems then
+		getgenv().Settings.fuseLevel10Gems = true;
+		pcall(function()
+			local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+			for _, gem in pairs(WeaponsInventory.localPlayerData.gems) do
+				pcall(function()
+					if ((gem.equipPosition == nil) or (gem.equipPosition == "")) then
+						local args = {[1]={[1]=gem.guid,[2]=gem.guid,[3]=gem.guid,[4]=gem.guid,[5]=gem.guid}};
+						game:GetService("ReplicatedStorage").Remotes.FuseGem:InvokeServer(unpack(args));
+						wait();
+					end
+				end);
+			end
+		end);
+	else
+		getgenv().Settings.fuseLevel10Gems = false;
+	end
+end});
 
 Lvl10:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
 	if deleteGems then
@@ -540,6 +595,21 @@ Claim:AddButton({Name="Redeem Codes",Callback=function()
 	end
 end});
 
+Claim:AddButton({Name="Achievements",Callback=function()
+	while wait() do
+		for i = 129900, 130200 do
+  local args = {
+    [1] = tostring(i)
+  }
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnlockAchievement"):InvokeServer(unpack(args))
+  wait(0) 
+end
+	end
+end});
+
+
+
+
 Claim:AddButton({Name="Redeem Spins",Callback=function()
 	while wait() do
 		for x = 1, 8 do
@@ -681,7 +751,7 @@ EGG1:AddToggle({
                 if BurgerInventory.localPlayerData then
                     for _, v in pairs(BurgerInventory.localPlayerData.heros) do
                         if not v.isEquip and not v.isLock then
-                            local x = {[1]=v.guid};
+                            local x = {[1]={[1]=v.guid}};
                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(x))
                         end
                     end
@@ -730,3 +800,93 @@ EGG1:AddToggle({
         end
     end
 });
+
+local function GetFirstFiveGemIDs(level)
+    local player = game.Players.LocalPlayer
+    local gui = player:WaitForChild("PlayerGui")
+    local gemsPanel = gui:WaitForChild("GemsPanel")
+    local frame = gemsPanel:WaitForChild("Frame")
+    local bgImage = frame:WaitForChild("BgImage")
+    local list = bgImage:WaitForChild("List")
+    local scrollingFrame = list:WaitForChild("ScrollingFrame")
+    local gem1, gem2, gem3, gem4, gem5
+    if scrollingFrame then
+        local count = 0
+        for _, child in ipairs(scrollingFrame:GetChildren()) do
+            if count >= 5 then
+                break
+            end
+            local numtext = child:FindFirstChild("NumText")
+            if numtext and numtext.Text == "Lv.".. level then
+                count = count + 1
+                if count == 1 then
+                    gem1 = child.Name
+                elseif count == 2 then
+                    gem2 = child.Name
+                elseif count == 3 then
+                    gem3 = child.Name
+                elseif count == 4 then
+                    gem4 = child.Name
+                elseif count == 5 then
+                    gem5 = child.Name
+                end
+            end
+        end
+        if count > 0 then
+            print("Gem IDs found:")
+            print("gem1:", gem1)
+            print("gem2:", gem2)
+            print("gem3:", gem3)
+            print("gem4:", gem4)
+            print("gem5:", gem5)
+        else
+            print("No gem IDs found.")
+        end
+    else
+        error("Error: ScrollingFrame not found.")
+    end
+
+    return gem1, gem2, gem3, gem4, gem5
+end
+
+local function FuseFirstFiveGems(level)
+    while true do
+        local gem1, gem2, gem3, gem4, gem5 = GetFirstFiveGemIDs(level)
+        if gem1 and gem2 and gem3 and gem4 and gem5 then
+            -- Construct the args table
+            local args = {
+                [1] = {
+                    [1] = gem1,
+                    [2] = gem2,
+                    [3] = gem3,
+                    [4] = gem4,
+                    [5] = gem5
+                }
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(args))
+        else
+        end
+        wait(0.1)
+    end
+end
+
+
+Lvl10:AddToggle({
+    Name = "Auto Fuse All Gems",
+    Default = false,
+    Callback = function(Value)
+        G.AutoFuseGemsLevel = Value
+        if Value then
+            local level = 1
+            local function FuseNextLevel()
+                if G.AutoFuseGemsLevel and level <= 9 then
+                    FuseFirstFiveGems(level)
+                    level = level + 1
+                    wait(1) -- Wait for 1 second before fusing the next level
+                    FuseNextLevel()
+                end
+            end
+            FuseNextLevel()
+        end
+    end,
+})
