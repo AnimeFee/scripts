@@ -1,19 +1,37 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
-local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Goku",IntroEnabled= true,IntroText="Cool Hub"})
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Slayer Corps", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
-getgenv().Settings = {mespetsequiper={},Range=500,AutoFarm=false,WalkToEnemy=false,DamageBoost=false,GoldCollect=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {
+AutoAtk=false,
+mespetsequiper={},
+Range=500,
+AutoFarm=false,
+autoSellHeroes=false,
+WalkToEnemy=false,
+DamageBoost=true,
+GoldCollect=false,
+AutoFuseGemsLevel = false,
+AutoReborn=false,
+autodungeon=false,
+deleteGems=false,
+fuseLevel10Gems=false,
+autoFuseSwords=false,
+autoSellWeapons=false,
+autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local SNGTab = Window:MakeTab({Name="Sword And Gems",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
-local EMount = PlayerTab:AddSection({Name="Mounts"});
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
-local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
+local EMount = WhtvrTab:AddSection({Name="Mounts"});
+local EGG = WhtvrTab:AddSection({Name="Eggs"});
+local EGG1 = WhtvrTab:AddSection({Name="Lock Your Pets Before Using."});
+local FarmSec = PlayerTab:AddSection({Name="Auto Farm"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
@@ -46,6 +64,8 @@ EMount:AddButton({Name="Use Selected Mount",Callback=function()
 	end
 end});
 
+
+
 local playerNames = {};
 for _, player in pairs(game.Players:GetPlayers()) do
 	table.insert(playerNames, player.Name);
@@ -61,6 +81,7 @@ TradeSec:AddButton({Name="Trade Selected Player",Callback=function()
 	end
 end});
 
+
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	if v0 then
 		getgenv().Settings.AutoFarm = true;
@@ -68,6 +89,65 @@ FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 		getgenv().Settings.AutoFarm = false;
 	end
 end});
+
+
+local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+pcall(function()
+    for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+        if v.isEquip == true and v.isLock == true then
+            table.insert(getgenv().Settings.mespetsequiper, v.guid)
+        end
+    end
+end)
+
+spawn(function()
+    local function GetEnemies()
+        local nearest, dist = nil, getgenv().Settings.Range
+        local Players = game.Players
+        local localPlayer = Players.LocalPlayer
+        local localCharacter = localPlayer.Character
+        local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+        if not humanoidRootPart then
+            return
+        end
+
+        for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+            if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+                if distance < dist then
+                    dist = distance
+                    nearest = enemy
+                end
+            end
+        end
+        return nearest
+    end
+
+    while task.wait() do
+        if getgenv().Settings.AutoFarm then
+            local nearestEnemy = GetEnemies()
+
+            if nearestEnemy then
+                if getgenv().Settings.WalkToEnemy then
+                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
+                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+                    end
+                end
+
+                if getgenv().Settings.DamageBoost then
+                    for _, petGuid in pairs(getgenv().Settings.mespetsequiper) do
+                        local args = { { ["heroGuid"] = tostring(petGuid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                        game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(args))
+                    end
+                end
+
+                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
+                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
+                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+            end
+        end
+    end
+end)
 
 FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	if v1 then
@@ -82,60 +162,7 @@ FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 			end);
 		end
 	end
-end});
-
-FarmSec:AddToggle({Name="Damage Boost",Callback=function(v2)
-	if v2 then
-		getgenv().Settings.DamageBoost = true;
-	else
-		getgenv().Settings.DamageBoost = false;
-	end
-end});
-
-spawn(function()
-	local function GetEnemies()
-		local nearest, dist = nil, getgenv().Settings.Range;
-		local Players = game.Players;
-		local localPlayer = Players.LocalPlayer;
-		local localCharacter = localPlayer.Character;
-		local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart");
-		if not humanoidRootPart then
-			return;
-		end
-		for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-			if (enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and (enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0")) then
-				local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude;
-				if (distance < dist) then
-dist = distance;
-					nearest = enemy;
-				end
-			end
-		end
-		return nearest;
-	end
-	while task.wait() do
-		if getgenv().Settings.AutoFarm then
-			local nearestEnemy = GetEnemies();
-			if nearestEnemy then
-				if getgenv().Settings.WalkToEnemy then
-					if nearestEnemy:FindFirstChild("HumanoidRootPart") then
-						player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position);
-					end
-				end
-				if getgenv().Settings.DamageBoost then
-					for c, d in pairs(getgenv().Settings.mespetsequiper) do
-						local a = {[1]={heroGuid=tostring(d),harmIndex=1,isSkill=false,skillId=200003}};
-						game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a));
-					end
-				end
-				local args = {nearestEnemy:GetAttribute("EnemyGuid")};
-				game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args));
-				game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args));
-			end
-		end
-	end
-end);
-
+end})
 
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
@@ -165,6 +192,7 @@ pcall(function()
         print("localPlayerData is not loaded yet. Please try again later.")
     end
 end);
+
 SwordSec:AddToggle({
     Name="Auto Delete Weapons",
     Callback=function(autoSellWeapons)
@@ -188,15 +216,6 @@ SwordSec:AddToggle({
         end
     end
 });
-
-local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
-pcall(function()
-	for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-		if (v.isEquip == true) then
-			table.insert(getgenv().Settings.mespetsequiper, v.guid);
-		end
-	end
-end);
 
 SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForgeSword)
 	if autoForgeSword then
@@ -265,23 +284,22 @@ TeleportTab:AddButton({Name="One Punch Man(World 10)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
-TeleportTab:AddButton({Name="Naruto World(World 11)",Callback=function()
+TeleportTab:AddButton({Name="Naruto World(World 11) Only On World 2 ",Callback=function()
 	local args = {[1]={mapId=50020}};
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
 
 local mapData = {
-    [50001] = "Novice Village(World 1)",
-    [50002] = "Final Selection(World 2)",
-    [50003] = "Column Meeting(World 3)",
-    [50004] = "Monolithic Trials(World 4)",
-    [50005] = "Fujikasane Yama(World 5)",
-    [50013] = "Muzan Kibutsuji(World 6)",
-    [50015] = "Infinite Train(World 7)",
-    [50017] = "Infinite City(World 8)",
-    [50018] = "Hashira Training(World 9)",
-    [50019] = "One Punch Man(World 10)",
-    [50020] = "Naruto(World 11)",
+    [50001] = "Fantasy Valley(World 1)",
+    [50002] = "Seaside Villa(World 2)",
+    [50003] = "Congress Hall(World 3)",
+    [50004] = "Border Territory(World 4)",
+    [50005] = "Polar Plain(World 5)",
+    [50006] = "Ghost Forest(World 6)",
+    [50007] = "Demon Station(World 7)",
+    [50008] = "Hashira Training(World 8)",
+    [50009] = "Infinite City(World 9)",
+    [50010] = "One Punch Man(World 10)",    
 };
 
 local mapNames = {};
@@ -310,7 +328,7 @@ local AutoDungeonToggle = DungeonSec:AddToggle({
         if Value then
             while true do
                 local currentTime = os.time();
-                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 15;
+                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 50;
                 local waitTime = nextTeleportTime - currentTime;
                 wait(waitTime);
                 TeleportToAndFromDungeon(50001, 1, 300);
@@ -570,12 +588,27 @@ end});
 
 Claim:AddButton({Name="Redeem Codes",Callback=function()
 	while wait() do
-		for x = 1, 40 do
+		for x = 1, 1000 do
 			local args = {[1]=x};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args));
 		end
 	end
 end});
+
+Claim:AddButton({Name="Achievements",Callback=function()
+	while wait() do
+		for i = 129900, 130200 do
+  local args = {
+    [1] = tostring(i)
+  }
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnlockAchievement"):InvokeServer(unpack(args))
+  wait(0) 
+end
+	end
+end});
+
+
+
 
 Claim:AddButton({Name="Redeem Spins",Callback=function()
 	while wait() do
@@ -644,5 +677,216 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
+local openEgg = false
 
-OrionLib:Init();
+EGG:AddDropdown({
+    Name = "Pick Egg",
+    Default = "",
+    Options = {"World 1","World 2","World 3","World 4","World 5","World 6","World 7","World 8","World 9","Naruto"},
+    Callback = function(Value)
+        local EGGS = {
+            ["World 1"] = 70001,
+            ["World 2"] = 70003,
+            ["World 3"] = 70005,
+            ["World 4"] = 70007,
+            ["World 5"] = 70009,
+            ["World 6"] = 70011,
+            ["World 7"] = 70013,
+            ["World 8"] = 70015,
+            ["World 9"] = 70017,
+            ["Naruto"] = 70019,
+        }
+        EGG.EggId = EGGS[Value]
+    end
+})
+
+EGG:AddToggle({
+    Name = "Open Eggs",
+    Callback = function(Value)
+        openEgg = Value
+        if Value then
+            while openEgg do
+                local args = {
+                    [1] = {
+                        ["drawCardPlatformId"] = EGG.EggId,
+                        ["count"] = 10
+                    }
+                }
+                local success, errorMessage = pcall(function()
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ExtractHero"):InvokeServer(unpack(args))
+                end)
+                if not success then
+                    print("Error:", errorMessage)
+                end
+                wait(0.1) -- adjust the delay as needed
+            end
+        end
+    end
+})
+
+local BurgerInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
+
+pcall(function()
+    if BurgerInventory.localPlayerData then
+        for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+            if v.isEquip and v.isLock then
+                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+            end
+        end
+    else
+        print("localPlayerData is not loaded yet. Please try again later.")
+    end
+end);
+
+EGG1:AddLabel("Will Fuse to Equiped Heroes")
+EGG1:AddLabel("Will Delete/Fuse The Uneqquiped and Unlocked Heroes")
+
+EGG1:AddToggle({
+    Name="Auto Delete Heroes",
+    Callback=function(autoSellHeroes)
+        if autoSellHeroes then
+            getgenv().Settings.autoSellHeroes = true;
+            while getgenv().Settings.autoSellHeroes do
+                wait(1);
+                if BurgerInventory.localPlayerData then
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                        if not v.isEquip and not v.isLock then
+                            local x = {[1]={[1]=v.guid}};
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteHero"):FireServer(unpack(x))
+                        end
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoSellHeroes = false;
+        end
+    end
+});
+
+EGG1:AddToggle({
+    Name="Auto Fuse Heroes",
+    Callback=function(autoFuseHeroes)
+        if autoFuseHeroes then
+            getgenv().Settings.autoFuseHeroes = true;
+            while getgenv().Settings.autoFuseHeroes do
+                wait(1);
+                if BurgerInventory.localPlayerData then
+                    local equippedHeroGuid = nil;
+                    local unequippedHeroGuids = {};
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                        if v.isEquip and v.isLock then
+                            equippedHeroGuid = v.guid;
+                        elseif not v.isEquip and not v.isLock then
+                            table.insert(unequippedHeroGuids, v.guid);
+                        end
+                    end
+                    if equippedHeroGuid and #unequippedHeroGuids > 0 then
+                        local args = {
+                            [1] = {
+                                ["mainHeroGuid"] = equippedHeroGuid,
+                                ["decomposeHeroGuids"] = unequippedHeroGuids
+                            }
+                        };
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args));
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoFuseHeroes = false;
+        end
+    end
+});
+
+local function GetFirstFiveGemIDs(level)
+    local player = game.Players.LocalPlayer
+    local gui = player:WaitForChild("PlayerGui")
+    local gemsPanel = gui:WaitForChild("GemsPanel")
+    local frame = gemsPanel:WaitForChild("Frame")
+    local bgImage = frame:WaitForChild("BgImage")
+    local list = bgImage:WaitForChild("List")
+    local scrollingFrame = list:WaitForChild("ScrollingFrame")
+    local gem1, gem2, gem3, gem4, gem5
+    if scrollingFrame then
+        local count = 0
+        for _, child in ipairs(scrollingFrame:GetChildren()) do
+            if count >= 5 then
+                break
+            end
+            local numtext = child:FindFirstChild("NumText")
+            if numtext and numtext.Text == "Lv.".. level then
+                count = count + 1
+                if count == 1 then
+                    gem1 = child.Name
+                elseif count == 2 then
+                    gem2 = child.Name
+                elseif count == 3 then
+                    gem3 = child.Name
+                elseif count == 4 then
+                    gem4 = child.Name
+                elseif count == 5 then
+                    gem5 = child.Name
+                end
+            end
+        end
+        if count > 0 then
+            print("Gem IDs found:")
+            print("gem1:", gem1)
+            print("gem2:", gem2)
+            print("gem3:", gem3)
+            print("gem4:", gem4)
+            print("gem5:", gem5)
+        else
+            print("No gem IDs found.")
+        end
+    else
+        error("Error: ScrollingFrame not found.")
+    end
+
+    return gem1, gem2, gem3, gem4, gem5
+end
+
+local function FuseFirstFiveGems(level)
+    while true do
+        local gem1, gem2, gem3, gem4, gem5 = GetFirstFiveGemIDs(level)
+        if gem1 and gem2 and gem3 and gem4 and gem5 then
+            -- Construct the args table
+            local args = {
+                [1] = {
+                    [1] = gem1,
+                    [2] = gem2,
+                    [3] = gem3,
+                    [4] = gem4,
+                    [5] = gem5
+                }
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(args))
+        else
+        end
+        wait(0.1)
+    end
+end
+
+
+Lvl10:AddToggle({
+    Name = "Auto Fuse All Gems",
+    Default = false,
+    Callback = function(Value)
+        G.AutoFuseGemsLevel = Value
+        if Value then
+            local level = 1
+            local function FuseNextLevel()
+                if G.AutoFuseGemsLevel and level <= 9 then
+                    FuseFirstFiveGems(level)
+                    level = level + 1
+                    wait(1) -- Wait for 1 second before fusing the next level
+                    FuseNextLevel()
+                end
+            end
+            FuseNextLevel()
+        end
+    end,
+})
