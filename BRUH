@@ -795,7 +795,8 @@ EGG1:AddToggle({
     end
 });
 
-local FuseTab = Window:MakeTab({
+     -- Creating the Player tab
+    local FuseTab = Window:MakeTab({
         Name = "Auto-FuseGem",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
@@ -897,18 +898,18 @@ local FuseTab = Window:MakeTab({
         end
     end
  
-    -- Adding AutoFuseGem toggle for each level
-    for i = 1, 9 do
-        FuseTab:AddToggle({
-            Name = "Auto Fuse Lvl " .. i .. " Gems",
-            Default = false,
-            Callback = function(Value)
-                G["AutoFuseGemsLevel" .. i] = Value
-                if Value then
-                    while G["AutoFuseGemsLevel" .. i] do
-                        FuseFirstFiveGems(i)
-                    end
+    FuseTab:AddToggle({
+    Name = "Auto Fuse All Level Gems",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Settings.AutoFuseAllGems = Value
+        if Value then
+            while getgenv().Settings.AutoFuseAllGems do
+                for i = 1, 9 do
+                    FuseFirstFiveGems(i)
                 end
-            end,
-        })
-    end
+                wait(0.1) -- add a small delay to avoid overwhelming the server
+            end
+        end
+    end,
+})
