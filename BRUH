@@ -604,6 +604,21 @@ Claim:AddButton({Name="Redeem Codes",Callback=function()
 	end
 end});
 
+Claim:AddButton({Name="Achievements",Callback=function()
+	while wait() do
+		for i = 129900, 130200 do
+  local args = {
+    [1] = tostring(i)
+  }
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnlockAchievement"):InvokeServer(unpack(args))
+  wait(0) 
+end
+	end
+end});
+
+
+
+
 Claim:AddButton({Name="Redeem Spins",Callback=function()
 	while wait() do
 		for x = 1, 8 do
