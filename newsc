@@ -271,15 +271,15 @@ TeleportTab:AddButton({Name="Naruto World(World 11)",Callback=function()
 end});
 
 local mapData = {
-    [50001] = "Fantasy Valley(World 1)",
-    [50002] = "Seaside Villa(World 2)",
-    [50003] = "Congress Hall(World 3)",
-    [50004] = "Border Territory(World 4)",
-    [50005] = "Polar Plain(World 5)",
-    [50006] = "Ghost Forest(World 6)",
-    [50015] = "Demon Station(World 7)",
-    [50017] = "Hashira Training(World 8)",
-    [50018] = "Infinite City(World 9)",
+    [50001] = "Novice Village(World 1)",
+    [50002] = "Final Selection(World 2)",
+    [50003] = "Column Meeting(World 3)",
+    [50004] = "Monolithic Trials(World 4)",
+    [50005] = "Fujikasane Yama(World 5)",
+    [50013] = "Muzan Kibutsuji(World 6)",
+    [50015] = "Infinite Train(World 7)",
+    [50017] = "Infinite City(World 8)",
+    [50018] = "Hashira Training(World 9)",
     [50019] = "One Punch Man(World 10)",
     [50020] = "Naruto(World 11)",
 };
