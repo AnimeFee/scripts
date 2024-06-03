@@ -1,4 +1,4 @@
-print("bruhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+print("sigmafacebroveryverysigmQ")
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Blades Slayerz", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
