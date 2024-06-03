@@ -879,7 +879,7 @@ Lvl10:AddToggle({
         if Value then
             local level = 1
             local function FuseNextLevel()
-                if G.AutoFuseGemsLevel and level <= 9 then
+                if getgenv().Settings.AutoFuseGemsLevel and level <= 9 then
                     FuseFirstFiveGems(level)
                     level = level + 1
                     wait(1) -- Wait for 1 second before fusing the next level
