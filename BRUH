@@ -780,7 +780,7 @@ EGG1:AddToggle({
     Name="Auto Fuse Heroes",
     Callback=function(autoFuseHeroes)
         if autoFuseHeroes then
-            getgenv().Settings.autoFuseHeroes = true;
+            cautoFuseHeroes = true;
             while getgenv().Settings.autoFuseHeroes do
                 wait(1);
                 if BurgerInventory.localPlayerData then
@@ -825,9 +825,9 @@ FuseTab:AddToggle({
     Name = "Auto Fuse All Gems",
     Default = false,
     Callback = function(Value)
-        G["AutoFuseAllGems"] = Value
+        getgenv().Settings.["AutoFuseAllGems"] = Value
         if Value then
-            while G["AutoFuseAllGems"] do
+            while getgenv().Settings.["AutoFuseAllGems"] do
                 for i = 1, 9 do
                     local gem1, gem2, gem3, gem4, gem5 = GetFirstFiveGemIDs(i)
                     if gem1 and gem2 and gem3 and gem4 and gem5 then
