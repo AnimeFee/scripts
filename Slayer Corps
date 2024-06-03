@@ -879,7 +879,7 @@ Lvl10:AddToggle({
         if Value then
             for level = 1, 9 do
                 FuseFirstFiveGems(level)
-                wait(1) -- Wait for 1 second before fusing the next level
+                wait()
             end
         end
     end,
