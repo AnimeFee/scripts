@@ -899,6 +899,10 @@ local function FuseFirstFiveGems(level)
     end
 end
 
+local G = {
+AutoFuseGemsLevel = false,
+}
+
 Lvl10:AddToggle({
     Name = "Auto Fuse All Gems",
     Default = false,
