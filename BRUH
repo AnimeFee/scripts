@@ -876,12 +876,9 @@ local function GetFirstFiveGemIDs(level)
     return gem1, gem2, gem3, gem4, gem5
 end
 
--- Function to fuse the first five gems of a specified level
 local function FuseFirstFiveGems(level)
     while true do
         local gem1, gem2, gem3, gem4, gem5 = GetFirstFiveGemIDs(level)
-
-        -- Check if at least five gem IDs were found
         if gem1 and gem2 and gem3 and gem4 and gem5 then
             -- Construct the args table
             local args = {
@@ -893,23 +890,14 @@ local function FuseFirstFiveGems(level)
                     [5] = gem5
                 }
             }
-
-            print("Invoking FuseGem remote with args:", args)
-
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(args))
+            print("Fused gems for level", level)
+            return -- Break out of the loop and return from the function
         else
-            print("Error: Could not find five gem IDs.")
+            wait(0.1) -- Wait for 0.1 seconds before trying again
         end
-
-        -- Wait for some time before fusing again (e.g., 5 seconds)
-        wait(0.1)
     end
 end
-
--- Define the G table
-local G = {
-    AutoFuseGemsLevel = false
-}
 
 Lvl10:AddToggle({
     Name = "Auto Fuse All Gems",
@@ -919,8 +907,10 @@ Lvl10:AddToggle({
         if Value then
             for level = 1, 9 do
                 FuseFirstFiveGems(level)
-                wait(1) -- Wait for 1 second before fusing the next level
+                wait()
             end
         end
     end,
 })
+
+print("ilovegf")
