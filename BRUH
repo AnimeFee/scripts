@@ -897,7 +897,7 @@ local G = {
 }
 
 -- Adding AutoFuseGem toggle for all levels
-FuseTab:AddToggle({
+Lvl10:AddToggle({
     Name = "Auto Fuse All Gems",
     Default = false,
     Callback = function(Value)
