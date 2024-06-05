@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Blade Sigma Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
-getgenv().Settings = {Raidmap=50102,Raiddifficulty = 1,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {ARaid=false,Raiddifficulty = 1,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -955,10 +955,11 @@ end
 tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
 
 Raid:AddDropdown({Name="Difficulty",Options={"Easy","Medium","Hard","Impossible"},CurrentOption="1",Callback=function(option)
-	getgenv().Settings.difficulty = tonumber(option);
+	getgenv().Settings.Raiddifficulty = tonumber(option);
 end});
+
 Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
-	if Value then
+	if ARaid then
 		local function restartScript()
 			local userID = game.Players.LocalPlayer.UserId;
 			local args = {[1]="Room3"};
