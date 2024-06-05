@@ -954,8 +954,8 @@ end
 
 tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
 
-Raid:AddDropdown({Name="Difficulty",Options={"Souls","Book 1","Book 2","Book 3"},CurrentOption="50102",Callback=function(option)
-	getgenv().Settings.Raiddifficulty = tonumber(option);
+Raid:AddDropdown({Name="Maps",Options={"Souls","Book 1","Book 2","Book 3"},CurrentOption="50102",Callback=function(option)
+	getgenv().Settings.Raidmap = tonumber(option);
 end});
 
 Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
@@ -964,7 +964,7 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 			local userID = game.Players.LocalPlayer.UserId;
 			local args = {[1]="Room3"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
-			args = {[1]={difficulty=4,roomName="Room3",selectMapId=Raiddifficulty}};
+			args = {[1]={difficulty=4,roomName="Room3",selectMapId=Raidmap}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
 			args = {[1]={userIds={[1]=userID},roomName="Room3"}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
