@@ -980,9 +980,9 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 			wait(5)	
 			args = {[1]={currentSlotIndex=1,toMapId=50201}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
-			wait()
 			getgenv().Settings.AutoFarm = false
 			getgenv().Settings.GoldCollect = false
+			wait(300)
 			restartScript();
 		end
 		restartScript();
