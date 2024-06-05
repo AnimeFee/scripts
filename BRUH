@@ -24,6 +24,7 @@ local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
 local Lvl10 = SNGTab:AddSection({Name="Auto Sell/Lvl 10 gem(Need Gems To Work)"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
+local tms = AccesoryTab:AddSection({Name="Talismans"});
 local Claim = MiscTab:AddSection({Name="Claim"});
 local Others = MiscTab:AddSection({Name="Others"});
 
@@ -795,13 +796,6 @@ EGG1:AddToggle({
     end
 });
 
-     -- Creating the Player tab
-    local FuseTab = Window:MakeTab({
-        Name = "Auto-FuseGem",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
- 
     -- Function to get the first five gem IDs of a specified level
     local function GetFirstFiveGemIDs(level)
         local player = game.Players.LocalPlayer
@@ -898,7 +892,7 @@ EGG1:AddToggle({
         end
     end
  
-   FuseTab:AddToggle({
+   Lvl10:AddToggle({
     Name = "Auto Fuse All Level Gems",
     Default = false,
     Callback = function(Value)
@@ -916,7 +910,7 @@ EGG1:AddToggle({
     end,
 })
 
-local function rerollMythicTalismans()
+local function rerollTalismans()
     local rerollFound = false;
     repeat
         local rerollAttempt = {[1]=400005};
@@ -947,4 +941,4 @@ local function rerollMythicTalismans()
     print("Script stopped!");
 end
 
-Mythic:AddButton({Name="Reroll Talismans",Callback=rerollMythicTalismans});
+tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
