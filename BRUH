@@ -969,12 +969,22 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 			args = {[1]={userIds={[1]=userID},roomName="Room3"}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
-			wait(240);
+			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren()
+           		if #checkRemainingEnnemies <= 0 then
+			args = {
+             		[1] = 1
+              		}
+            		game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(unpack(args))
+			wait(5)	
 			args = {[1]={currentSlotIndex=1,toMapId=50201}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
-			wait(60);
+			wait(240)
 			restartScript();
 		end
 		restartScript();
 	end
+end});
+
+Raid:AddButton({Name="Rejoin Button",Callback=function()
+	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
 end});
