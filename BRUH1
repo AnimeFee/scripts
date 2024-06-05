@@ -968,30 +968,43 @@ end});
 Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 	Value = ARaid
 	if ARaid then
-		local function restartScript()
-			local args = {[1]="Room3"};
-			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
-			args = {[1]={difficulty=4,roomName="Room3",selectMapId=getgenv().Settings.Raidmap}};
-			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
-			args = {[1]={userIds={[1]=game.Players.LocalPlayer.UserId},roomName="Room3"}};
+	   local function restartScript()
+		local args = {[1]="Room3"};
+		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
+                local args = {
+		    [1] = {
+		        ["difficulty"] = 4,
+                	["roomName"] = "Room3",
+			["selectMapId"] = getgenv().Settings.Raidmap
+			  }}
+ 			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(unpack(args))
+ 			wait(.5)
+                local args = {
+                    [1] = {
+                        ["userIds"] = {
+                        [1] = game.Players.LocalPlayer.UserId
+                        },
+                        ["roomName"] = "Room3"
+                  	}
+               		}
+			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(unpack(args))
+               		wait(2)			
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
 			getgenv().Settings.AutoFarm = true
 			getgenv().Settings.GoldCollect = true
-			
 			wait(5)
-
-			args = {
+		local args = {
              		[1] = 1
               		}
             		game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(unpack(args))
 			wait(5)	
-			args = {[1]={currentSlotIndex=1,toMapId=50201}};
+		local args = {[1]={currentSlotIndex=1,toMapId=50201}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
 			wait()
 			getgenv().Settings.AutoFarm = false
 			getgenv().Settings.GoldCollect = false 
-			args = {[1]={currentSlotIndex=1,toMapId=50201}};
+		local args = {[1]={currentSlotIndex=1,toMapId=50201}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
 			wait(300);
 			restartScript();
