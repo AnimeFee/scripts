@@ -6,13 +6,13 @@ getgenv().Settings = {ARaid=false,Raidmap = 50102,AutoAtk=false,mespetsequiper={
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local TeleportTab = Window:MakeTab({Name="Teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local SNGTab = Window:MakeTab({Name="Sword And Gems",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
+local Teleport = PlayerTab:AddSection({Name="Teleport"});
 local EMount = WhtvrTab:AddSection({Name="Mounts"});
 local EGG = WhtvrTab:AddSection({Name="Eggs"});
 local EGG1 = WhtvrTab:AddSection({Name="Lock Your Pets Before Using."});
@@ -403,14 +403,18 @@ end
 PlayerTab:AddDropdown({
     Name = "Select Return Map",
     Options = mapNames1,
-    Callback = function(selectedIndex, selectedMap)
+    Callback = function(selectedIndex)
         getgenv().Settings.selectedTeleportMap = mapIds1[selectedIndex];
     end
 });
 
 PlayerTab:AddButton({Name="Teleport To Selected Map",Callback=function()
-    local args = {[1]={mapId=getgenv().Settings.selectedTeleportMap}};	
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+    if getgenv().Settings.selectedTeleportMap then
+        local args = {[1]={mapId=getgenv().Settings.selectedTeleportMap}};	
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
+    else
+        print("Please select a map first.")
+    end
 end});
 
 
