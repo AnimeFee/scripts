@@ -408,7 +408,7 @@ PlayerTab:AddDropdown({
     end
 });
 
-TeleportTab:AddButton({Name="Teleport To Selected Map",Callback=function()
+PlayerTab:AddButton({Name="Teleport To Selected Map",Callback=function()
     local args = {[1]={mapId=getgenv().Settings.selectedTeleportMap}};	
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
 end});
