@@ -950,46 +950,6 @@ tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
 
 
 
-Others:AddButton({
-    Name = "Remove Tips",
-    Callback = function()
-        spawn(function()
-            local players = game:GetService("Players")
-            local localPlayer = players.LocalPlayer
-            local playerGui = localPlayer.PlayerGui
-            local tipsPanel = playerGui:WaitForChild("TipsPanel")
-
-            -- Disable tips panel
-            local function handleEnabledChanged()
-                if tipsPanel.Enabled then
-                    tipsPanel.Enabled = false
-                end
-            end
-            tipsPanel:GetPropertyChangedSignal("Enabled"):Connect(handleEnabledChanged)
-
-            -- Disable effects
-            local skillEffects = game.ReplicatedStorage.SkillEffects
-            for _, descendant in pairs(skillEffects:GetDescendants()) do
-                if descendant:IsA("Part") or descendant:IsA("MeshPart") then
-                    descendant.Transparency = 1
-                elseif descendant:IsA("ParticleEmitter") or descendant:IsA("Beam") then
-                    descendant.Enabled = false
-                end
-            end
-
-            -- Disable AttackNum effect
-            local attackNumEffect = game.ReplicatedStorage.Effect.AttackNum
-            attackNumEffect.Enabled = false
-
-            -- Disable animations and effects
-            local NoAnim = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager.HeroEntity)
-            NoAnim.PlayAnimation = function() return end
-            NoAnim.PlaySkillEffect = function() return end
-            NoAnim.SetParticle = function() return end
-            NoAnim.FlySkillHarm = function() return end
-        end)
-    end
-})
 
 
 Raid:AddDropdown({
