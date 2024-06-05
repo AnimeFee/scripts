@@ -916,7 +916,7 @@ EGG1:AddToggle({
     end,
 })
 
-local function rerollMythicOrnament()
+local function rerollMythicTalismans()
     local rerollFound = false;
     repeat
         local rerollAttempt = {[1]=400005};
