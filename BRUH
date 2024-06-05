@@ -915,3 +915,36 @@ EGG1:AddToggle({
         end
     end,
 })
+
+local function rerollMythicOrnament()
+    local rerollFound = false;
+    repeat
+        local rerollAttempt = {[1]=400005};
+        local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+        wait(0.1);
+        if ((tostring(rerollResult.ornamentId) ~= "410021") and (tostring(rerollResult.ornamentId) ~= "410022") and (tostring(rerollResult.ornamentId) ~= "410023") and (tostring(rerollResult.ornamentId) ~= "410024")
+        and (tostring(rerollResult.ornamentId) ~= "410025") and (tostring(rerollResult.ornamentId) ~= "410026") and (tostring(rerollResult.ornamentId) ~= "410027") and (tostring(rerollResult.ornamentId) ~= "410028")) then
+            print("Unknown reroll found! : ".. tostring(rerollResult.ornamentId));
+            rerollFound = true;
+        elseif (tostring(rerollResult.ornamentId) == "410025")
+        or (tostring(rerollResult.ornamentId) == "410026")
+        or (tostring(rerollResult.ornamentId) == "410027")
+        or (tostring(rerollResult.ornamentId) == "410028") then
+            local rerollType = "None";
+            if (tostring(rerollResult.ornamentId) == "410025") then
+                rerollType = "As One Wishes";
+            elseif (tostring(rerollResult.ornamentId) == "410026") then
+                rerollType = "Magic Tome";
+            elseif (tostring(rerollResult.ornamentId) == "410027") then
+                rerollType = "Imperial Jade Seal";
+            elseif (tostring(rerollResult.ornamentId) == "410028") then
+                rerollType = "Quinta";
+            end
+            print("!! REROLL FOUND!! : ".. rerollType);
+            rerollFound = true;
+        end
+    until rerollFound
+    print("Script stopped!");
+end
+
+Mythic:AddButton({Name="Reroll Talismans",Callback=rerollMythicTalismans});
