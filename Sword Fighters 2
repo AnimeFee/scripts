@@ -1,11 +1,4 @@
--- Loading the OrionLib library
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
-if not OrionLib then
-    error("Failed to load the OrionLib library")
-    return
-end
-
--- Creating the main window
 local Window = OrionLib:MakeWindow({
     Name = "Sword Fighters 2",
     HidePremium = false,
@@ -14,7 +7,6 @@ local Window = OrionLib:MakeWindow({
     IntroEnabled = false
 })
 
--- Table to store global variables
 local G = {
     autoClick = false,
     autoEgg22 = false,
@@ -27,28 +19,24 @@ local G = {
     TpWorld = false
 }
 
--- Creating the Main tab
 local MainTab = Window:MakeTab({
     Name = "Main",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
--- Creating the Quest tab
 local QuestTab = Window:MakeTab({
     Name = "Quest From all the worlds",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
--- Creating the Egg tab
 local EggTab = Window:MakeTab({
     Name = "Eggs From All Worlds",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
--- Auto Click
 MainTab:AddToggle({
     Name = "Auto Click",
     Default = false,
@@ -63,7 +51,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit
     end,
 })
 
--- Auto Egg 22
 EggTab:AddToggle({
     Name = "Auto Egg 22",
     Default = false,
@@ -85,7 +72,6 @@ EggTab:AddToggle({
     end,
 })
 
--- Auto Egg 23
 EggTab:AddToggle({
     Name = "Auto Egg 23",
     Default = false,
@@ -107,7 +93,6 @@ EggTab:AddToggle({
     end,
 })
 
--- Auto Egg 24
 EggTab:AddToggle({
     Name = "Auto Egg 24",
     Default = false,
@@ -129,41 +114,41 @@ EggTab:AddToggle({
     end,
 })
 
--- Auto Mobs
 MainTab:AddToggle({
     Name = "Auto Farm All Mobs",
     Default = false,
     Callback = function(Value)
         G.autoMobs = Value
         if Value then
-            while G.autoMobs do
-                wait(5) -- Pausa o loop por um curto período para evitar processamento excessivo
-                
-                local mobs = game.Workspace.Live.NPCs.Client:GetChildren() -- Obtém todos os NPCs na pasta designada
-                if mobs then
-                    for _, mob in ipairs(mobs) do
-                        -- Verifica se o mob tem um humanoide e está vivo
-if mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then
-                            local character = localPlayer.Character
-                            if character and character:FindFirstChild("HumanoidRootPart") then
-                                -- Move o personagem do jogador para a posição do mob
-                                local humanoidRootPart = character.HumanoidRootPart
-                                humanoidRootPart.CFrame = mob.HumanoidRootPart.CFrame
-                                
-                                -- Invoca funções do servidor para interagir com o mob
-                                local args = {} -- Certifique-se de definir 'args' com os argumentos necessários
-                                game:GetService("ReplicatedStorage").Packages.Knit.Services.ClickService.RF.Click:InvokeServer(unpack(args))
-                                game:GetService("ReplicatedStorage").Packages.Knit.Services.ItemDropService.RF.ClaimItem:InvokeServer(unpack(args))
-                            else
-                                warn("Personagem do jogador local ou HumanoidRootPart não encontrado.")
-                            end
-                        end
+            spawn(AllMobs) -- spawn the AllMobs function as a separate thread
+        end
+    end
+})
+
+local function AllMobs()
+    while G.autoMobs do
+        wait(5) -- Pauses the loop for a short period to avoid excessive processing
+
+        local mobs = game.Workspace.Live.NPCs.Client:GetChildren() -- Gets all NPCs in the designated folder
+        if mobs then
+            for _, mob in ipairs(mobs) do
+                if mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then
+                    local character = localPlayer.Character
+                    if character and character:FindFirstChild("HumanoidRootPart") then
+                        local humanoidRootPart = character.HumanoidRootPart
+                        humanoidRootPart.CFrame = mob.HumanoidRootPart.CFrame
+
+                        -- Invoke server functions to interact with the mob
+                        game:GetService("ReplicatedStorage").Packages.Knit.Services.ClickService.RF.Click:InvokeServer()
+                        game:GetService("ReplicatedStorage").Packages.Knit.Services.ItemDropService.RF.ClaimItem:InvokeServer()
+                    else
+                        warn("Local player character or HumanoidRootPart not found.")
                     end
                 end
             end
         end
-    end,
-})
+    end
+end
 
 QuestTab:AddToggle({
     Name = "Auto Quest",
@@ -185,7 +170,6 @@ QuestTab:AddToggle({
     end,
 })
 
--- Auto Dungeon
 MainTab:AddToggle({
     Name = "Auto Dungeon",
     Default = false,
