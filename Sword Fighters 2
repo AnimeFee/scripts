@@ -34,6 +34,12 @@ local EggTab = Window:MakeTab({
     PremiumOnly = false
 })
 
+local TeleportTab = Window:MakeTab({
+    Name = "Teleport",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
 local DungeonTab = Window:MakeTab({
     Name = "Dungeon",
     Icon = "rbxassetid://4483345998",
@@ -69,7 +75,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit
 })
 
 
-V3:AddDropdown({
+EggTab:AddDropdown({
     Name = "Eggs",
     Default = "Egg 1",
     Options = {""Egg 1","Egg 2","Egg 3","Egg 4","Egg 5","Egg 6","Egg 7","Egg 8","Egg 9","Egg 10","Egg 11","Egg 12","Egg 13","Egg 14","Egg 15","Egg 16","Egg 17","Egg 18","Egg 19","Egg 20","Egg 21","Egg 22","Egg 23","Egg 24"},
@@ -99,7 +105,7 @@ EggTab:AddToggle({
     end,
 })
 
-QuestTab:AddToggle({
+MainTab:AddToggle({
     Name = "Auto Quest",
     Default = false,
     Callback = function(Value)
@@ -118,39 +124,12 @@ QuestTab:AddToggle({
 })
 
 
-MainTab:AddButton({
+Teleport:AddButton({
     Name = "Teleport World",
     Default = false,
-    Callback = function(Value)
-        G.TpWorld = Value
-        if Value then
-            while G.TpWorld do
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8767.36523, 161.006012, 6792.77881, 1, 5.46722418e-08, 8.17064786e-13, -5.46722418e-08, 1, 3.50154217e-08, -8.1515041e-13, -3.50154217e-08, 1)
-            end
-        end
-    end,
-})
-
-
-
-QuestTab:AddToggle({
-    Name = "Clicker",
-    Default = false,
-    Callback = function(Value)
-        G.autoclicker = Value
-        if Value then
-           spawn(function()
-    while G.autoclicker do
-        local VirtualUser = game:service("VirtualUser");
-        VirtualUser:CaptureController();
-        VirtualUser:ClickButton1(Vector2.new());
-                end
-                end);
-                end
-            end
-        end
-    end,
-})
+    Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8767.36523, 161.006012, 6792.77881, 1, 5.46722418e-08, 8.17064786e-13, -5.46722418e-08, 1, 3.50154217e-08, -8.1515041e-13, -3.50154217e-08, 1)
+    end})
 
 spawn(function()
     while wait(15) do
