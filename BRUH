@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Blade Sigma Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
+local Window = OrionLib:MakeWindow({Name = "Blade Sigma fr", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
-getgenv().Settings = {ARaid=false,Raiddifficulty = 1,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {ARaid=false,Raidmap = 50102,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -954,8 +954,8 @@ end
 
 tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
 
-Raid:AddDropdown({Name="Difficulty",Options={"Easy","Medium","Hard","Impossible"},CurrentOption="1",Callback=function(option)
-	getgenv().Settings.Raiddifficulty = tonumber(option);
+Raid:AddDropdown({Name="Select Raid",Options={"Souls","Book 1","Book 2","Book 3"},CurrentOption="50102",Callback=function(option)
+	getgenv().Settings.Raidmap = tonumber(option);
 end});
 
 Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(ARaid)
@@ -964,7 +964,7 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(ARaid)
 			local userID = game.Players.LocalPlayer.UserId;
 			local args = {[1]="Room3"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
-			args = {[1]={difficulty=getgenv().Settings.difficulty,roomName="Room3",selectMapId=50105}};
+			args = {[1]={difficulty=4,roomName="Room3",selectMapId=Raidmap}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
 			args = {[1]={userIds={[1]=userID},roomName="Room3"}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
