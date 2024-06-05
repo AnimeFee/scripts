@@ -958,7 +958,7 @@ Raid:AddDropdown({Name="Difficulty",Options={"Easy","Medium","Hard","Impossible"
 	getgenv().Settings.Raiddifficulty = tonumber(option);
 end});
 
-Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
+Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(ARaid)
 	if ARaid then
 		local function restartScript()
 			local userID = game.Players.LocalPlayer.UserId;
