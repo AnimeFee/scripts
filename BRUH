@@ -858,18 +858,6 @@ end});
 Others:AddButton({
     Name = "Disable fx/anims/tips",
     Callback = function()
-        local players = game:GetService("Players")
-        local localPlayer = players.LocalPlayer
-        local playerGui = localPlayer.PlayerGui
-        local tipsPanel = playerGui:WaitForChild("TipsPanel")
-
-        -- Disable tips panel
-        local function handleEnabledChanged()
-            if tipsPanel.Enabled then
-                tipsPanel.Enabled = false
-            end
-        end
-        tipsPanel:GetPropertyChangedSignal("Enabled"):Connect(handleEnabledChanged)
 
         -- Disable effects
         local skillEffects = game.ReplicatedStorage.SkillEffects
