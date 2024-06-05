@@ -74,11 +74,10 @@ game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit
     end,
 })
 
-
 EggTab:AddDropdown({
     Name = "Eggs",
     Default = "Egg 1",
-    Options = {""Egg 1","Egg 2","Egg 3","Egg 4","Egg 5","Egg 6","Egg 7","Egg 8","Egg 9","Egg 10","Egg 11","Egg 12","Egg 13","Egg 14","Egg 15","Egg 16","Egg 17","Egg 18","Egg 19","Egg 20","Egg 21","Egg 22","Egg 23","Egg 24"},
+    Options = {"Egg 1","Egg 2","Egg 3","Egg 4","Egg 5","Egg 6","Egg 7","Egg 8","Egg 9","Egg 10","Egg 11","Egg 12","Egg 13","Egg 14","Egg 15","Egg 16","Egg 17","Egg 18","Egg 19","Egg 20","Egg 21","Egg 22","Egg 23","Egg 24"},
     Callback = function(Value)
         G.Egg = Value
     end
@@ -117,14 +116,15 @@ MainTab:AddToggle({
                         [1] = "Area ".. i
                     }
                     game:GetService("ReplicatedStorage").Packages.Knit.Services.QuestService.RF.ActionQuest:InvokeServer(unpack(args))
-                end
+wait()                
+end
             end
         end
     end,
 })
 
 
-Teleport:AddButton({
+TeleportTab:AddButton({
     Name = "Teleport World",
     Default = false,
     Callback = function()
