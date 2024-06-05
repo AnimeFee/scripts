@@ -400,7 +400,7 @@ for id, name in pairs(mapData1) do
     table.insert(mapIds1, id);
 end
 
-PlayerTab:AddDropdown({
+Teleport:AddDropdown({
     Name = "Select Return Map",
     Options = mapNames1,
     Callback = function(selectedIndex)
@@ -408,9 +408,9 @@ PlayerTab:AddDropdown({
     end
 });
 
-PlayerTab:AddButton({Name="Teleport To Selected Map",Callback=function()
+Teleport:AddButton({Name="Teleport To Selected Map",Callback=function()
     if getgenv().Settings.selectedTeleportMap then
-        local args = {[1]={mapId=getgenv().Settings.selectedTeleportMap}};	
+        local args = {[1]={mapId=selectedTeleportMap}};	
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
     else
         print("Please select a map first.")
