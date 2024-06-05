@@ -921,8 +921,14 @@ local function rerollTalismans()
         local rerollAttempt = {[1]=400005};
         local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
         wait(0.1);
-        if ((tostring(rerollResult.ornamentId) ~= "410021") and (tostring(rerollResult.ornamentId) ~= "410022") and (tostring(rerollResult.ornamentId) ~= "410023") and (tostring(rerollResult.ornamentId) ~= "410024")
-        and (tostring(rerollResult.ornamentId) ~= "410025") and (tostring(rerollResult.ornamentId) ~= "410026") and (tostring(rerollResult.ornamentId) ~= "410027") and (tostring(rerollResult.ornamentId) ~= "410028")) then
+        if ((tostring(rerollResult.ornamentId) ~= "410021") 
+	and (tostring(rerollResult.ornamentId) ~= "410022") 
+	and (tostring(rerollResult.ornamentId) ~= "410023") 
+	and (tostring(rerollResult.ornamentId) ~= "410024")
+        and (tostring(rerollResult.ornamentId) ~= "410025") 
+	and (tostring(rerollResult.ornamentId) ~= "410026") 
+	and (tostring(rerollResult.ornamentId) ~= "410027") 
+	and (tostring(rerollResult.ornamentId) ~= "410028")) then
             print("Unknown reroll found! : ".. tostring(rerollResult.ornamentId));
             rerollFound = true;
         elseif (tostring(rerollResult.ornamentId) == "410025")
@@ -948,91 +954,26 @@ end
 
 tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
 
-
-
-
-
-Raid:AddDropdown({
-    Name = "Map",
-    Options = { "Souls", "Book 1", "Book 2", "Book 3" },
-    CurrentOption = "1", -- default to "Souls"
-    Callback = function(option)
-        getgenv().Settings.Raidmap = {
-            ["Souls"] = 50102,
-            ["Book 1"] = 50103,
-            ["Book 2"] = 50104,
-            ["Book 3"] = 50105
-        }[option]
-    end
-})
-
-Raid:AddDropdown({
-    Name = "Difficulty",
-    Options = { "Easy", "Medium", "Hard", "Impossible" },
-    CurrentOption = "1",
-    Callback = function(option)
-        getgenv().Settings.Raiddifficulty = tonumber(option)
-    end
-})
-
-Raid:AddToggle({
-    Name = "Auto-Raid",
-    Default = false,
-    Callback = function(Value)
-        if Value then
-            startRaid()
-        end
-    end
-})
-
-local function startRaid()
-    local function enterRaidRoom()
-        local args = { "Room3" }
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
-    end
-
-    local function selectDifficulty()
-        local args = {
-            [1] = {
-                ["difficulty"] = getgenv().Settings.Raiddifficulty,
-                ["roomName"] = "Room3",
-                ["selectMapId"] = getgenv().Settings.Raidmap
-            }
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
-    end
-
-    local function startRaidMap()
-        local userID = game.Players.LocalPlayer.UserId
-        local args = {
-            [1] = {
-                ["userIds"] = { userID },
-                ["roomName"] = "Room3"
-            }
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
-    end
-
-    local function quitRaidMap()
-        local args = {
-            [1] = {
-                ["currentSlotIndex"] = 1,
-                ["toMapId"] = 50201
-            }
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
-    end
-
-    -- Start raid sequence
-    enterRaidRoom()
-    selectDifficulty()
-    startRaidMap()
-    spawn(function()
-        quitRaidMap()
-        startRaid() -- restart the raid
-    end)
-end
-
-
-
-
+Raid:AddDropdown({Name="Difficulty",Options={"Easy","Medium","Hard","Impossible"},CurrentOption="1",Callback=function(option)
+	getgenv().Settings.difficulty = tonumber(option);
+end});
+Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
+	if Value then
+		local function restartScript()
+			local userID = game.Players.LocalPlayer.UserId;
+			local args = {[1]="Room3"};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
+			args = {[1]={difficulty=getgenv().Settings.difficulty,roomName="Room3",selectMapId=50105}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
+			args = {[1]={userIds={[1]=userID},roomName="Room3"}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
+			wait(240);
+			args = {[1]={currentSlotIndex=1,toMapId=50201}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
+			wait(60);
+			restartScript();
+		end
+		restartScript();
+	end
+end});
