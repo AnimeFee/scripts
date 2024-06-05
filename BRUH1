@@ -1,7 +1,7 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Super Gay Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "idk fuck you"});
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Blade Sigma Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
-getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {ARaid=false,Raiddifficulty = 1,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -15,16 +15,23 @@ local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",Premi
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local EMount = WhtvrTab:AddSection({Name="Mounts"});
 local EGG = WhtvrTab:AddSection({Name="Eggs"});
+local EGG1 = WhtvrTab:AddSection({Name="Lock Your Pets Before Using."});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
 local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
 local Lvl10 = SNGTab:AddSection({Name="Auto Sell/Lvl 10 gem(Need Gems To Work)"});
+
+AccesoryTab:AddLabel("Will Need The Tokens needed to roll")
+
+local tms = AccesoryTab:AddSection({Name="Talismans"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 local Claim = MiscTab:AddSection({Name="Claim"});
 local Others = MiscTab:AddSection({Name="Others"});
+local Others1 = MiscTab:AddSection({Name="Others"});
+
 
 
 local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Gold Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Pomni",[100007]="Doge Car",[100008]="Magic Carpet",[100009]="Tron Bike",[100010]="Fire Wheel",[100011]="Water Wheel",[100012]="Sleigh",[100013]="Banana Car",[100014]="Flying Swords",[100015]="Motor Bike",[100016]="Broken Sky",[100017]="Broom",[100018]="Rubber Ducky",[100019]="Bat Mobile",[100020]="Tank",[100021]="Superman",[100022]="UFO",[100023]="Rocket",[100024]="Pirate Ship",[100025]="Leaf",[100026]="Plane"};
@@ -81,7 +88,7 @@ end});
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
     for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-        if v.isEquip == true then
+        if v.isEquip == true and v.isLock == true then
             table.insert(getgenv().Settings.mespetsequiper, v.guid)
         end
     end
@@ -612,7 +619,7 @@ Claim:AddButton({Name="Redeem Spins",Callback=function()
 	end
 end});
 
-Others:AddButton({Name="SimpleSpy",Callback=function()
+Others1:AddButton({Name="SimpleSpy",Callback=function()
 	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
 end});
 
@@ -731,7 +738,10 @@ pcall(function()
     end
 end);
 
-EGG:AddToggle({
+EGG1:AddLabel("Will Fuse to Equiped Heroes")
+EGG1:AddLabel("Will Delete/Fuse The Uneqquiped and Unlocked Heroes")
+
+EGG1:AddToggle({
     Name="Auto Delete Heroes",
     Callback=function(autoSellHeroes)
         if autoSellHeroes then
@@ -754,3 +764,217 @@ EGG:AddToggle({
         end
     end
 });
+
+EGG1:AddToggle({
+    Name="Auto Fuse Heroes",
+    Callback=function(autoFuseHeroes)
+        if autoFuseHeroes then
+            getgenv().Settings.autoFuseHeroes = true;
+            while getgenv().Settings.autoFuseHeroes do
+                wait(1);
+                if BurgerInventory.localPlayerData then
+                    local equippedHeroGuid = nil;
+                    local unequippedHeroGuids = {};
+                    for _, v in pairs(BurgerInventory.localPlayerData.heros) do
+                        if v.isEquip and v.isLock then
+                            equippedHeroGuid = v.guid;
+                        elseif not v.isEquip and not v.isLock then
+                            table.insert(unequippedHeroGuids, v.guid);
+                        end
+                    end
+                    if equippedHeroGuid and #unequippedHeroGuids > 0 then
+                        local args = {
+                            [1] = {
+                                ["mainHeroGuid"] = equippedHeroGuid,
+                                ["decomposeHeroGuids"] = unequippedHeroGuids
+                            }
+                        };
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroFuse"):FireServer(unpack(args));
+                    end
+                else
+                    print("localPlayerData is not loaded yet. Please try again later.")
+                end
+            end
+        else
+            getgenv().Settings.autoFuseHeroes = false;
+        end
+    end
+});
+
+    -- Function to get the first five gem IDs of a specified level
+    local function GetFirstFiveGemIDs(level)
+        local player = game.Players.LocalPlayer
+ 
+        -- Get a reference to the ScrollingFrame inside the player's GUI
+        local gui = player:WaitForChild("PlayerGui")
+        local gemsPanel = gui:WaitForChild("GemsPanel")
+        local frame = gemsPanel:WaitForChild("Frame")
+        local bgImage = frame:WaitForChild("BgImage")
+        local list = bgImage:WaitForChild("List")
+        local scrollingFrame = list:WaitForChild("ScrollingFrame")
+ 
+        -- Variables to store the first five gem IDs found
+        local gem1, gem2, gem3, gem4, gem5
+ 
+        -- Check if the ScrollingFrame exists
+        if scrollingFrame then
+            -- Counter for the number of gem IDs found
+            local count = 0
+ 
+            -- Iterate through each child of the ScrollingFrame
+            for _, child in ipairs(scrollingFrame:GetChildren()) do
+                -- Check if we already found 5 gem IDs
+                if count >= 5 then
+                    break
+                end
+ 
+                -- Find the "numtext" child inside the current child
+                local numtext = child:FindFirstChild("NumText")
+ 
+                -- Check if "numtext" exists and if its text matches the specified level
+                if numtext and numtext.Text == "Lv." .. level then
+                    -- Assign the child's name (assuming it's the ID) to gem variables
+                    count = count + 1
+                    if count == 1 then
+                        gem1 = child.Name
+                    elseif count == 2 then
+                        gem2 = child.Name
+                    elseif count == 3 then
+                        gem3 = child.Name
+                    elseif count == 4 then
+                        gem4 = child.Name
+                    elseif count == 5 then
+                        gem5 = child.Name
+                    end
+                end
+            end
+ 
+            -- Check if any gem IDs were found
+            if count > 0 then
+                print("Gem IDs found:")
+                print("gem1:", gem1)
+                print("gem2:", gem2)
+                print("gem3:", gem3)
+                print("gem4:", gem4)
+                print("gem5:", gem5)
+            else
+                print("No gem IDs found.")
+            end
+        else
+            error("Error: ScrollingFrame not found.")
+        end
+ 
+        return gem1, gem2, gem3, gem4, gem5
+    end
+ 
+    -- Function to fuse the first five gems of a specified level
+    local function FuseFirstFiveGems(level)
+        while true do
+            local gem1, gem2, gem3, gem4,gem5 = GetFirstFiveGemIDs(level)
+ 
+            -- Check if at least five gem IDs were found
+            if gem1 and gem2 and gem3 and gem4 and gem5 then
+                -- Construct the args table
+                local args = {
+                    [1] = {
+                        [1] = gem1,
+                        [2] = gem2,
+                        [3] = gem3,
+                        [4] = gem4,
+                        [5] = gem5 
+                    }
+                }
+ 
+                print("Invoking FuseGem remote with args:", args)
+ 
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(args))
+            else
+                print("Error: Could not find five gem IDs.")
+            end
+ 
+            -- Wait for some time before fusing again (e.g., 5 seconds)
+            wait(0.1)
+        end
+    end
+ 
+   Lvl10:AddToggle({
+    Name = "Auto Fuse All Level Gems",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Settings.AutoFuseAllGems = Value
+        if Value then
+            spawn(function()
+                while getgenv().Settings.AutoFuseAllGems do
+                    for i = 1, 9 do
+                        FuseFirstFiveGems(i)
+                    end
+                    wait(0.1) -- add a small delay to avoid overwhelming the server
+                end
+            end)
+        end
+    end,
+})
+
+local function rerollTalismans()
+    local rerollFound = false;
+    repeat
+        local rerollAttempt = {[1]=400005};
+        local rerollResult = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(rerollAttempt));
+        wait(0.1);
+        if ((tostring(rerollResult.ornamentId) ~= "410021") 
+	and (tostring(rerollResult.ornamentId) ~= "410022") 
+	and (tostring(rerollResult.ornamentId) ~= "410023") 
+	and (tostring(rerollResult.ornamentId) ~= "410024")
+        and (tostring(rerollResult.ornamentId) ~= "410025") 
+	and (tostring(rerollResult.ornamentId) ~= "410026") 
+	and (tostring(rerollResult.ornamentId) ~= "410027") 
+	and (tostring(rerollResult.ornamentId) ~= "410028")) then
+            print("Unknown reroll found! : ".. tostring(rerollResult.ornamentId));
+            rerollFound = true;
+        elseif (tostring(rerollResult.ornamentId) == "410025")
+        or (tostring(rerollResult.ornamentId) == "410026")
+        or (tostring(rerollResult.ornamentId) == "410027")
+        or (tostring(rerollResult.ornamentId) == "410028") then
+            local rerollType = "None";
+            if (tostring(rerollResult.ornamentId) == "410025") then
+                rerollType = "As One Wishes";
+            elseif (tostring(rerollResult.ornamentId) == "410026") then
+                rerollType = "Magic Tome";
+            elseif (tostring(rerollResult.ornamentId) == "410027") then
+                rerollType = "Imperial Jade Seal";
+            elseif (tostring(rerollResult.ornamentId) == "410028") then
+                rerollType = "Quinta";
+            end
+            print("!! REROLL FOUND!! : ".. rerollType);
+            rerollFound = true;
+        end
+    until rerollFound
+    print("Script stopped!");
+end
+
+tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
+
+Raid:AddDropdown({Name="Difficulty",Options={"Easy","Medium","Hard","Impossible"},CurrentOption="1",Callback=function(option)
+	getgenv().Settings.Raiddifficulty = tonumber(option);
+end});
+
+Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(ARaid)
+	if ARaid then
+		local function restartScript()
+			local userID = game.Players.LocalPlayer.UserId;
+			local args = {[1]="Room3"};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
+			args = {[1]={difficulty=getgenv().Settings.difficulty,roomName="Room3",selectMapId=50105}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
+			args = {[1]={userIds={[1]=userID},roomName="Room3"}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
+			wait(240);
+			args = {[1]={currentSlotIndex=1,toMapId=50201}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
+			wait(60);
+			restartScript();
+		end
+		restartScript();
+	end
+end});
