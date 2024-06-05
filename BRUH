@@ -22,9 +22,12 @@ local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
 local Lvl10 = SNGTab:AddSection({Name="Auto Sell/Lvl 10 gem(Need Gems To Work)"});
+
+Accesory Tab:AddLabel("Will Need The Tokens needed to roll")
+
+local tms = AccesoryTab:AddSection({Name="Talismans"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
-local tms = AccesoryTab:AddSection({Name="Talismans"});
 local Claim = MiscTab:AddSection({Name="Claim"});
 local Others = MiscTab:AddSection({Name="Others"});
 
