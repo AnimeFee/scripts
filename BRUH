@@ -978,8 +978,9 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
 			getgenv().Settings.AutoFarm = true
 			getgenv().Settings.GoldCollect = true
-			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren()
-           		if #checkRemainingEnnemies <= 0 then
+			
+			wait(5)
+
 			args = {
              		[1] = 1
               		}
@@ -992,7 +993,7 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 			getgenv().Settings.GoldCollect = false 
 			args = {[1]={currentSlotIndex=1,toMapId=50201}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
-			wait(240);
+			wait(300);
 			restartScript();
 		end
 		restartScript();
