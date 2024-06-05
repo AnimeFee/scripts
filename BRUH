@@ -23,7 +23,7 @@ local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
 local Lvl10 = SNGTab:AddSection({Name="Auto Sell/Lvl 10 gem(Need Gems To Work)"});
 
-Accesory Tab:AddLabel("Will Need The Tokens needed to roll")
+AccesoryTab:AddLabel("Will Need The Tokens needed to roll")
 
 local tms = AccesoryTab:AddSection({Name="Talismans"});
 local Legendary = AccesoryTab:AddSection({Name="Legendary"});
