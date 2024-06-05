@@ -3,15 +3,6 @@ local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, 
 
 getgenv().Settings = {ARaid=false,Raidmap = 50102,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
-MinimizeButton({
-    Image = "",
-    Size = {75, 40},
-    Color = Color3.fromRGB(10, 10, 10),
-    Corner = true,
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(255, 255, 255)
-})
-
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
