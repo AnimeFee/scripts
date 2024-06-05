@@ -984,7 +984,3 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 		restartScript();
 	end
 end});
-
-Raid:AddButton({Name="Rejoin Button",Callback=function()
-	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
-end});
