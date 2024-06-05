@@ -995,12 +995,16 @@ Others:AddButton({
 Raid:AddDropdown({
     Name = "Map",
     Options = { "Souls", "Book 1", "Book 2", "Book 3" },
-    CurrentOption = "50102",
+    CurrentOption = "1", -- default to "Souls"
     Callback = function(option)
-        getgenv().Settings.Raidmap = tonumber(option)
+        getgenv().Settings.Raidmap = {
+            ["Souls"] = 50102,
+            ["Book 1"] = 50103,
+            ["Book 2"] = 50104,
+            ["Book 3"] = 50105
+        }[option]
     end
 })
-
 
 Raid:AddDropdown({
     Name = "Difficulty",
@@ -1068,7 +1072,6 @@ local function startRaid()
     task.wait(60) -- wait for 60 seconds
     startRaid() -- restart the raid
 end
-
 
 
 
