@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Bladest Sigma Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
+local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
 getgenv().Settings = {Raiddifficulty = 1,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
@@ -954,7 +954,7 @@ end
 
 tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
 
-Raid:AddDropdown({Name="Difficulty",Options={"Easy","Medium","Hard","Impossible"},CurrentOption="1",Callback=function(option)
+Raid:AddDropdown({Name="Difficulty",Options={"Souls","Book 1","Book 2","Book 3"},CurrentOption="50212",Callback=function(option)
 	getgenv().Settings.Raiddifficulty = tonumber(option);
 end});
 
@@ -964,11 +964,12 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 			local userID = game.Players.LocalPlayer.UserId;
 			local args = {[1]="Room3"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args));
-			args = {[1]={difficulty=getgenv().Settings.difficulty,roomName="Room3",selectMapId=50105}};
+			args = {[1]={difficulty=getgenv().Settings.difficulty,roomName="Room3",selectMapId=Raiddifficulty}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args));
 			args = {[1]={userIds={[1]=userID},roomName="Room3"}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args));
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer();
+			getgenv().Settings.AutoFarm = true
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren()
            		if #checkRemainingEnnemies <= 0 then
 			args = {
@@ -978,7 +979,8 @@ Raid:AddToggle({Name="Auto-Raid",Default=false,Callback=function(Value)
 			wait(5)	
 			args = {[1]={currentSlotIndex=1,toMapId=50201}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args));
-			wait(240)
+			wait()
+			getgenv().Settings.AutoFarm = false
 			restartScript();
 		end
 		restartScript();
