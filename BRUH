@@ -1,7 +1,7 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Blade Sigma", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
-getgenv().Settings = {AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().Settings = {Raidmap=50102,Raiddifficulty = 1,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -30,6 +30,8 @@ local Legendary = AccesoryTab:AddSection({Name="Legendary"});
 local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 local Claim = MiscTab:AddSection({Name="Claim"});
 local Others = MiscTab:AddSection({Name="Others"});
+local Others1 = MiscTab:AddSection({Name="Others"});
+
 
 
 local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Gold Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Pomni",[100007]="Doge Car",[100008]="Magic Carpet",[100009]="Tron Bike",[100010]="Fire Wheel",[100011]="Water Wheel",[100012]="Sleigh",[100013]="Banana Car",[100014]="Flying Swords",[100015]="Motor Bike",[100016]="Broken Sky",[100017]="Broom",[100018]="Rubber Ducky",[100019]="Bat Mobile",[100020]="Tank",[100021]="Superman",[100022]="UFO",[100023]="Rocket",[100024]="Pirate Ship",[100025]="Leaf",[100026]="Plane"};
@@ -617,7 +619,7 @@ Claim:AddButton({Name="Redeem Spins",Callback=function()
 	end
 end});
 
-Others:AddButton({Name="SimpleSpy",Callback=function()
+Others1:AddButton({Name="SimpleSpy",Callback=function()
 	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
 end});
 
@@ -945,3 +947,129 @@ local function rerollTalismans()
 end
 
 tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
+
+
+
+Others:AddButton({
+    Name = "Remove Tips",
+    Callback = function()
+        spawn(function()
+            local players = game:GetService("Players")
+            local localPlayer = players.LocalPlayer
+            local playerGui = localPlayer.PlayerGui
+            local tipsPanel = playerGui:WaitForChild("TipsPanel")
+
+            -- Disable tips panel
+            local function handleEnabledChanged()
+                if tipsPanel.Enabled then
+                    tipsPanel.Enabled = false
+                end
+            end
+            tipsPanel:GetPropertyChangedSignal("Enabled"):Connect(handleEnabledChanged)
+
+            -- Disable effects
+            local skillEffects = game.ReplicatedStorage.SkillEffects
+            for _, descendant in pairs(skillEffects:GetDescendants()) do
+                if descendant:IsA("Part") or descendant:IsA("MeshPart") then
+                    descendant.Transparency = 1
+                elseif descendant:IsA("ParticleEmitter") or descendant:IsA("Beam") then
+                    descendant.Enabled = false
+                end
+            end
+
+            -- Disable AttackNum effect
+            local attackNumEffect = game.ReplicatedStorage.Effect.AttackNum
+            attackNumEffect.Enabled = false
+
+            -- Disable animations and effects
+            local NoAnim = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager.HeroEntity)
+            NoAnim.PlayAnimation = function() return end
+            NoAnim.PlaySkillEffect = function() return end
+            NoAnim.SetParticle = function() return end
+            NoAnim.FlySkillHarm = function() return end
+        end)
+    end
+})
+
+
+Raid:AddDropdown({
+    Name = "Map",
+    Options = { "Souls", "Book 1", "Book 2", "Book 3" },
+    CurrentOption = "50102",
+    Callback = function(option)
+        getgenv().Settings.Raidmap = tonumber(option)
+    end
+})
+
+
+Raid:AddDropdown({
+    Name = "Difficulty",
+    Options = { "Easy", "Medium", "Hard", "Impossible" },
+    CurrentOption = "1",
+    Callback = function(option)
+        getgenv().Settings.Raiddifficulty = tonumber(option)
+    end
+})
+
+Raid:AddToggle({
+    Name = "Auto-Raid",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            startRaid()
+        end
+    end
+})
+
+local function startRaid()
+    local function enterRaidRoom()
+        local args = { "Room3" }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
+    end
+
+    local function selectDifficulty()
+        local args = {
+            [1] = {
+                ["difficulty"] = getgenv().Settings.Raiddifficulty,
+                ["roomName"] = "Room3",
+                ["selectMapId"] = getgenv().Settings.Raidmap
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
+    end
+
+    local function startRaidMap()
+        local userID = game.Players.LocalPlayer.UserId
+        local args = {
+            [1] = {
+                ["userIds"] = { userID },
+                ["roomName"] = "Room3"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
+    end
+
+    local function quitRaidMap()
+        local args = {
+            [1] = {
+                ["currentSlotIndex"] = 1,
+                ["toMapId"] = 50201
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
+    end
+
+    -- Start raid sequence
+    enterRaidRoom()
+    selectDifficulty()
+    startRaidMap()
+    task.wait(240) -- wait for 240 seconds
+    quitRaidMap()
+    task.wait(60) -- wait for 60 seconds
+    startRaid() -- restart the raid
+end
+
+
+
+
+
