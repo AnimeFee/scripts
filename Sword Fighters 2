@@ -28,8 +28,8 @@ local QuestTab = Window:MakeTab({
     PremiumOnly = false
 })
 
-local EggTab = Window:MakeTab({
-    Name = "Eggs",
+local SnEggTab = Window:MakeTab({
+    Name = "Swords/Eggs",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
@@ -60,13 +60,13 @@ game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit
     end,
 })
 
-EggTab:AddToggle({
-    Name = "Auto Equip Best",
+SnEggTab:AddToggle({
+    Name = "Auto Equip Best Sword",
     Default = false,
     Callback = function(Value)
-        G.autoEquipBest = Value
+        G.autoEquipBests = Value
         if Value then
-            while G.autoEquipBest do
+            while G.autoEquipBests do
 game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("WeaponInvService"):WaitForChild("RF"):WaitForChild("EquipBest"):InvokeServer()
                 wait() -- Adjust the delay as needed
             end
@@ -74,7 +74,20 @@ game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit
     end,
 })
 
-EggTab:AddDropdown({
+SnEggTab:AddToggle({
+    Name = "Auto Equip Best Pets",
+    Default = false,
+    Callback = function(Value)
+        G.autoEquipBestp = Value
+        if Value then
+            while G.autoEquipBestp do
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("PetInvService"):WaitForChild("RF"):WaitForChild("EquipBest"):InvokeServer()                wait() -- Adjust the delay as needed
+            end
+        end
+    end,
+})
+
+SnEggTab:AddDropdown({
     Name = "Eggs",
     Default = "Egg 1",
     Options = {"Egg 1","Egg 2","Egg 3","Egg 4","Egg 5","Egg 6","Egg 7","Egg 8","Egg 9","Egg 10","Egg 11","Egg 12","Egg 13","Egg 14","Egg 15","Egg 16","Egg 17","Egg 18","Egg 19","Egg 20","Egg 21","Egg 22","Egg 23","Egg 24"},
@@ -83,7 +96,7 @@ EggTab:AddDropdown({
     end
 })
 
-EggTab:AddToggle({
+SnEggTab:AddToggle({
     Name = "Auto Buy Eggs",
     Default = false,
     Callback = function(Value)
