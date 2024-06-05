@@ -1027,10 +1027,10 @@ local function startRaid()
     enterRaidRoom()
     selectDifficulty()
     startRaidMap()
-    task.wait(240) -- wait for 240 seconds
-    quitRaidMap()
-    task.wait(60) -- wait for 60 seconds
-    startRaid() -- restart the raid
+    spawn(function()
+        quitRaidMap()
+        startRaid() -- restart the raid
+    end)
 end
 
 
