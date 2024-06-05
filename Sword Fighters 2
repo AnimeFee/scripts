@@ -13,7 +13,8 @@ local G = {
     autoMobs = false,
     autoQuest = false,
     autoDungeon = false,
-    autoEquipBest = false,
+    autoEquipBestp = false,
+    autoEquipBests = false,
 }
 
 local MainTab = Window:MakeTab({
@@ -137,12 +138,31 @@ end
 })
 
 
+TeleportTab:AddDropdown({
+    Name = "Select World",
+    Default = "",
+    Options = {"Area 1","Area 2","Area 3","Area 4","Area 5","Area 6","Area 7","Area 8","Area 9","Area 10","Area 11","Area 12","Area 13","Area 14","Area 15","Area 16","Area 18","Area 19","Area 20","Area 21","Area 22","Area 23","Area 24","Area 25",},
+    Callback = function(Value)
+        G.World = Value
+    end
+})
+
 TeleportTab:AddButton({
     Name = "Teleport World",
     Default = false,
     Callback = function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8767.36523, 161.006012, 6792.77881, 1, 5.46722418e-08, 8.17064786e-13, -5.46722418e-08, 1, 3.50154217e-08, -8.1515041e-13, -3.50154217e-08, 1)
-    end})
+        local args = {
+            [1] = G.World
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("AnalyticsService"):WaitForChild("RF"):WaitForChild("SetPlayerArea"):InvokeServer(unpack(args))
+        local args = {
+            [1] = G.World
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("AnalyticsService"):WaitForChild("RF"):WaitForChild("SetPlayerRegion"):InvokeServer(unpack(args))
+    end
+})
 
 spawn(function()
     while wait(15) do
