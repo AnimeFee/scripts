@@ -15,6 +15,9 @@ local G = {
     autoDungeon = false,
     autoEquipBestp = false,
     autoEquipBests = false,
+    A1 = false,
+    B1 = false,
+    C1 = false,
 }
 
 local MainTab = Window:MakeTab({
@@ -23,8 +26,8 @@ local MainTab = Window:MakeTab({
     PremiumOnly = false
 })
 
-local QuestTab = Window:MakeTab({
-    Name = "Quest",
+local UpgradesTab = Window:MakeTab({
+    Name = "Upgrades",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
@@ -117,6 +120,65 @@ SnEggTab:AddToggle({
         end
     end,
 })
+
+
+UpgradesTab:AddToggle({
+    Name = "Power Gain",
+    Default = false,
+    Callback = function(Value)
+        G.A1 = Value
+        if Value then
+            while G.A1 do
+            local args = {
+                [1] = "Area 1",
+                [2] = "Power Gain"
+                        }
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(unpack(args))
+wait()                
+                end
+            end
+        end
+    end,
+})
+
+UpgradesTab:AddToggle({
+    Name = "More Storage",
+    Default = false,
+    Callback = function(Value)
+        G.B1 = Value
+        if Value then
+            while G.B1 do
+            local args = {
+                [1] = "Area 1",
+                [2] = "More Storage"
+                        }
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(unpack(args))
+wait()                
+                end
+            end
+        end
+    end,
+})
+
+UpgradesTab:AddToggle({
+    Name = "Walk Speed",
+    Default = false,
+    Callback = function(Value)
+        G.C1 = Value
+        if Value then
+            while G.C1 do
+            local args = {
+                [1] = "Area 1",
+                [2] = "More Storage"
+                        }
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(unpack(args))
+wait()                
+                end
+            end
+        end
+    end,
+})
+
 
 MainTab:AddToggle({
     Name = "Auto Quest",
