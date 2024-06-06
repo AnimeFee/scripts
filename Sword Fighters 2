@@ -121,59 +121,59 @@ SnEggTab:AddToggle({
     end,
 })
 
-
 UpgradesTab:AddToggle({
     Name = "Power Gain",
     Default = false,
     Callback = function(Value)
         G.A1 = Value
         if Value then
-            while G.A1 do
-            local args = {
-                [1] = "Area 1",
-                [2] = "Power Gain"
-                        }
-game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(unpack(args))
-wait()                
-                end
+            for area = 1, 25 do
+                local args = {
+                    [1] = "Area "..area,
+                    [2] = "Power Gain"
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(args[1], args[2])
+                wait(0.1) -- add a short delay to avoid flooding the server
             end
         end
+    end
 })
+
 
 UpgradesTab:AddToggle({
     Name = "More Storage",
     Default = false,
     Callback = function(Value)
-        G.B1 = Value
+        G.A1 = Value
         if Value then
-            while G.B1 do
-            local args = {
-                [1] = "Area 1",
-                [2] = "More Storage"
-                        }
-game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(unpack(args))
-wait()                
-                end
+            for area = 1, 25 do
+                local args = {
+                    [1] = "Area "..area,
+                    [2] = "More Storage"
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(args[1], args[2])
+                wait(0.1) -- add a short delay to avoid flooding the server
             end
         end
+    end
 })
 
 UpgradesTab:AddToggle({
     Name = "Walk Speed",
     Default = false,
     Callback = function(Value)
-        G.C1 = Value
+        G.A1 = Value
         if Value then
-            while G.C1 do
-            local args = {
-                [1] = "Area 1",
-                [2] = "More Storage"
-                        }
-game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(unpack(args))
-wait()                
-                end
+            for area = 1, 25 do
+                local args = {
+                    [1] = "Area "..area,
+                    [2] = "Walk Speed"
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UpgradeService"):WaitForChild("RF"):WaitForChild("Upgrade"):InvokeServer(args[1], args[2])
+                wait(0.1) -- add a short delay to avoid flooding the server
             end
         end
+    end
 })
 
 
@@ -199,8 +199,8 @@ end
 
 TeleportTab:AddDropdown({
     Name = "Select World",
-    Default = "Area 1",  -- Set default value to "Area 1"
-    Options = {"Area 1","Area 2","Area 3","Area 4","Area 5","Area 6","Area 7","Area 8","Area 9","Area 10","Area 11","Area 12","Area 13","Area 14","Area 15","Area 16","Area 18","Area 19","Area 20","Area 21","Area 22","Area 23","Area 24","Area 25",},
+    Default = "1",
+    Options = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25},
     Callback = function(Value)
         G.World = Value  -- Value is already a string, so no need to modify it
     end
@@ -211,7 +211,7 @@ TeleportTab:AddButton({
     Default = false,
     Callback = function()
         local args = {
-            [1] = G.World
+            [1] = "Area "..area
         }
 
         game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("AnalyticsService"):WaitForChild("RF"):WaitForChild("SetPlayerRegion"):InvokeServer(unpack(args))
