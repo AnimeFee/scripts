@@ -5,9 +5,9 @@ if not OrionLib then
 	local Window = OrionLib:MakeWindow({Name="MercilessHub",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
 	getgenv().Settings = {AutoAtk=false,AutoDungeon=false,AutoBuyGems={[10008]=false,[10009]=false,[10010]=false,[10011]=false,[10012]=false,[10013]=false,[10014]=false,[10015]=false,[10016]=false},mespetsequiper={},Range=200,AutoFarm=false,WalkToEnemy=false,DamageBoost=true,DamageNumber=0.99};
 	local ScriptsTab = ABC:AddSection({Name="Idk belguga6969 is not a sigma"});
-    local SwordSec = ABC:AddSection({Name="Fuse/Sell Swords"});
+  	local SwordSec = ABC:AddSection({Name="Fuse/Sell Swords"});
 
-    spawn(function()
+   	 spawn(function()
 		for i, v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
 			v:Disable();
 		end
@@ -37,10 +37,9 @@ if not OrionLib then
 
 	ScriptsTab:AddToggle({Name="AutoGainPower",Default=false,Callback=function(Value)
 		autoGainPower = Value;
-		while autoGainPower then
+		while autoGainPower do
         game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args));
         end
-	end	
 	end});
 	ScriptsTab:AddButton({Name="Auto Fuse Swords",Callback=function()
 		while wait() do
