@@ -1,8 +1,8 @@
-getgenv().Settings.Range = 1000
-getgenv().Settings.WalkToEnemy = true
+_G.Range = 200
+_G.WalkToEnemy = true
 
 local function GetEnemies()
-    local nearest, dist = nil, getgenv().Settings.Range
+    local nearest, dist = nil, _G.Range
     local Players = game.Players
     local localPlayer = Players.LocalPlayer
     local localCharacter = localPlayer.Character
@@ -26,7 +26,7 @@ end
 local function AttackEnemy(enemy)
     if enemy then
         local enemyUserId = enemy.Parent.UserId
-        local args = {[1] = enemyUserId}
+        local args = {local args = { enemy:GetAttribute("EnemyGuid") }}
         game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("ClickService"):WaitForChild("RF"):WaitForChild("Click"):InvokeServer(unpack(args))
     end
 end
@@ -34,7 +34,7 @@ end
 while true do
     local enemy = GetEnemies()
     if enemy then
-        if getgenv().Settings.WalkToEnemy then
+        if _G.WalkToEnemy then
             if enemy:FindFirstChild("HumanoidRootPart") then
                 player.Character.Humanoid:MoveTo(enemy.HumanoidRootPart.Position)
             end
