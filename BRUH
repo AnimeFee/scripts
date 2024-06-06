@@ -860,26 +860,6 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 end});
 
 Others:AddButton({
-    Name = "Disable Tips Panel",
-    Callback = function()
-        spawn(function()
-            local players = game:GetService("Players")
-            local localPlayer = players.LocalPlayer
-            local playerGui = localPlayer.PlayerGui
-            local tipsPanel = playerGui:WaitForChild("TipsPanel")
-
-            -- Disable tips panel
-            local function handleEnabledChanged()
-                if tipsPanel.Enabled then
-                    tipsPanel.Enabled = false
-                end
-            end
-            tipsPanel:GetPropertyChangedSignal("Enabled"):Connect(handleEnabledChanged)
-        end)
-    end
-})
-
-Others:AddButton({
     Name = "Disable Skill Effects",
     Callback = function()
         spawn(function()
