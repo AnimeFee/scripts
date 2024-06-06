@@ -138,7 +138,6 @@ wait()
                 end
             end
         end
-    end,
 })
 
 UpgradesTab:AddToggle({
@@ -157,7 +156,6 @@ wait()
                 end
             end
         end
-    end,
 })
 
 UpgradesTab:AddToggle({
@@ -176,7 +174,6 @@ wait()
                 end
             end
         end
-    end,
 })
 
 
@@ -202,10 +199,10 @@ end
 
 TeleportTab:AddDropdown({
     Name = "Select World",
-    Default = "",
+    Default = "Area 1",  -- Set default value to "Area 1"
     Options = {"Area 1","Area 2","Area 3","Area 4","Area 5","Area 6","Area 7","Area 8","Area 9","Area 10","Area 11","Area 12","Area 13","Area 14","Area 15","Area 16","Area 18","Area 19","Area 20","Area 21","Area 22","Area 23","Area 24","Area 25",},
     Callback = function(Value)
-        G.World = Value
+        G.World = Value  -- Value is already a string, so no need to modify it
     end
 })
 
@@ -213,11 +210,6 @@ TeleportTab:AddButton({
     Name = "Teleport World",
     Default = false,
     Callback = function()
-        local args = {
-            [1] = G.World
-        }
-
-        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("AnalyticsService"):WaitForChild("RF"):WaitForChild("SetPlayerArea"):InvokeServer(unpack(args))
         local args = {
             [1] = G.World
         }
