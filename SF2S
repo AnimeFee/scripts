@@ -11,7 +11,7 @@ local function GetEnemies()
         return
     end
 
-    for _, enemy in pairs(Workspace.NPCs:GetChildren()) do
+    for _, enemy in pairs(Workspace.Resources.NPCSpawns.Normal:GetChildren()) do
         if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
             local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
             if distance < dist then
