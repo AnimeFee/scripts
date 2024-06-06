@@ -39,16 +39,11 @@ local SnEggTab = Window:MakeTab({
 })
 
 local TeleportTab = Window:MakeTab({
-    Name = "Teleport",
+    Name = "Teleport/Dungeon/Tower",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
-local DungeonTab = Window:MakeTab({
-    Name = "Dungeon",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
 
 MainTab:AddToggle({
     Name = "Auto Click",
