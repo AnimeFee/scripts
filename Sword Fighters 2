@@ -184,25 +184,57 @@ MainTab:AddToggle({
         G.autoQuest = Value
         if Value then
             while G.autoQuest do
-                for i = 1, 22 do 
+                for i = 1, 25 do 
                     local args = {
                         [1] = "Area ".. i
                     }
                     game:GetService("ReplicatedStorage").Packages.Knit.Services.QuestService.RF.ActionQuest:InvokeServer(unpack(args))
-wait()                
-end
+                    wait()                
+                end
             end
         end
     end,
 })
 
+local AreaTable = {
+    ["Area 1"] = 1,
+    ["Area 2"] = 2,
+    ["Area 3"] = 3,
+    ["Area 4"] = 4,
+    ["Area 5"] = 5,
+    ["Area 6"] = 6,
+    ["Area 7"] = 7,
+    ["Area 8"] = 8,
+    ["Area 9"] = 9,
+    ["Area 10"] = 10,
+    ["Area 11"] = 11,
+    ["Area 12"] = 12,
+    ["Area 13"] = 13,
+    ["Area 14"] = 14,
+    ["Area 15"] = 15,
+    ["Area 16"] = 16,
+    ["Area 17"] = 17,
+    ["Area 18"] = 18,
+    ["Area 19"] = 19,
+    ["Area 20"] = 20,
+    ["Area 21"] = 21,
+    ["Area 22"] = 22,
+    ["Area 23"] = 23,
+    ["Area 24"] = 24,
+    ["Area 25"] = 25
+}
+
+local options = {}
+for k, _ in pairs(AreaTable) do
+    table.insert(options, k)
+end
 
 TeleportTab:AddDropdown({
     Name = "Select World",
-    Default = "1",
-    Options = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25},
+    Default = "",
+    Options = options,
     Callback = function(Value)
-        G.World = Value  -- Value is already a string, so no need to modify it
+        G.World = AreaTable[Value]
     end
 })
 
@@ -211,7 +243,12 @@ TeleportTab:AddButton({
     Default = false,
     Callback = function()
         local args = {
-            [1] = "Area "..area
+            [1] = G.World
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("AnalyticsService"):WaitForChild("RF"):WaitForChild("SetPlayerArea"):InvokeServer(unpack(args))
+        local args = {
+            [1] = G.World
         }
 
         game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("AnalyticsService"):WaitForChild("RF"):WaitForChild("SetPlayerRegion"):InvokeServer(unpack(args))
