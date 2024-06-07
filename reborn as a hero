@@ -193,3 +193,15 @@ othersTab:AddToggle({
     end
   end    
 })
+
+othersTab:AddToggle({
+  Name = "Go To Next Tower Lvl",
+  Default = false,
+  Callback = function(bool)
+    getgenv().tower = bool
+if getgenv().tower then
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Challenge"):FireServer()
+wait(10)  
+end    
+end
+})
