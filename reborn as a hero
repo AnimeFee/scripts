@@ -68,7 +68,6 @@ function dokillaura()
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
     local Events = ReplicatedStorage.Events.Fight
 
-    -- Function to damage NPCs
     local function damageNPC(npcName)
       local args = {
         [1] = npcName,
@@ -77,14 +76,12 @@ function dokillaura()
       Events.Re_TakeDamage:FireServer(unpack(args))
     end
 
-    -- Function to toggle damage for multiple NPCs
     local function toggleDamageForNPCs(npcNames)
       for _, npcName in ipairs(npcNames) do
         damageNPC(npcName)
       end
     end
 
-    -- List of NPCs to damage
     local NPCsToDamage = {
       "Npc001", "Npc002", "Npc003", "Npc004", "Npc005", "Npc006",
       "Npc007", "Npc008", "Npc009", "Npc010", "Npc011", "Npc012",
@@ -96,25 +93,16 @@ function dokillaura()
       "Npc043", "Npc044", "Npc045", "Npc046", "Npc047"
     }
 
-    -- Toggle to enable/disable damage for NPCs
-    local damageEnabled = false
+    local damageEnabled = true
 
-    -- Function to toggle damage aura
     local function toggleDamageAura()
-      damageEnabled = not damageEnabled
-      if damageEnabled then
+      while damageEnabled do
         toggleDamageForNPCs(NPCsToDamage)
-        print("Damage aura enabled")
-      else
-        print("Damage aura disabled")
+        wait(0.1)
       end
     end
 
-    -- Example usage:
     toggleDamageAura() -- Enable damage aura
-    -- Wait for 5 seconds (for example)
-    toggleDamageAura() -- Disable damage aura
-    wait(0.1)
   end
 end
 
