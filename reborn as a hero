@@ -67,7 +67,7 @@ end
 function dotower()
   while getgenv().towerlvl do
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Challenge"):FireServer()
-    wait(1)
+    wait(7)
   end
 end
 
