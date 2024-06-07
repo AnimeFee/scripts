@@ -23,21 +23,21 @@ getgenv().spin = false
 getgenv().rebirth = false
 getgenv().killaura = false
 
---functions
-function doTrain()
-  while getgenv().train == true do
-    [1] = "Hatch",
-    [2] = getgenv().selectedEgg,
-    [3] = {}
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+-- functions
+function doEgg()
+  if getgenv().egg then
+    local args = {
+      [1] = "Hatch",
+      [2] = getgenv().selectedEgg,
+      [3] = {}
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
     wait(0.1)
   end
 end
 
 function doTrain()
-  while getgenv().train == true do
+  if getgenv().train then
     local args = {
       [1] = getgenv().selectedTrain
     }
@@ -47,7 +47,7 @@ function doTrain()
 end
 
 function dospin()
-  while getgenv().spin == true do
+  if getgenv().spin then
     local args = {
       [1] = "Spin+10"
     }
@@ -57,14 +57,14 @@ function dospin()
 end
 
 function dorebirth()
-  while getgenv().rebirth == true do
+  if getgenv().rebirth then
     game:GetService("ReplicatedStorage").Events.Stats.Re_Rebirth:FireServer()
     wait(1)
   end
 end
 
 function dokillaura()
-  while getgenv().killaura == true do
+  if getgenv().killaura then
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
     local Events = ReplicatedStorage.Events.Fight
 
@@ -173,12 +173,12 @@ mainTab:AddDropdown({
 })
 
 mainTab:AddToggle({
-  Name = "Auto Train",
+  Name = "Auto Open",
   Default = false,
   Callback = function(bool)
     getgenv().egg = bool
     if bool then
-      doTrain()
+      doEgg()
     end
   end    
 })
