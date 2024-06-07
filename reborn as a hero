@@ -72,7 +72,7 @@ function dotower()
 end
 
 function dokillaura()
-  while getgenv().killaura == true do
+  while getgenv().killaura do
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
     local Events = ReplicatedStorage.Events.Fight
     local function damageNPC(npcName)
