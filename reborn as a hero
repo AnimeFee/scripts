@@ -1,6 +1,6 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = OrionLib:MakeWindow({Name = "All universe hub", HidePremium = false, IntroEnabled = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "SOGAY", HidePremium = false, IntroEnabled = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 local mainTab = Window:MakeTab({
   Name = "farm",
@@ -72,7 +72,7 @@ function dotower()
 end
 
 function dokillaura()
-  if getgenv().killaura == true then
+  while getgenv().killaura == true do
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
     local Events = ReplicatedStorage.Events.Fight
     local function damageNPC(npcName)
