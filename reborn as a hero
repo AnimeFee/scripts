@@ -109,9 +109,9 @@ function dokillaura()
       end
     end
     toggleDamageAura()
-    wait()
+    wait(.1)
     toggleDamageAura()
-    wait(1)
+    wait(.1)
   end
 end
 
