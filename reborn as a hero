@@ -168,7 +168,7 @@ mainTab:AddDropdown({
     "Draw019", "Draw020", "Draw021", "Draw022", "Draw023", "Draw024",
   },
   Callback = function(value)
-    getgenv().selectedEgg = "Draw001"
+    getgenv().selectedEgg = value
   end    
 })
 
