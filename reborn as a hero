@@ -26,7 +26,7 @@ getgenv().killaura = false
 
 -- functions
 function doEgg()
-  if getgenv().egg then
+  while getgenv().egg do
     local args = {
       [1] = "Hatch",
       [2] = getgenv().selectedEgg,
@@ -38,7 +38,7 @@ function doEgg()
 end
 
 function doTrain()
-  if getgenv().train then
+  while getgenv().train do
     local args = {
       [1] = getgenv().selectedTrain
     }
@@ -48,7 +48,7 @@ function doTrain()
 end
 
 function dospin()
-  if getgenv().spin then
+  while getgenv().spin do
     local args = {
       [1] = "Spin+10"
     }
@@ -58,14 +58,14 @@ function dospin()
 end
 
 function dorebirth()
-  if getgenv().rebirth then
+  while getgenv().rebirth do
     game:GetService("ReplicatedStorage").Events.Stats.Re_Rebirth:FireServer()
     wait(1)
   end
 end
 
 function dotower()
-  if getgenv().towerlvl then
+  while getgenv().towerlvl do
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Challenge"):FireServer()
     wait(1)
   end
