@@ -586,7 +586,6 @@ for a, b in pairs(game.ReplicatedStorage.SkillEffects:GetDescendants()) do
 
 
 
-    -- Refresh Pets Inventory
     function CheckPetsEquipped()
         pcall(function()
             for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
@@ -596,9 +595,6 @@ for a, b in pairs(game.ReplicatedStorage.SkillEffects:GetDescendants()) do
             end
         end)
     end
-
-    CheckPetsEquipped()
-
 
     spawn(function()
         local function getNearestChest()
