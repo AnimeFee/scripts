@@ -155,32 +155,45 @@ mainTab:AddToggle({
   end    
 })
 
-local options = {
-    { Name = "5 wins!", Value = "Draw001" },
-    { Name = "2 wins", Value = "Draw002" },
-    { Name = "150 wins!", Value = "Draw003" },
-    { Name = "450 wins!", Value = "Draw004" },
-    { Name = "4k wins!", Value = "Draw005" },
-    { Name = "10k wins!", Value = "Draw006" },
-    { Name = "30k wins!", Value = "Draw007" },
-    { Name = "150k wins!", Value = "Draw008" },
-    { Name = "1.6m wins!", Value = "Draw009" },
-    { Name = "3.5m wins!", Value = "Draw010" },
-    { Name = "8m wins!", Value = "Draw011" },
-    { Name = "40m wins!", Value = "Draw012" },
-    { Name = "450m wins", Value = "Draw013" },
-    { Name = "1B wins!", Value = "Draw014" },
-    { Name = "2B wins", Value = "Draw015" },
-    { Name = "10B wins!", Value = "Draw016" },
-    { Name = "150B wins!", Value = "Draw017" },
-    { Name = "300B wins!", Value = "Draw018" },
-    { Name = "600B wins!", Value = "Draw019" },
-    { Name = "3T wins!", Value = "Draw020" },
-    { Name = "30T eggs!", Value = "Draw021" },
-    { Name = "500T eggs!", Value = "Draw022" },
-    { Name = "15Qa wins!", Value = "Draw023" },
-    { Name = "300Qa wins!", Value = "Draw024" },
+local nameMap = {
+    ["5 wins!"] = "Draw001",
+    ["2 wins"] = "Draw002",
+    ["150 wins!"] = "Draw003",
+    ["450 wins!"] = "Draw004",
+    ["4k wins!"] = "Draw005",
+    ["10k wins!"] = "Draw006",
+    ["30k wins!"] = "Draw007",
+    ["150k wins!"] = "Draw008",
+    ["1.6m wins!"] = "Draw009",
+    ["3.5m wins!"] = "Draw010",
+    ["8m wins!"] = "Draw011",
+    ["40m wins!"] = "Draw012",
+    ["450m wins"] = "Draw013",
+    ["1B wins!"] = "Draw014",
+    ["2B wins"] = "Draw015",
+    ["10B wins!"] = "Draw016",
+    ["150B wins!"] = "Draw017",
+    ["300B wins!"] = "Draw018",
+    ["600B wins!"] = "Draw019",
+    ["3T wins!"] = "Draw020",
+    ["30T eggs!"] = "Draw021",
+    ["500T eggs!"] = "Draw022",
+    ["15Qa wins!"] = "Draw023",
+    ["300Qa wins!"] = "Draw024",
 }
+local options = {}
+for _, name in pairs(Eggname) do
+    table.insert(options, { _, name })
+end
+
+mainTab:AddDropdown({
+  Name = "Select Train",
+  Default = "Draw001",
+  Options = name,
+  Callback = function(value)
+    getgenv().selectedEgg = value
+  end
+})
 
 mainTab:AddDropdown({
   Name = "Select Train",
