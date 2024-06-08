@@ -96,24 +96,6 @@ end});
 PlayerTab:AddButton({Name="Dupe",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
-AutoBuyTab:AddButton({Name="AutoBuy Gem Level 7(Ruby)",Callback=function()
-	while wait() do
-		local args = {[1]=10014};
-		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args));
-	end
-end});
-AutoBuyTab:AddButton({Name="AutoBuy Gem Level 7(Sapphire)",Callback=function()
-	while wait() do
-		local args = {[1]=10015};
-		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args));
-	end
-end});
-AutoBuyTab:AddButton({Name="AutoBuy Gem Level 7(Emerald)",Callback=function()
-	while wait() do
-		local args = {[1]=10016};
-		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args));
-	end
-end});
 autoGainPower = false;
 autoGainPowerLoop = nil;
 fireDelay = 1;
@@ -164,12 +146,7 @@ local AutoRaidToggle = AutoRaidTab:AddToggle({Name="Auto-Raid",Default=false,Cal
 		restartScript();
 	end
 end});
-local gems = {{Name="Lvl 3 Ruby",Value=10008},{Name="Lvl 3 Sapphire",Value=10009},{Name="Lvl 3 Emerald",Value=10010},{Name="Lvl 5 Ruby",Value=10011},{Name="Lvl 5 Sapphire",Value=10012},{Name="Lvl 5 Emerald",Value=10013},{Name="Lvl 7 Ruby",Value=10014},{Name="Lvl 7 Sapphire",Value=10015},{Name="Lvl 7 Emerald",Value=10016}};
-for _, gem in ipairs(gems) do
-	AutoBuyTab:AddToggle({Name=("AutoBuy " .. gem.Name),Default=false,Callback=function(Value)
-		G.AutoBuyGems[gem.Value] = not G.AutoBuyGems[gem.Value];
-	end});
-end
+
 AutoDungeonTab:AddSection({Name="Auto-Dungeon"});
 local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=dungeonMapId});
@@ -192,13 +169,6 @@ spawn(function()
 		for _, v in pairs(game.Workspace.Golds:GetChildren()) do
 			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
 		end
-		for i = 10008, 10016 do
-			if G.AutoBuyGems[i] then
-				local args = {[1]=i};
-				game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args));
-			end
-		end
-	end
 end);
 function CheckPetsEquipped()
 	pcall(function()
