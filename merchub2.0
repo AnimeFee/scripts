@@ -34,9 +34,9 @@
         WalkToEnemy = false,
         DamageBoost = true,
         DamageNumber = 0.99,
-        autoFuseSwords
-        autoSellSwords
-        autoForgeSwords
+        autoFuseSwords = false,
+        autoSellSwords = false,
+        autoForgeSwords = false,
     }
 
     -- Anti AFK #1
