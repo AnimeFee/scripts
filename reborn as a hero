@@ -155,18 +155,40 @@ mainTab:AddToggle({
   end    
 })
 
+local options = {
+    { Name = "5 wins!", Value = "Draw001" },
+    { Name = "2 wins", Value = "Draw002" },
+    { Name = "150 wins!", Value = "Draw003" },
+    { Name = "450 wins!", Value = "Draw004" },
+    { Name = "4k wins!", Value = "Draw005" },
+    { Name = "10k wins!", Value = "Draw006" },
+    { Name = "30k wins!", Value = "Draw007" },
+    { Name = "150k wins!", Value = "Draw008" },
+    { Name = "1.6m wins!", Value = "Draw009" },
+    { Name = "3.5m wins!", Value = "Draw010" },
+    { Name = "8m wins!", Value = "Draw011" },
+    { Name = "40m wins!", Value = "Draw012" },
+    { Name = "450m wins", Value = "Draw013" },
+    { Name = "1B wins!", Value = "Draw014" },
+    { Name = "2B wins", Value = "Draw015" },
+    { Name = "10B wins!", Value = "Draw016" },
+    { Name = "150B wins!", Value = "Draw017" },
+    { Name = "300B wins!", Value = "Draw018" },
+    { Name = "600B wins!", Value = "Draw019" },
+    { Name = "3T wins!", Value = "Draw020" },
+    { Name = "30T eggs!", Value = "Draw021" },
+    { Name = "500T eggs!", Value = "Draw022" },
+    { Name = "15Qa wins!", Value = "Draw023" },
+    { Name = "300Qa wins!", Value = "Draw024" },
+}
+
 mainTab:AddDropdown({
   Name = "Select Train",
-  Default = "TrainPower001",
-  Options = {
-    "Draw001", "Draw002", "Draw003", "Draw004", "Draw005", "Draw006",
-    "Draw007", "Draw008", "Draw009", "Draw010", "Draw011", "Draw012",
-    "Draw013", "Draw014", "Draw015", "Draw016", "Draw017", "Draw018",
-    "Draw019", "Draw020", "Draw021", "Draw022", "Draw023", "Draw024",
-  },
+  Default = "Draw001",
+  Options = options,
   Callback = function(value)
     getgenv().selectedEgg = value
-  end    
+  end
 })
 
 mainTab:AddToggle({
