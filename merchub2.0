@@ -27,6 +27,20 @@ ScriptsTab:AddToggle({Name="Kill Aura",Callback=function(state)
 		G.AutoFarm = not G.AutoFarm;
 	end
 end});
+ScriptsTab:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
+	if v1 then
+		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
+		if getgenv().Settings.GoldCollect then
+			spawn(function()
+				while wait() do
+					for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
+						v9.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+					end
+				end
+			end);
+		end
+	end
+end})
 local playerNames = {};
 for _, player in pairs(game.Players:GetPlayers()) do
 	table.insert(playerNames, player.Name);
@@ -164,12 +178,6 @@ AutoDungeonTab:AddToggle({Name="Auto-Dungeon(FINALLY FIXED!!!)",Default=false,Ca
 		end
 	end
 end});
-spawn(function()
-	while wait(1) do
-		for _, v in pairs(game.Workspace.Golds:GetChildren()) do
-			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
-		end
-end);
 function CheckPetsEquipped()
 	pcall(function()
 		for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
