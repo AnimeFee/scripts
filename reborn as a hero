@@ -236,34 +236,33 @@ function dochest()
 		end
 	end
 
-	function dokillaura()
-		while getgenv().killaura do
-			local ReplicatedStorage = game:GetService("ReplicatedStorage");
-			local Events = ReplicatedStorage.Events.Fight;
-			local function damageNPC(npcName)
-				local args = {[1]=npcName,[2]=3};
-				Events.Re_TakeDamage:FireServer(unpack(args));
-			end
-			local function toggleDamageForNPCs(npcNames)
-				for _, npcName in ipairs(npcNames) do
-					damageNPC(npcName);
-				end
-			end
-			local NPCsToDamage = {"Npc001","Npc002","Npc003","Npc004","Npc005","Npc006","Npc007","Npc008","Npc009","Npc010","Npc011","Npc012","Npc013","Npc014","Npc015","Npc016","Npc017","Npc018","Npc019","Npc020","Npc021","Npc022","Npc023","Npc024","Npc025","Npc026","Npc027","Npc028","Npc029","Npc030","Npc031","Npc032","Npc033","Npc034","Npc035","Npc036","Npc037","Npc038","Npc039","Npc040","Npc041","Npc042","Npc043","Npc044","Npc045","Npc046","Npc047"};
-			local damageEnabled = false;
-			local function toggleDamageAura()
-				damageEnabled = not damageEnabled;
-				if damageEnabled then
-					toggleDamageForNPCs(NPCsToDamage);
-					print("Damage aura enabled");
-				else
-					print("Damage aura disabled");
-				end
-			end
-			toggleDamageAura();
-			wait(0.1);
-			toggleDamageAura();
-			wait(0.1);
+
+function dokillaura()
+	while getgenv().killaura == true do
+		local ReplicatedStorage = game:GetService("ReplicatedStorage");
+		local Events = ReplicatedStorage.Events.Fight;
+		local function damageNPC(npcName)
+			local args = {[1]=npcName,[2]=3};
+			Events.Re_TakeDamage:FireServer(unpack(args));
 		end
+		local function toggleDamageForNPCs(npcNames)
+			for _, npcName in ipairs(npcNames) do
+				damageNPC(npcName);
+			end
+		end
+		local NPCsToDamage = {"Npc001","Npc002","Npc003","Npc004","Npc005","Npc006","Npc007","Npc008","Npc009","Npc010","Npc011","Npc012","Npc013","Npc014","Npc015","Npc016","Npc017","Npc018","Npc019","Npc020","Npc021","Npc022","Npc023","Npc024","Npc025","Npc026","Npc027","Npc028","Npc029","Npc030","Npc031","Npc032","Npc033","Npc034","Npc035","Npc036","Npc037","Npc038","Npc039","Npc040","Npc041","Npc042","Npc043","Npc044","Npc045","Npc046","Npc047"};
+		local damageEnabled = false;
+		local function toggleDamageAura()
+			damageEnabled = not damageEnabled;
+			if damageEnabled then
+				toggleDamageForNPCs(NPCsToDamage);
+				print("Damage aura enabled");
+			else
+				print("Damage aura disabled");
+			end
+		end
+		toggleDamageAura();
+		toggleDamageAura();
+		wait(0.1);
 	end
 end
