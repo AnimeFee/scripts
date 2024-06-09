@@ -240,7 +240,7 @@ function dochest()
 		elseif (getgenv().selectedChest == "Diamond Chest") then
 			local args = {[1]="Hatch",[2]="Box003"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
-			wait(0.1);
+			end
+			wait(1);
 		end
 	end
-end
