@@ -255,3 +255,4 @@ function dokillaura()
         wait(0.1);
     end
 end
+end
