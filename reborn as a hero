@@ -396,7 +396,32 @@ end
 EggsTab:AddDropdown({
   Name = "Select Egg",
   Default = "",
-  Options = {5 wins!,25 wins!,150 wins!,450 wins!,4k wins!,10k wins!,30k wins!,150k wins!,1.6m wins!,3.5m wins!,8m wins!,40m wins!,450m wins!,1B wins!,2B wins,10B wins!,150B wins!,300B wins!,600B wins!,3T wins!,30T eggs!,500T eggs!,15Qa wins!,300Qa wins!,},
+  Options = {
+  "5 wins!",
+  "25 wins!",
+  "150 wins!",
+  "450 wins!",
+  "4k wins!",
+  "10k wins!",
+  "30k wins!",
+  "150k wins!",
+  "1.6m wins!",
+  "3.5m wins!",
+  "8m wins!",
+  "40m wins!",
+  "450m wins!",
+  "1B wins!",
+  "2B wins",
+  "10B wins!",
+  "150B wins!",
+  "300B wins!",
+  "600B wins!",
+  "3T wins!",
+  "30T eggs!",
+  "500T eggs!",
+  "15Qa wins!",
+  "300Qa wins!",
+  }  
   Callback = function(value)
     getgenv().selectedEgg = value
   end
