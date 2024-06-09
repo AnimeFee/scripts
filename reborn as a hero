@@ -1,47 +1,50 @@
+
+--Orion
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
 local Window = OrionLib:MakeWindow({Name="SOGAY",HidePremium=false,IntroEnabled=false,SaveConfig=true,ConfigFolder="OrionTest"});
 
---tabs
-local infoTab = Window:MakeTab({Name = "Info & Credits",Icon = "rbxassetid://4483345998",PremiumOnly = false})
+--Tabs
+local infoTab = Window:MakeTab({Name="Info & Credits",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local mainTab = Window:MakeTab({Name="farm",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local EnCTab = Window:MakeTab({Name="Eggs/Chests",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local othersTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
-
---sections
+--Sections
 local EggsTab = EnCTab:AddSection({Name="Eggs"});
 local ChestTab = EnCTab:AddSection({Name="Chests"});
 
---table
-getgenv().train = false;
-getgenv().egg = false;
-getgenv().chest = false;
+--dropdown defeaults
 getgenv().selectedTrain = "TrainPower001";
 getgenv().selectedEgg = "Draw001";
 getgenv().selectedChest = "Box001";
+
+--toggle defaults
+getgenv().train = false;
+getgenv().egg = false;
+getgenv().chest = false;
 getgenv().spin = false;
 getgenv().rebirth = false;
 getgenv().towerlvl = false;
 getgenv().killaura = false;
 
-
---maintab
+--kill aura function
 function dokillaura()
-    while getgenv().killaura do
-        local ReplicatedStorage = game:GetService("ReplicatedStorage");
-        local Events = ReplicatedStorage.Events.Fight;
-        local function damageNPC(npcName)
-            local args = {[1]=npcName,[2]=3};
-            Events.Re_TakeDamage:FireServer(unpack(args));
-        end
-        local NPCsToDamage = {"Npc001","Npc002","Npc003","Npc004","Npc005","Npc006","Npc007","Npc008","Npc009","Npc010","Npc011","Npc012","Npc013","Npc014","Npc015","Npc016","Npc017","Npc018","Npc019","Npc020","Npc021","Npc022","Npc023","Npc024","Npc025","Npc026","Npc027","Npc028","Npc029","Npc030","Npc031","Npc032","Npc033","Npc034","Npc035","Npc036","Npc037","Npc038","Npc039","Npc040","Npc041","Npc042","Npc043","Npc044","Npc045","Npc046","Npc047"};
-        for _, npcName in ipairs(NPCsToDamage) do
-            damageNPC(npcName);
-        end
-        wait(0.1); -- add a short delay to prevent excessive calls
-    end
+	while getgenv().killaura do
+		local ReplicatedStorage = game:GetService("ReplicatedStorage");
+		local Events = ReplicatedStorage.Events.Fight;
+		local function damageNPC(npcName)
+			local args = {[1]=npcName,[2]=3};
+			Events.Re_TakeDamage:FireServer(unpack(args));
+		end
+		local NPCsToDamage = {"Npc001","Npc002","Npc003","Npc004","Npc005","Npc006","Npc007","Npc008","Npc009","Npc010","Npc011","Npc012","Npc013","Npc014","Npc015","Npc016","Npc017","Npc018","Npc019","Npc020","Npc021","Npc022","Npc023","Npc024","Npc025","Npc026","Npc027","Npc028","Npc029","Npc030","Npc031","Npc032","Npc033","Npc034","Npc035","Npc036","Npc037","Npc038","Npc039","Npc040","Npc041","Npc042","Npc043","Npc044","Npc045","Npc046","Npc047"};
+		for _, npcName in ipairs(NPCsToDamage) do
+			damageNPC(npcName);
+		end
+		wait(0.1);
+	end
 end
 
+--maintab
 mainTab:AddToggle({Name="kill aura!",Default=false,Callback=function(bool)
 	getgenv().killaura = bool;
 	if bool then
@@ -71,7 +74,7 @@ mainTab:AddToggle({Name="Auto Train",Default=false,Callback=function(bool)
 	end
 end});
 
---egg&chesttab
+--Egg Section
 EggsTab:AddDropdown({Name="Select Egg",Default="",Options={"5 wins!","25 wins!","150 wins!","450 wins!","4k wins!","10k wins!","30k wins!","150k wins!","1.6m wins!","3.5m wins!","8m wins!","40m wins!","450m wins!","1B wins!","2B wins!","10B wins!","150B wins!","300B wins!","600B wins!","3T wins!","30T eggs!","500T eggs!","15Qa wins!","300Qa wins!"},Callback=function(value)
 	getgenv().selectedEgg = value;
 end});
@@ -82,6 +85,7 @@ EggsTab:AddToggle({Name="Auto Open",Default=false,Callback=function(bool)
 	end
 end});
 
+--Chest Section
 ChestTab:AddDropdown({Name="Select Chest",Default="Box001",Options={"Bronze Chest","Gold Chest","Diamond Chest"},Callback=function(chest)
 	getgenv().selectedChest = chest;
 end});
@@ -92,7 +96,7 @@ ChestTab:AddToggle({Name="Auto Open Chest",Default=false,Callback=function(bool)
 	end
 end});
 
---otherstab
+--Others Tab
 othersTab:AddToggle({Name="auto spin!",Default=false,Callback=function(bool)
 	getgenv().spin = bool;
 	if bool then
@@ -112,14 +116,17 @@ othersTab:AddToggle({Name="Go To Next Tower Lvl",Default=false,Callback=function
 	end
 end});
 
---info and credit tab stuff
-infoTab:AddParagraph("Made By", "recreated by akira")
-infoTab:AddParagraph("Information", "The eggs indicate which 5-win egg (pink) you opened, but it's purely visual. It awards you the corresponding pet of the egg you opened.")
-infoTab:AddParagraph("Join Our Discord", "For more updates and scripts, join our Discord community by visiting the channel below:")
-infoTab:AddButton({Name = "Copy youtube Link",Callback = function()setclipboard("https://www.youtube.com/@takatakgamer8521?si=q94tBpxKXPYuCCFM")print("Discord link copied to clipboard")end})
+--Info
+infoTab:AddParagraph("Made By", "recreated by akira");
+infoTab:AddParagraph("Information", "The eggs indicate which 5-win egg (pink) you opened, but it's purely visual. It awards you the corresponding pet of the egg you opened.");
+infoTab:AddParagraph("Join Our Discord", "For more updates and scripts, join our Discord community by visiting the channel below:");
+infoTab:AddButton({Name="Copy youtube Link",Callback=function()
+	setclipboard("https://www.youtube.com/@takatakgamer8521?si=q94tBpxKXPYuCCFM");
+	print("Discord link copied to clipboard");
+end});
+
 
 --functions
-
 function doEgg()
 	while getgenv().egg do
 		if (getgenv().selectedEgg == "5 wins!") then
@@ -198,7 +205,6 @@ function doEgg()
 		wait(2);
 	end
 end
-
 function doTrain()
 	while getgenv().train do
 		local args = {[1]=getgenv().selectedTrain};
@@ -206,7 +212,6 @@ function doTrain()
 		wait(0.1);
 	end
 end
-
 function dospin()
 	while getgenv().spin do
 		local args = {[1]="Spin"};
@@ -214,21 +219,18 @@ function dospin()
 		wait(0.1);
 	end
 end
-
 function dorebirth()
 	while getgenv().rebirth do
 		game:GetService("ReplicatedStorage").Events.Stats.Re_Rebirth:FireServer();
 		wait(1);
 	end
 end
-
 function dotower()
 	while getgenv().towerlvl do
 		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Challenge"):FireServer();
 		wait(7);
 	end
 end
-
 function dochest()
 	while getgenv().chest do
 		if (getgenv().selectedChest == "Bronze Chest") then
@@ -240,7 +242,7 @@ function dochest()
 		elseif (getgenv().selectedChest == "Diamond Chest") then
 			local args = {[1]="Hatch",[2]="Box003"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
-			end
-			wait(1);
 		end
+		wait(1);
 	end
+end
