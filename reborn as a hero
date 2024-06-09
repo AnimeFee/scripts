@@ -72,7 +72,7 @@ mainTab:AddToggle({Name="Auto Train",Default=false,Callback=function(bool)
 end});
 
 --egg&chesttab
-EggsTab:AddDropdown({Name="Select Egg",Default="",Options={"5 wins!","25 wins!","150 wins!","450 wins!","4k wins!","10k wins!","30k wins!","150k wins!","1.6m wins!","3.5m wins!","8m wins!","40m wins!","450m wins!","1B wins!","2B wins","10B wins!","150B wins!","300B wins!","600B wins!","3T wins!","30T eggs!","500T eggs!","15Qa wins!","300Qa wins!"},Callback=function(value)
+EggsTab:AddDropdown({Name="Select Egg",Default="",Options={"5 wins!","25 wins!","150 wins!","450 wins!","4k wins!","10k wins!","30k wins!","150k wins!","1.6m wins!","3.5m wins!","8m wins!","40m wins!","450m wins!","1B wins!","2B wins!","10B wins!","150B wins!","300B wins!","600B wins!","3T wins!","30T eggs!","500T eggs!","15Qa wins!","300Qa wins!"},Callback=function(value)
 	getgenv().selectedEgg = value;
 end});
 EggsTab:AddToggle({Name="Auto Open",Default=false,Callback=function(bool)
@@ -131,7 +131,7 @@ function doEgg()
 		if (getgenv().selectedEgg == "5 wins!") then
 			local args = {[1]="Hatch",[2]="Draw001",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
-		elseif (getgenv().selectedEgg == "25 wins") then
+		elseif (getgenv().selectedEgg == "25 wins!") then
 			local args = {[1]="Hatch",[2]="Draw002",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 		elseif (getgenv().selectedEgg == "150 wins!") then
@@ -164,13 +164,13 @@ function doEgg()
 		elseif (getgenv().selectedEgg == "40m wins!") then
 			local args = {[1]="Hatch",[2]="Draw012",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
-		elseif (getgenv().selectedEgg == "450m wins") then
+		elseif (getgenv().selectedEgg == "450m wins!") then
 			local args = {[1]="Hatch",[2]="Draw013",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 		elseif (getgenv().selectedEgg == "1B wins!") then
 			local args = {[1]="Hatch",[2]="Draw014",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
-		elseif (getgenv().selectedEgg == "2B wins") then
+		elseif (getgenv().selectedEgg == "2B wins!") then
 			local args = {[1]="Hatch",[2]="Draw015",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 		elseif (getgenv().selectedEgg == "10B wins!") then
