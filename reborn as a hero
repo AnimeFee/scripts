@@ -35,7 +35,7 @@ function dokillaura()
 			local args = {[1]=npcName,[2]=3};
 			Events.Re_TakeDamage:FireServer(unpack(args));
 		end
-		local NPCsToDamage = {"Npc001","Npc002","Npc003","Npc004","Npc005","Npc006","Npc007","Npc008","Npc009","Npc010","Npc011","Npc012","Npc013","Npc014","Npc015","Npc016","Npc017","Npc018","Npc019","Npc020","Npc021","Npc022","Npc023","Npc024","Npc025","Npc026","Npc027","Npc028","Npc029","Npc030","Npc031","Npc032","Npc033","Npc034","Npc035","Npc036","Npc037","Npc038","Npc039","Npc040","Npc041","Npc042","Npc043","Npc044","Npc045","Npc046","Npc047","Npc048","Npc049","Npc050","Npc051","Npc052","Npc053","Npc054","Npc055","Npc056","Npc057,"Npc058","Npc059","Npc060"};
+		local NPCsToDamage = {"Npc001","Npc002","Npc003","Npc004","Npc005","Npc006","Npc007","Npc008","Npc009","Npc010","Npc011","Npc012","Npc013","Npc014","Npc015","Npc016","Npc017","Npc018","Npc019","Npc020","Npc021","Npc022","Npc023","Npc024","Npc025","Npc026","Npc027","Npc028","Npc029","Npc030","Npc031","Npc032","Npc033","Npc034","Npc035","Npc036","Npc037","Npc038","Npc039","Npc040","Npc041","Npc042","Npc043","Npc044","Npc045","Npc046","Npc047","Npc048","Npc049","Npc050","Npc051","Npc052","Npc053","Npc054","Npc055","Npc056","Npc057","Npc058","Npc059","Npc060"};
 		for _, npcName in ipairs(NPCsToDamage) do
 			damageNPC(npcName);
 		end
