@@ -75,7 +75,7 @@ mainTab:AddToggle({Name="Auto Train",Default=false,Callback=function(bool)
 end});
 
 --Egg Section
-EggsTab:AddDropdown({Name="Select Egg",Default="",Options={"5 wins!","25 wins!","150 wins!","450 wins!","4k wins!","10k wins!","30k wins!","150k wins!","1.6m wins!","3.5m wins!","8m wins!","40m wins!","450m wins!","1B wins!","2B wins!","10B wins!","150B wins!","300B wins!","600B wins!","3T wins!","30T eggs!","500T eggs!","15Qa wins!","300Qa wins!"},Callback=function(value)
+EggsTab:AddDropdown({Name="Select Egg",Default="",Options={"5 wins!","25 wins!","150 wins!","450 wins!","4k wins!","10k wins!","30k wins!","150k wins!","1.6m wins!","3.5m wins!","8m wins!","40m wins!","450m wins!","1B wins!","2B wins!","10B wins!","150B wins!","300B wins!","600B wins!","3T wins!","30T eggs!","500T eggs!","15Qa wins!","300Qa wins!","4.5Qi wins!","85Qi wins!"},Callback=function(value)
 	getgenv().selectedEgg = value;
 end});
 EggsTab:AddToggle({Name="Auto Open",Default=false,Callback=function(bool)
@@ -200,6 +200,12 @@ function doEgg()
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 		elseif (getgenv().selectedEgg == "300Qa wins!") then
 			local args = {[1]="Hatch",[2]="Draw024",[3]={}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
+		elseif (getgenv().selectedEgg == "4.5Qi wins!") then
+			local args = {[1]="Hatch",[2]="Draw025",[3]={}};
+			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
+		elseif (getgenv().selectedEgg == "85Qi wins!") then
+			local args = {[1]="Hatch",[2]="Draw026",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 		end
 		wait(2);
