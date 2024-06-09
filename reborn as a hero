@@ -81,6 +81,7 @@ EggsTab:AddToggle({Name="Auto Open",Default=false,Callback=function(bool)
 		doEgg();
 	end
 end});
+
 ChestTab:AddDropdown({Name="Select Chest",Default="Box001",Options={"Bronze Chest","Gold Chest","Diamond Chest"},Callback=function(chest)
 	getgenv().selectedChest = chest;
 end});
