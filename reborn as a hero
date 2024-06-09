@@ -232,7 +232,13 @@ local Eggname = {
     ["Draw024"] = "300Qa wins!",
 }
 
-EggsTab:AddDropdown({Name="Select Egg",Options=Eggname,Callback=function(selectedEgg)
+local eggoptions = {}
+for _, name in pairs(Eggname) do
+    table.insert(eggoptions, name)
+end
+
+
+EggsTab:AddDropdown({Name="Select Egg",Options=eggoptions,Callback=function(selectedEgg)
     getgenv().selectedEgg = selectedEgg;
 end});
 
@@ -248,15 +254,16 @@ local Chestname = {
     ["Box002"] = "Gold Chest",
     ["Box003"] = "Diamond Chest",
 }
-local options = {}
+
+local chestoptions = {}
 for _, name in pairs(Chestname) do
-    table.insert(options, name)
+    table.insert(chestoptions, name)
 end
 
 ChestTab:AddDropdown({
   Name = "Select Chest",
   Default = "Draw001",
-  Options = options,
+  Options = chestoptions,
   Callback = function(chest)
     getgenv().selectedChest = chest
   end
