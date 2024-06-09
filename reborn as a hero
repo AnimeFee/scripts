@@ -235,8 +235,6 @@ function dotower()
 	end
 end
 
-local args = {[1]="Hatch",[2]=tostring(getgenv().selectedChest)};
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 function dochest()
 	while getgenv().chest do
 		if (getgenv().selectedEgg == "Bronze Chest") then
@@ -251,7 +249,4 @@ function dochest()
 			wait(0.1);
 		end
 	end
-
-
-
 end
