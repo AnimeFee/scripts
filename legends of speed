@@ -215,7 +215,7 @@ end
 
 function autoElectroLegendsEggHatch()
 	while getgenv().autoElectroLegendsEgg do
-		local args = {[1]="openCrystal",[2]="Electro Legends Crystal "];
+		local args = {[1]="openCrystal",[2]="Electro Legends Crystal "};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
