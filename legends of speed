@@ -1,0 +1,135 @@
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
+local Window = OrionLib:MakeWindow({Name="All universe hub kamehameha sim",HidePremium=false,IntroText="All universe hub",SaveConfig=true,ConfigFolder="OrionTest"});
+
+local mainTab = Window:MakeTab({Name="main",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local normal = Window:MakeTab({Name="city ",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local hatchTab = Window:MakeTab({Name="hatching ",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local teleportTab = Window:MakeTab({Name="teleport",Icon="rbxassetid://4483345998",PremiumOnly=false});
+
+getgenv().raid = false;
+getgenv().rebirth = false;
+getgenv().City = false;
+getgenv().Snow = false;
+getgenv().Magma = false;
+getgenv().Highway = false;
+
+function doraid()
+	while getgenv().raid == true do
+		local args = {[1]="joinRace"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("raceEvent"):FireServer(unpack(args));
+		wait(0.1);
+	end
+end
+function dot()
+	while getgenv().rebirth == true do
+		local args = {[1]="rebirthRequest"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("rebirthEvent"):FireServer(unpack(args));
+		wait(0.1);
+	end
+end
+
+mainTab:AddToggle({Name="auto race join",Default=false,Callback=function(bool)
+	getgenv().raid = bool;
+	if bool then
+		doraid();
+	end
+end});
+mainTab:AddToggle({Name="auto rebrith",Default=false,Callback=function(bool)
+	getgenv().rebirth = bool;
+	if bool then
+		dot();
+	end
+end});
+
+
+
+function doCity()
+	while getgenv().City do
+		local args = {[1]="collectOrb",[2]="Gem",[3]="City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Red Orb",[3]="City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Yellow Orb",[3]="City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		wait(0.001);
+	end
+end
+function doSnow()
+	while getgenv().Snow do
+		local args = {[1]="collectOrb",[2]="Gem",[3]="Snow City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Red Orb",[3]="Snow City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Yellow Orb",[3]="Snow City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		wait(0.001);
+	end
+end
+function doMagma()
+	while getgenv().Magma do
+		local args = {[1]="collectOrb",[2]="Gem",[3]="Magma City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Red Orb",[3]="Magma City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Yellow Orb",[3]="Magma City"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		wait(0.001);
+	end
+end
+function doHighway()
+	while getgenv().Highway do
+		local args = {[1]="collectOrb",[2]="Gem",[3]="Legends Highway"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Red Orb",[3]="Legends Highway"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		local args = {[1]="collectOrb",[2]="Yellow Orb",[3]="Legends Highway"};
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("orbEvent"):FireServer(unpack(args));
+		wait();
+	end
+end
+
+normal:AddToggle({Name="Auto Level City",Default=false,Callback=function(bool)
+	getgenv().City = bool;
+	if bool then
+		doCity();
+	end
+end});
+normal:AddToggle({Name="Auto Level SNOW",Default=false,Callback=function(bool)
+	getgenv().Snow = bool;
+	if bool then
+		doSnow();
+	end
+end});
+normal:AddToggle({Name="Auto Level Magma",Default=false,Callback=function(bool)
+	getgenv().Magma = bool;
+	if bool then
+		doMagma();
+	end
+end});
+normal:AddToggle({Name="Auto Level HW",Default=false,Callback=function(bool)
+	getgenv().Highway = bool;
+	if bool then
+		DoHighway();
+	end
+end});
+
+teleportTab:AddButton({Name="teleport to city",Callback=function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-577.49353, 4.64937019, 363.274475, 0.993908703, 1.3493366e-9, -0.110206693, 9.523086e-9, 1, 9.812848e-8, 0.110206693, -9.858026e-8, 0.993908703);
+	wait();
+	print("button pressed");
+end});
+teleportTab:AddButton({Name="teleport to snowcity",Callback=function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-885.145142, 4.69937038, 2161.77905, -0.259293556, -5.809518e-8, 0.965798557, 2.833148e-8, 1, 6.77588e-8, -0.965798557, 4.4931923e-8, -0.259293556);
+	wait();
+	print("button pressed");
+end});
+teleportTab:AddButton({Name="teleport to magma city",Callback=function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1616.82703, 14.2799845, 4330.65234, 0, 0, -1, 0, 1, 0, 1, 0, 0);
+	wait();
+	print("button pressed");
+end});
+teleportTab:AddButton({Name="teleport to legend highway",Callback=function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3687.31519, 72.2293015, 5598.83984, 0.128497094, -2.962948e-8, -0.991709888, 5.9446712e-8, 1, -2.2174579e-8, 0.991709888, -5.6104522e-8, 0.128497094);
+	wait();
+	print("button pressed");
+end});
