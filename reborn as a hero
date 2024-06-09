@@ -47,7 +47,7 @@ function doEgg()
   while getgenv().egg do
     local args = {
       [1] = "Hatch",
-      [2] = getgenv().selectedEgg,
+      [2] = tostring(getgenv().selectedEgg),
       [3] = {}
     }
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
@@ -68,7 +68,7 @@ end
 function dospin()
   while getgenv().spin do
     local args = {
-      [1] = "Spin+10"
+      [1] = "Spin"
     }
     game:GetService("ReplicatedStorage").Events.Market.Re_Product:FireServer(unpack(args))
     wait(0.1)
@@ -93,7 +93,7 @@ function dochest()
 while getgenv().chest == true do
     local args = {
       [1] = "Hatch",
-      [2] = getgenv().selectedChest
+      [2] = tostring(getgenv().selectedChest)
     }
 
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
@@ -205,15 +205,40 @@ mainTab:AddToggle({
   end    
 })
 
+  local Eggname = {
+  Draw001 = "5 wins!",
+  Draw002 = "2 wins",
+  Draw003 = "150 wins!",
+  Draw004 = "450 wins!",
+  Draw005 = "4k wins!",
+  Draw006 = "10k wins!",
+  Draw007 = "30k wins!",
+  Draw008 = "150k wins!",
+  Draw009 = "1.6m wins!",
+  Draw010 = "3.5m wins!",
+  Draw011 = "8m wins!",
+  Draw012 = "40m wins!",
+  Draw013 = "450m wins",
+  Draw014 = "1B wins!",
+  Draw015 = "2B wins",
+  Draw016 = "10B wins!",
+  Draw017 = "150B wins!",
+  Draw018 = "300B wins!",
+  Draw019 = "600B wins!",
+  Draw020 = "3T wins!",
+  Draw021 = "30T eggs!",
+  Draw022 = "500T eggs!",
+  Draw023 = "15Qa wins!",
+  Draw024 = "300Qa wins!",
+  }
+  local options = {};
+  for _, name in pairs(Eggname) do
+	table.insert(options, name);
+  end
 EggsTab:AddDropdown({
-  Name = "Select Train",
-  Default = "TrainPower001",
-  Options = {
-    "Draw001", "Draw002", "Draw003", "Draw004", "Draw005", "Draw006",
-    "Draw007", "Draw008", "Draw009", "Draw010", "Draw011", "Draw012",
-    "Draw013", "Draw014", "Draw015", "Draw016", "Draw017", "Draw018",
-    "Draw019", "Draw020", "Draw021", "Draw022", "Draw023", "Draw024",
-  },
+  Name = "Select Egg",
+  Default = "",
+  Options = options,
   Callback = function(value)
     getgenv().selectedEgg = value
   end
@@ -232,7 +257,7 @@ EggsTab:AddToggle({
 
 ChestTab:AddDropdown({
   Name = "Select Chest",
-  Default = "Draw001",
+  Default = "Box001",
   Options = {"Box001","Box002","Box003"},
   Callback = function(chest)
     getgenv().selectedChest = chest
