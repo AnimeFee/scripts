@@ -206,40 +206,40 @@ mainTab:AddToggle({
 })
 
   local Eggname = {
-  Draw001 = ["5 wins!"],
-  Draw002 = ["2 wins"],
-  Draw003 = ["150 wins!"],
-  Draw004 = ["450 wins!"],
-  Draw005 = ["4k wins!"],
-  Draw006 = ["10k wins!"],
-  Draw007 = ["30k wins!"],
-  Draw008 = ["150k wins!"],
-  Draw009 = ["1.6m wins!"],
-  Draw010 = ["3.5m wins!"],
-  Draw011 = ["8m wins!"],
-  Draw012 = ["40m wins!"],
-  Draw013 = ["450m wins"],
-  Draw014 = ["1B wins!"],
-  Draw015 = ["2B wins"],
-  Draw016 = ["10B wins!"],
-  Draw017 = ["150B wins!"],
-  Draw018 = ["300B wins!"],
-  Draw019 = ["600B wins!"],
-  Draw020 = ["3T wins!"],
-  Draw021 = ["30T eggs!"],
-  Draw022 = ["500T eggs!"],
-  Draw023 = ["15Qa wins!"],
-  Draw024 = ["300Qa wins!"],
+  Draw001 = "5 wins!",
+  Draw002 = "2 wins",
+  Draw003 = "150 wins!",
+  Draw004 = "450 wins!",
+  Draw005 = "4k wins!",
+  Draw006 = "10k wins!",
+  Draw007 = "30k wins!",
+  Draw008 = "150k wins!",
+  Draw009 = "1.6m wins!",
+  Draw010 = "3.5m wins!",
+  Draw011 = "8m wins!",
+  Draw012 = "40m wins!",
+  Draw013 = "450m wins",
+  Draw014 = "1B wins!",
+  Draw015 = "2B wins",
+  Draw016 = "10B wins!",
+  Draw017 = "150B wins!",
+  Draw018 = "300B wins!",
+  Draw019 = "600B wins!",
+  Draw020 = "3T wins!",
+  Draw021 = "30T eggs!",
+  Draw022 = "500T eggs!",
+  Draw023 = "15Qa wins!",
+  Draw024 = "300Qa wins!",
   }
-  local name = {};
-  for _, name in pairs(Eggname) do
-	table.insert(name,options);
-  end
+  local options = {}
+  for key, _ in pairs(Eggname) do
+  table.insert(options, key)
+end
 
 EggsTab:AddDropdown({
   Name = "Select Egg",
   Default = "",
-  Options = name,
+  Options = options,
   Callback = function(value)
     getgenv().selectedEgg = value
   end
@@ -309,4 +309,3 @@ othersTab:AddToggle({
     end
   end    
 })
-
