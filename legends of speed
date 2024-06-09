@@ -13,16 +13,7 @@ getgenv().Snow = false;
 getgenv().Magma = false;
 getgenv().Highway = false;
 
---EGGS
-getgenv().re = false
-getgenv().bl = false
-getgenv().yo = false
-getgenv().gr = false
-getgenv().pu = false
-getgenv().sc = false
-getgenv().ic = false
-getgenv().lc = false
-getgenv().ec = false
+
 
 function doraid()
 	while getgenv().raid  do
@@ -146,122 +137,150 @@ teleportTab:AddButton({Name="teleport to legend highway",Callback=function()
 end});
 
 
-function dore()
-	while getgenv().re do
+-- Initialize variables
+getgenv().autoRedEgg = false
+getgenv().autoBlueEgg = false
+getgenv().autoYellowEgg = false
+getgenv().autoLightningEgg = false
+getgenv().autoPurpleEgg = false
+getgenv().autoSnowEgg = false
+getgenv().autoInfernoEgg = false
+getgenv().autoLavaEgg = false
+getgenv().autoElectroLegendsEgg = false
+
+-- Functions to automate egg hatching
+function autoRedEggHatch()
+	while getgenv().autoRedEgg do
 		local args = {[1]="openCrystal",[2]="Red Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function dobl()
-	while getgenv().bl do
+
+function autoBlueEggHatch()
+	while getgenv().autoBlueEgg do
 		local args = {[1]="openCrystal",[2]="Blue Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function doyo()
-	while getgenv().yo do
+
+function autoYellowEggHatch()
+	while getgenv().autoYellowEgg do
 		local args = {[1]="openCrystal",[2]="Yellow Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function dogr()
-	while getgenv().gr do
+
+function autoLightningEggHatch()
+	while getgenv().autoLightningEgg do
 		local args = {[1]="openCrystal",[2]="Lightning Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function dopu()
-	while getgenv().pu do
-		local args = {[1]="openCrystal",[2]="purple Crystal"};
+
+function autoPurpleEggHatch()
+	while getgenv().autoPurpleEgg do
+		local args = {[1]="openCrystal",[2]="Purple Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function dosc()
-	while getgenv().sc do
+
+function autoSnowEggHatch()
+	while getgenv().autoSnowEgg do
 		local args = {[1]="openCrystal",[2]="Snow Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function doic()
-	while getgenv().ic do
+
+function autoInfernoEggHatch()
+	while getgenv().autoInfernoEgg do
 		local args = {[1]="openCrystal",[2]="Inferno Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function dolc()
-	while getgenv().lc do
+
+function autoLavaEggHatch()
+	while getgenv().autoLavaEgg do
 		local args = {[1]="openCrystal",[2]="Lava Crystal"};
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
-function doec()
-	while getgenv().ec  do
-		local args = {[1]="openCrystal",[2]="Electro Legends Crystal "};
+
+function autoElectroLegendsEggHatch()
+	while getgenv().autoElectroLegendsEgg do
+		local args = {[1]="openCrystal",[2]="Electro Legends Crystal "];
 		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
 		wait(0.5);
 	end
 end
 
-hatchTab:AddToggle({Name="auto 300 gems egg",Default=false,Callback=function(bool)
-	getgenv().re = bool;
+-- Add toggles to the hatch tab
+hatchTab:AddToggle({Name="Auto 300 Gems Egg", Default=false, Callback=function(bool)
+	getgenv().autoRedEgg = bool;
 	if bool then
-		dore();
-	end
-end});
-hatchTab:AddToggle({Name="auto 600 gems egg",Default=false,Callback=function(bool)
-	getgenv().bl = bool;
-	if bool then
-		dobl();
-	end
-end});
-hatchTab:AddToggle({Name="auto 1k gems egg",Default=false,Callback=function(bool)
-	getgenv().pu = bool;
-	if bool then
-		dopu();
-	end
-end});
-hatchTab:AddToggle({Name="auto 1.2k gems egg",Default=false,Callback=function(bool)
-	getgenv().yo = bool;
-	if bool then
-		dosyo();
-	end
-end});
-hatchTab:AddToggle({Name="auto 2.5k gems egg",Default=false,Callback=function(bool)
-	getgenv().gr = bool;
-	if bool then
-		dogr();
-	end
-end});
-hatchTab:AddToggle({Name="auto hatch 4k egg ",Default=false,Callback=function(bool)
-	getgenv().sc = bool;
-	if bool then
-		dosc();
-	end
-end});
-hatchTab:AddToggle({Name="auto Inferno hatch ",Default=false,Callback=function(bool)
-	getgenv().ic = bool;
-	if bool then
-		doic();
-	end
-end});
-hatchTab:AddToggle({Name="auto lava hatch ",Default=false,Callback=function(bool)
-	getgenv().lc = bool;
-	if bool then
-		dolc();
-	end
-end});
-hatchTab:AddToggle({Name="auto 100k egg",Default=false,Callback=function(bool)
-	getgenv().ec = bool;
-	if bool then
-		doec();
+		autoRedEggHatch();
 	end
 end});
 
+hatchTab:AddToggle({Name="Auto 600 Gems Egg", Default=false, Callback=function(bool)
+	getgenv().autoBlueEgg = bool;
+	if bool then
+		autoBlueEggHatch();
+	end
+end});
+
+hatchTab:AddToggle({Name="Auto 1k Gems Egg", Default=false, Callback=function(bool)
+	getgenv().autoPurpleEgg = bool;
+	if bool then
+		autoPurpleEggHatch();
+	end
+end});
+
+hatchTab:AddToggle({Name="Auto 1.2k Gems Egg", Default=false, Callback=function(bool)
+	getgenv().autoYellowEgg = bool;
+	if bool then
+		autoYellowEggHatch();
+	end
+end});
+
+hatchTab:AddToggle({Name="Auto 2.5k Gems Egg", Default=false, Callback=function(bool)
+	getgenv().autoLightningEgg = bool;
+	if bool then
+		autoLightningEggHatch();
+	end
+end});
+
+hatchTab:AddToggle({Name="Auto Hatch 4k Egg", Default=false, Callback=function(bool)
+	getgenv().autoSnowEgg = bool;
+	if bool then
+		autoSnowEggHatch();
+	end
+end});
+
+hatchTab:AddToggle({Name="Auto Inferno Hatch", Default=false, Callback=function(bool)
+	getgenv().autoInfernoEgg = bool;
+	if bool then
+		autoInfernoEggHatch();
+	end
+end});
+
+hatchTab:AddToggle({Name="Auto Lava Hatch", Default=false, Callback=function(bool)
+	getgenv().autoLavaEgg = bool;
+	if bool then
+		autoLavaEggHatch();
+	end
+end});
+
+hatchTab:AddToggle({Name="Auto 100k Egg", Default=false, Callback=function(bool)
+	getgenv().autoElectroLegendsEgg = bool;
+	if bool then
+		autoElectroLegendsEggHatch();
+	end
+end});
