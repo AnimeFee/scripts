@@ -4,8 +4,11 @@ local Window = OrionLib:MakeWindow({Name="SOGAY",HidePremium=false,IntroEnabled=
 --tabs
 local infoTab = Window:MakeTab({Name = "Info & Credits",Icon = "rbxassetid://4483345998",PremiumOnly = false})
 local mainTab = Window:MakeTab({Name="farm",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local othersTab = Window:MakeTab({Name="extra",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local EnCTab = Window:MakeTab({Name="Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local EnCTab = Window:MakeTab({Name="Eggs/Chests",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local othersTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
+
+
+--sections
 local EggsTab = EnCTab:AddSection({Name="Eggs"});
 local ChestTab = EnCTab:AddSection({Name="Chests"});
 
