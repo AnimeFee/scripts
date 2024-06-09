@@ -43,6 +43,18 @@ getgenv().killaura = false
 
 -- functions
 
+function doEgg()
+  while getgenv().egg do
+    local args = {
+      [1] = "Hatch",
+      [2] = getgenv().selectedEgg,
+      [3] = {}
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    wait(0.1)
+  end
+end
+
 function doTrain()
   while getgenv().train do
     local args = {
@@ -221,7 +233,7 @@ local Eggname = {
 }
 
 EggsTab:AddDropdown({Name="Select Egg",Options=Eggname,Callback=function(selectedEgg)
-    getgenv().Settings.selectedEgg = selectedEgg;
+    getgenv().selectedEgg = selectedEgg;
 end});
 
 EggsTab:AddToggle({Name="Auto Hatch",Default=false,Callback=function(bool)
@@ -230,18 +242,6 @@ EggsTab:AddToggle({Name="Auto Hatch",Default=false,Callback=function(bool)
         doEgg()
     end
 end});
-
-function doEgg()
-  while getgenv().egg do
-    local args = {
-      [1] = "Hatch",
-      [2] = getgenv().selectedEgg,
-      [3] = {}
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
-    wait(0.1)
-  end
-end
 
 local Chestname = {
     ["Box001"] = "Bronze Chest",
