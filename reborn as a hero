@@ -47,7 +47,7 @@ function doEgg()
   while getgenv().egg do
     local args = {
       [1] = "Hatch",
-      [2] = tostring(getgenv().selectedEgg),
+      [2] = getgenv().selectedEgg,
       [3] = {}
     }
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
@@ -205,35 +205,36 @@ mainTab:AddToggle({
   end    
 })
 
-  local Eggname = {
-  Draw001 = "5 wins!",
-  Draw002 = "2 wins",
-  Draw003 = "150 wins!",
-  Draw004 = "450 wins!",
-  Draw005 = "4k wins!",
-  Draw006 = "10k wins!",
-  Draw007 = "30k wins!",
-  Draw008 = "150k wins!",
-  Draw009 = "1.6m wins!",
-  Draw010 = "3.5m wins!",
-  Draw011 = "8m wins!",
-  Draw012 = "40m wins!",
-  Draw013 = "450m wins",
-  Draw014 = "1B wins!",
-  Draw015 = "2B wins",
-  Draw016 = "10B wins!",
-  Draw017 = "150B wins!",
-  Draw018 = "300B wins!",
-  Draw019 = "600B wins!",
-  Draw020 = "3T wins!",
-  Draw021 = "30T eggs!",
-  Draw022 = "500T eggs!",
-  Draw023 = "15Qa wins!",
-  Draw024 = "300Qa wins!",
-  }
-  local options = {}
-  for key, _ in pairs(Eggname) do
-  table.insert(options, key)
+local Eggname = {
+  ["5 wins!"] = "Draw001",
+  ["2 wins"] = "Draw002",
+  ["150 wins!"] = "Draw003",
+  ["450 wins!"] = "Draw004",
+  ["4k wins!"] = "Draw005",
+  ["10k wins!"] = "Draw006",
+  ["30k wins!"] = "Draw007",
+  ["150k wins!"] = "Draw008",
+  ["1.6m wins!"] = "Draw009",
+  ["3.5m wins!"] = "Draw010",
+  ["8m wins!"] = "Draw011",
+  ["40m wins!"] = "Draw012",
+  ["450m wins"] = "Draw013",
+  ["1B wins!"] = "Draw014",
+  ["2B wins"] = "Draw015",
+  ["10B wins!"] = "Draw016",
+  ["150B wins!"] = "Draw017",
+  ["300B wins!"] = "Draw018",
+  ["600B wins!"] = "Draw019",
+  ["3T wins!"] = "Draw020",
+  ["30T eggs!"] = "Draw021",
+  ["500T eggs!"] = "Draw022",
+  ["15Qa wins!"] = "Draw023",
+  ["300Qa wins!"] = "Draw024",
+}
+
+local options = {}
+for name, value in pairs(Eggname) do
+  table.insert(options, {name, value})
 end
 
 EggsTab:AddDropdown({
