@@ -220,12 +220,7 @@ local Eggname = {
     ["Draw024"] = "300Qa wins!",
 }
 
-local options = {}
-for _, name in pairs(Eggname) do
-    table.insert(options, name)
-end
-
-EggsTab:AddDropdown({Name="Select Egg",Options=options,Callback=function(selectedEgg)
+EggsTab:AddDropdown({Name="Select Egg",Options=Eggname,Callback=function(selectedEgg)
     getgenv().Settings.selectedEgg = selectedEgg;
 end});
 
