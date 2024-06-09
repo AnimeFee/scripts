@@ -1,10 +1,15 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
 local Window = OrionLib:MakeWindow({Name="SOGAY",HidePremium=false,IntroEnabled=false,SaveConfig=true,ConfigFolder="OrionTest"});
+
+--tabs
+local infoTab = Window:MakeTab({Name = "Info & Credits",Icon = "rbxassetid://4483345998",PremiumOnly = false})
 local mainTab = Window:MakeTab({Name="farm",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local othersTab = Window:MakeTab({Name="extra",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local EnCTab = Window:MakeTab({Name="Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local EggsTab = EnCTab:AddSection({Name="Eggs"});
 local ChestTab = EnCTab:AddSection({Name="Chests"});
+
+--table
 getgenv().train = false;
 getgenv().egg = false;
 getgenv().chest = false;
@@ -15,6 +20,9 @@ getgenv().spin = false;
 getgenv().rebirth = false;
 getgenv().towerlvl = false;
 getgenv().killaura = false;
+
+
+--maintab
 mainTab:AddToggle({Name="kill aura!",Default=false,Callback=function(bool)
 	getgenv().killaura = bool;
 	if bool then
@@ -43,10 +51,8 @@ mainTab:AddToggle({Name="Auto Train",Default=false,Callback=function(bool)
 		doTrain();
 	end
 end});
-local options = {};
-for name, value in pairs(Eggname) do
-	table.insert(options, hotdog);
-end
+
+--egg&chesttab
 EggsTab:AddDropdown({Name="Select Egg",Default="",Options={"5 wins!","25 wins!","150 wins!","450 wins!","4k wins!","10k wins!","30k wins!","150k wins!","1.6m wins!","3.5m wins!","8m wins!","40m wins!","450m wins!","1B wins!","2B wins","10B wins!","150B wins!","300B wins!","600B wins!","3T wins!","30T eggs!","500T eggs!","15Qa wins!","300Qa wins!"},Callback=function(value)
 	getgenv().selectedEgg = value;
 end});
@@ -65,6 +71,8 @@ ChestTab:AddToggle({Name="Auto Open Chest",Default=false,Callback=function(bool)
 		dochest();
 	end
 end});
+
+--otherstab
 othersTab:AddToggle({Name="auto spin!",Default=false,Callback=function(bool)
 	getgenv().spin = bool;
 	if bool then
@@ -83,6 +91,22 @@ othersTab:AddToggle({Name="Go To Next Tower Lvl",Default=false,Callback=function
 		dotower();
 	end
 end});
+
+--info and credit tab stuff
+infoTab:AddParagraph("Made By", "Illumi the Great (Omega24119)")
+infoTab:AddParagraph("Helper", "Bloxfruit.Trader0835 (Goku)")
+infoTab:AddParagraph("Information", "The eggs indicate which 5-win egg (pink) you opened, but it's purely visual. It awards you the corresponding pet of the egg you opened.")
+infoTab:AddParagraph("Join Our Discord", "For more updates and scripts, join our Discord community by visiting the channel below:")
+infoTab:AddButton({
+  Name = "Copy youtube Link",
+  Callback = function()
+      setclipboard("https://www.youtube.com/@takatakgamer8521?si=q94tBpxKXPYuCCFM")
+      print("Discord link copied to clipboard")
+  end    
+})
+
+--functions
+
 function doEgg()
 	while getgenv().egg do
 		if (getgenv().selectedEgg == "5 wins!") then
@@ -158,9 +182,10 @@ function doEgg()
 			local args = {[1]="Hatch",[2]="Draw024",[3]={}};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 		end
-		wait(0.1);
+		wait(2);
 	end
 end
+
 function doTrain()
 	while getgenv().train do
 		local args = {[1]=getgenv().selectedTrain};
@@ -168,6 +193,7 @@ function doTrain()
 		wait(0.1);
 	end
 end
+
 function dospin()
 	while getgenv().spin do
 		local args = {[1]="Spin"};
@@ -175,18 +201,21 @@ function dospin()
 		wait(0.1);
 	end
 end
+
 function dorebirth()
 	while getgenv().rebirth do
 		game:GetService("ReplicatedStorage").Events.Stats.Re_Rebirth:FireServer();
 		wait(1);
 	end
 end
+
 function dotower()
 	while getgenv().towerlvl do
 		game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Challenge"):FireServer();
 		wait(7);
 	end
 end
+
 local args = {[1]="Hatch",[2]=tostring(getgenv().selectedChest)};
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 function dochest()
@@ -203,6 +232,7 @@ function dochest()
 			wait(0.1);
 		end
 	end
+
 	function dokillaura()
 		while getgenv().killaura do
 			local ReplicatedStorage = game:GetService("ReplicatedStorage");
