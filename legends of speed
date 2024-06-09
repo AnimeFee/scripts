@@ -109,7 +109,7 @@ end});
 normal:AddToggle({Name="Auto Level HW",Default=false,Callback=function(bool)
 	getgenv().Highway = bool;
 	if bool then
-		DoHighway();
+		doHighway();
 	end
 end});
 
