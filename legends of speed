@@ -152,7 +152,7 @@ getgenv().autoElectroLegendsEgg = false
 function autoRedEggHatch()
 	while getgenv().autoRedEgg do
 		local args = {[1]="openCrystal",[2]="Red Crystal"};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
@@ -160,7 +160,7 @@ end
 function autoBlueEggHatch()
 	while getgenv().autoBlueEgg do
 		local args = {[1]="openCrystal",[2]="Blue Crystal"};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
@@ -168,7 +168,7 @@ end
 function autoYellowEggHatch()
 	while getgenv().autoYellowEgg do
 		local args = {[1]="openCrystal",[2]="Yellow Crystal"};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
@@ -184,7 +184,7 @@ end
 function autoPurpleEggHatch()
 	while getgenv().autoPurpleEgg do
 		local args = {[1]="openCrystal",[2]="Purple Crystal"};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
@@ -192,7 +192,7 @@ end
 function autoSnowEggHatch()
 	while getgenv().autoSnowEgg do
 		local args = {[1]="openCrystal",[2]="Snow Crystal"};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
@@ -200,7 +200,7 @@ end
 function autoInfernoEggHatch()
 	while getgenv().autoInfernoEgg do
 		local args = {[1]="openCrystal",[2]="Inferno Crystal"};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
@@ -208,7 +208,7 @@ end
 function autoLavaEggHatch()
 	while getgenv().autoLavaEgg do
 		local args = {[1]="openCrystal",[2]="Lava Crystal"};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
@@ -216,7 +216,7 @@ end
 function autoElectroLegendsEggHatch()
 	while getgenv().autoElectroLegendsEgg do
 		local args = {[1]="openCrystal",[2]="Electro Legends Crystal "};
-		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):FireServer(unpack(args));
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("openCrystalRemote"):InvokeServer(unpack(args))
 		wait(0.5);
 	end
 end
