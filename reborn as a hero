@@ -92,7 +92,7 @@ function dochest()
 while getgenv().chest == true do
     local args = {
       [1] = "Hatch",
-      [2] = 
+      [2] = getgenv().selectedChest
     }
 
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
@@ -230,6 +230,7 @@ local Eggname = {
     ["Draw023"] = "15Qa wins!",
     ["Draw024"] = "300Qa wins!",
 }
+
 local options = {}
 for _, name in pairs(Eggname) do
     table.insert(options, name)
