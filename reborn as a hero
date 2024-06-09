@@ -14,11 +14,28 @@ local othersTab = Window:MakeTab({
   PremiumOnly = false
 })
 
+local EnCTab = Window:MakeTab({
+  Name = "Eggs",
+  Icon = "rbxassetid://4483345998",
+  PremiumOnly = false
+})
+
+
+local EggsTab = EnCTab:AddSection({
+  Name = "Castle eggs"
+})
+
+local ChestTab = EnCTab:AddSection({
+  Name = "Castle eggs"
+})
+
 --values
 getgenv().train = false
 getgenv().egg = false
+getgenv().chest = false
 getgenv().selectedTrain = "TrainPower001"
 getgenv().selectedEgg = "Draw001"
+getgenv().selectedChest = "Box001"
 getgenv().spin = false
 getgenv().rebirth = false
 getgenv().towerlvl = false
@@ -69,6 +86,19 @@ function dotower()
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Challenge"):FireServer()
     wait(7)
   end
+end
+
+function dochest()
+while getgenv().chest == true do
+    local args = {
+      [1] = "Hatch",
+      [2] = 
+    }
+
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    wait(0.1)
+  end
+
 end
 
 function dokillaura()
@@ -144,6 +174,25 @@ mainTab:AddDropdown({
   end    
 })
 
+mainTab:AddButton({
+  Name = "god mode!",
+  Callback = function()
+      local old
+      old = hookmetamethod(game, "__namecall", function(self, ...)
+          local args = {...}
+          local method = getnamecallmethod()
+
+          if tostring(self) == "Re_NpcDamage" and method == "FireServer" then 
+              warn("Remote has been freezed")
+              return nil 
+          end 
+
+          return old(self, ...)
+      end)
+          print("button pressed")
+    end    
+})
+
 mainTab:AddToggle({
   Name = "Auto Train",
   Default = false,
@@ -155,48 +204,39 @@ mainTab:AddToggle({
   end    
 })
 
-local nameMap = {
-    ["5 wins!"] = "Draw001",
-    ["2 wins"] = "Draw002",
-    ["150 wins!"] = "Draw003",
-    ["450 wins!"] = "Draw004",
-    ["4k wins!"] = "Draw005",
-    ["10k wins!"] = "Draw006",
-    ["30k wins!"] = "Draw007",
-    ["150k wins!"] = "Draw008",
-    ["1.6m wins!"] = "Draw009",
-    ["3.5m wins!"] = "Draw010",
-    ["8m wins!"] = "Draw011",
-    ["40m wins!"] = "Draw012",
-    ["450m wins"] = "Draw013",
-    ["1B wins!"] = "Draw014",
-    ["2B wins"] = "Draw015",
-    ["10B wins!"] = "Draw016",
-    ["150B wins!"] = "Draw017",
-    ["300B wins!"] = "Draw018",
-    ["600B wins!"] = "Draw019",
-    ["3T wins!"] = "Draw020",
-    ["30T eggs!"] = "Draw021",
-    ["500T eggs!"] = "Draw022",
-    ["15Qa wins!"] = "Draw023",
-    ["300Qa wins!"] = "Draw024",
+local Eggname = {
+    ["Draw001"] = "5 wins!",
+    ["Draw002"] = "2 wins",
+    ["Draw003"] = "150 wins!",
+    ["Draw004"] = "450 wins!",
+    ["Draw005"] = "4k wins!",
+    ["Draw006"] = "10k wins!",
+    ["Draw007"] = "30k wins!",
+    ["Draw008"] = "150k wins!",
+    ["Draw009"] = "1.6m wins!",
+    ["Draw010"] = "3.5m wins!",
+    ["Draw011"] = "8m wins!",
+    ["Draw012"] = "40m wins!",
+    ["Draw013"] = "450m wins",
+    ["Draw014"] = "1B wins!",
+    ["Draw015"] = "2B wins",
+    ["Draw016"] = "10B wins!",
+    ["Draw017"] = "150B wins!",
+    ["Draw018"] = "300B wins!",
+    ["Draw019"] = "600B wins!",
+    ["Draw020"] = "3T wins!",
+    ["Draw021"] = "30T eggs!",
+    ["Draw022"] = "500T eggs!",
+    ["Draw023"] = "15Qa wins!",
+    ["Draw024"] = "300Qa wins!",
 }
 local options = {}
 for _, name in pairs(Eggname) do
-    table.insert(options, { _, name })
+    table.insert(options, name)
 end
 
-mainTab:AddDropdown({
-  Name = "Select Train",
-  Default = "Draw001",
-  Options = name,
-  Callback = function(value)
-    getgenv().selectedEgg = value
-  end
-})
-
-mainTab:AddDropdown({
-  Name = "Select Train",
+EggsTab:AddDropdown({
+  Name = "Select Egg",
   Default = "Draw001",
   Options = options,
   Callback = function(value)
@@ -204,13 +244,43 @@ mainTab:AddDropdown({
   end
 })
 
-mainTab:AddToggle({
+EggsTab:AddToggle({
   Name = "Auto Open",
   Default = false,
   Callback = function(bool)
     getgenv().egg = bool
     if bool then
       doEgg()
+    end
+  end    
+})
+
+local Chestname = {
+    ["Box001"] = "Bronze Chest",
+    ["Box002"] = "Gold Chest",
+    ["Box003"] = "Diamond Chest",
+}
+local options = {}
+for _, name in pairs(Chestname) do
+    table.insert(options, name)
+end
+
+ChestTab:AddDropdown({
+  Name = "Select Chest",
+  Default = "Draw001",
+  Options = options,
+  Callback = function(value)
+    getgenv().selectedChest = value
+  end
+})
+
+ChestTab:AddToggle({
+  Name = "Auto Open Chest",
+  Default = false,
+  Callback = function(bool)
+    getgenv().chest = bool
+    if bool then
+      dochest()
     end
   end    
 })
