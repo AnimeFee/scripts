@@ -237,13 +237,13 @@ end
 
 function dochest()
 	while getgenv().chest do
-		if (getgenv().selectedEgg == "Bronze Chest") then
+		if (getgenv().selectedChest == "Bronze Chest") then
 			local args = {[1]="Hatch",[2]="Box001"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
-		elseif (getgenv().selectedEgg == "Gold Chest") then
+		elseif (getgenv().selectedChest == "Gold Chest") then
 			local args = {[1]="Hatch",[2]="Box002"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
-		elseif (getgenv().selectedEgg == "Diamond Chest") then
+		elseif (getgenv().selectedChest == "Diamond Chest") then
 			local args = {[1]="Hatch",[2]="Box003"};
 			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args));
 			wait(0.1);
