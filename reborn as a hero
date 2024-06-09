@@ -22,11 +22,11 @@ local EnCTab = Window:MakeTab({
 
 
 local EggsTab = EnCTab:AddSection({
-  Name = "Castle eggs"
+  Name = "Eggs"
 })
 
 local ChestTab = EnCTab:AddSection({
-  Name = "Castle eggs"
+  Name = "Chests"
 })
 
 --values
@@ -42,17 +42,6 @@ getgenv().towerlvl = false
 getgenv().killaura = false
 
 -- functions
-function doEgg()
-  while getgenv().egg do
-    local args = {
-      [1] = "Hatch",
-      [2] = getgenv().selectedEgg,
-      [3] = {}
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
-    wait(0.1)
-  end
-end
 
 function doTrain()
   while getgenv().train do
@@ -236,25 +225,28 @@ for _, name in pairs(Eggname) do
     table.insert(options, name)
 end
 
-EggsTab:AddDropdown({
-  Name = "Select Egg",
-  Default = "Draw001",
-  Options = options,
-  Callback = function(value)
-    getgenv().selectedEgg = value
-  end
-})
+EggsTab:AddDropdown({Name="Select Egg",Options=options,Callback=function(selectedEgg)
+    getgenv().Settings.selectedEgg = selectedEgg;
+end});
 
-EggsTab:AddToggle({
-  Name = "Auto Open",
-  Default = false,
-  Callback = function(bool)
+EggsTab:AddToggle({Name="Auto Hatch",Default=false,Callback=function(bool)
     getgenv().egg = bool
     if bool then
-      doEgg()
+        doEgg()
     end
-  end    
-})
+end});
+
+function doEgg()
+  while getgenv().egg do
+    local args = {
+      [1] = "Hatch",
+      [2] = getgenv().selectedEgg,
+      [3] = {}
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    wait(0.1)
+  end
+end
 
 local Chestname = {
     ["Box001"] = "Bronze Chest",
@@ -270,8 +262,8 @@ ChestTab:AddDropdown({
   Name = "Select Chest",
   Default = "Draw001",
   Options = options,
-  Callback = function(value)
-    getgenv().selectedChest = value
+  Callback = function(chest)
+    getgenv().selectedChest = chest
   end
 })
 
