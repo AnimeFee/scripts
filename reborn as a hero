@@ -45,13 +45,176 @@ getgenv().killaura = false
 
 function doEgg()
   while getgenv().egg do
-    local args = {
-      [1] = "Hatch",
-      [2] = getgenv().selectedEgg,
-      [3] = {}
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
-    wait(0.1)
+    if getgenv().selectedEgg == "5 wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw001",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "25 wins" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw002",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "150 wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw003",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "450 wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw004",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "4k wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw005",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "10k wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw006",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "30k wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw007",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "150k wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw008",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "1.6m wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw009",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "3.5m wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw010",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "8m wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw011",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "40m wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw012",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "450m wins" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw013",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "1B wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw014",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "2B wins" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw015",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "10B wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw016",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "150B wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw017",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "300B wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw018",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "600B wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw019",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "3T wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw020",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "30T eggs!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw021",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "500T eggs!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw022",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "15Qa wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw023",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "300Qa wins!" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Draw024",
+        [3] = {}
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Pets"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    end
+wait(0.1)
   end
 end
 
@@ -89,18 +252,38 @@ function dotower()
   end
 end
 
-function dochest()
-while getgenv().chest == true do
     local args = {
       [1] = "Hatch",
       [2] = tostring(getgenv().selectedChest)
     }
 
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+
+
+function dochest()
+while getgenv().chest do
+    if getgenv().selectedEgg == "Bronze Chest" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Box001",
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "Gold Chest" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Box002",
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
+    elseif getgenv().selectedEgg == "Diamond Chest" then
+      local args = {
+        [1] = "Hatch",
+        [2] = "Box003",
+      }
+      game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_Hatch"):FireServer(unpack(args))
     wait(0.1)
   end
-
 end
+
 
 function dokillaura()
   while getgenv().killaura do
@@ -205,42 +388,15 @@ mainTab:AddToggle({
   end    
 })
 
-local Eggname = {
-  ["5 wins!"] = "Draw001",
-  ["2 wins"] = "Draw002",
-  ["150 wins!"] = "Draw003",
-  ["450 wins!"] = "Draw004",
-  ["4k wins!"] = "Draw005",
-  ["10k wins!"] = "Draw006",
-  ["30k wins!"] = "Draw007",
-  ["150k wins!"] = "Draw008",
-  ["1.6m wins!"] = "Draw009",
-  ["3.5m wins!"] = "Draw010",
-  ["8m wins!"] = "Draw011",
-  ["40m wins!"] = "Draw012",
-  ["450m wins"] = "Draw013",
-  ["1B wins!"] = "Draw014",
-  ["2B wins"] = "Draw015",
-  ["10B wins!"] = "Draw016",
-  ["150B wins!"] = "Draw017",
-  ["300B wins!"] = "Draw018",
-  ["600B wins!"] = "Draw019",
-  ["3T wins!"] = "Draw020",
-  ["30T eggs!"] = "Draw021",
-  ["500T eggs!"] = "Draw022",
-  ["15Qa wins!"] = "Draw023",
-  ["300Qa wins!"] = "Draw024",
-}
-
 local options = {}
 for name, value in pairs(Eggname) do
-  table.insert(options, {name, value})
+  table.insert(options,hotdog)
 end
 
 EggsTab:AddDropdown({
   Name = "Select Egg",
   Default = "",
-  Options = options,
+  Options = {5 wins!,25 wins!,150 wins!,450 wins!,4k wins!,10k wins!,30k wins!,150k wins!,1.6m wins!,3.5m wins!,8m wins!,40m wins!,450m wins!,1B wins!,2B wins,10B wins!,150B wins!,300B wins!,600B wins!,3T wins!,30T eggs!,500T eggs!,15Qa wins!,300Qa wins!,},
   Callback = function(value)
     getgenv().selectedEgg = value
   end
@@ -260,7 +416,7 @@ EggsTab:AddToggle({
 ChestTab:AddDropdown({
   Name = "Select Chest",
   Default = "Box001",
-  Options = {"Box001","Box002","Box003"},
+  Options = {"Bronze Chest","Gold Chest","Diamond Chest"},
   Callback = function(chest)
     getgenv().selectedChest = chest
   end
