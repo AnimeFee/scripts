@@ -122,7 +122,7 @@ function doRaid()
 			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(3);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -140,7 +140,7 @@ function doRaid()
 			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(3);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -158,7 +158,7 @@ function doRaid()
 			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(3);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -176,14 +176,13 @@ function doRaid()
 			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(3);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
 				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
 				getgenv().autoraid = false;
 			end
-		wait(2)
 		end
 	end
 end
