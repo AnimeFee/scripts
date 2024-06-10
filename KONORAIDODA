@@ -7,7 +7,7 @@ local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"});
 getgenv().autoraid = false;
 getgenv().selectedMap = "Souls";
 getgenv().AutoFarm = false;
-getgenv().DamageBoost = false;
+getgenv().DamageBoost = true;
 getgenv().mespetsequiper = {}
 
 
@@ -37,7 +37,7 @@ end});
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
     for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-        if v.isEquip == true and v.isLock == true then
+        if v.isLock == true then
             table.insert(getgenv().mespetsequiper, v.guid)
         end
     end
