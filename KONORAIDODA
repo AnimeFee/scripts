@@ -3,13 +3,17 @@ local Window = OrionLib:MakeWindow({Name="updatepltplt",HidePremium=false,SaveCo
 local RaidTab = Window:MakeTab({Name="AutoRaid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local Raid = RaidTab:AddSection({Name="Raidss"});
 local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"});
+local FarmSec = RaidTab:AddSection({Name="Farm"});
 
 getgenv().autoraid = false;
 getgenv().selectedMap = "Souls";
-getgenv().AutoFarm = false;
-getgenv().DamageBoost = true;
-getgenv().mespetsequiper = {}
 
+getgenv().Settings={
+GoldCollect = false,
+AutoFarm = false,
+DamageBoost = true,
+mespetsequiper = {}
+}
 
 
 
@@ -26,11 +30,11 @@ Relog:AddButton({Name="Rejoin Button",Callback=function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
 end});
 
-Raid:AddToggle({Name="Auto Farm",Callback=function(v0)
+FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	if v0 then
-		getgenv().AutoFarm = true;
+		getgenv().Settings.AutoFarm = true;
 	else
-		getgenv().AutoFarm = false;
+		getgenv().Settings.AutoFarm = false;
 	end
 end});
 
@@ -38,15 +42,15 @@ end});
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
     for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-        if v.isLock == true then
-            table.insert(getgenv().mespetsequiper, v.guid)
+        if v.isEquip == true and v.isLock == true then
+            table.insert(getgenv().Settings.mespetsequiper, v.guid)
         end
     end
 end)
 
 spawn(function()
     local function GetEnemies()
-        local nearest, dist = nil, getgenv().Range
+        local nearest, dist = nil, getgenv().Settings.Range
         local Players = game.Players
         local localPlayer = Players.LocalPlayer
         local localCharacter = localPlayer.Character
@@ -68,17 +72,18 @@ spawn(function()
     end
 
     while task.wait() do
-        if getgenv().AutoFarm then
+        if getgenv().Settings.AutoFarm then
             local nearestEnemy = GetEnemies()
+
             if nearestEnemy then
-                if getgenv().WalkToEnemy then
+                if getgenv().Settings.WalkToEnemy then
                     if nearestEnemy:FindFirstChild("HumanoidRootPart") then
                         player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
                     end
                 end
 
-                if getgenv().DamageBoost then
-                    for _, petGuid in pairs(getgenv().mespetsequiper) do
+                if getgenv().Settings.DamageBoost then
+                    for _, petGuid in pairs(getgenv().Settings.mespetsequiper) do
                         local args = { { ["heroGuid"] = tostring(petGuid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
                         game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(args))
                     end
@@ -91,6 +96,21 @@ spawn(function()
         end
     end
 end)
+
+FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
+	if v1 then
+		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
+		if getgenv().Settings.GoldCollect then
+			spawn(function()
+				while wait() do
+					for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
+						v9.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+					end
+				end
+			end);
+		end
+	end
+end})
 
 function doRaid()
 	while getgenv().autoraid do
