@@ -6,7 +6,7 @@ local RaidTab = Window:MakeTab({Name="AutoRaid",Icon="rbxassetid://4483345998",P
 local Raid = RaidTab:AddSection({Name="Raidss"})
 local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"})
 
-getgenv().killaura = false
+getgenv().autoraid = false
 getgenv().selectedMap = "Souls"
 
 Raid:AddDropdown({
@@ -19,7 +19,7 @@ Raid:AddDropdown({
 })
 
 Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
-    getgenv().killaura = bool;
+    getgenv().autoraid = bool;
     if bool then
         doRaid();
     end
@@ -31,7 +31,7 @@ end
 })
 
 function doRaid()
-    while getgenv().egg do
+    while getgenv().autoraid do
         local args = {};
         if (getgenv().selectedMap == "Souls") then
             args = "Room4";
