@@ -27,9 +27,10 @@ Relog:AddButton({Name="Rejoin Button",Callback=function()
 end});
 
 Raid:AddToggle({Name="Auto Farm",Callback=function(v0)
-	getgenv().AutoFarm = bool;
-	if bool then
-		doRaid();
+	if v0 then
+		getgenv().AutoFarm = true;
+	else
+		getgenv().AutoFarm = false;
 	end
 end});
 
@@ -69,7 +70,6 @@ spawn(function()
     while task.wait() do
         if getgenv().AutoFarm then
             local nearestEnemy = GetEnemies()
-
             if nearestEnemy then
                 if getgenv().WalkToEnemy then
                     if nearestEnemy:FindFirstChild("HumanoidRootPart") then
