@@ -1,56 +1,53 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
-local Window = OrionLib:MakeWindow({Name="updatepltplt",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
+local Window = OrionLib:MakeWindow({Name="raiding",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
 local RaidTab = Window:MakeTab({Name="AutoRaid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local Raid = RaidTab:AddSection({Name="Raidss"});
 local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"});
 local FarmSec = RaidTab:AddSection({Name="Farm"});
 
-getgenv().autoraid = false;
-getgenv().selectedMap = "Souls";
-
-getgenv().Settings={
-GoldCollect = false,
-AutoFarm = false,
-DamageBoost = true,
-mespetsequiper = {}
+local settings = {
+    autoraid = false,
+    selectedMap = "Souls",
+    AutoFarm = false,
+    DamageBoost = true,
+    mespetsequiper = {},
+    GoldCollect = false,
+    Range = 10, -- adjust the range as needed
 }
 
-
-
 Raid:AddDropdown({Name="Select Map",Options={"Souls","Book 1","Book 2","Book 3"},Default="",Callback=function(option)
-	getgenv().selectedMap = option;
+    settings.selectedMap = option;
 end});
 Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
-	getgenv().autoraid = bool;
-	if bool then
-		doRaid();
-	end
+    settings.autoraid = bool;
+    if bool then
+        doRaid();
+    end
 end});
 Relog:AddButton({Name="Rejoin Button",Callback=function()
-	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
+    game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
 end});
 
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
-	if v0 then
-		getgenv().Settings.AutoFarm = true;
-	else
-		getgenv().Settings.AutoFarm = false;
-	end
+    if v0 then
+        settings.AutoFarm = true;
+    else
+        settings.AutoFarm = false;
+    end
 end});
-
 
 local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 pcall(function()
     for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
         if v.isEquip == true and v.isLock == true then
-            table.insert(getgenv().Settings.mespetsequiper, v.guid)
+            table.insert(settings.mespetsequiper, v.guid)
         end
     end
 end)
 
 spawn(function()
     local function GetEnemies()
-        local nearest, dist = nil, getgenv().Settings.Range
+        local nearest, dist = nil, settings.Range
         local Players = game.Players
         local localPlayer = Players.LocalPlayer
         local localCharacter = localPlayer.Character
@@ -72,18 +69,18 @@ spawn(function()
     end
 
     while task.wait() do
-        if getgenv().Settings.AutoFarm then
+        if settings.AutoFarm then
             local nearestEnemy = GetEnemies()
 
             if nearestEnemy then
-                if getgenv().Settings.WalkToEnemy then
+                if settings.WalkToEnemy then
                     if nearestEnemy:FindFirstChild("HumanoidRootPart") then
                         player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
                     end
                 end
 
-                if getgenv().Settings.DamageBoost then
-                    for _, petGuid in pairs(getgenv().Settings.mespetsequiper) do
+                if settings.DamageBoost then
+                    for _, petGuid in pairs(settings.mespetsequiper) do
                         local args = { { ["heroGuid"] = tostring(petGuid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
                         game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(args))
                     end
@@ -98,24 +95,23 @@ spawn(function()
 end)
 
 FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
-	if v1 then
-		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
-		if getgenv().Settings.GoldCollect then
-			spawn(function()
-				while wait() do
-					for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
-						v9.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
-					end
-				end
-			end);
-		end
-	end
+    if v1 then
+        settings.GoldCollect = not settings.GoldCollect;
+        if settings.GoldCollect then
+            spawn(function()
+                while wait() do
+                    for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
+                        v9.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+                    end
+                end
+            end);
+        end
+    end
 end})
-
 function doRaid()
-	while getgenv().autoraid do
+    while settings.autoraid do
 		local args = {};
-		if (getgenv().selectedMap == "Souls") then
+		if (settings.selectedMap == "Souls") then
 			args = "Room4";
 			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
 			args = {difficulty=4,roomName="Room4",selectMapId=50102};
@@ -133,7 +129,7 @@ function doRaid()
 				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
 				getgenv().autoraid = false;
 			end
-		elseif (getgenv().selectedMap == "Book 1") then
+		elseif (settings.selectedMap == "Book 1") then
 			args = "Room4";
 			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
 			args = {difficulty=4,roomName="Room4",selectMapId=50103};
@@ -151,7 +147,7 @@ function doRaid()
 				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
 				getgenv().autoraid = false;
 			end
-		elseif (getgenv().selectedMap == "Book 3") then
+		elseif (settings.selectedMap == "Book 3") then
 			args = "Room4";
 			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
 			args = {difficulty=4,roomName="Room4",selectMapId=50104};
@@ -169,7 +165,7 @@ function doRaid()
 				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
 				getgenv().autoraid = false;
 			end
-		elseif (getgenv().selectedMap == "Book 4") then
+		elseif (settings.selectedMap == "Book 4") then
 			args = "Room4";
 			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
 			args = {difficulty=4,roomName="Room4",selectMapId=50105};
