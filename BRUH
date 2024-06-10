@@ -2,6 +2,9 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
 getgenv().Settings = {ARaid=false,Raidmap = 50102,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
+getgenv().autoraid = false
+getgenv().selectedMap = "Souls"
+
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -859,41 +862,69 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
-Others:AddButton({
-    Name = "Disable Skill Effects",
-    Callback = function()
-        spawn(function()
-            local skillEffects = game.ReplicatedStorage.SkillEffects
-            for _, descendant in pairs(skillEffects:GetDescendants()) do
-                if descendant:IsA("Part") or descendant:IsA("MeshPart") then
-                    descendant.Transparency = 1
-                elseif descendant:IsA("ParticleEmitter") or descendant:IsA("Beam") then
-                    descendant.Enabled = false
-                end
-            end
-        end)
+Raid:AddDropdown({
+    Name="Select Map",
+    Options={"Souls","Book 1","Book 2","Book 3"},
+    Default="",
+    Callback=function(option)
+        getgenv().selectedMap = option;
     end
 })
 
-Others:AddButton({
-    Name = "Disable AttackNum Effect",
-    Callback = function()
-        spawn(function()
-            local attackNumEffect = game.ReplicatedStorage.Effect.AttackNum
-            attackNumEffect.Enabled = false
-        end)
+Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
+    getgenv().autoraid = bool;
+    if bool then
+        doRaid();
     end
-})
+end});
 
-Others:AddButton({
-    Name = "Disable Animations and Effects",
-    Callback = function()
-        spawn(function()
-            local NoAnim = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager.HeroEntity)
-            NoAnim.PlayAnimation = function() return end
-            NoAnim.PlaySkillEffect = function() return end
-            NoAnim.SetParticle = function() return end
-            NoAnim.FlySkillHarm = function() return end
-        end)
+function doRaid()
+    while getgenv().autoraid do
+        local args = {};
+        if (getgenv().selectedMap == "Souls") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50102};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(2);
+            args = 1;
+            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+        elseif (getgenv().selectedMap == "Book 1") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50103};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(2);
+            args = 1;
+            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+        elseif (getgenv().selectedMap == "Book 2") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50104};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(2);
+            args = 1;
+            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+        elseif (getgenv().selectedMap == "Book 3") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50105};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(2);
+            args = 1;
+            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+        end
     end
-})
+end
