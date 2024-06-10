@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
-local Window = OrionLib:MakeWindow({Name="Raidssesss",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
+local Window = OrionLib:MakeWindow({Name="yessir",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
 local RaidTab = Window:MakeTab({Name="AutoRaid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local Raid = RaidTab:AddSection({Name="Raidss"});
 local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"});
@@ -26,7 +26,7 @@ Relog:AddButton({Name="Rejoin Button",Callback=function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
 end});
 
-FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
+Raid:AddToggle({Name="Auto Farm",Callback=function(v0)
 	getgenv().AutoFarm = bool;
 	if bool then
 		doRaid();
