@@ -27,7 +27,8 @@ getgenv().egg = false;
 getgenv().train = false;
 
 --maintab
-Dig:AddDropdown({Name="Select Dig",Default="",Options={"1","2","3","4","5","6","7","8","9"},
+Dig:AddDropdown({Name="Select Dig",Default="",
+Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"},
 Callback=function(value)
 	getgenv().selectedplot = value;
 end});
@@ -37,7 +38,8 @@ Dig:AddToggle({Name="Auto Dig",Default=false,Callback=function(bool)
 		doDig();
 	end
 end});
-Train:AddDropdown({Name="Select Train",Default="",Options={"1","2","3","4","5","6","7","8","9"},
+Train:AddDropdown({Name="Select Train",Default="",
+Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"},
 Callback=function(value)
 	getgenv().selectedTrain= value;
 end});
@@ -62,7 +64,8 @@ erm:AddToggle({Name="Auto Equip best",Default=false,Callback=function(bool)
 end});
 
 --Egg Section
-EggsTab:AddDropdown({Name="Select Egg",Default="",Options={"1","2","-3","3","4","5","6","7","8","9"},
+EggsTab:AddDropdown({Name="Select Egg",Default="",
+Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"},
 Callback=function(value)
 	getgenv().selectedEgg = value;
 end});
@@ -130,11 +133,11 @@ function doEgg()
 	while getgenv().egg do
 local args = {
     [1] = "Hatch",
-    [2] = tonumber(getgenv().selectedEgg),
+    [2] = getgenv().selectedEgg,
     [3] = 1
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Egg"):FireServer(unpack(args))
-		wait(2);
+		wait(5);
 	end
 end
 
