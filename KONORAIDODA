@@ -119,10 +119,10 @@ function doRaid()
 			task.wait(0.5);
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
+			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
+			task.wait(3);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -137,10 +137,10 @@ function doRaid()
 			task.wait(0.5);
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
+			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
+			task.wait(3);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -155,10 +155,10 @@ function doRaid()
 			task.wait(0.5);
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
+			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
+			task.wait(3);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -173,10 +173,10 @@ function doRaid()
 			task.wait(0.5);
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
+			task.wait(5);
 			args = 1;
 			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
+			task.wait(3);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
