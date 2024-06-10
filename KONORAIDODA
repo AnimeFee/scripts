@@ -1,10 +1,18 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
-local Window = OrionLib:MakeWindow({Name="Raidsss",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
+local Window = OrionLib:MakeWindow({Name="Raidssesss",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
 local RaidTab = Window:MakeTab({Name="AutoRaid",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local Raid = RaidTab:AddSection({Name="Raidss"});
 local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"});
+
 getgenv().autoraid = false;
 getgenv().selectedMap = "Souls";
+getgenv().AutoFarm = false;
+getgenv().DamageBoost = false;
+getgenv().mespetsequiper = {}
+
+
+
+
 Raid:AddDropdown({Name="Select Map",Options={"Souls","Book 1","Book 2","Book 3"},Default="",Callback=function(option)
 	getgenv().selectedMap = option;
 end});
@@ -17,56 +25,73 @@ end});
 Relog:AddButton({Name="Rejoin Button",Callback=function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
 end});
-function doRaid()
-	while getgenv().autoraid do
-		local args = {};
-		if (getgenv().selectedMap == "Souls") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50102};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-		elseif (getgenv().selectedMap == "Book 1") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50103};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-		elseif (getgenv().selectedMap == "Book 2") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50104};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-		elseif (getgenv().selectedMap == "Book 3") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50105};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(2);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-		end
+
+FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
+	getgenv().AutoFarm = bool;
+	if bool then
+		doRaid();
 	end
-end
+end});
+
+
+local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+pcall(function()
+    for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+        if v.isEquip == true and v.isLock == true then
+            table.insert(getgenv().mespetsequiper, v.guid)
+        end
+    end
+end)
+
+spawn(function()
+    local function GetEnemies()
+        local nearest, dist = nil, getgenv().Range
+        local Players = game.Players
+        local localPlayer = Players.LocalPlayer
+        local localCharacter = localPlayer.Character
+        local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+        if not humanoidRootPart then
+            return
+        end
+
+        for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+            if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+                if distance < dist then
+                    dist = distance
+                    nearest = enemy
+                end
+            end
+        end
+        return nearest
+    end
+
+    while task.wait() do
+        if getgenv().AutoFarm then
+            local nearestEnemy = GetEnemies()
+
+            if nearestEnemy then
+                if getgenv().WalkToEnemy then
+                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
+                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+                    end
+                end
+
+                if getgenv().DamageBoost then
+                    for _, petGuid in pairs(getgenv().mespetsequiper) do
+                        local args = { { ["heroGuid"] = tostring(petGuid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                        game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(args))
+                    end
+                end
+
+                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
+                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
+                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+            end
+        end
+    end
+end)
+
 function doRaid()
 	while getgenv().autoraid do
 		local args = {};
