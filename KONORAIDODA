@@ -108,81 +108,82 @@ FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
         end
     end
 end})
+
 function doRaid()
     while settings.autoraid do
-		local args = {};
-		if (settings.selectedMap == "Souls") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50102};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(5);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
-			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
-			if (#checkRemainingEnnemies <= 0) then
-				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
-				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
-				getgenv().autoraid = false;
-			end
-		elseif (settings.selectedMap == "Book 1") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50103};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(5);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
-			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
-			if (#checkRemainingEnnemies <= 0) then
-				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
-				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
-				getgenv().autoraid = false;
-			end
-		elseif (settings.selectedMap == "Book 3") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50104};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(5);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
-			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
-			if (#checkRemainingEnnemies <= 0) then
-				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
-				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
-				getgenv().autoraid = false;
-			end
-		elseif (settings.selectedMap == "Book 4") then
-			args = "Room4";
-			game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-			args = {difficulty=4,roomName="Room4",selectMapId=50105};
-			game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-			task.wait(0.5);
-			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-			task.wait(5);
-			args = 1;
-			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-			task.wait(1);
-			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
-			if (#checkRemainingEnnemies <= 0) then
-				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
-				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
-				getgenv().autoraid = false;
-			end
-		end
-	end
+        local args = {};
+        if (settings.selectedMap == "Souls") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50102};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(5);
+            local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
+            if (#checkRemainingEnnemies <= 0) then
+                args = 1;
+                game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+                task.wait(1);
+                local args = {[1]={currentSlotIndex=1,toMapId=50201}};
+                game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
+                getgenv().autoraid = false;
+            end
+        elseif (settings.selectedMap == "Book 1") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50103};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(5);
+            local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
+            if (#checkRemainingEnnemies <= 0) then
+                args = 1;
+                game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+                task.wait(1);
+                local args = {[1]={currentSlotIndex=1,toMapId=50201}};
+                game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
+                getgenv().autoraid = false;
+            end
+        elseif (settings.selectedMap == "Book 3") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50104};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(5);
+            local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
+            if (#checkRemainingEnnemies <= 0) then
+                args = 1;
+                game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+                task.wait(1);
+                local args = {[1]={currentSlotIndex=1,toMapId=50201}};
+                game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
+                getgenv().autoraid = false;
+            end
+        elseif (settings.selectedMap == "Book 4") then
+            args = "Room4";
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
+            args = {difficulty=4,roomName="Room4",selectMapId=50105};
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
+            task.wait(0.5);
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
+            task.wait(5);
+            local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
+            if (#checkRemainingEnnemies <= 0) then
+                args = 1;
+                game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+                task.wait(1);
+                local args = {[1]={currentSlotIndex=1,toMapId=50201}};
+                game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
+                getgenv().autoraid = false;
+            end
+        end
+    end
 end
