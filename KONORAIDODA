@@ -13,7 +13,6 @@ local settings = {
     mespetsequiper = {},
     GoldCollect = false,
     Range = 1000,
-    autocollect = false
 }
 
 Raid:AddDropdown({Name="Select Map",Options={"Souls","Book 1","Book 2","Book 3"},Default="",Callback=function(option)
@@ -28,16 +27,6 @@ end});
 Relog:AddButton({Name="Rejoin Button",Callback=function()
     game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
 end});
-
-Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
-    settings.autocollect = bool;
-	while settings.autocollect do
-	args = 1; 			
-	game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args); 			
-	wait();
-    end
-end});
-
 
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
     if v0 then
@@ -119,7 +108,6 @@ FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
         end
     end
 end})
-
 function doRaid()
     while settings.autoraid do
 		local args = {};
@@ -132,6 +120,9 @@ function doRaid()
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
 			task.wait(2);
+			args = 1;
+			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -147,7 +138,9 @@ function doRaid()
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
 			task.wait(2);
-
+			args = 1;
+			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -163,6 +156,9 @@ function doRaid()
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
 			task.wait(2);
+			args = 1;
+			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
@@ -178,6 +174,9 @@ function doRaid()
 			args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
 			game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
 			task.wait(2);
+			args = 1;
+			game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+			task.wait(1);
 			local checkRemainingEnnemies = game.Workspace.Enemys:GetChildren();
 			if (#checkRemainingEnnemies <= 0) then
 				local args = {[1]={currentSlotIndex=1,toMapId=50201}};
