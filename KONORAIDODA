@@ -183,6 +183,7 @@ function doRaid()
 				game:GetService("ReplicatedStorage").Remotes.QuitRaidsMap:InvokeServer(unpack(args));
 				getgenv().autoraid = false;
 			end
+		wait(2)
 		end
 	end
 end
