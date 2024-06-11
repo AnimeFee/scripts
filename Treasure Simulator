@@ -80,9 +80,9 @@ TeleportTab:AddButton({Name="Teleport To Selected Map",Callback=function()
 	end
 end});
 infoTab:AddParagraph("Made By Akira(normalpersonondisc0rd)");
-infoTab:AddParagraph("Join Our Discord", "For more updates and scripts, join our Discord community by visiting the channel below:");
-infoTab:AddButton({Name="Copy youtube Link",Callback=function()
-	setclipboard("https://www.youtube.com/@takatakgamer8521?si=q94tBpxKXPYuCCFM");
+infoTab:AddParagraph("I make script on scripts just like these.");
+infoTab:AddButton({Name="Join Our Discord",Callback=function()
+	setclipboard("https://discord.gg/jSGcNgty");
 	print("Discord link copied to clipboard");
 end});
 function doDig()
