@@ -20,6 +20,8 @@ local UpsTab = MiscTab:AddSection({Name="Attributes"});
 getgenv().selectedplot = "1";
 getgenv().selectedEgg = "1";
 getgenv().selectedTrain = "1";
+getgenv().selectedattribute = "Power";
+getgenv().map = "Desert";
 
 --toggle defaults
 getgenv().dig = false;
@@ -91,28 +93,30 @@ end});
 othersTab:AddDropdown({
 	Name = "Select World",
 	Default = "",
-	Options = {"Castle","Mushroom Forest","Desert Pyramid","Snow Land","Underwater","Alien Desert","Candy","Energy Factory",},
+	Options = {"Desert,"Forest","Tundra","Toxic","Flame","Mystical","Diamond","Heaven,"Mars"},
 	Callback = function(Value)
 	getgenv().map = Value
 	end})
 
 othersTab:AddButton({Name="Teleport To Selected Map",Callback=function()
-		if getgenv().map == "Castle" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-336.600006, 112.075287, -362.139984, -1.93260498e-15, 3.79569576e-09, -1, 6.59377335e-08, 1, 3.79569576e-09, 1, -6.59377335e-08, -2.18288458e-15))
-		elseif getgenv().map == "Mushroom Forest" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-411.279663, 192.722443, -2692.60889, 3.78861955e-15, -4.05016323e-08, -1, 4.79700368e-08, 1, -4.05016323e-08, 1, -4.79700368e-08, 5.73148444e-15))
-		elseif getgenv().map == "Desert Pyramid" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-386.374023, 17.9284668, -5541.13135, -2.95857385e-15, -3.75083324e-08, -1, -3.92731465e-08, 1, -3.75083324e-08, 1, 3.92731465e-08, -4.43164419e-15))
-		elseif getgenv().map == "Snow Land" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-397.459961, 223.015869, -7701.03955, 3.13005271e-14, -7.30114849e-08, -1, 8.38891552e-08, 1, -7.30114849e-08, 1, -8.38891552e-08, 3.74253986e-14))
-		elseif getgenv().map == "Underwater" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-283.137695, 49.0220985, -10495.5645, -1.17867548e-14, -3.6741497e-08, -1, -5.4307506e-08, 1, -3.6741497e-08, 1, 5.4307506e-08, -1.37820943e-14))
-		elseif getgenv().map == "Alien Desert" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-370.862, 109.810738, -12074.2705, 3.08795348e-15, 2.08902993e-08, -1, -8.82815101e-08, 1, 2.08902993e-08, 1, 8.82815101e-08, 4.93218053e-15))
-		elseif getgenv().map == "Candy" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-367.962006, 110.780731, -13334.1309, 2.63864972e-15, -9.86390276e-08, -1, 1.59840781e-08, 1, -9.86390276e-08, 1, -1.59840781e-08, 4.21530351e-15))
-		elseif getgenv().map == "Energy Factory" then
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-413.817993, 109.060738, -14486.8555, 1.45690355e-16, 2.40165576e-08, -1, -1.06727342e-07, 1, 2.40165576e-08, 1, 1.06727342e-07, 2.70891364e-15))
+		if getgenv().map == "Desert" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-351.627014, 14.0439844, -70.4082108, 0.900726736, 3.9670951e-08, -0.434386224, -7.09646457e-08, 1, -5.58231363e-08, 0.434386224, 8.11074514e-08, 0.900726736))		
+                elseif getgenv().map == "Forest" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-352.317078, 14.0439854, 18.3604279, -0.998096526, -3.96138162e-08, -0.0616711751, -3.83276415e-08, 1, -2.20383463e-08, 0.0616711751, -1.96326866e-08, -0.998096526))
+                elseif getgenv().map == "Tundra" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-351.11084, 14.0264406, 165.120071, -0.99745661, 1.0384489e-07, -0.0712761432, 1.00856198e-07, 1, 4.55300366e-08, 0.0712761432, 3.82255934e-08, -0.99745661))
+		elseif getgenv().map == "Toxic" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-351.235138, 14.0264406, 282.048981, -0.997551382, -3.67139918e-09, 0.0699370801, -3.81395449e-09, 1, -1.9048032e-09, -0.0699370801, -2.16687601e-09, -0.997551382))
+		elseif getgenv().map == "Flame" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-353.170563, 14.0264406, 437.012085, -0.999919832, 6.1467091e-08, -0.0126634464, 6.10619324e-08, 1, 3.23805338e-08, 0.0126634464, 3.16046815e-08, -0.999919832))
+		elseif getgenv().map == "Mystical" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-353.760193, 14.0264397, 544.878662, -0.996593475, 4.09729886e-08, -0.0824711323, 3.21772831e-08, 1, 1.07981009e-07, 0.0824711323, 1.04959476e-07, -0.996593475))
+		elseif getgenv().map == "Diamond" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-351.892242, 14.0264254, 712.628906, -0.997099578, 1.05937168e-07, -0.076107651, 1.0316684e-07, 1, 4.03317522e-08, 0.076107651, 3.2362987e-08, -0.997099578))
+		elseif getgenv().map == "Heaven" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-353.742035, 14.0264406, 817.20343, -0.996478677, 2.9333254e-08, 0.0838462263, 3.11485095e-08, 1, 2.03416644e-08, -0.0838462263, 2.28817214e-08, -0.996478677))
+                elseif getgenv().map == "Mars" then
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-350.835052, 14.0264406, 972.805359, -0.981785178, -9.26590573e-08, 0.189994484, -9.65873213e-08, 1, -1.14158381e-08, -0.189994484, -2.95589579e-08, -0.981785178))
 	end
 end});
 
