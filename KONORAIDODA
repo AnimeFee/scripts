@@ -1,9 +1,9 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
-local Window = OrionLib:MakeWindow({Name="raiding",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false});
-local RaidTab = Window:MakeTab({Name="AutoRaid",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local Raid = RaidTab:AddSection({Name="Raidss"});
-local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"});
-local FarmSec = RaidTab:AddSection({Name="Farm"});
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
+local Window = OrionLib:MakeWindow({Name="raiding",HidePremium=false,SaveConfig=true,ConfigFolder="WendelCfg",IntroEnabled=false})
+local RaidTab = Window:MakeTab({Name="AutoRaid",Icon="rbxassetid://4483345998",PremiumOnly=false})
+local Raid = RaidTab:AddSection({Name="Raidss"})
+local Relog = RaidTab:AddSection({Name="Rejoin(Will Restart Raid Time)"})
+local FarmSec = RaidTab:AddSection({Name="Farm"})
 
 local settings = {
     autoraid = false,
@@ -16,67 +16,60 @@ local settings = {
 }
 
 Raid:AddDropdown({Name="Select Map",Options={"Souls","Book 1","Book 2","Book 3"},Default="",Callback=function(option)
-    settings.selectedMap = option;
-end});
+    settings.selectedMap = option
+end})
 Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
-    settings.autoraid = bool;
+    settings.autoraid = bool
     if bool then
-        doRaid();
+        doRaid()
     end
-end});
+end})
 Raid:AddButton({Name="AutoCollectChestInRaid",Callback=function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/AnimeFee/scripts/main/Collect%20Chest"))();
-end});
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnimeFee/scripts/main/Collect%20Chest"))()
+end})
 Relog:AddButton({Name="Rejoin Button",Callback=function()
-    game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
-end});
-
-FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
-    if v0 then
-        settings.AutoFarm = true;
-    else
-        settings.AutoFarm = false;
-    end
-end});
-
-
+    game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+end})
 
 function doRaid()
     while settings.autoraid do
-        local args = {};
-        if (settings.selectedMap == "Souls") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50102};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-        elseif (settings.selectedMap == "Book 1") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50103};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-        elseif (settings.selectedMap == "Book 3") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50104};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-        elseif (settings.selectedMap == "Book 4") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50105};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-            wait()
+        local args = {}
+        if settings.selectedMap == "Souls" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50102}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
+        elseif settings.selectedMap == "Book 1" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50103}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
+        elseif settings.selectedMap == "Book 3" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50104}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
+        elseif settings.selectedMap == "Book 4" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50105}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
         end
     end
 end
