@@ -37,8 +37,8 @@ local EGG = WhtvrTab:AddSection({Name="Eggs"});
 local EGG1 = WhtvrTab:AddSection({Name="Lock Your Pets Before Using."});
 local FarmSec = ScriptsTab:AddSection({Name="Auto Farm"});
 local FarmSec2 = ScriptsTab:AddSection({Name="Others"});
-local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local Raid = AutoDRTab:AddSection({Name="Raid(WIP)"});
+local DungeonSec = AutoDRTab:AddSection({Name="Dungeon"});
 local SwordSec = SNGTab:AddSection({Name="Fuse/Sell Swords"});
 local Lvl10 = SNGTab:AddSection({Name="Auto Sell/Lvl 10 gem(Need Gems To Work)"});
 
@@ -878,15 +878,45 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 end});
 
 
-Raid:AddDropdown({Name="Select Map",Options={"Souls","Book 1","Book 2","Book 3"},Default="",Callback=function(option)
-    getgenv().Settings.selectedMap = option
-end})
-Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
-    getgenv().Settings.autoraid = bool
-    if bool then
-        doRaid()
+getgenv().Settings = getgenv().Settings or {}
+getgenv().Settings.selectedMap = ""
+getgenv().Settings.autoraid = false
+
+Raid:AddDropdown({
+    Name = "Select Map",
+    Options = {"Souls","Book 1","Book 2","Book 3","Book 4"},
+    Default = "",
+    Callback = function(option)
+        getgenv().Settings.selectedMap = option
     end
-end})
+})
+
+local difficultyLevels = {
+    ["Easy"] = 1,
+    ["Medium"] = 2,
+    ["Hard"] = 3,
+    ["Impossible"] = 4
+}
+
+Raid:AddDropdown({
+    Name = "Select Difficulty",
+    Options = {"Easy","Medium","Hard","Impossible"},
+    Default = "Easy",
+    Callback = function(option)
+        getgenv().Settings.selectedDifficulty = difficultyLevels[option]
+    end
+})
+
+Raid:AddToggle({
+    Name = "Start Auto Raid",
+    Default = false,
+    Callback = function(bool)
+        getgenv().Settings.autoraid = bool
+        if bool then
+            doRaid()
+        end
+    end
+})
 
 Raid:AddLabel("Click When Chest Has Spawned")
 Raid:AddButton({
@@ -932,7 +962,7 @@ function doRaid()
             args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
             game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
             wait(5)
-        elseif getgenv().Settings.selectedMap == "Book 3" then
+        elseif getgenv().Settings.selectedMap == "Book 2" then
             args = "Room4"
             game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
             args = {difficulty=4,roomName="Room4",selectMapId=50104}
@@ -941,7 +971,7 @@ function doRaid()
             args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
             game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
             wait(5)
-        elseif getgenv().Settings.selectedMap == "Book 4" then
+        elseif getgenv().Settings.selectedMap == "Book 3" then
             args = "Room4"
             game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
             args = {difficulty=4,roomName="Room4",selectMapId=50105}
@@ -950,6 +980,16 @@ function doRaid()
             args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
             game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
             wait(5)
-        end
+        elseif getgenv().Settings.selectedMap == "Book 4" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50106}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
+       end
+        wait()
     end
 end
