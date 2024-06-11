@@ -1,0 +1,17 @@
+local chestPart = game:GetService("Workspace").EnchantChest.Part
+local player = game.Players.LocalPlayer
+local character
+
+while true do
+    character = character or player.Character or player.CharacterAdded:Wait()
+
+    local targetPosition = chestPart.Position -- Position of the chest part
+
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    -- Teleport the character to the chest
+    humanoidRootPart.CFrame = CFrame.new(targetPosition)
+
+    -- Wait for 1 second before teleporting the character again
+    wait(1)
+end
