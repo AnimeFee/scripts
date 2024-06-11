@@ -947,7 +947,7 @@ function doRaid()
         if getgenv().Settings.selectedMap == "Souls" then
             args = "Room4"
             game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
-            args = {difficulty=4,roomName="Room4",selectMapId=50102}
+            args = {difficulty=getgenv().Settings.selectedDifficulty,roomName="Room4",selectMapId=50102}
             game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
             wait(0.5)
             args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
@@ -956,7 +956,7 @@ function doRaid()
         elseif getgenv().Settings.selectedMap == "Book 1" then
             args = "Room4"
             game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
-            args = {difficulty=4,roomName="Room4",selectMapId=50103}
+            args = {difficulty=getgenv().Settings.selectedDifficulty,roomName="Room4",selectMapId=50103}
             game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
             wait(0.5)
             args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
@@ -965,7 +965,7 @@ function doRaid()
         elseif getgenv().Settings.selectedMap == "Book 2" then
             args = "Room4"
             game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
-            args = {difficulty=4,roomName="Room4",selectMapId=50104}
+            args = {difficulty=getgenv().Settings.selectedDifficulty,roomName="Room4",selectMapId=50104}
             game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
             wait(0.5)
             args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
@@ -974,16 +974,7 @@ function doRaid()
         elseif getgenv().Settings.selectedMap == "Book 3" then
             args = "Room4"
             game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
-            args = {difficulty=4,roomName="Room4",selectMapId=50105}
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
-            wait(0.5)
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
-            wait(5)
-        elseif getgenv().Settings.selectedMap == "Book 4" then
-            args = "Room4"
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
-            args = {difficulty=4,roomName="Room4",selectMapId=50106}
+            args = {difficulty=getgenv().Settings.selectedDifficulty,roomName="Room4",selectMapId=50105}
             game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
             wait(0.5)
             args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
