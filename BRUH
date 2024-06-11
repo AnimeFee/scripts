@@ -884,7 +884,7 @@ getgenv().Settings.autoraid = false
 
 Raid:AddDropdown({
     Name = "Select Map",
-    Options = {"Souls","Book 1","Book 2","Book 3","Book 4"},
+    Options = {"Souls","Book 1","Book 2","Book 3"},
     Default = "",
     Callback = function(option)
         getgenv().Settings.selectedMap = option
