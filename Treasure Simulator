@@ -6,14 +6,13 @@ local Window = OrionLib:MakeWindow({Name="SOGAY",HidePremium=false,IntroEnabled=
 local infoTab = Window:MakeTab({Name="Info & Credits",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local mainTab = Window:MakeTab({Name="farm",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Eggs/Attributes",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local othersTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 --Sections
 local Dig = mainTab:AddSection({Name="Dig"});
 local Train = mainTab:AddSection({Name="Train"});
 local erm = mainTab:AddSection({Name="misc"});
 
-local EggsTab = MiscTab:AddSection({Name="Eggs"});
+local TeleportTab = MiscTab:AddSection({Name="Teleport"});
 local UpsTab = MiscTab:AddSection({Name="Attributes"});
 
 --dropdown defeaults
@@ -65,19 +64,6 @@ erm:AddToggle({Name="Auto Equip best",Default=false,Callback=function(bool)
 	end
 end});
 
---Egg Section
-EggsTab:AddDropdown({Name="Select Egg",Default="",
-Options={"1","2","-3","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"},
-Callback=function(value)
-	getgenv().selectedEgg = value;
-end});
-EggsTab:AddToggle({Name="Auto Open",Default=false,Callback=function(bool)
-	getgenv().egg = bool;
-	if bool then
-		doEgg();
-	end
-end});
-
 --Upgrades Section
 UpsTab:AddDropdown({Name="Select Attribute",Default="",Options={"Power","Luck","Walk Speed"},
 Callback=function(value)
@@ -90,15 +76,15 @@ UpsTab:AddToggle({Name="Auto Open",Default=false,Callback=function(bool)
 	end
 end});
 
-othersTab:AddDropdown({
+TeleportTab:AddDropdown({
 	Name = "Select World",
 	Default = "",
-	Options = {"Desert,"Forest","Tundra","Toxic","Flame","Mystical","Diamond","Heaven,"Mars"},
+	Options = {"Desert","Forest","Tundra","Toxic","Flame","Mystical","Diamond","Heaven","Mars"},
 	Callback = function(Value)
 	getgenv().map = Value
 	end})
 
-othersTab:AddButton({Name="Teleport To Selected Map",Callback=function()
+TeleportTab:AddButton({Name="Teleport To Selected Map",Callback=function()
 		if getgenv().map == "Desert" then
 game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-351.627014, 14.0439844, -70.4082108, 0.900726736, 3.9670951e-08, -0.434386224, -7.09646457e-08, 1, -5.58231363e-08, 0.434386224, 8.11074514e-08, 0.900726736))		
                 elseif getgenv().map == "Forest" then
@@ -132,19 +118,6 @@ end});
 
 
 --functions
-function doEgg()
-while getgenv().egg do
-wait(5)
-local args = {
-    [1] = "Hatch",
-    [2] = getgenv().selectedEgg,
-    [3] = 1
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Egg"):FireServer(unpack(args))
-		wait(5);
-	end
-end
-
 function doDig()
 	while getgenv().dig do
 		local args = {
