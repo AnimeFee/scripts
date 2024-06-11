@@ -397,57 +397,20 @@ EGG1:AddToggle({
     end
 });
 
-
-local mapData1 = {
-    [50001] = "Fantasy Valley(World 1)",
-    [50002] = "Seaside Villa(World 2)",
-    [50003] = "Congress Hall(World 3)",
-    [50004] = "Border Territory(World 4)",
-    [50005] = "Polar Plain(World 5)",
-    [50006] = "Ghost Forest(World 6)",
-    [50007] = "Demon Station(World 7)",
-    [50008] = "Hashira Training(World 8)",
-    [50009] = "Infinite City(World 9)",
-    [50010] = "One Punch Man(World 10)",    
-};
-
-local mapNames1 = {};
-local mapIds1 = {};
-for id, name in pairs(mapData1) do
-    table.insert(mapNames1, name);
-    table.insert(mapIds1, id);
-end
-
-Teleport:AddDropdown({
-    Name = "Select Return Map",
-    Options = mapNames1,
-    Callback = function(selectedIndex)
-        getgenv().getgenv().Settings.selectedTeleportMap = mapIds1[selectedIndex];
-    end
-});
-
-Teleport:AddButton({Name="Teleport To Selected Map",Callback=function()
-    if getgenv().getgenv().Settings.selectedTeleportMap then
-        local args = {[1]={mapId=selectedTeleportMap}};	
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
-    else
-        print("Please select a map first.")
-    end
-end});
-
-
 local function TeleportToAndFromDungeon( returnTime)
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
     wait(returnTime);
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50002});
 end
 
+
+
 DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
     Default = false,
     Callback = function(Value)
-        if Value then
-            while true do
+getgenv().Settings.autodungeon = Value
+        if getgenv().Settings.autodungeon then
                 local currentTime = os.time();
                 local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
                 local waitTime = nextTeleportTime - currentTime;
