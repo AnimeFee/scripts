@@ -49,7 +49,7 @@ end});
 UpsTab:AddDropdown({Name="Select Attribute",Default="",Options={"Power","Luck","Walk Speed"},Callback=function(value)
 	getgenv().selectedattribute = value;
 end});
-UpsTab:AddToggle({Name="Auto Open",Default=false,Callback=function(bool)
+UpsTab:AddToggle({Name="Auto Buy",Default=false,Callback=function(bool)
 	getgenv().upgrade = bool;
 	if bool then
 		doUpgrades();
@@ -80,7 +80,6 @@ TeleportTab:AddButton({Name="Teleport To Selected Map",Callback=function()
 	end
 end});
 infoTab:AddParagraph("Made By Akira(normalpersonondisc0rd)");
-infoTab:AddParagraph("I make script on scripts just like these.");
 infoTab:AddButton({Name="Join Our Discord",Callback=function()
 	setclipboard("https://discord.gg/jSGcNgty");
 	print("Discord link copied to clipboard");
