@@ -1,9 +1,25 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Blade Raid", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
-getgenv().Settings = {ARaid=false,Raidmap = 50102,AutoAtk=false,mespetsequiper={},Range=500,AutoFarm=false,autoSellHeroes=false,WalkToEnemy=false,DamageBoost=true,GoldCollect=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false};
-getgenv().autoraid = false
-getgenv().selectedMap = "Souls"
+getgenv().Settings = {
+    autoraid = false,
+    selectedMap = "Souls",
+    AutoFarm = false,
+    DamageBoost = true,
+    mespetsequiper = {},
+    GoldCollect = false,
+    Range = 1000,
+    AutoAtk = false,
+    WalkToEnemy = false,
+    AutoReborn = false,
+    autodungeon = false,
+    deleteGems = false,
+    fuseLevel10Gems = false,
+    autoFuseSwords = false,
+    autoSellWeapons = false,
+    autoForgeSword = false,
+    cchest=false,
+}
 
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -43,12 +59,12 @@ for _, name in pairs(nameMap) do
 	table.insert(mountNames, name);
 end
 EMount:AddDropdown({Name="Select Mount",Options=mountNames,Callback=function(selectedMount)
-	getgenv().Settings.selectedMount = selectedMount;
+	getgenv().getgenv().Settings.selectedMount = selectedMount;
 end});
 EMount:AddButton({Name="Use Selected Mount",Callback=function()
-	if getgenv().Settings.selectedMount then
+	if getgenv().getgenv().Settings.selectedMount then
 		for id, name in pairs(nameMap) do
-			if (name == getgenv().Settings.selectedMount) then
+			if (name == getgenv().getgenv().Settings.selectedMount) then
 				local args = {[1]=id};
 				game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipMount"):FireServer(unpack(args));
 				break;
@@ -66,11 +82,11 @@ for _, player in pairs(game.Players:GetPlayers()) do
 	table.insert(playerNames, player.Name);
 end
 TradeSec:AddDropdown({Name="Select Player",Options=playerNames,Callback=function(selectedPlayer)
-	getgenv().Settings.selectedPlayer = selectedPlayer;
+	getgenv().getgenv().Settings.selectedPlayer = selectedPlayer;
 end});
 TradeSec:AddButton({Name="Trade Selected Player",Callback=function()
-	if getgenv().Settings.selectedPlayer then
-		game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer]);
+	if getgenv().getgenv().Settings.selectedPlayer then
+		game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().getgenv().Settings.selectedPlayer]);
 	else
 		warn("No player selected.");
 	end
@@ -81,9 +97,9 @@ end});
 
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	if v0 then
-		getgenv().Settings.AutoFarm = true;
+		getgenv().getgenv().Settings.AutoFarm = true;
 	else
-		getgenv().Settings.AutoFarm = false;
+		getgenv().getgenv().Settings.AutoFarm = false;
 	end
 end});
 
@@ -92,14 +108,14 @@ local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Cl
 pcall(function()
     for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
         if v.isEquip == true and v.isLock == true then
-            table.insert(getgenv().Settings.mespetsequiper, v.guid)
+            table.insert(getgenv().getgenv().Settings.mespetsequiper, v.guid)
         end
     end
 end)
 
 spawn(function()
     local function GetEnemies()
-        local nearest, dist = nil, getgenv().Settings.Range
+        local nearest, dist = nil, getgenv().getgenv().Settings.Range
         local Players = game.Players
         local localPlayer = Players.LocalPlayer
         local localCharacter = localPlayer.Character
@@ -121,18 +137,17 @@ spawn(function()
     end
 
     while task.wait() do
-        if getgenv().Settings.AutoFarm then
+        if getgenv().getgenv().Settings.AutoFarm then
             local nearestEnemy = GetEnemies()
-
             if nearestEnemy then
-                if getgenv().Settings.WalkToEnemy then
+                if getgenv().getgenv().Settings.WalkToEnemy then
                     if nearestEnemy:FindFirstChild("HumanoidRootPart") then
                         player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
                     end
                 end
 
-                if getgenv().Settings.DamageBoost then
-                    for _, petGuid in pairs(getgenv().Settings.mespetsequiper) do
+                if getgenv().getgenv().Settings.DamageBoost then
+                    for _, petGuid in pairs(getgenv().getgenv().Settings.mespetsequiper) do
                         local args = { { ["heroGuid"] = tostring(petGuid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
                         game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(args))
                     end
@@ -148,8 +163,8 @@ end)
 
 FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	if v1 then
-		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
-		if getgenv().Settings.GoldCollect then
+		getgenv().getgenv().Settings.GoldCollect = not getgenv().getgenv().Settings.GoldCollect;
+		if getgenv().getgenv().Settings.GoldCollect then
 			spawn(function()
 				while wait() do
 					for v8, v9 in pairs(game.Workspace.Golds:GetChildren()) do
@@ -161,9 +176,9 @@ FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	end
 end})
 
-FarmSec2:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=function(Value)
-	Settings.AutoAtk = Value;
-	if Settings.AutoAtk then
+FarmSec2:AddToggle({Name="AutoGainPower",Default=getgenv().Settings.AutoAtk,Callback=function(Value)
+	getgenv().Settings.AutoAtk = Value;
+	if getgenv().Settings.AutoAtk then
 		autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
 			local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes");
 			if (remotes and remotes:FindFirstChild("PlayerClickAttack")) then
@@ -177,10 +192,10 @@ FarmSec2:AddToggle({Name="AutoGainPower",Default=Settings.AutoAtk,Callback=funct
 	end
 end});
 
-FarmSec2:AddToggle({Name = "Auto Rebirth",Default = Settings.AutoReborn,Callback = function(Value)
-            Settings.AutoReborn = Value;
+FarmSec2:AddToggle({Name = "Auto Rebirth",Default = getgenv().Settings.AutoReborn,Callback = function(Value)
+            getgenv().Settings.AutoReborn = Value;
             if Value then
-                while Settings.AutoReborn do
+                while getgenv().Settings.AutoReborn do
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayerReborn"):FireServer()
                     wait(1)
                 end
@@ -190,15 +205,15 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Playe
 
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
-		getgenv().Settings.autoFuseSwords = true;
-		while getgenv().Settings.autoFuseSwords do
+		getgenv().getgenv().Settings.autoFuseSwords = true;
+		while getgenv().getgenv().Settings.autoFuseSwords do
 			wait(1);
 			pcall(function()
 				game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer();
 			end);
 		end
 	else
-		getgenv().Settings.autoFuseSwords = false;
+		getgenv().getgenv().Settings.autoFuseSwords = false;
 	end
 end});
 
@@ -209,7 +224,7 @@ pcall(function()
     if WeaponsInventory.localPlayerData then
         for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
             if v.isEquip and v.isLock then
-                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+                table.insert(getgenv().getgenv().Settings.mespetsequiper, v.guid);
             end
         end
     else
@@ -221,8 +236,8 @@ SwordSec:AddToggle({
     Name="Auto Delete Weapons",
     Callback=function(autoSellWeapons)
         if autoSellWeapons then
-            getgenv().Settings.autoSellWeapons = true;
-            while getgenv().Settings.autoSellWeapons do
+            getgenv().getgenv().Settings.autoSellWeapons = true;
+            while getgenv().getgenv().Settings.autoSellWeapons do
                 wait(1);
                 if WeaponsInventory.localPlayerData then
                     for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
@@ -236,15 +251,15 @@ SwordSec:AddToggle({
                 end
             end
         else
-            getgenv().Settings.autoSellWeapons = false;
+            getgenv().getgenv().Settings.autoSellWeapons = false;
         end
     end
 });
 
 SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForgeSword)
 	if autoForgeSword then
-		getgenv().Settings.autoForgeSword = true;
-		while getgenv().Settings.autoForgeSword do
+		getgenv().getgenv().Settings.autoForgeSword = true;
+		while getgenv().getgenv().Settings.autoForgeSword do
 			wait(1e-7);
 			for _, v in pairs(WeaponsInventory.localPlayerData.weapons) do
 				if v.isEquip then
@@ -254,7 +269,7 @@ SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForge
 			end
 		end
 	else
-		getgenv().Settings.autoForgeSword = false;
+		getgenv().getgenv().Settings.autoForgeSword = false;
 	end
 end});
 
@@ -311,7 +326,7 @@ pcall(function()
     if BurgerInventory.localPlayerData then
         for _, v in pairs(BurgerInventory.localPlayerData.heros) do
             if v.isEquip and v.isLock then
-                table.insert(getgenv().Settings.mespetsequiper, v.guid);
+                table.insert(getgenv().getgenv().Settings.mespetsequiper, v.guid);
             end
         end
     else
@@ -326,8 +341,8 @@ EGG1:AddToggle({
     Name="Auto Delete Heroes",
     Callback=function(autoSellHeroes)
         if autoSellHeroes then
-            getgenv().Settings.autoSellHeroes = true;
-            while getgenv().Settings.autoSellHeroes do
+            getgenv().getgenv().Settings.autoSellHeroes = true;
+            while getgenv().getgenv().Settings.autoSellHeroes do
                 wait(1);
                 if BurgerInventory.localPlayerData then
                     for _, v in pairs(BurgerInventory.localPlayerData.heros) do
@@ -341,7 +356,7 @@ EGG1:AddToggle({
                 end
             end
         else
-            getgenv().Settings.autoSellHeroes = false;
+            getgenv().getgenv().Settings.autoSellHeroes = false;
         end
     end
 });
@@ -350,8 +365,8 @@ EGG1:AddToggle({
     Name="Auto Fuse Heroes",
     Callback=function(autoFuseHeroes)
         if autoFuseHeroes then
-            getgenv().Settings.autoFuseHeroes = true;
-            while getgenv().Settings.autoFuseHeroes do
+            getgenv().getgenv().Settings.autoFuseHeroes = true;
+            while getgenv().getgenv().Settings.autoFuseHeroes do
                 wait(1);
                 if BurgerInventory.localPlayerData then
                     local equippedHeroGuid = nil;
@@ -377,7 +392,7 @@ EGG1:AddToggle({
                 end
             end
         else
-            getgenv().Settings.autoFuseHeroes = false;
+            getgenv().getgenv().Settings.autoFuseHeroes = false;
         end
     end
 });
@@ -407,12 +422,12 @@ Teleport:AddDropdown({
     Name = "Select Return Map",
     Options = mapNames1,
     Callback = function(selectedIndex)
-        getgenv().Settings.selectedTeleportMap = mapIds1[selectedIndex];
+        getgenv().getgenv().Settings.selectedTeleportMap = mapIds1[selectedIndex];
     end
 });
 
 Teleport:AddButton({Name="Teleport To Selected Map",Callback=function()
-    if getgenv().Settings.selectedTeleportMap then
+    if getgenv().getgenv().Settings.selectedTeleportMap then
         local args = {[1]={mapId=selectedTeleportMap}};	
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args));
     else
@@ -448,7 +463,7 @@ DungeonSec:AddToggle({
 
 Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	if fuseLevel10Gems then
-		getgenv().Settings.fuseLevel10Gems = true;
+		getgenv().getgenv().Settings.fuseLevel10Gems = true;
 		pcall(function()
 			local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
 			for _, gem in pairs(WeaponsInventory.localPlayerData.gems) do
@@ -462,12 +477,12 @@ Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 			end
 		end);
 	else
-		getgenv().Settings.fuseLevel10Gems = false;
+		getgenv().getgenv().Settings.fuseLevel10Gems = false;
 	end
 end});
 Lvl10:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
 	if deleteGems then
-		getgenv().Settings.deleteGems = true;
+		getgenv().getgenv().Settings.deleteGems = true;
 		pcall(function()
 			local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager);
 			for _, gem in pairs(WeaponsInventory.localPlayerData.gems) do
@@ -481,7 +496,7 @@ Lvl10:AddToggle({Name="Delete Gems",Callback=function(deleteGems)
 			end
 		end);
 	else
-		getgenv().Settings.deleteGems = false;
+		getgenv().getgenv().Settings.deleteGems = false;
 	end
 end});
 local function GetFirstFiveGemIDs(level)
@@ -544,10 +559,10 @@ local function FuseFirstFiveGems(level)
 	end
 end
 Lvl10:AddToggle({Name="Auto Fuse All Level Gems",Default=false,Callback=function(Value)
-	getgenv().Settings.AutoFuseAllGems = Value;
+	getgenv().getgenv().Settings.AutoFuseAllGems = Value;
 	if Value then
 		spawn(function()
-			while getgenv().Settings.AutoFuseAllGems do
+			while getgenv().getgenv().Settings.AutoFuseAllGems do
 				for i = 1, 9 do
 					FuseFirstFiveGems(i);
 				end
@@ -862,69 +877,85 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
-Raid:AddDropdown({
-    Name="Select Map",
-    Options={"Souls","Book 1","Book 2","Book 3"},
-    Default="",
-    Callback=function(option)
-        getgenv().selectedMap = option;
+
+Raid:AddDropdown({Name="Select Map",Options={"Souls","Book 1","Book 2","Book 3"},Default="",Callback=function(option)
+    getgenv().Settings.selectedMap = option
+end})
+Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
+    getgenv().Settings.autoraid = bool
+    if bool then
+        doRaid()
+    end
+end})
+Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
+    getgenv().Settings.autoraid = bool
+    if bool then
+        doCollectChest()
+    end
+end})
+RaidTab:AddLabel("Click When Chest Has Spawned")
+
+Raid:AddButton({
+    Name = "Auto Collect Chest In Raid",
+    Callback = function()
+        local chestPart = game:GetService("Workspace").EnchantChest.Part
+        if not chestPart then
+            return
+        end
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        if not character then
+            return
+        end
+        local targetPosition = chestPart.Position
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        if not humanoidRootPart then
+            return
+        end
+        humanoidRootPart.CFrame = CFrame.new(targetPosition)
+        wait(1)
     end
 })
 
-Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
-    getgenv().autoraid = bool;
-    if bool then
-        doRaid();
-    end
-end});
-
 function doRaid()
-    while getgenv().autoraid do
-        local args = {};
-        if (getgenv().selectedMap == "Souls") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50102};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            task.wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-            task.wait(2);
-            args = 1;
-            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-        elseif (getgenv().selectedMap == "Book 1") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50103};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            task.wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-            task.wait(2);
-            args = 1;
-            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-        elseif (getgenv().selectedMap == "Book 2") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50104};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            task.wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-            task.wait(2);
-            args = 1;
-            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
-        elseif (getgenv().selectedMap == "Book 3") then
-            args = "Room4";
-            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args);
-            args = {difficulty=4,roomName="Room4",selectMapId=50105};
-            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args);
-            task.wait(0.5);
-            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"};
-            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args);
-            task.wait(2);
-            args = 1;
-            game:GetService("ReplicatedStorage").Remotes.GainRaidsRewards:InvokeServer(args);
+    while getgenv().Settings.autoraid do
+        local args = {}
+        if getgenv().Settings.selectedMap == "Souls" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50102}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
+        elseif getgenv().Settings.selectedMap == "Book 1" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50103}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
+        elseif getgenv().Settings.selectedMap == "Book 3" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50104}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
+        elseif getgenv().Settings.selectedMap == "Book 4" then
+            args = "Room4"
+            game:GetService("ReplicatedStorage").Remotes.EnterRaidRoom:FireServer(args)
+            args = {difficulty=4,roomName="Room4",selectMapId=50105}
+            game:GetService("ReplicatedStorage").Remotes.SelectRaidsDifficulty:FireServer(args)
+            wait(0.5)
+            args = {userIds={game.Players.LocalPlayer.UserId},roomName="Room4"}
+            game:GetService("ReplicatedStorage").Remotes.StartChallengeRaidMap:InvokeServer(args)
+            wait(5)
         end
     end
 end
