@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Blade Raid", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
+local Window = OrionLib:MakeWindow({Name = "Blade Slayer", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma",IntroEnabled=true,IntroText="Cool Hub",Icon="rbxassetid://17697131474"});
 
 getgenv().Settings = {
     autoraid = false,
@@ -887,14 +887,8 @@ Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
         doRaid()
     end
 end})
-Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
-    getgenv().Settings.autoraid = bool
-    if bool then
-        doCollectChest()
-    end
-end})
-RaidTab:AddLabel("Click When Chest Has Spawned")
 
+Raid:AddLabel("Click When Chest Has Spawned")
 Raid:AddButton({
     Name = "Auto Collect Chest In Raid",
     Callback = function()
