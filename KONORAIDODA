@@ -24,8 +24,8 @@ Raid:AddToggle({Name="Start Auto Raid",Default=false,Callback=function(bool)
         doRaid();
     end
 end});
-AutoRaidTab:AddButton({Name="AutoCollectChestInRaid",Callback=function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g"))();
+Raid:AddButton({Name="AutoCollectChestInRaid",Callback=function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/AnimeFee/scripts/main/Collect%20Chest"))();
 end});
 Relog:AddButton({Name="Rejoin Button",Callback=function()
     game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer);
