@@ -28,7 +28,7 @@ getgenv().train = false;
 
 --maintab
 Dig:AddDropdown({Name="Select Dig",Default="",
-Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"},
+Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27",},
 Callback=function(value)
 	getgenv().selectedplot = value;
 end});
@@ -39,7 +39,7 @@ Dig:AddToggle({Name="Auto Dig",Default=false,Callback=function(bool)
 	end
 end});
 Train:AddDropdown({Name="Select Train",Default="",
-Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"},
+Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27",},
 Callback=function(value)
 	getgenv().selectedTrain= value;
 end});
@@ -65,7 +65,7 @@ end});
 
 --Egg Section
 EggsTab:AddDropdown({Name="Select Egg",Default="",
-Options={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"},
+Options={"1","2","-3","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"},
 Callback=function(value)
 	getgenv().selectedEgg = value;
 end});
@@ -117,8 +117,7 @@ game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-413.817993, 109.060738, -
 end});
 
 --Info
-infoTab:AddParagraph("Made By", "recreated by akira");
-infoTab:AddParagraph("Information", "The eggs indicate which 5-win egg (pink) you opened, but it's purely visual. It awards you the corresponding pet of the egg you opened.");
+infoTab:AddParagraph("Made By Akira(normalpersonondisc0rd)");
 infoTab:AddParagraph("Join Our Discord", "For more updates and scripts, join our Discord community by visiting the channel below:");
 infoTab:AddButton({Name="Copy youtube Link",Callback=function()
 	setclipboard("https://www.youtube.com/@takatakgamer8521?si=q94tBpxKXPYuCCFM");
@@ -130,7 +129,8 @@ end});
 
 --functions
 function doEgg()
-	while getgenv().egg do
+while getgenv().egg do
+wait(5)
 local args = {
     [1] = "Hatch",
     [2] = getgenv().selectedEgg,
