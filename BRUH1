@@ -38,8 +38,11 @@ DungeonSec:AddToggle({
                 waitTime = nextTeleportTime - currentTime;
                 wait(waitTime)
                 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
+                wait(600)
+                local plyr = game.Players.LocalPlayer
+                local chr = plyr.Character 
+                chr.HumanoidRootPart.CFrame = chr:GetPrimaryPartCFrame()
             end
         end
     end
 });
-
