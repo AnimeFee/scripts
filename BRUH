@@ -456,26 +456,6 @@ Teleport:AddButton({
 });
 
 
-local teleportLabel = DungeonSec:AddLabel({text = "Next Teleport: "})
-
-DungeonSec:AddToggle({
-    Name = "Auto-Dungeon",
-    Default = false,
-    Callback = function(Value)
-        getgenv().Settings.autodungeon = Value
-        if getgenv().Settings.autodungeon then
-            while getgenv().Settings.autodungeon do
-                currentTime = os.time();
-                nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
-                waitTime = nextTeleportTime - currentTime;
-                teleportLabel.Text = "Next Teleport: ".. os.date("%H:%M:%S", nextTeleportTime)
-                wait(waitTime)
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
-            end
-        end
-    end
-});
-
 Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	if fuseLevel10Gems then
 		getgenv().getgenv().Settings.fuseLevel10Gems = true;
@@ -999,3 +979,23 @@ function doRaid()
         wait()
     end
 end
+
+
+DungeonSec:AddLabel({text = "Next Teleport: "..waitTime})
+
+DungeonSec:AddToggle({
+    Name = "Auto-Dungeon",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Settings.autodungeon = Value
+        if getgenv().Settings.autodungeon then
+            while getgenv().Settings.autodungeon do
+                currentTime = os.time();
+                nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
+                waitTime = nextTeleportTime - currentTime;
+                wait(waitTime)
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
+            end
+        end
+    end
+});
