@@ -985,11 +985,7 @@ local currentTime = os.time();
 local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
 local waitTime = nextTeleportTime - currentTime;
 
-DungeonSec:AddLabel({
-    text = "Next Teleport: "..waitTime,
-    update = function(label)
-        label.Text = "Next Teleport: "..math.max(waitTime - (os.time() - currentTime), 0)
-    end
+DungeonSec:AddLabel({"Next Teleport: "..waitTime})
 })
 
 DungeonSec:AddToggle({
