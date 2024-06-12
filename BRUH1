@@ -984,9 +984,7 @@ end
 local currentTime = os.time();
 local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
 local waitTime = nextTeleportTime - currentTime;
-
 DungeonSec:AddLabel({"Next Teleport: "..waitTime})
-})
 
 DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
