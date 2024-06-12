@@ -993,6 +993,7 @@ DungeonSec:AddToggle({
                 waitTime = nextTeleportTime - currentTime;
                 wait(waitTime)
                 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
+		wait(30)
             end
         end
     end
