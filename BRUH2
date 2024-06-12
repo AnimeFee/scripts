@@ -1,6 +1,8 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
 local Window = OrionLib:MakeWindow({Name="Cool Hub",HidePremium=false,SaveConfig=true,ConfigFolder="Sigma"});
+
 getgenv().Settings = {autoraid=false,selectedMap="Souls",AutoFarm=false,DamageBoost=true,mespetsequiper={},GoldCollect=false,Range=1000,AutoAtk=false,WalkToEnemy=false,AutoReborn=false,autodungeon=false,deleteGems=false,fuseLevel10Gems=false,autoFuseSwords=false,autoSellWeapons=false,autoForgeSword=false,cchest=false,openEgg=false};
+
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local WhtvrTab = Window:MakeTab({Name="Mount/Eggs",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -8,6 +10,7 @@ local AutoDRTab = Window:MakeTab({Name="Auto-Dungeon/Raid",Icon="rbxassetid://44
 local SNGTab = Window:MakeTab({Name="Sword And Gems",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local AccesoryTab = Window:MakeTab({Name="Roll-Tab-Legendary",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local MiscTab = Window:MakeTab({Name="Misc",Icon="rbxassetid://4483345998",PremiumOnly=false});
+
 local TradeSec = PlayerTab:AddSection({Name="Trade"});
 local Teleport = PlayerTab:AddSection({Name="Teleport"});
 local EMount = WhtvrTab:AddSection({Name="Mounts"});
@@ -26,6 +29,7 @@ local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 local Claim = MiscTab:AddSection({Name="Claim"});
 local Others = MiscTab:AddSection({Name="Others"});
 local Others1 = MiscTab:AddSection({Name="Others"});
+
 local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Gold Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Pomni",[100007]="Doge Car",[100008]="Magic Carpet",[100009]="Tron Bike",[100010]="Fire Wheel",[100011]="Water Wheel",[100012]="Sleigh",[100013]="Banana Car",[100014]="Flying Swords",[100015]="Motor Bike",[100016]="Broken Sky",[100017]="Broom",[100018]="Rubber Ducky",[100019]="Bat Mobile",[100020]="Tank",[100021]="Superman",[100022]="UFO",[100023]="Rocket",[100024]="Pirate Ship",[100025]="Leaf",[100026]="Plane"};
 local mountNames = {};
 for _, name in pairs(nameMap) do
@@ -47,6 +51,11 @@ EMount:AddButton({Name="Use Selected Mount",Callback=function()
 		warn("No mount selected.");
 	end
 end});
+
+
+
+
+
 local playerNames = {};
 for _, player in pairs(game.Players:GetPlayers()) do
 	table.insert(playerNames, player.Name);
@@ -64,6 +73,11 @@ end});
 TradeSec:AddButton({Name="Dupe(Need To Trade)",Callback=function()
 	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy();
 end});
+
+
+
+
+
 FarmSec:AddToggle({Name="Auto Farm",Callback=function(v0)
 	if v0 then
 		getgenv().getgenv().Settings.AutoFarm = true;
@@ -160,6 +174,10 @@ FarmSec2:AddToggle({Name="Auto Rebirth",Default=getgenv().Settings.AutoReborn,Ca
 		end
 	end
 end});
+
+
+
+
 SwordSec:AddToggle({Name="Auto Fuse Swords",Callback=function(autoFuseSwords)
 	if autoFuseSwords then
 		getgenv().getgenv().Settings.autoFuseSwords = true;
@@ -221,6 +239,11 @@ SwordSec:AddToggle({Name="Auto Forge Equipped Sword",Callback=function(autoForge
 		getgenv().getgenv().Settings.autoForgeSword = false;
 	end
 end});
+
+
+
+
+
 EGG:AddDropdown({Name="Pick Egg",Default="",Options={"World 1","World 2","World 3","World 4","World 5","World 6","World 7","World 8","World 9","Naruto"},Callback=function(Value)
 	local EGGS = {["World 1"]=70001,["World 2"]=70003,["World 3"]=70005,["World 4"]=70007,["World 5"]=70009,["World 6"]=70011,["World 7"]=70013,["World 8"]=70015,["World 9"]=70017,Naruto=70019};
 	EGG.EggId = EGGS[Value];
@@ -301,6 +324,11 @@ EGG1:AddToggle({Name="Auto Fuse Heroes",Callback=function(autoFuseHeroes)
 		getgenv().getgenv().Settings.autoFuseHeroes = false;
 	end
 end});
+
+
+
+
+
 Teleport:AddDropdown({Name="Select Return Map",Options={"Fantasy Valley(World 1)","Seaside Villa(World 2)","Congress Hall(World 3)","Border Territory(World 4)","Polar Plain(World 5)","Ghost Forest(World 6)","Demon Station(World 7)","Hashira Training(World 8)","Infinite City(World 9)","One Punch Man(World 10)"},Callback=function(selectedIndex)
 	getgenv().Settings.selectedTeleportMap = selectedIndex;
 end});
@@ -340,6 +368,11 @@ Teleport:AddButton({Name="Teleport To Selected Map",Callback=function()
 		print("Invalid selection");
 	end
 end});
+
+
+
+
+
 Lvl10:AddToggle({Name="Fuse Level 10 Gems",Callback=function(fuseLevel10Gems)
 	if fuseLevel10Gems then
 		getgenv().getgenv().Settings.fuseLevel10Gems = true;
@@ -450,6 +483,12 @@ Lvl10:AddToggle({Name="Auto Fuse All Level Gems",Default=false,Callback=function
 		end);
 	end
 end});
+
+
+
+
+
+
 function rerollLegendaryMask()
 	local rerollFound = false;
 	repeat
@@ -652,6 +691,8 @@ local function rerollTalismans()
 	until rerollFound 
 	print("Script stopped!");
 end
+
+
 tms:AddButton({Name="Reroll Talismans",Callback=rerollTalismans});
 Legendary:AddButton({Name="Reroll Mask",Callback=rerollLegendaryMask});
 Legendary:AddButton({Name="Reroll Awakening",Callback=rerollLegendaryAwakening});
@@ -666,6 +707,10 @@ Claim:AddButton({Name="Group Rewards",Callback=function()
 		game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer();
 	end
 end});
+
+
+
+
 Claim:AddButton({Name="Daily Gifts",Callback=function()
 	while wait() do
 		for x = 1, 7 do
@@ -690,6 +735,13 @@ Claim:AddButton({Name="Redeem Spins",Callback=function()
 		end
 	end
 end});
+
+
+
+
+
+
+
 Others1:AddButton({Name="SimpleSpy",Callback=function()
 	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))();
 end});
@@ -745,9 +797,15 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 	end
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
+
+
+
 getgenv().Settings = getgenv().Settings or {};
 getgenv().Settings.selectedMap = "";
 getgenv().Settings.autoraid = false;
+
+
+
 Raid:AddDropdown({Name="Select Map",Options={"Souls","Book 1","Book 2","Book 3"},Default="",Callback=function(option)
 	getgenv().Settings.selectedMap = option;
 end});
