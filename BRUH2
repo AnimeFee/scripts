@@ -823,15 +823,23 @@ function doRaid()
 		wait();
 	end
 end
-DungeonSec:AddToggle({Name="Auto-Dungeon",Default=false,Callback=function(Value)
-	getgenv().Settings.autodungeon = Value;
-	if getgenv().Settings.autodungeon then
-		while getgenv().Settings.autodungeon do
-			currentTime = os.time();
-			nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
-			waitTime = nextTeleportTime - currentTime;
-			wait(waitTime);
-			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId=50016});
-		end
-	end
-end});
+
+DungeonSec:AddToggle({
+    Name = "Auto-Dungeon",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Settings.autodungeon = Value
+        if getgenv().Settings.autodungeon then
+            local chr = game.Players.LocalPlayer.Character
+            while getgenv().Settings.autodungeon do
+                local currentTime = os.time()
+                local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30
+                local waitTime = nextTeleportTime - currentTime
+                wait(waitTime)
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016})
+                wait(600)
+                chr:PivotTo(chr:GetPrimaryPartCFrame())
+            end
+        end
+    end
+})
