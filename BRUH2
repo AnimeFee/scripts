@@ -980,12 +980,6 @@ function doRaid()
     end
 end
 
-
-local currentTime = os.time();
-local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
-local waitTime = nextTeleportTime - currentTime;
-DungeonSec:AddLabel({"Next Teleport: "..waitTime})
-
 DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
     Default = false,
@@ -995,7 +989,7 @@ DungeonSec:AddToggle({
             while getgenv().Settings.autodungeon do
                 currentTime = os.time();
                 nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
-                waitTime = nextTeleportTime - currentTime;FPi
+                waitTime = nextTeleportTime - currentTime;
                 wait(waitTime)
                 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
             end
