@@ -137,7 +137,7 @@ spawn(function()
         return nearest
     end
 
-    while task.wait() do
+    while task.wait(.01) do
         if getgenv().getgenv().Settings.AutoFarm then
             local nearestEnemy = GetEnemies()
             if nearestEnemy then
