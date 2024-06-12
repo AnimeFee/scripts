@@ -418,35 +418,35 @@ Teleport:AddDropdown({
 Teleport:AddButton({
     Name = "Teleport To Selected Map",
     Callback = function()
-        local selectedIndex = getgenv().Settings.selectedTeleportMap
-        if selectedIndex == 1 then
+        local selectedMap = getgenv().Settings.selectedTeleportMap
+        if selectedMap == "Fantasy Valley(World 1)" then
             local args = {[1]={mapId=50001}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 2 then
+        elseif selectedMap == "Seaside Villa(World 2)" then
             local args = {[1]={mapId=50002}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 3 then
+        elseif selectedMap == "Congress Hall(World 3)" then
             local args = {[1]={mapId=50003}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 4 then
+        elseif selectedMap == "Border Territory(World 4)" then
             local args = {[1]={mapId=50004}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 5 then
+        elseif selectedMap == "Polar Plain(World 5)" then
             local args = {[1]={mapId=50005}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 6 then
+        elseif selectedMap == "Ghost Forest(World 6)" then
             local args = {[1]={mapId=50006}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 7 then
+        elseif selectedMap == "Demon Station(World 7)" then
             local args = {[1]={mapId=50007}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 8 then
+        elseif selectedMap == "Hashira Training(World 8)" then
             local args = {[1]={mapId=50008}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 9 then
+        elseif selectedMap == "Infinite City(World 9)" then
             local args = {[1]={mapId=50009}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
-        elseif selectedIndex == 10 then
+        elseif selectedMap == "One Punch Man(World 10)" then
             local args = {[1]={mapId=50010}}
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(unpack(args))
         else
