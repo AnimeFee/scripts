@@ -456,15 +456,7 @@ Teleport:AddButton({
 });
 
 
-function TeleportToAndFromDungeon()
-    while getgenv().Settings.autodungeon do
-        local currentTime = os.time();
-        local nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
-        local waitTime = nextTeleportTime - currentTime;
-        wait(waitTime);game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50002});
-    end
-end
+local teleportLabel = DungeonSec:AddLabel({text = "Next Teleport: "})
 
 DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
@@ -472,7 +464,14 @@ DungeonSec:AddToggle({
     Callback = function(Value)
         getgenv().Settings.autodungeon = Value
         if getgenv().Settings.autodungeon then
-            TeleportToAndFromDungeon();
+            while getgenv().Settings.autodungeon do
+                currentTime = os.time();
+                nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
+                waitTime = nextTeleportTime - currentTime;
+                teleportLabel.Text = "Next Teleport: ".. os.date("%H:%M:%S", nextTeleportTime)
+                wait(waitTime)
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
+            end
         end
     end
 });
