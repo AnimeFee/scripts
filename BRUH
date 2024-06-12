@@ -981,8 +981,6 @@ function doRaid()
 end
 
 
-DungeonSec:AddLabel({text = "Next Teleport: "..waitTime})
-
 DungeonSec:AddToggle({
     Name = "Auto-Dungeon",
     Default = false,
