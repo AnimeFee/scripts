@@ -23,7 +23,7 @@ General:AddParagraph({"Owner : Akira(normalpersonondic0rd)","nah uh"})
 --maintabs functions
 function doclick()
 	while getgenv().click  do
-      ﻿game:GetService("ReplicatedStorage"):WaitForChild("SSG Framework"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("tap"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("SSG Framework"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("tap"):FireServer()
 		wait(0.1);
 	end
 end
