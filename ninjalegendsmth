@@ -119,11 +119,13 @@ petTab:AddToggle("Farm Hoops", "Automatically collects hoops for coins.", functi
 end);
 
 petTab:AddSlider({
-Name = "Hoop Delay", 
-"Milliseconds between collecting hoops.", 
-Max = 9, 
-Min = 0, 
-Callback = function(s)
-	getgenv().HoopDelay = "0." .. s;
-end});
-
+	Name = "Slider",
+	Min = 0,
+	Max = 9,
+	Default = 1,
+	Increment = 1,
+	ValueName = "Delay",
+	Callback = function(s)
+getgenv().HoopDelay = "0." .. s;
+	end    
+})
