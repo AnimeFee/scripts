@@ -5,9 +5,9 @@ local mainTab = Window:MakeTab({Name="main",Icon="rbxassetid://4483345998",Premi
 local Idk = Window:MakeTab({Name="city ",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local hatchTab = Window:MakeTab({Name="hatching ",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
-local Gems = MiscTab:AddSection({Name="Ruby Upgrades"});
-local Taps = MiscTab:AddSection({Name="Taps Upgrades"});
-local All = MiscTab:AddSection({Name="Upgrade All"});
+local Gems = Idk:AddSection({Name="Ruby Upgrades"});
+local Taps = Idk:AddSection({Name="Taps Upgrades"});
+local All = Idk:AddSection({Name="Upgrade All"});
 
 
 getgenv().click = false;
