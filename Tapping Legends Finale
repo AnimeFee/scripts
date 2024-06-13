@@ -10,14 +10,12 @@ local Taps = Idk:AddSection({Name="Taps Upgrades"});
 local All = Idk:AddSection({Name="Upgrade All"});
 
 local mainTab = Yup:AddSection({Name="Auto"});
-local egg = Yup:AddSection({Name="Eggs"});
 
 getgenv().click = false;
 getgenv().rebirth = false;
 
-General:AddParagraph("This Game Can Ban You Easily","If you get banned it will be your fault for using cheats 
-Owner : Akira(normalpersonondic0rd)")
-
+General:AddParagraph("This Game Can Ban You Easily","If you get banned it will be your fault for using cheats")
+General:AddLabel("Owner : Akira(normalpersonondic0rd)")
 
 --maintabs functions
 function doclick()
@@ -46,27 +44,6 @@ mainTab:AddToggle({Name="Auto rebrith",Default=false,Callback=function(bool)
 	getgenv().rebirth = bool;
 	if bool then
 		dorebirth();
-	end
-end});
-
-function hatchEgg()
-	while getgenv().egg do
-local args = {[1] = getgenv().selectedegg,[2] = 1}
-game:GetService("ReplicatedStorage"):WaitForChild("SSG Framework"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("buy egg"):InvokeServer(unpack(args))
-		wait(0.5);
-	end
-end
-
-
-egg:AddParagraph("Dont Buy Higher Worlds Egg","If you did, you will be banned from the game")
-egg:AddDropdown({Name="Select Egg",Default="",Options={"Basic Egg(World 1)","Plant Egg(World 1)","Snowman Egg(World 2)","Sandy Egg(World 3)","Leafy Egg(World 4)","Blossom Egg(World 5)"},Callback=function(value)
-	getgenv().getgenv().selectedegg = value;
-end});
-
-egg:AddToggle({Name="Auto Buy",Default=false,Callback=function(bool)
-	getgenv().egg = bool;
-	if bool then
-		hatchEgg();
 	end
 end});
 
