@@ -15,8 +15,8 @@ local egg = Yup:AddSection({Name="Eggs"});
 getgenv().click = false;
 getgenv().rebirth = false;
 
-General:AddParagraph("This Game Can Ban You Easily","If you get banned it will be your fault for using cheats")
-General:AddParagraph("Owner : Akira(normalpersonondic0rd)","nah uh")
+General:AddParagraph("This Game Can Ban You Easily","If you get banned it will be your fault for using cheats 
+Owner : Akira(normalpersonondic0rd)")
 
 
 --maintabs functions
@@ -58,7 +58,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("SSG Framework"):WaitForChild(
 end
 
 
-egg:AddParagraph({"Dont Buy Higher Worlds Egg","If you did, you will be banned from the game"})
+egg:AddParagraph("Dont Buy Higher Worlds Egg","If you did, you will be banned from the game")
 egg:AddDropdown({Name="Select Egg",Default="",Options={"Basic Egg(World 1)","Plant Egg(World 1)","Snowman Egg(World 2)","Sandy Egg(World 3)","Leafy Egg(World 4)","Blossom Egg(World 5)"},Callback=function(value)
 	getgenv().getgenv().selectedegg = value;
 end});
