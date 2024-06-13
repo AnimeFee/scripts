@@ -106,9 +106,9 @@ st = {[1] = "Taps",  [2] = "Special Taps"}
 game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(st))
 bd = {[1] = "Rubies",[2] = "Better Damage"}
 game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(bd))	
-pr = {[1] = "Rubies",[2] = ","Pickup Radius"}
+pr = {[1] = "Rubies",[2] = "Pickup Radius"}
 game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(pr))
-fortune = {[1] = "Rubies",[2] = ","Fortune,}
+fortune = {[1] = "Rubies",[2] = "Fortune",}
 game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(fortune))
 mc = {[1] = "Rubies",[2] = "More Crits"}
 game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(mc))
