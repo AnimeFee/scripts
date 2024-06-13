@@ -1,17 +1,24 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
-local Window = OrionLib:MakeWindow({Name="All universe hub kamehameha sim",HidePremium=false,IntroText="All universe hub",SaveConfig=true,ConfigFolder="OrionTest"});
+local Window = OrionLib:MakeWindow({Name="Tapping Legends Finale",HidePremium=false,IntroText="Cool Hub",SaveConfig=true,ConfigFolder="OrionTest"});
 
-local mainTab = Window:MakeTab({Name="main",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local Idk = Window:MakeTab({Name="city ",Icon="rbxassetid://4483345998",PremiumOnly=false});
-local hatchTab = Window:MakeTab({Name="hatching ",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local General = Window:MakeTab({Name="Info",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local Yup = Window:MakeTab({Name="Auto",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local Idk = Window:MakeTab({Name="Upgrades",Icon="rbxassetid://4483345998",PremiumOnly=false});
 
 local Gems = Idk:AddSection({Name="Ruby Upgrades"});
 local Taps = Idk:AddSection({Name="Taps Upgrades"});
 local All = Idk:AddSection({Name="Upgrade All"});
 
+local mainTab = Yup:AddSection({Name="Auto"});
+local egg = Yup:AddSection({Name="Eggs"});
 
 getgenv().click = false;
 getgenv().rebirth = false;
+
+
+General:AddParagraph({"This Game Can Ban You Easily","If you get banned it will be your fault for using cheats"})
+General:AddParagraph({"Owner : Akira(normalpersonondic0rd)","nah uh"})
+
 
 --maintabs functions
 function doclick()
@@ -51,11 +58,13 @@ game:GetService("ReplicatedStorage"):WaitForChild("SSG Framework"):WaitForChild(
 	end
 end
 
-hatchTab:AddDropdown({Name="Select Egg",Default="",Options={"Basic Egg","Plant Egg","Snowman Egg","Sandy Egg","Leafy Egg","Blossom Egg"},Callback=function(value)
+
+egg:AddParagraph({"Dont Buy Higher Worlds Egg","If you did, you will be banned from the game"})
+egg:AddDropdown({Name="Select Egg",Default="",Options={"Basic Egg(World 1)","Plant Egg(World 1)","Snowman Egg(World 2)","Sandy Egg(World 3)","Leafy Egg(World 4)","Blossom Egg(World 5)"},Callback=function(value)
 	getgenv().getgenv().selectedegg = value;
 end});
 
-hatchTab:AddToggle({Name="Auto Buy",Default=false,Callback=function(bool)
+egg:AddToggle({Name="Auto Buy",Default=false,Callback=function(bool)
 	getgenv().egg = bool;
 	if bool then
 		hatchEgg();
