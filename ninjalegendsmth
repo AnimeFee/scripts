@@ -98,7 +98,10 @@ IslandTab:AddButton({Name="Teleport To Selected Island",Callback=function()
 	end
 end});
 
-petTab:AddToggle("Farm Hoops", "Automatically collects hoops for coins.", function(state)
+petTab:AddToggle(
+Name = "Farm Hoops", 
+Default=false,
+function(state)
 	if state then
 		getgenv().FarmHoops = true;
 		getgenv().HoopDelay = getgenv().HoopDelay or 0.1;
