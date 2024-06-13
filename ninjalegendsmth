@@ -109,6 +109,6 @@ mainTab:AddToggle({
     getgenv().autosell = bool
     while getgenv().autosell do 
 game.Players.LocalPlayer.Character:PivotTo(CFrame.new(88.1037598, 91259.2812, 126.069931, 0.393181711, -4.06879792e-08, 0.919460773, -1.02043245e-07, 1, 8.78879476e-08, -0.919460773, -1.28380691e-07, 0.393181711))
-wait(3)    
+wait(1.3)    
 end
   end})
