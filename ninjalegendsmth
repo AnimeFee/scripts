@@ -95,19 +95,19 @@ IslandTab:AddButton({Name="Teleport To Selected Island",Callback=function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(202.28079223632812, 91246.2734375, 2.3770620822906494);
 	end
 end});
-petTab:AddToggle({Name="auto hoops",Default=false,Callback=function(bool)
+mainTab:AddToggle({Name="auto hoops",Default=false,Callback=function(bool)
 	getgenv().FarmHoops = bool;
 	if bool then
 		doFarmHoops();
 	end
 end});
 
-petTab:AddToggle({
+mainTab:AddToggle({
   Name = "auto sell",
   Default = false,
   Callback = function(bool)
     getgenv().autosell = bool
-    while bool do 
+    while getgenv().autosell do 
 game.Players.LocalPlayer.Character:PivotTo(CFrame.new(88.1037598, 91259.2812, 126.069931, 0.393181711, -4.06879792e-08, 0.919460773, -1.02043245e-07, 1, 8.78879476e-08, -0.919460773, -1.28380691e-07, 0.393181711))
 wait(3)    
 end
