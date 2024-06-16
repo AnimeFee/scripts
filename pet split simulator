@@ -8,25 +8,80 @@ MainTab:AddParagraph("This Game Can Ban You Easily","If you get banned it will b
 MainTab:AddLabel("Owner : Akira(normalpersonondic0rd)")
 
 --maintabs functions
+-- Upgrade names table
+local upgradeNames = {
+    coins = {
+        "MagnetUpgrade00",
+        "MagnetUpgrade01",
+        "MagnetUpgrade02",
+        "MagnetUpgrade03",
+        "MagnetUpgrade04",
+        "MagnetUpgrade05",
+        "MagnetUpgrade06"
+    },
+    gems = {
+        "BackpackUpgrade00",
+        "BackpackUpgrade01",
+        "BackpackUpgrade02",
+        "BackpackUpgrade03",
+        "BackpackUpgrade04",
+        "BackpackUpgrade05",
+        "BackpackUpgrade06",
+        "EquippedUpgrade00",
+        "EquippedUpgrade01",
+        "EquippedUpgrade02"
+    }
+}
+
+-- Auto collect function
 function docollect()
-	while getgenv().collect  do
-local args = {
-    [1] = 100
-}
+    while getgenv().collect do
+        local args = { [1] = 100 }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Currency"):WaitForChild("PickedUpCurrency"):FireServer(unpack(args))
+        args = { [1] = 100 }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Currency"):WaitForChild("PickedUpGems"):FireServer(unpack(args))
+        args = { [1] = 100 }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItems"):WaitForChild("DropItemPickedUp"):FireServer(unpack(args))
+        wait()
+    end
+end
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Currency"):WaitForChild("PickedUpCurrency"):FireServer(unpack(args))
-args = {
-    [1] = 100
-}
+-- Auto buy coins upgrade function
+function doUpgradescoins()
+    if getgenv().upgradecoinups then
+        for _, upgradeName in pairs(upgradeNames.coins) do
+            local args = { [1] = upgradeName }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
+            wait(0.5)
+        end
+    end
+end
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Currency"):WaitForChild("PickedUpGems"):FireServer(unpack(args))
-args = {
-    [1] = 100
-}
+-- Auto buy gems upgrade function
+function doUpgradesgems()
+    while getgenv().upgradegemsups do
+        for _, upgradeName in pairs(upgradeNames.gems) do
+            local args = { [1] = upgradeName }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
+            wait(0.5)
+        end
+    end
+end
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItems"):WaitForChild("DropItemPickedUp"):FireServer(unpack(args))
-wait()
-	end
+-- Auto buy all upgrades function
+function doUpgradesAll()
+    while getgenv().upgradeall do
+        for _, upgradeName in pairs(upgradeNames.coins) do
+            local args = { [1] = upgradeName }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
+            wait(0.5)
+        end
+        for _, upgradeName in pairs(upgradeNames.gems) do
+            local args = { [1] = upgradeName }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
+            wait(0.5)
+        end
+    end
 end
 
 --main tab
@@ -37,97 +92,6 @@ MainTab:AddToggle({Name="Auto Collect",Default=false,Callback=function(bool)
 		docollect();
 	end
 end});
-
---upgrade functions
-function doUpgradescoins()
-	if getgenv().upgradecoinups then
-	local args = {[1] = "MagnetUpgrade00"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade01"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade02"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade03"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade04"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade05"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade06"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))	
-    wait(0.5);
-	end
-end
-
-function doUpgradesgems()
-	while getgenv().upgradegemsups do
-        args = {[1] = "BackpackUpgrade00"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade01"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade02"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade03"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade04"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade05"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade06"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        
-        args = {[1] = "EquippedUpgrade00"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "EquippedUpgrade01"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "EquippedUpgrade02"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-		wait(0.5);
-	end
-end
-
-function doUpgradesAll()
-    while getgenv().upgradeall do
-        local args = {[1] = "MagnetUpgrade00"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade01"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade02"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade03"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade04"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade05"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "MagnetUpgrade06"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        
-        args = {[1] = "BackpackUpgrade00"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade01"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade02"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade03"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade04"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade05"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "BackpackUpgrade06"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        
-        args = {[1] = "EquippedUpgrade00"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "EquippedUpgrade01"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        args = {[1] = "EquippedUpgrade02"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):WaitForChild("RequestUnlockUpgrade"):FireServer(unpack(args))
-        	wait(0.5)
-	end
-end
-
 
 --upgrade misc
 UPGRADES:AddToggle({Name="Auto Buy Coins Upgrade(Magnet)",Default=false,Callback=function(bool)
