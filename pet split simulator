@@ -1,0 +1,123 @@
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();
+local Window = OrionLib:MakeWindow({Name="Tapping Legends Finale",HidePremium=false,IntroText="Cool Hub",SaveConfig=true,ConfigFolder="OrionTest"});
+
+local General = Window:MakeTab({Name="Info",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local Yup = Window:MakeTab({Name="Auto",Icon="rbxassetid://4483345998",PremiumOnly=false});
+local Idk = Window:MakeTab({Name="Upgrades",Icon="rbxassetid://4483345998",PremiumOnly=false});
+
+local Gems = Idk:AddSection({Name="Ruby Upgrades"});
+local Taps = Idk:AddSection({Name="Taps Upgrades"});
+local All = Idk:AddSection({Name="Upgrade All"});
+
+local mainTab = Yup:AddSection({Name="Auto"});
+
+getgenv().click = false;
+getgenv().rebirth = false;
+
+General:AddParagraph("This Game Can Ban You Easily","If you get banned it will be your fault for using cheats")
+General:AddLabel("Owner : Akira(normalpersonondic0rd)")
+
+--maintabs functions
+function doclick()
+	while getgenv().click  do
+game:GetService("ReplicatedStorage"):WaitForChild("SSG Framework"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("tap"):FireServer()
+		wait(0.1);
+	end
+end
+
+function dorebirth()
+	while getgenv().rebirth  do
+      game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.rebirth:InvokeServer()
+		wait(0.1);
+	end
+end
+
+--main tab
+mainTab:AddToggle({Name="Faster Auto Clicker",Default=false,Callback=function(bool)
+	getgenv().click = bool;
+	if bool then
+		doclick();
+	end
+end});
+
+mainTab:AddToggle({Name="Auto rebrith",Default=false,Callback=function(bool)
+	getgenv().rebirth = bool;
+	if bool then
+		dorebirth();
+	end
+end});
+
+--upgrade functions
+function doUpgradestaps()
+	while getgenv().upgradetaps do
+    local args = {
+    [1] = "Taps",
+    [2] = getgenv().selectedattributeTap
+}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(args))		
+    wait(0.5);
+	end
+end
+
+function doUpgradesgems()
+	while getgenv().upgradegems do
+    local args = {
+    [1] = "Rubies",
+    [2] = getgenv().selectedattributeGem
+} 
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(args))
+		wait(0.5);
+	end
+end
+
+function doUpgradesAll()
+while getgenv().upgradeall do
+mt = {[1] = "Taps",  [2] = "More Taps" }
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(mt))
+cp = {[1] = "Taps",  [2] = "Critical Power"}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(cp))
+sp = {[1] = "Taps",  [2] = "Special Power"}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(sp))
+st = {[1] = "Taps",  [2] = "Special Taps"}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(st))
+bd = {[1] = "Rubies",[2] = "Better Damage"}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(bd))	
+pr = {[1] = "Rubies",[2] = "Pickup Radius"}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(pr))
+fortune = {[1] = "Rubies",[2] = "Fortune",}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(fortune))
+mc = {[1] = "Rubies",[2] = "More Crits"}
+game:GetService("ReplicatedStorage"):FindFirstChild("SSG Framework").Shared.Network.upgrades:InvokeServer(unpack(mc))
+		wait(0.5);
+	end
+end
+
+--upgrade misc
+Taps:AddDropdown({Name="Select Attribute(Taps)",Default="",Options={"More Taps","Special Taps","Special Power","Critical Power"},Callback=function(value)
+	getgenv().selectedattributeTap = value;
+end});
+
+Taps:AddToggle({Name="Auto Buy",Default=false,Callback=function(bool)
+	getgenv().upgradetaps = bool;
+	if bool then
+		doUpgradestaps();
+	end
+end});
+
+Gems:AddDropdown({Name="Select Attribute(Rubies)",Default="",Options={"Better Damage","Pickup Radius","Fortune","More Crits"},Callback=function(value)
+	getgenv().selectedattributeGem = value;
+end});
+
+Gems:AddToggle({Name="Auto Buy",Default=false,Callback=function(bool)
+	getgenv().upgradegems = bool;
+	if bool then
+		doUpgradesgems();
+	end
+end});
+
+All:AddToggle({Name="Auto Buy All",Default=false,Callback=function(bool)
+	getgenv().upgradeall = bool;
+	if bool then
+		doUpgradesAll();
+	end
+end});
