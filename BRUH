@@ -1,27 +1,6 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))() -- 
+-- Bogus Performance Evaluation: x1.000
 local Window = OrionLib:MakeWindow({Name = "Cool Hub", HidePremium = false, SaveConfig = true, ConfigFolder = "Sigma"});
-
-getgenv().Settings = {
-    autoraid = false,
-    selectedMap = "Souls",
-    AutoFarm = false,
-    DamageBoost = true,
-    mespetsequiper = {},
-    GoldCollect = false,
-    Range = 1000,
-    AutoAtk = false,
-    WalkToEnemy = false,
-    AutoReborn = false,
-    autodungeon = false,
-    deleteGems = false,
-    fuseLevel10Gems = false,
-    autoFuseSwords = false,
-    autoSellWeapons = false,
-    autoForgeSword = false,
-    cchest=false,
-    openEgg = false
-}
-
 
 local PlayerTab = Window:MakeTab({Name="Player",Icon="rbxassetid://4483345998",PremiumOnly=false});
 local ScriptsTab = Window:MakeTab({Name="Scripts",Icon="rbxassetid://4483345998",PremiumOnly=false});
@@ -51,8 +30,6 @@ local Mythic = AccesoryTab:AddSection({Name="Mythic"});
 local Claim = MiscTab:AddSection({Name="Claim"});
 local Others = MiscTab:AddSection({Name="Others"});
 local Others1 = MiscTab:AddSection({Name="Others"});
-
-
 
 local nameMap = {[100001]="Cloud",[100002]="Lightning Cloud",[100003]="Gold Cloud",[100004]="Magic Skateboard",[100005]="Sci-Fi Skateboard",[100006]="Pomni",[100007]="Doge Car",[100008]="Magic Carpet",[100009]="Tron Bike",[100010]="Fire Wheel",[100011]="Water Wheel",[100012]="Sleigh",[100013]="Banana Car",[100014]="Flying Swords",[100015]="Motor Bike",[100016]="Broken Sky",[100017]="Broom",[100018]="Rubber Ducky",[100019]="Bat Mobile",[100020]="Tank",[100021]="Superman",[100022]="UFO",[100023]="Rocket",[100024]="Pirate Ship",[100025]="Leaf",[100026]="Plane"};
 local mountNames = {};
@@ -891,11 +868,6 @@ Others:AddButton({Name="Fps Booster",Callback=function()
 	sethiddenproperty(game.Lighting, "Technology", "Compatibility");
 end});
 
-
-getgenv().Settings = getgenv().Settings or {}
-getgenv().Settings.selectedMap = ""
-getgenv().Settings.autoraid = false
-
 Raid:AddDropdown({
     Name = "Select Map",
     Options = {"Souls","Book 1","Book 2","Book 3"},
@@ -998,5 +970,3 @@ function doRaid()
         wait()
     end
 end
-
-
