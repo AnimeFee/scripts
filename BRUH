@@ -336,6 +336,25 @@ end);
 EGG1:AddLabel("Will Fuse to Equiped Heroes")
 EGG1:AddLabel("Will Delete/Fuse The Uneqquiped and Unlocked Heroes")
 
+DungeonSec:AddToggle({
+    Name = "Auto-Dungeon",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Settings.autodungeon = Value
+        if getgenv().Settings.autodungeon then
+            while getgenv().Settings.autodungeon do
+                currentTime = os.time();
+                nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
+                waitTime = nextTeleportTime - currentTime;
+                wait(waitTime)
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
+		wait(30)
+            end
+        end
+    end
+});
+
+
 EGG1:AddToggle({
     Name="Auto Delete Heroes",
     Callback=function(autoSellHeroes)
@@ -981,20 +1000,3 @@ function doRaid()
 end
 
 
-DungeonSec:AddToggle({
-    Name = "Auto-Dungeon",
-    Default = false,
-    Callback = function(Value)
-        getgenv().Settings.autodungeon = Value
-        if getgenv().Settings.autodungeon then
-            while getgenv().Settings.autodungeon do
-                currentTime = os.time();
-                nextTeleportTime = (math.ceil(currentTime / (30 * 60)) * 30 * 60) - 30;
-                waitTime = nextTeleportTime - currentTime;
-                wait(waitTime)
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({mapId = 50016});
-		wait(30)
-            end
-        end
-    end
-});
