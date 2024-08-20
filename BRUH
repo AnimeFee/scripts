@@ -37,7 +37,7 @@ pcall(function()
 end)
 
 
-	while getgenv().Settings.DamageBoost then
+	while getgenv().Settings.DamageBoost do
 		for _, petGuid in pairs(getgenv().Settings.mespetsequiper) do
 		local args = { { ["heroGuid"] = tostring(petGuid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
 		game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(args))
