@@ -36,14 +36,6 @@ pcall(function()
     end
 end)
 
-
-	while getgenv().Settings.DamageBoost do
-		for _, petGuid in pairs(getgenv().Settings.mespetsequiper) do
-		local args = { { ["heroGuid"] = tostring(petGuid), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
-		game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(args))
-              end
-        end
-
 FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	if v1 then
 		getgenv().Settings.GoldCollect = not getgenv().Settings.GoldCollect;
