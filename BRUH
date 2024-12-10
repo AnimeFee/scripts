@@ -51,22 +51,6 @@ FarmSec:AddToggle({Name="Auto Collect Drops",Callback=function(v1)
 	end
 end})
 
-FarmSec2:AddToggle({Name="AutoGainPower",Default=getgenv().Settings.AutoAtk,Callback=function(Value)
-	getgenv().Settings.AutoAtk = Value;
-	if getgenv().Settings.AutoAtk then
-		autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
-			local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes");
-			if (remotes and remotes:FindFirstChild("PlayerClickAttack")) then
-				remotes.PlayerClickAttack:FireServer();
-			end
-			wait(0.1);
-		end);
-	elseif autoGainPowerLoop then
-		autoGainPowerLoop:Disconnect();
-		autoGainPowerLoop = nil;
-	end
-end});
-
 FarmSec2:AddToggle({Name = "Auto Rebirth",Default = getgenv().Settings.AutoReborn,Callback = function(Value)
             getgenv().Settings.AutoReborn = Value;
             if Value then
